@@ -1,0 +1,63 @@
+.table {
+	width: 100%;
+
+	tr {
+		td, th {
+			padding: 8px 0 18px!important;
+			border: 0 none!important;
+
+			&:last-of-type {
+				text-align: right;
+			}
+		}
+
+		td:first-of-type {
+			&:before {
+				content: '';
+				width: 15px;
+				height: 15px;
+				display: inline-block;
+				margin-right: 6px;
+				position: relative;
+				top: 2px;
+				background-size: 15px 15px;
+				background: url("../img/station.svg");
+			}
+		}
+	}
+
+	tbody {
+		tr {
+			position: relative;
+
+			&.via-foot {
+				&:after {
+					position: absolute;
+					right: 0;
+					bottom: 0;
+					content: '';
+					width: 11px;
+					height: 15px;
+					display: inline-block;
+					margin-right: 6px;
+					background-size: 11px 15px;
+					background: url("../img/via-foot.svg");
+				}
+			}
+			&.via-train {
+				&:after {
+					position: absolute;
+					right: 0;
+					bottom: 0;
+					content: '';
+					width: 11px;
+					height: 15px;
+					display: inline-block;
+					margin-right: 6px;
+					background-size: 11px 15px;
+					background: url("../img/via-train.svg");
+				}
+			}
+		}
+	}
+} 
