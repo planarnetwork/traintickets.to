@@ -1,0 +1,220 @@
+/* FRONTEND LESS
+******************************************** */
+@font-face {
+  font-family: 'lato-black';
+  src: url('../fonts/Lato-Black.eot');
+  src: url('../fonts/Lato-Black.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato-Black.woff2') format('woff2'), url('../fonts/Lato-Black.woff') format('woff'), url('../fonts/Lato-Black.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'lato-bold';
+  src: url('../fonts/Lato-Bold.eot');
+  src: url('../fonts/Lato-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato-Bold.woff2') format('woff2'), url('../fonts/Lato-Bold.woff') format('woff'), url('../fonts/Lato-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'lato-medium';
+  src: url('../fonts/Lato-Medium.eot');
+  src: url('../fonts/Lato-Medium.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato-Medium.woff2') format('woff2'), url('../fonts/Lato-Medium.woff') format('woff'), url('../fonts/Lato-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'lato-regular';
+  src: url('../fonts/Lato-Regular.eot');
+  src: url('../fonts/Lato-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato-Regular.woff2') format('woff2'), url('../fonts/Lato-Regular.woff') format('woff'), url('../fonts/Lato-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'lato-light';
+  src: url('../fonts/Lato-Light.eot');
+  src: url('../fonts/Lato-Light.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato-Light.woff2') format('woff2'), url('../fonts/Lato-Light.woff') format('woff'), url('../fonts/Lato-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'lato-semibold';
+  src: url('../fonts/Lato-Semibold.eot');
+  src: url('../fonts/Lato-Semibold.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato-Semibold.woff2') format('woff2'), url('../fonts/Lato-Semibold.woff') format('woff'), url('../fonts/Lato-Semibold.ttf') format('truetype');
+}
+body {
+  margin-top: 64px;
+  font-size: 15px;
+  font-family: 'lato-regular';
+}
+#googlemaps {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+.box {
+  margin-top: 30px;
+  background: #fff;
+  display: block;
+  padding: 30px;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
+}
+input,
+label {
+  display: block;
+}
+input {
+  width: 100%;
+  padding: 15px 15px 15px 40px;
+  border: 1px solid #2F2933;
+  margin-bottom: 20px;
+}
+input:hover {
+  border: 1px solid #49404f;
+}
+input:focus {
+  border: 1px solid #29D9C2;
+}
+.form-input {
+  position: relative;
+}
+.form-input-from:before {
+  position: absolute;
+  top: 22px;
+  left: 10px;
+  content: '';
+  background: url("../img/from.svg");
+  display: inline-block;
+  width: 23px;
+  height: 10px;
+  background-size: 23px 10px;
+}
+.form-input-to:before {
+  position: absolute;
+  top: 22px;
+  left: 10px;
+  content: '';
+  background: url("../img/to.svg");
+  display: inline-block;
+  width: 23px;
+  height: 10px;
+  background-size: 23px 10px;
+}
+.form-input-calendar:before {
+  position: absolute;
+  top: 16px;
+  left: 10px;
+  content: '';
+  background: url("../img/calendar.svg");
+  display: inline-block;
+  width: 23px;
+  height: 21px;
+  background-size: 23px 21px;
+}
+.form-input-clock:before {
+  position: absolute;
+  top: 16px;
+  left: 10px;
+  content: '';
+  background: url("../img/clock.svg");
+  display: inline-block;
+  width: 23px;
+  height: 21px;
+  background-size: 23px 21px;
+}
+.form-button {
+  border: 1px solid #29D9C2;
+  padding: 15px;
+  background: none;
+  color: #29D9C2;
+  font-family: "lato-bold";
+  font-size: 16px;
+  width: 100%;
+  display: block;
+}
+.form-button:hover,
+.form-button:focus {
+  border-color: #01A2A6;
+  color: #01A2A6;
+}
+.form-last {
+  margin-top: 10px;
+}
+.ui-autocomplete {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  width: 163px;
+}
+.ui-menu-item {
+  background: #fff;
+  padding: 10px 20px;
+  border-left: 1px solid #29D9C2;
+  border-right: 1px solid #29D9C2;
+}
+.ui-menu-item:first-of-type {
+  border-top: 1px solid #fff;
+}
+.ui-menu-item:last-of-type {
+  border-bottom: 1px solid #29D9C2;
+}
+.ui-state-focus {
+  cursor: pointer;
+  background: #d5f3ef;
+}
+.ui-state-active {
+  font-family: "lato-black" !important;
+  color: #2F2933 !important;
+}
+.ui-datepicker {
+  background: #fff;
+  border: 1px solid #29D9C2;
+  padding: 15px;
+}
+.ui-datepicker-prev {
+  float: left;
+  background: #29D9C2;
+  color: #fff;
+  padding: 3px 6px;
+  border-radius: 2px;
+}
+.ui-datepicker-prev:hover,
+.ui-datepicker-prev:focus {
+  background: #01A2A6;
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+}
+.ui-datepicker-next {
+  float: right;
+}
+.ui-datepicker-prev,
+.ui-datepicker-next {
+  background: #29D9C2;
+  color: #fff;
+  padding: 3px 6px;
+  border-radius: 2px;
+}
+.ui-datepicker-prev:hover,
+.ui-datepicker-next:hover,
+.ui-datepicker-prev:focus,
+.ui-datepicker-next:focus {
+  background: #01A2A6;
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+}
+.ui-datepicker-title {
+  text-align: center;
+  margin: 10px 0;
+  display: block;
+}
+.ui-datepicker-calendar thead th {
+  text-align: center;
+  padding: 3px 6px;
+}
+.ui-datepicker-calendar tbody td {
+  text-align: center;
+}
+.ui-datepicker-calendar tbody td a {
+  margin: 3px;
+  color: #01A2A6;
+  padding: 7px;
+  font-family: "lato-bold";
+}
+.ui-datepicker-calendar tbody td a:hover,
+.ui-datepicker-calendar tbody td a:focus {
+  text-decoration: none;
+}
