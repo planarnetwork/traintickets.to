@@ -15,6 +15,4 @@ $departureTime = strtotime(isset($_REQUEST['departureTime']) ? $_REQUEST['depart
 $route = $scanner->getRoute($_REQUEST['origin'], $_REQUEST['destination'], $departureTime);
 
 header("Content-type: application/json");
-echo json_encode(array_map(function($connection) {
-    return $connection->toArray();
-}, $route));
+echo json_encode($route);
