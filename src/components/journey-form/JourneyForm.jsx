@@ -1,20 +1,48 @@
-import { BlockCentered } from 'components'
+import classes from './JourneyForm.scss';
+import { BlockCentered, AutocompleteInput } from 'components'
+import { DataBindingHelper } from 'utils'
+
+import { Button, Col, Glyphicon } from 'react-bootstrap';
 
 export default class JourneyForm extends React.Component {
+  constructor() {
+    super();
+  }
+
+  state = {
+    origin: '',
+    destinition: ''
+  }
+
+  componentWillMount() {
+    const { loaded, loading, journeyFormDataRequest } = this.props;
+
+    if (!loaded && !loading) {
+      journeyFormDataRequest();
+    }
+  }
+
   render() {
+    const { autocompleteItems } = this.props;
+
     return (
-      <BlockCentered className="journey-form">
-        <form className="form-inline">
-          <div className="form-group">
-            <label for="exampleInputName2">Name</label>
-            <input type="text" className="form-control" id="exampleInputName2" placeholder="Jane Doe" />
-          </div>
-          <div className="form-group">
-            <label for="exampleInputEmail2">Email</label>
-            <input type="email" claclassNamess="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com" />
-          </div>
-          <button type="submit" className="btn btn-default">Send invitation</button>
-        </form>
+      <BlockCentered className={classes.journeyFormPanel}>
+        <BlockCentered>
+          <form className={classes.journeyForm}>
+            <Col sm={5}>
+              <AutocompleteInput valueLink={DataBindingHelper.linkWithState('origin', this)} autocompleteItems={autocompleteItems} />
+            </Col>
+            <Col sm={1}>
+              <Glyphicon className={classes.rightIcon} glyph="arrow-right" />
+            </Col>
+            <Col sm={5}>
+              <AutocompleteInput valueLink={DataBindingHelper.linkWithState('destinition', this)} onChange={() => {}} autocompleteItems={autocompleteItems} />
+            </Col>
+            <Col sm={1} >
+              <Button className={classes.goButton} bsStyle="success">Go</Button>
+            </Col>
+          </form>
+        </BlockCentered>
       </BlockCentered>
     )
   }

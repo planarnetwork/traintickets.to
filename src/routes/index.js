@@ -1,13 +1,14 @@
 // We only need to import the modules necessary for initial render
 import { CoreLayout } from 'layouts'
-import { Map, JourneyForm } from 'components'
+import { Map } from 'components'
+import { JourneyFormContainer } from 'containers'
 
 import { Route, IndexRoute, Link } from 'react-router'
 
 const routes = (
   <Route path="/" component={CoreLayout}>
     <Route component={Map} >
-      <IndexRoute component={JourneyForm}/>
+      <IndexRoute component={JourneyFormContainer}/>
     </Route>
   </Route>
 )
