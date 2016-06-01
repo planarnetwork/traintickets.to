@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 import { routerReducer as router } from 'react-router-redux'
 
-import journeyForm from './journey-form/journeyFormReducer';
+import locations from './locations/locationsReducer';
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     // Add sync reducers here
-    journeyForm,
+    locations,
     router,
     ...asyncReducers
   })

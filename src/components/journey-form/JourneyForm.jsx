@@ -14,29 +14,37 @@ export default class JourneyForm extends React.Component {
     destinition: ''
   }
 
+  static propTypes = {
+    loaded: React.PropTypes.bool.isRequired,
+    loading: React.PropTypes.bool.isRequired,
+    error: React.PropTypes.any,
+    locations: React.PropTypes.array.isRequired,
+    locationsRequest: React.PropTypes.func.isRequired
+  };
+
   componentWillMount() {
-    const { loaded, loading, journeyFormDataRequest } = this.props;
+    const { loaded, loading, locationsRequest } = this.props;
 
     if (!loaded && !loading) {
-      journeyFormDataRequest();
+      locationsRequest();
     }
   }
 
   render() {
-    const { autocompleteItems } = this.props;
+    const { locations, className } = this.props;
 
     return (
-      <BlockCentered className={classes.journeyFormPanel}>
+      <BlockCentered className={(className || '') + ' ' + classes.journeyFormPanel}>
         <BlockCentered>
           <form className={classes.journeyForm}>
             <Col sm={5}>
-              <LocationAutocompleteInput valueLink={DataBindingHelper.linkWithState('origin', this)} autocompleteItems={autocompleteItems} />
+              <LocationAutocompleteInput valueLink={DataBindingHelper.linkWithState('origin', this)} autocompleteItems={locations} />
             </Col>
             <Col sm={1}>
               <Glyphicon className={classes.rightIcon} glyph="arrow-right" />
             </Col>
             <Col sm={5}>
-              <LocationAutocompleteInput valueLink={DataBindingHelper.linkWithState('destinition', this)} onChange={() => {}} autocompleteItems={autocompleteItems} />
+              <LocationAutocompleteInput valueLink={DataBindingHelper.linkWithState('destinition', this)} onChange={() => {}} autocompleteItems={locations} />
             </Col>
             <Col sm={1} >
               <Button className={classes.goButton} bsStyle="success">Go</Button>

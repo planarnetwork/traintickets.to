@@ -1,12 +1,12 @@
 import { JourneyForm } from 'components'
-import { journeyFormDataRequest } from 'reducers/journey-form/journeyFormActions'
+import { locationsRequest } from 'reducers/locations/locationsActions'
 
 const mapActionCreators = (dispatch) => ({
-  journeyFormDataRequest: () => dispatch(journeyFormDataRequest())
+  locationsRequest: () => dispatch(locationsRequest())
 })
 
 const mapStateToProps = (state) => ({
-  ...state.journeyForm
+  ...state.locations
 })
 
 export default ReactRedux.connect(mapStateToProps, mapActionCreators)(JourneyForm)

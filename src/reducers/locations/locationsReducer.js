@@ -1,24 +1,24 @@
-import * as actions from './journeyFormActions'
+import * as actions from './locationsActions'
 
 const initialState = {
   loaded: false,
   loading: false,
   error: null,
-  autocompleteItems: []
+  locations: []
 }
 
-export default function journeyFormReducer(state = initialState, action) {
+export default function locationsReducer(state = initialState, action) {
   switch (action.type) {
-    case actions.JOURNEY_FORM_DATA_REQUEST_STARTED:
+    case actions.LOCATIONS_REQUEST_STARTED:
       return Object.assign({}, state, {
         loading: true
       })
-    case actions.JOURNEY_FORM_DATA_REQUEST_SUCCESS:
+    case actions.LOCATIONS_REQUEST_SUCCESS:
       return Object.assign({}, state, action.data, {
         loading: false,
         loaded: true
       })
-    case actions.JOURNEY_FORM_DATA_REQUEST_FAILURE:
+    case actions.LOCATIONS_REQUEST_FAILURE:
       return Object.assign({}, state, {
         loading: false,
         error: actions.error,
