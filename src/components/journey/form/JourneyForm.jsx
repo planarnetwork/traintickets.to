@@ -49,9 +49,12 @@ export default class JourneyForm extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    //console.log(this.getJourneyUrl());
+
+    if (!this.state.origin.length || !this.state.destination.length) {
+      return;
+    }
+
     this.props.dispatch(push(this.getJourneyUrl()));
-    return false;
   }
 
   componentWillMount() {

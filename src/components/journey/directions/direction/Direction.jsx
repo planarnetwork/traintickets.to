@@ -1,6 +1,6 @@
 import classes from './Direction.scss';
-import { BlockCentered, JourneyForm } from 'components'
-import { DataBindingHelper } from 'utils'
+import TrainLeg from './legs/train/TrainLeg';
+import WalkLeg from './legs/walk/WalkLeg';
 
 import { Button, Col, Glyphicon } from 'react-bootstrap';
 
@@ -15,31 +15,37 @@ export default class Direction extends React.Component {
     expanded: React.PropTypes.bool.isRequired
   };
 
+  renderLeg(leg, index) {
+    switch (leg.mode) {
+      case 'train':
+        return ( <TrainLeg key={index} {...leg} /> )
+      case 'walk':
+        return ( <WalkLeg key={index} {...leg} /> )
+      default:
+        return null
+    }
+  }
+
   render() {
     const { className, direction, expand, expanded, ...other } = this.props;
 
-    const legs = _.map(direction.legs, (x, i) => (
-      <li key={i}>
-        <div>{x.origin} - {x.destination}</div>
-        <div>{x.duration}</div>
-      </li>
-    ), this);
+    const legs = _.map(direction.legs, this.renderLeg, this);
 
     return (
-      <li className={(className || '') + ' ' + classes.direction}>
-        <header>
+      <section className={(className || '') + ' ' + classes.direction}>
+        <section>
           <div className={classes.title} >{direction.departureTime} - {direction.arrivalTime}</div>
           <Glyphicon
             onClick={expand}
             className={classes.expandIcon}
             glyph={expanded ? 'chevron-down' : 'chevron-right' } />
-        </header>
-        <section style={{ display: expanded ? 'block' : 'none' }}>
-          <ul>
-            {legs}
-          </ul>
         </section>
-      </li>
+        <section style={{ display: expanded ? 'block' : 'none' }}>
+          <section>
+            {legs}
+          </section>
+        </section>
+      </section>
     )
   }
 }
