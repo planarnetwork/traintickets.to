@@ -26,14 +26,20 @@ export default class Journey extends React.Component {
     }),
     locationsRequest: React.PropTypes.func.isRequired,
     directionsRequest: React.PropTypes.func.isRequired,
-    dispatch: React.PropTypes.func.isRequired
+    dispatch: React.PropTypes.func.isRequired,
+    params: React.PropTypes.shape({
+      origin: React.PropTypes.string.isRequired,
+      destination: React.PropTypes.string.isRequired,
+      date: React.PropTypes.string.isRequired,
+      expanded: React.PropTypes.string
+    })
   };
 
   componentWillMount() {
   }
 
   render() {
-    const { className, locations, locationsRequest, directions, directionsRequest, dispatch, ...other } = this.props;
+    const { className, locations, locationsRequest, directions, directionsRequest, dispatch, params, ...other } = this.props;
 
     return (
       <section className={(className || '') + ' ' + classes.journey}>
@@ -41,10 +47,14 @@ export default class Journey extends React.Component {
           { ...locations }
           locationsRequest={locationsRequest}
           dispatch={dispatch}
-          className={classes.journeyForm} />
+          className={classes.journeyForm}
+          defaultOrigin={params.origin}
+          defaultDestination={params.destination} />
         <Directions
+          className={classes.directions}
           { ...directions }
-          directionsRequest={directionsRequest} />
+          directionsRequest={directionsRequest}
+          expanded={params.expanded || '0'} />
       </section>
     )
   }

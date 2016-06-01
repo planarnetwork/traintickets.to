@@ -1,12 +1,5 @@
 .journey {
-  position: fixed;
-  width: 280px;
-  min-height: 200px;
-  top: 160px;
-  left: 30px;
 
-  background-color: white;
-  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, .3);
 }
 
 .journeyForm {
@@ -15,6 +8,19 @@
   height: 110px;
   top: 30px;
   left: 30px;
+
+  background-color: white;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, .3);
+}
+
+.directions {
+  position: fixed;
+  width: 280px;
+  max-height: calc(100% - 180px);
+  top: 160px;
+  left: 30px;
+
+  overflow: scroll;
 
   background-color: white;
   box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, .3);

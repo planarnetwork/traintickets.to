@@ -11,8 +11,8 @@ export default class JourneyForm extends React.Component {
   }
 
   state = {
-    origin: '',
-    destinition: ''
+    origin: null,
+    destination: null
   }
 
   static propTypes = {
@@ -21,8 +21,38 @@ export default class JourneyForm extends React.Component {
     error: React.PropTypes.any,
     locations: React.PropTypes.array.isRequired,
     locationsRequest: React.PropTypes.func.isRequired,
-    dispatch: React.PropTypes.func.isRequired
+    dispatch: React.PropTypes.func.isRequired,
+    defaultOrigin: React.PropTypes.string,
+    defaultDestination: React.PropTypes.string
   };
+
+  static defaultProps = {
+    defaultOrigin: null,
+    defaultDestenition: null
+  };
+
+  getJourneyUrl() {
+    return encodeURI('/journey/' + this.state.origin + '/' + this.state.destination + '/1')
+  }
+
+  setDefaultData(props) {
+    const { defaultOrigin, defaultDestination } = props;
+
+    let origin = defaultOrigin || '',
+        destination = defaultDestination || '';
+
+    this.setState({
+      origin: origin,
+      destination: destination
+    });
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    //console.log(this.getJourneyUrl());
+    this.props.dispatch(push(this.getJourneyUrl()));
+    return false;
+  }
 
   componentWillMount() {
     const { loaded, loading, locationsRequest } = this.props;
@@ -30,16 +60,12 @@ export default class JourneyForm extends React.Component {
     if (!loaded && !loading) {
       locationsRequest();
     }
+
+    this.setDefaultData(this.props);
   }
 
-  getJourneyUrl() {
-    return '/journey/1/1/1'
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
-    this.props.dispatch(push(this.getJourneyUrl()));
-    return false;
+  componentWillReceiveProps(nextProps) {
+    this.setDefaultData(nextProps);
   }
 
   render() {
@@ -59,9 +85,9 @@ export default class JourneyForm extends React.Component {
 
         </div>
 
-        <div className={classes.destenition}>
+        <div className={classes.destination}>
           <LocationAutocompleteInput
-            valueLink={DataBindingHelper.linkWithState('destinition', this)}
+            valueLink={DataBindingHelper.linkWithState('destination', this)}
             autocompleteItems={locations}
             placeholder="Destinition" />
         </div>

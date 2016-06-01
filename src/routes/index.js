@@ -9,7 +9,8 @@ const routes = (
   <Route path="/" component={CoreLayout}>
     <Route component={Map} >
       <IndexRoute component={HomeContainer}/>
-      <route path="/journey/:origin/:destinition/:date" component={JourneyContainer}/>
+      <route path="/journey/:origin/:destination/:date" component={JourneyContainer}/>
+      <route path="/journey/:origin/:destination/:date/:expanded" component={JourneyContainer}/>
     </Route>
   </Route>
 )
