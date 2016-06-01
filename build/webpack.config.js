@@ -65,7 +65,8 @@ webpackConfig.plugins = [
       'ReactDOM': 'react-dom',
       'ReactRedux': 'react-redux',
       'FontAwesome': 'react-fontawesome',
-      '_': 'underscore'
+      '_': 'underscore',
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
   })
 ]
 
@@ -146,7 +147,7 @@ webpackConfig.module.loaders = [{
 },
 {
   test: /\.json$/,
-  loader: 'json'
+  loader: 'file'
 }]
 
 // ------------------------------------

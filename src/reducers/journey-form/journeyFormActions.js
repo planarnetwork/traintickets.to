@@ -26,10 +26,19 @@ export function journeyFormDataRequest() {
   return (dispatch) => {
     dispatch(journeyFormDataRequestStarted());
 
-    setTimeout(() => {
-      dispatch(journeyFormDataRequestSuccess({
-        autocompleteItems: ['A', 'B', 'C']
-      }))
-    }, 300);
+      fetch(require('static/data/locations.json'))
+        .then((response) => {
+          return response.json();
+        })
+        .then((json) => {
+          dispatch(journeyFormDataRequestSuccess({
+            autocompleteItems: json
+          }))
+        })
+        .catch(function(ex) {
+          dispatch(journeyFormDataRequestFailure({
+            error: ex
+          }))
+        });
   }
 }
