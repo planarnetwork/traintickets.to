@@ -11,17 +11,34 @@ export default class Direction extends React.Component {
 
   static propTypes = {
     direction: React.PropTypes.object.isRequired,
+    expand: React.PropTypes.func.isRequired,
     expanded: React.PropTypes.bool.isRequired
   };
 
   render() {
-    const { className, direction, ...other } = this.props;
+    const { className, direction, expand, expanded, ...other } = this.props;
 
-    console.log(direction);
+    const legs = _.map(direction.legs, (x, i) => (
+      <li key={i}>
+        <div>{x.origin} - {x.destination}</div>
+        <div>{x.duration}</div>
+      </li>
+    ), this);
 
     return (
       <li className={(className || '') + ' ' + classes.direction}>
-        aaaaaaa
+        <header>
+          <div className={classes.title} >{direction.departureTime} - {direction.arrivalTime}</div>
+          <Glyphicon
+            onClick={expand}
+            className={classes.expandIcon}
+            glyph={expanded ? 'chevron-down' : 'chevron-right' } />
+        </header>
+        <section style={{ display: expanded ? 'block' : 'none' }}>
+          <ul>
+            {legs}
+          </ul>
+        </section>
       </li>
     )
   }

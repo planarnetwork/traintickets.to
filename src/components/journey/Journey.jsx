@@ -1,8 +1,7 @@
 import classes from './Journey.scss';
-import { BlockCentered } from 'components'
 import JourneyForm from './form/JourneyForm'
 import Directions from './directions/Directions'
-import { DataBindingHelper } from 'utils'
+import { push } from 'react-router-redux';
 
 import { Button, Col, Glyphicon } from 'react-bootstrap';
 
@@ -35,6 +34,14 @@ export default class Journey extends React.Component {
     })
   };
 
+  expandDirection(index) {
+    const { origin, destination } = this.props.params;
+
+    const newUrl = encodeURI('/journey/' + origin + '/' + destination + '/1/' + index);
+
+    this.props.dispatch(push(newUrl));
+  }
+
   componentWillMount() {
   }
 
@@ -54,6 +61,8 @@ export default class Journey extends React.Component {
           className={classes.directions}
           { ...directions }
           directionsRequest={directionsRequest}
+          expandDirection={::this.expandDirection}
+          dispatch={dispatch}
           expanded={params.expanded || '0'} />
       </section>
     )

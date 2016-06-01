@@ -16,6 +16,7 @@ export default class Directions extends React.Component {
     error: React.PropTypes.any,
     directions: React.PropTypes.array.isRequired,
     directionsRequest: React.PropTypes.func.isRequired,
+    expandDirection: React.PropTypes.func.isRequired,
     expanded: React.PropTypes.string.isRequired
   };
 
@@ -28,10 +29,14 @@ export default class Directions extends React.Component {
   }
 
   render() {
-    const { className, locations, directions, expanded, ...other } = this.props;
+    const { className, locations, directions, expanded, expandDirection, ...other } = this.props;
 
     const directionComponents = _.map(directions, (x, i) => (
-      <Direction key={i} direction={x} expanded={ i == (expanded * 1) } />
+      <Direction
+        key={i}
+        direction={x}
+        expand={_.partial(expandDirection, i)}
+        expanded={ i == (expanded * 1) } />
     ), this);
 
     return (
