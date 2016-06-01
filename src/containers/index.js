@@ -1,1 +1,2 @@
-export JourneyFormContainer from './JourneyFormContainer'
+export HomeContainer from './HomeContainer'
+export JourneyContainer from './JourneyContainer'

@@ -22,7 +22,7 @@ export function directionsRequestFailure(error) {
 }
 
 export const DIRECTIONS_REQUEST = "DIRECTIONS_REQUEST"
-export function directionsRequest() {
+export function directionsRequest(origin, destination, date) {
   return (dispatch) => {
     dispatch(directionsRequestStarted());
 
@@ -32,7 +32,7 @@ export function directionsRequest() {
         })
         .then((json) => {
           dispatch(directionsRequestSuccess({
-            autocompleteItems: json
+            directions: json
           }))
         })
         .catch(function(ex) {

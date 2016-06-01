@@ -17,7 +17,12 @@ export default class LocationLocationAutocompleteInput extends ValueLinkedCompon
     value: React.PropTypes.string,
     onChange: React.PropTypes.func,
 
-    autocompleteItems: React.PropTypes.array.isRequired
+    autocompleteItems: React.PropTypes.array.isRequired,
+    placeholder: React.PropTypes.string
+  };
+
+  static defaultProps = {
+    placeholder: ''
   };
 
   onInputChange(e) {
@@ -51,17 +56,19 @@ export default class LocationLocationAutocompleteInput extends ValueLinkedCompon
   }
 
   render() {
-    const { className, valueLink, value, onChange, autocompleteItems, ...other } = this.props;
+    const { className, valueLink, value, onChange, autocompleteItems, placeholder, ...other } = this.props;
 
     const inputProps = {
       value: this.getValueLink().value,
-      onChange: this.onInputChange.bind(this)
+      onChange: this.onInputChange.bind(this),
+      placeholder: placeholder
     }
 
     const suggestions = this.getSuggestions(this.getValueLink().value);
 
     return (
       <Autosuggest
+        className={className}
         suggestions={suggestions}
         getSuggestionValue={::this.getSuggestionValue}
         onSuggestionSelected={::this.onSuggestionSelected}

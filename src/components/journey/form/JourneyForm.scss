@@ -1,0 +1,42 @@
+.journeyForm {
+  display: block;
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.origin {
+  width: 250px;
+  float: left;
+  padding: 10px 10px 10px 10px;
+
+  div {
+    display: inline-block;
+    vertical-align: middle;
+    width: 180px;
+  }
+}
+
+.rightIcon {
+  float: right;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 8px 5px 0 0;
+}
+
+.destenition {
+  width: 200px;
+  float: left;
+  padding: 10px;
+}
+
+.goButton {
+  width: 45px;
+  float: left;
+  padding: 10px;
+}

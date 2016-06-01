@@ -1,13 +1,13 @@
-import * as actions from './journeyFormActions'
+import * as actions from './directionsActions'
 
 const initialState = {
   loaded: false,
   loading: false,
   error: null,
-  locations: []
+  directions: []
 }
 
-export default function journeyFormReducer(state = initialState, action) {
+export default function directionsReducer(state = initialState, action) {
   switch (action.type) {
     case actions.DIRECTIONS_REQUEST_STARTED:
       return Object.assign({}, state, {
