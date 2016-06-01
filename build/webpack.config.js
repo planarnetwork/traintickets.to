@@ -135,8 +135,8 @@ webpackConfig.module.loaders = [{
   loader: 'babel',
   query: {
     cacheDirectory: true,
-    plugins: ['transform-runtime'],
-    presets: ['es2015', 'react', 'stage-0'],
+    plugins: ["transform-runtime"],
+    presets: ["node5", "react", "stage-0"],
     env: {
       production: {
         presets: ['react-optimize']
