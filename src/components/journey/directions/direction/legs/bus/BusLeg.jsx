@@ -28,7 +28,7 @@ export default class BusLeg extends React.Component {
       <section className={(className || '') + ' ' + classes.busLeg}>
         <LegIcon mode="bus" />
         <div className={classes.text} >
-          <span>{formattedDuration}</span> by tube to <span>{stationName}</span>
+          <span>{formattedDuration}</span> by bus to <span>{stationName}</span>
         </div>
       </section>
     )

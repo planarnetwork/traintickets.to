@@ -48,8 +48,10 @@ export default class Directions extends React.Component {
         expanded={ i == (expanded * 1) } />
     ), this);
 
+    let directionsClass = `${(className || '')} ${!this.state.expanded && classes.directionsCollapsed} ${classes.directions}`;
+
     return (
-      <section className={(className || '') + ' ' + classes.directions}>
+      <section className={directionsClass}>
         <section className={classes.header} onClick={::this.toggle}>
           <h2>Directions</h2>
           <CustomIcon

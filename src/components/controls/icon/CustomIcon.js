@@ -5,15 +5,12 @@ function requireAll(r) { return r.keys().map(function(key) {
 }); }
 const icons = requireAll(require.context('static/images/custom-icons/', false, /\.png$/));
 
-console.log(icons);
-
 /*
     Custom Icon
 
     Example: <Icon name="play" />
     Check available icons in src/static/images/custom-icons
 */
-
 export default class CustomIcon extends React.Component {
     static propTypes = {
         name: React.PropTypes.string,

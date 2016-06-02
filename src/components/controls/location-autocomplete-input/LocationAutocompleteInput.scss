@@ -1,13 +1,13 @@
-.autocompleteInputContainer {
-  position: relative;
+.locationName {
+  display: block;
+  margin-right: 30px;
+  font-weight: 300;
 }
 
-.autocompleteItems {
-  position: absolute;
-  top: 33px;
-  left: 0;
-
-  width: 100%;
-  max-height: 400px;
-  overflow-y: scroll;
+.locationCode {
+  display: block;
+  width: 30px;
+  padding-top: 1px;
+  float: right;
+  font-weight: 500;
 }

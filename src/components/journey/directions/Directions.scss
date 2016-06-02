@@ -4,6 +4,10 @@
   height: 100%;
 }
 
+.directionsCollapsed {
+  height: 40px;
+}
+
 .directionsBody {
   height: calc(100% - 40px);
   overflow: scroll;

@@ -1,6 +1,7 @@
 import classes from './LocationAutocompleteInput.scss'
 import ValueLinkedComponent from '../ValueLinkedComponent'
-import Autosuggest from 'react-autosuggest';
+import Autosuggest from 'react-autosuggest'
+import { LocationsHelper } from 'utils'
 
 export default class LocationLocationAutocompleteInput extends ValueLinkedComponent {
 
@@ -30,22 +31,19 @@ export default class LocationLocationAutocompleteInput extends ValueLinkedCompon
   }
 
   getSuggestions(value) {
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-
-    return inputLength === 0 ? [] : _.filter(this.props.autocompleteItems, x =>
-      x.name.toLowerCase().slice(0, inputLength) === inputValue
-      || x.code.toLowerCase().slice(0, inputLength) === inputValue
-    );
+    return LocationsHelper.find(this.props.autocompleteItems, value);
   }
 
   getSuggestionValue(suggestion) {
-    return suggestion.name + '(' + suggestion.code + ')';
+    return LocationsHelper.getStringValue(suggestion);
   }
 
   renderSuggestion(suggestion) {
     return (
-      <span>{this.getSuggestionValue(suggestion)}</span>
+      <span>
+        <span className={classes.locationCode} >{suggestion.code}</span>
+        <span className={classes.locationName} >{suggestion.name}</span>
+      </span>
     );
   }
 

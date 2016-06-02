@@ -8,4 +8,19 @@ export default class LocationsHelper {
 
     return `${item.name} (${item.code})`
   }
+
+  static getStringValue(location) {
+    return `${location.name} (${location.code})`;
+  }
+
+  static find(locations, value) {
+    if (_.isEmpty(value)) return [];
+
+    const inputValue = value.trim().toLowerCase();
+    const inputLength = inputValue.length;
+
+    return inputLength === 0 ? [] : _.filter(locations, x =>
+      this.getStringValue(x).toLowerCase().slice(0, inputLength) === inputValue,
+      this);
+  }
 }
