@@ -58,6 +58,7 @@ export default class Journey extends React.Component {
         <Directions
           className={classes.directions}
           { ...directions }
+          locations={locations.locations}
           directionsRequest={directionsRequest}
           expandDirection={::this.expandDirection}
           dispatch={dispatch}

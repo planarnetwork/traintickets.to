@@ -1,3 +1,34 @@
+@import '~static/styles/color-palette.scss';
+
 .trainLeg {
-  
+  position: relative;
+  padding-left: 80px;
+  min-height: 70px;
+  margin: 0 10px;
+}
+
+.callingPoints {
+  padding: 10px 0;
+  margin: 0;
+}
+
+.callingPoint {
+  list-style: none;
+  padding: 5px 0px;
+  margin: 0;
+}
+
+.time {
+  font-size: 12px;
+  font-weight: 500;
+  color: $blue;
+  display: inline;
+}
+
+.station {
+  padding-left: 6px;
+  font-size: 14px;
+  font-weight: 300;
+  color: $black;
+  display: inline;
 }

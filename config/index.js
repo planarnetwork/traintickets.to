@@ -56,7 +56,8 @@ const config = {
     'react-autosuggest',
     'react-bootstrap',
     'react-google-maps',
-
+    'moment',
+    'moment-duration-format'
   ],
 
   // ----------------------------------

@@ -19,7 +19,8 @@ export default class Directions extends React.Component {
     directions: React.PropTypes.array.isRequired,
     directionsRequest: React.PropTypes.func.isRequired,
     expandDirection: React.PropTypes.func.isRequired,
-    expanded: React.PropTypes.string.isRequired
+    expanded: React.PropTypes.string.isRequired,
+    locations: React.PropTypes.array.isRequired
   };
 
   toggle() {
@@ -35,12 +36,13 @@ export default class Directions extends React.Component {
   }
 
   render() {
-    const { className, locations, directions, expanded, expandDirection, ...other } = this.props;
+    const { className, locations, directions, expanded, expandDirection } = this.props;
 
     const directionComponents = _.map(directions, (x, i) => (
       <Direction
         key={i}
         direction={x}
+        locations={locations}
         expand={_.partial(expandDirection, i)}
         expanded={ i == (expanded * 1) } />
     ), this);
@@ -53,7 +55,7 @@ export default class Directions extends React.Component {
             className={classes.expandIcon}
             name={this.state.expanded ? 'chevron-down' : 'chevron-right' } />
         </section>
-        <section style={{ display: this.state.expanded ? 'block' : 'none' }}>
+        <section className={classes.directionsBody} style={{ display: this.state.expanded ? 'block' : 'none' }}>
           {directionComponents}
         </section>
       </section>

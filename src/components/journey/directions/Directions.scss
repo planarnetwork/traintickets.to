@@ -1,7 +1,12 @@
 @import '~static/styles/color-palette.scss';
 
 .directions {
+  height: 100%;
+}
 
+.directionsBody {
+  height: calc(100% - 40px);
+  overflow: scroll;
 }
 
 .header {

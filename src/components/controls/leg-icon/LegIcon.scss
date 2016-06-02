@@ -1,0 +1,22 @@
+@import '~static/styles/color-palette.scss';
+
+.legIcon {
+  height: 50px;
+  width: 50px;
+  margin: 0;
+  padding: 0;
+  border-radius: 25px;
+  background-color: $green;
+
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translate(0, -50%);
+
+  span {
+    display: block;
+    margin: 7.5px auto;
+    width: 35px;
+    height: 35px;
+  }
+}

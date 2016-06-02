@@ -11,12 +11,12 @@ console.log(icons);
     Custom Icon
 
     Example: <Icon name="play" />
-    Check available icons in static/images/custom-icons
+    Check available icons in src/static/images/custom-icons
 */
 
 export default class CustomIcon extends React.Component {
     static propTypes = {
-        name: React.PropTypes.string
+        name: React.PropTypes.string,
     };
 
     render() {
@@ -24,10 +24,8 @@ export default class CustomIcon extends React.Component {
 
         const iconStyle = _.extend(style || {}, { backgroundImage: 'url(' + _.find(icons, x => x.key == name).data + ')' });
 
-        console.log(iconStyle);
-
         return (
-            <span style={iconStyle} className={className + ' ' + classes.customIcon}></span>
+            <span style={iconStyle} className={className + ' ' + classes.customIcon} {...other} ></span>
         );
     }
 }
