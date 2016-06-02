@@ -1,8 +1,7 @@
 import classes from './Direction.scss';
 import TrainLeg from './legs/train/TrainLeg';
 import WalkLeg from './legs/walk/WalkLeg';
-
-import { Button, Col, Glyphicon } from 'react-bootstrap';
+import { CustomIcon } from 'components';
 
 export default class Direction extends React.Component {
   constructor() {
@@ -33,12 +32,12 @@ export default class Direction extends React.Component {
 
     return (
       <section className={(className || '') + ' ' + classes.direction}>
-        <section>
-          <div className={classes.title} >{direction.departureTime} - {direction.arrivalTime}</div>
-          <Glyphicon
+        <section className={classes.header}>
+          <h3 >{direction.departureTime} - {direction.arrivalTime}</h3>
+          <CustomIcon
             onClick={expand}
             className={classes.expandIcon}
-            glyph={expanded ? 'chevron-down' : 'chevron-right' } />
+            name={expanded ? 'chevron-down' : 'chevron-right' } />
         </section>
         <section style={{ display: expanded ? 'block' : 'none' }}>
           <section>

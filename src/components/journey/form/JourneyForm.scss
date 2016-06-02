@@ -1,5 +1,8 @@
+@import '~static/styles/color-palette.scss';
+
 .journeyForm {
   display: block;
+  background-color: $blue;
 
   &:after {
     content: "";
@@ -9,14 +12,14 @@
 }
 
 .origin {
-  width: 250px;
+  width: 290px;
   float: left;
   padding: 10px 10px 10px 10px;
 
   div {
     display: inline-block;
     vertical-align: middle;
-    width: 180px;
+    width: 220px;
   }
 }
 
@@ -26,11 +29,12 @@
   height: 16px;
   display: inline-block;
   vertical-align: middle;
+  color: white;
   margin: 8px 5px 0 0;
 }
 
 .destination {
-  width: 200px;
+  width: 240px;
   float: left;
   padding: 10px;
 }
@@ -39,4 +43,23 @@
   width: 45px;
   float: left;
   padding: 10px;
+
+  button {
+    background-color: $green;
+    color: $white;
+
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
 }

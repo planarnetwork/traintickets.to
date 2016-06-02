@@ -37,20 +37,20 @@
       }
     },
     "deploy": {
-      "command": "npm run clean && npm run compile",
+      "command": "npm --harmony run clean && npm --harmony run compile",
       "env": {
         "DEBUG": "app:*"
       }
     },
     "deploy:dev": {
-      "command": "npm run deploy",
+      "command": "npm --harmony run deploy",
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "app:*"
       }
     },
     "deploy:prod": {
-      "command": "npm run deploy",
+      "command": "npm --harmony run deploy",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "app:*"
@@ -89,7 +89,6 @@
     "babel-register": "^6.3.13",
     "babel-runtime": "^6.3.19",
     "better-npm-run": "0.0.8",
-    "bootstrap": "^3.3.6",
     "css-loader": "^0.23.0",
     "cssnano": "^3.3.2",
     "debug": "^2.2.0",
@@ -113,7 +112,6 @@
     "react": "^15.0.0",
     "react-addons-update": "^15.1.0",
     "react-autosuggest": "^3.7.4",
-    "react-bootstrap": "^0.29.4",
     "react-dom": "^15.0.0",
     "react-google-maps": "^4.11.0",
     "react-redux": "^4.0.0",

@@ -1,9 +1,7 @@
 import classes from './JourneyForm.scss';
-import { BlockCentered, LocationAutocompleteInput } from 'components'
+import { BlockCentered, LocationAutocompleteInput, CustomIcon } from 'components'
 import { DataBindingHelper } from 'utils'
 import { push } from 'react-router-redux';
-
-import { Button, Col, Glyphicon } from 'react-bootstrap';
 
 export default class JourneyForm extends React.Component {
   constructor() {
@@ -84,7 +82,7 @@ export default class JourneyForm extends React.Component {
             autocompleteItems={locations}
             placeholder="Origin" />
 
-          <Glyphicon className={classes.rightIcon} glyph="arrow-right" />
+          <CustomIcon className={classes.rightIcon} name="arrow-right" />
 
         </div>
 
@@ -96,7 +94,7 @@ export default class JourneyForm extends React.Component {
         </div>
 
         <div className={classes.goButton} >
-          <Button type="submit" bsStyle="success">Go</Button>
+          <button type="submit" >Go</button>
         </div>
 
       </form>

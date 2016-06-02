@@ -46,10 +46,17 @@ const config = {
   compiler_vendor : [
     'history',
     'react',
+    'react-dom',
     'react-redux',
     'react-router',
     'react-router-redux',
-    'redux'
+    'redux',
+    'redux-thunk',
+    'underscore',
+    'react-autosuggest',
+    'react-bootstrap',
+    'react-google-maps',
+
   ],
 
   // ----------------------------------

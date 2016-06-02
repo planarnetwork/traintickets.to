@@ -4,18 +4,17 @@
 
 .journeyForm {
   position: fixed;
-  width: 280px;
+  width: 320px;
   height: 110px;
   top: 30px;
   left: 30px;
 
-  background-color: white;
   box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, .3);
 }
 
 .directions {
   position: fixed;
-  width: 280px;
+  width: 320px;
   max-height: calc(100% - 180px);
   top: 160px;
   left: 30px;

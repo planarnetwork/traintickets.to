@@ -3,8 +3,6 @@ import { BlockCentered, LocationAutocompleteInput } from 'components'
 import { DataBindingHelper } from 'utils'
 import JourneyForm from '../journey/form/JourneyForm';
 
-import { Button, Col, Glyphicon } from 'react-bootstrap';
-
 export default class Home extends React.Component {
   constructor() {
     super();

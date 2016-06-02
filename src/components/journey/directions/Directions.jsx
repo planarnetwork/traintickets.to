@@ -1,14 +1,16 @@
 import classes from './Directions.scss';
-import { BlockCentered, JourneyForm } from 'components'
+import { CustomIcon } from 'components'
 import Direction from './direction/Direction'
 import { DataBindingHelper } from 'utils'
-
-import { Button, Col, Glyphicon } from 'react-bootstrap';
 
 export default class Directions extends React.Component {
   constructor() {
     super();
   }
+
+  state = {
+    expanded: true
+  };
 
   static propTypes = {
     loaded: React.PropTypes.bool.isRequired,
@@ -19,6 +21,10 @@ export default class Directions extends React.Component {
     expandDirection: React.PropTypes.func.isRequired,
     expanded: React.PropTypes.string.isRequired
   };
+
+  toggle() {
+    this.setState({ expanded: !this.state.expanded })
+  }
 
   componentWillMount() {
     const { loaded, loading, directionsRequest } = this.props;
@@ -41,9 +47,15 @@ export default class Directions extends React.Component {
 
     return (
       <section className={(className || '') + ' ' + classes.directions}>
-        <ul>
+        <section className={classes.header} onClick={::this.toggle}>
+          <h2>Directions</h2>
+          <CustomIcon
+            className={classes.expandIcon}
+            name={this.state.expanded ? 'chevron-down' : 'chevron-right' } />
+        </section>
+        <section style={{ display: this.state.expanded ? 'block' : 'none' }}>
           {directionComponents}
-        </ul>
+        </section>
       </section>
     )
   }

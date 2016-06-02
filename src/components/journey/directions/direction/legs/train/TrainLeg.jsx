@@ -1,7 +1,5 @@
 import classes from './TrainLeg.scss';
 
-import { Glyphicon } from 'react-bootstrap';
-
 export default class TrainLeg extends React.Component {
   constructor() {
     super();

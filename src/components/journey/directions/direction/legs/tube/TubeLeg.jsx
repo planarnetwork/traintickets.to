@@ -1,6 +1,8 @@
-import classes from './WalkLeg.scss';
+import classes from './TubeLeg.scss';
 
-export default class WalkLeg extends React.Component {
+import { Glyphicon } from 'react-bootstrap';
+
+export default class TubeLeg extends React.Component {
   constructor() {
     super();
   }
@@ -15,7 +17,7 @@ export default class WalkLeg extends React.Component {
     const { className, origin, destination, duration, ...other } = this.props;
 
     return (
-      <section className={(className || '') + ' ' + classes.walkLeg}>
+      <section className={(className || '') + ' ' + classes.tubeLeg}>
         <div>{origin} - {destination}</div>
         <div>{duration}</div>
       </section>
