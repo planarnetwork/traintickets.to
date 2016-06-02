@@ -2,6 +2,7 @@ import classes from './Directions.scss';
 import { CustomIcon } from 'components'
 import Direction from './direction/Direction'
 import { DataBindingHelper } from 'utils'
+import LoadingIndicator from 'components/controls/loading-indicator/LoadingIndicator'
 
 export default class Directions extends React.Component {
   constructor() {
@@ -36,7 +37,7 @@ export default class Directions extends React.Component {
   }
 
   render() {
-    const { className, locations, directions, expanded, expandDirection } = this.props;
+    const { className, loading, locations, directions, expanded, expandDirection } = this.props;
 
     const directionComponents = _.map(directions, (x, i) => (
       <Direction
@@ -56,7 +57,11 @@ export default class Directions extends React.Component {
             name={this.state.expanded ? 'chevron-down' : 'chevron-right' } />
         </section>
         <section className={classes.directionsBody} style={{ display: this.state.expanded ? 'block' : 'none' }}>
-          {directionComponents}
+          { loading ? (
+            <figure className={classes.directionsLoadingIndicator}>
+              <LoadingIndicator />
+            </figure>
+          ) : directionComponents }
         </section>
       </section>
     )

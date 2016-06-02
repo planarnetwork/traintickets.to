@@ -31,9 +31,11 @@ export function directionsRequest(origin, destination, date) {
           return response.json();
         })
         .then((json) => {
-          dispatch(directionsRequestSuccess({
-            directions: json
-          }))
+          setTimeout( x => {
+            dispatch(directionsRequestSuccess({
+              directions: json
+            }))
+          }, 2000)
         })
         .catch(function(ex) {
           dispatch(directionsRequestFailure({
