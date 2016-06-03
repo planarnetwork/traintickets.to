@@ -1,6 +1,10 @@
 export default class LocationsHelper {
+  static getByCode(locations, code) {
+    return _.find(locations, x => x.code.toLowerCase() === code.toLowerCase());
+  }
+
   static getNameByCode(locations, code) {
-    const item = _.find(locations, x => x.code.toLowerCase() == code.toLowerCase());
+    const item = this.getByCode(locations, code);
 
     if (!item) {
       return code;
