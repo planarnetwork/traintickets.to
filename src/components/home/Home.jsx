@@ -8,11 +8,6 @@ export default class Home extends React.Component {
     super();
   }
 
-  state = {
-    origin: '',
-    destinition: ''
-  }
-
   static propTypes = {
     locations: React.PropTypes.object.isRequired,
     locationsRequest: React.PropTypes.func.isRequired,
@@ -24,9 +19,7 @@ export default class Home extends React.Component {
 
     return (
       <BlockCentered className={(className || '') + ' ' + classes.journeyFormPanel}>
-        <BlockCentered>
-          <JourneyForm {...locations} dispatch={dispatch} locationsRequest={locationsRequest} className={classes.journeyForm} />
-        </BlockCentered>
+        <JourneyForm {...locations} dispatch={dispatch} locationsRequest={locationsRequest} className={classes.journeyForm} />
       </BlockCentered>
     )
   }

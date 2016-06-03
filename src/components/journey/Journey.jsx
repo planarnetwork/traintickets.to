@@ -54,7 +54,8 @@ export default class Journey extends React.Component {
           dispatch={dispatch}
           className={classes.journeyForm}
           defaultOrigin={params.origin}
-          defaultDestination={params.destination} />
+          defaultDestination={params.destination}
+          defaultDate={params.date} />
         <Directions
           className={classes.directions}
           { ...directions }

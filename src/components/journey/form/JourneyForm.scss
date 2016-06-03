@@ -11,55 +11,77 @@
   }
 }
 
-.origin {
-  width: 290px;
-  float: left;
-  padding: 10px 10px 10px 10px;
-
-  div {
-    display: inline-block;
-    vertical-align: middle;
-    width: 220px;
-  }
+.locationInputs {
+  margin: 0;
+  padding: 0;
 }
 
-.rightIcon {
-  float: right;
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  vertical-align: middle;
-  color: white;
-  margin: 8px 5px 0 0;
+.locationIcon {
+  float: left;
+  margin: 12px 0 0 10px;
+  width: 40px;
+  height: 80px;
+  display: block;
+}
+
+.origin {
+  width: 260px;
+  margin: 0px 0 0 40px;
+  padding: 15px 10px 12px 10px;
 }
 
 .destination {
-  width: 240px;
-  float: left;
+  width: 260px;
   padding: 10px;
+  margin-left: 40px;
 }
 
-.goButton {
-  width: 45px;
-  float: left;
+.submitAndDate {
+  width: 300px;
   padding: 10px;
+  text-align: right;
+}
 
-  button {
-    background-color: $green;
-    color: $white;
+.date {
+  width: 165px;
+  height: 26px;
+  margin: 0 10px 0 0;
+  padding: 10px 0px 10px 20px;
+  font-family: Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid $blue-light;
+  border-radius: 0px;
+  background-color: transparent;
+  background-image: url(static/images/custom-icons/date.png);
+  background-position: left center;
+  background-repeat: no-repeat;
+  color: $white;
+  appearance: none;
 
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    user-select: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
+  &:focus {
+    outline: none;
   }
+
+  &::-webkit-calendar-picker-indicator { background: transparent; }
+}
+
+.submit {
+  background-color: $green;
+  color: $white;
+
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }

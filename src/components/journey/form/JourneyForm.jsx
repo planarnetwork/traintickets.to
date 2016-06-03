@@ -1,4 +1,5 @@
 import classes from './JourneyForm.scss';
+import moment from 'moment';
 import BlockCentered from 'components/layout/block-centered/BlockCentered'
 import LocationAutocompleteInput from 'components/controls/location-autocomplete-input/LocationAutocompleteInput'
 import CustomIcon from 'components/controls/icon/CustomIcon'
@@ -12,7 +13,8 @@ export default class JourneyForm extends React.Component {
 
   state = {
     origin: null,
-    destination: null
+    destination: null,
+    date: null
   }
 
   static propTypes = {
@@ -23,27 +25,31 @@ export default class JourneyForm extends React.Component {
     locationsRequest: React.PropTypes.func.isRequired,
     dispatch: React.PropTypes.func.isRequired,
     defaultOrigin: React.PropTypes.string,
-    defaultDestination: React.PropTypes.string
+    defaultDestination: React.PropTypes.string,
+    defaultDate: React.PropTypes.string
   };
 
   static defaultProps = {
     defaultOrigin: null,
-    defaultDestenition: null
+    defaultDestenition: null,
+    defaultDate: null
   };
 
-  getJourneyUrl(origin, destination) {
-    return encodeURI(`/journey/${origin}/${destination}/1`);
+  getJourneyUrl(origin, destination, date) {
+    return encodeURI(`/journey/${origin}/${destination}/${date}`);
   }
 
   setDefaultData(props) {
-    const { defaultOrigin, defaultDestination, locations } = props;
+    const { defaultOrigin, defaultDestination, defaultDate, locations } = props;
 
     let origin = defaultOrigin || '',
-        destination = defaultDestination || '';
+        destination = defaultDestination || '',
+        date = defaultDate || '';
 
     this.setState({
       origin: LocationsHelper.getNameByCode(locations, origin),
-      destination: LocationsHelper.getNameByCode(locations, destination)
+      destination: LocationsHelper.getNameByCode(locations, destination),
+      date: date
     });
   }
 
@@ -53,7 +59,8 @@ export default class JourneyForm extends React.Component {
     let origin = null,
         originValue = this.state.origin,
         destination = null,
-        destinationValue = this.state.destination;
+        destinationValue = this.state.destination,
+        date = this.state.date || '';
 
     const originSuggestions = LocationsHelper.find(this.props.locations, originValue);
     if (originSuggestions.length) {
@@ -69,13 +76,14 @@ export default class JourneyForm extends React.Component {
 
     this.setState({
       origin: originValue,
-      destination: destinationValue
+      destination: destinationValue,
+      date: date
     }, () => {
-      if (_.isEmpty(origin) || _.isEmpty(destination)) {
+      if (_.isEmpty(origin) || _.isEmpty(destination) || !moment(date).isValid()) {
         return;
       }
 
-      this.props.dispatch(push(this.getJourneyUrl(origin, destination)));
+      this.props.dispatch(push(this.getJourneyUrl(origin, destination, date)));
     })
   }
 
@@ -99,26 +107,30 @@ export default class JourneyForm extends React.Component {
     return (
       <form onSubmit={::this.onSubmit} className={className + ' ' + classes.journeyForm}>
 
-        <div className={classes.origin}>
+        <figure className={classes.locationInputs} >
+          <CustomIcon className={classes.locationIcon} name="origin-destination" />
 
-          <LocationAutocompleteInput
-            valueLink={DataBindingHelper.linkWithState('origin', this)}
-            autocompleteItems={locations}
-            placeholder="Origin" />
+          <div className={classes.origin}>
+            <LocationAutocompleteInput
+              valueLink={DataBindingHelper.linkWithState('origin', this)}
+              autocompleteItems={locations}
+              placeholder="Origin" />
+          </div>
 
-          <CustomIcon className={classes.rightIcon} name="arrow-right" />
+          <div className={classes.destination}>
+            <LocationAutocompleteInput
+              valueLink={DataBindingHelper.linkWithState('destination', this)}
+              autocompleteItems={locations}
+              placeholder="Destinition" />
+          </div>
+        </figure>
 
-        </div>
-
-        <div className={classes.destination}>
-          <LocationAutocompleteInput
-            valueLink={DataBindingHelper.linkWithState('destination', this)}
-            autocompleteItems={locations}
-            placeholder="Destinition" />
-        </div>
-
-        <div className={classes.goButton} >
-          <button type="submit" >Go</button>
+        <div className={classes.submitAndDate} >
+          <input
+            valueLink={DataBindingHelper.linkWithState('date', this)}
+            className={classes.date}
+            type="date" />
+          <button className={classes.submit} type="submit" >Go</button>
         </div>
 
       </form>
