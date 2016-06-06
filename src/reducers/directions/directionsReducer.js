@@ -4,14 +4,18 @@ const initialState = {
   loaded: false,
   loading: false,
   error: null,
-  directions: []
+  directions: [],
+  origin: null,
+  destination: null,
+  date: null
 }
 
 export default function directionsReducer(state = initialState, action) {
   switch (action.type) {
     case actions.DIRECTIONS_REQUEST_STARTED:
-      return Object.assign({}, state, {
-        loading: true
+      return Object.assign({}, state, action.data, {
+        loading: true,
+        loaded: false
       })
     case actions.DIRECTIONS_REQUEST_SUCCESS:
       return Object.assign({}, state, action.data, {
@@ -19,9 +23,8 @@ export default function directionsReducer(state = initialState, action) {
         loaded: true
       })
     case actions.DIRECTIONS_REQUEST_FAILURE:
-      return Object.assign({}, state, {
+      return Object.assign({}, state, action.data, {
         loading: false,
-        error: actions.error,
         loaded: false
       })
     default:

@@ -18,7 +18,6 @@ export default class Directions extends React.Component {
     loading: React.PropTypes.bool.isRequired,
     error: React.PropTypes.any,
     directions: React.PropTypes.array.isRequired,
-    directionsRequest: React.PropTypes.func.isRequired,
     expandDirection: React.PropTypes.func.isRequired,
     expanded: React.PropTypes.string.isRequired,
     locations: React.PropTypes.array.isRequired
@@ -26,14 +25,6 @@ export default class Directions extends React.Component {
 
   toggle() {
     this.setState({ expanded: !this.state.expanded })
-  }
-
-  componentWillMount() {
-    const { loaded, loading, directionsRequest } = this.props;
-
-    if (!loaded && !loading) {
-      directionsRequest();
-    }
   }
 
   render() {

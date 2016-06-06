@@ -1,7 +1,10 @@
+import config from 'app.config'
+
 export const DIRECTIONS_REQUEST_STARTED = "DIRECTIONS_REQUEST_STARTED"
-export function directionsRequestStarted() {
+export function directionsRequestStarted(data) {
   return {
-    type: DIRECTIONS_REQUEST_STARTED
+    type: DIRECTIONS_REQUEST_STARTED,
+    data: data
   }
 }
 
@@ -14,33 +17,43 @@ export function directionsRequestSuccess(data) {
 }
 
 export const DIRECTIONS_REQUEST_FAILURE = "DIRECTIONS_REQUEST_FAILURE"
-export function directionsRequestFailure(error) {
+export function directionsRequestFailure(data) {
   return {
     type: DIRECTIONS_REQUEST_FAILURE,
-    error: error
+    data: data
   }
 }
 
 export const DIRECTIONS_REQUEST = "DIRECTIONS_REQUEST"
 export function directionsRequest(origin, destination, date) {
   return (dispatch) => {
-    dispatch(directionsRequestStarted());
+    dispatch(directionsRequestStarted({
+      origin: origin,
+      destination: destination,
+      date: date,
+      error: null
+    }));
 
-      fetch(require('static/data/directions.json'))
-        .then((response) => {
-          return response.json();
-        })
-        .then((json) => {
-          setTimeout( x => {
-            dispatch(directionsRequestSuccess({
-              directions: json
-            }))
-          }, 2000)
-        })
-        .catch(function(ex) {
-          dispatch(directionsRequestFailure({
-            error: ex
-          }))
-        });
+    fetch(`${config.directionsUrl}?origin=${origin}&destination=${destination}&date=${date}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        dispatch(directionsRequestSuccess({
+          directions: json,
+          origin: origin,
+          destination: destination,
+          date: date,
+          error: null
+        }))
+      })
+      .catch(function(ex) {
+        dispatch(directionsRequestFailure({
+          error: ex,
+          origin: origin,
+          destination: destination,
+          date: date
+        }))
+      });
   }
 }

@@ -19,7 +19,11 @@ export default class Journey extends React.Component {
       loaded: React.PropTypes.bool.isRequired,
       loading: React.PropTypes.bool.isRequired,
       error: React.PropTypes.any,
-      directions: React.PropTypes.array.isRequired
+      directions: React.PropTypes.array.isRequired,
+      origin: React.PropTypes.string,
+      destination: React.PropTypes.string,
+      date: React.PropTypes.string,
+      error: React.PropTypes.any
     }),
     locationsRequest: React.PropTypes.func.isRequired,
     directionsRequest: React.PropTypes.func.isRequired,
@@ -33,14 +37,32 @@ export default class Journey extends React.Component {
   };
 
   expandDirection(index) {
-    const { origin, destination } = this.props.params;
+    const { origin, destination, date } = this.props.params;
 
-    const newUrl = encodeURI('/journey/' + origin + '/' + destination + '/1/' + index);
+    const newUrl = encodeURI(`/journey/${origin}/${destination}/${date}/${index}`);
 
     this.props.dispatch(push(newUrl));
   }
 
+  update(props) {
+    const { origin, destination, date } = props.params;
+
+    const directionsUpToDate =
+      props.params.origin === props.directions.origin &&
+      props.params.destination === props.directions.destination &&
+      props.params.date === props.directions.date;
+
+    if (!directionsUpToDate) {
+      this.props.directionsRequest(origin, destination, date);
+    }
+  }
+
   componentWillMount() {
+    this.update(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.update(nextProps);
   }
 
   render() {
@@ -60,7 +82,6 @@ export default class Journey extends React.Component {
           className={classes.directions}
           { ...directions }
           locations={locations.locations}
-          directionsRequest={directionsRequest}
           expandDirection={::this.expandDirection}
           dispatch={dispatch}
           expanded={params.expanded || '0'} />
