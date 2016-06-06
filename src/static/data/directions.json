@@ -33,29 +33,6 @@
         "origin": "PDW",
         "destination": "ASH",
         "duration": "01:30"
-      },
-      {
-        "mode": "train",
-        "callingPoints": [
-          {
-            "station": "TBW",
-            "time": "07:15"
-          },
-          {
-            "station": "HIB",
-            "time": "07:18"
-          },
-          {
-            "station": "TON",
-            "time": "07:20"
-          }
-        ]
-      },
-      {
-        "mode": "bus",
-        "origin": "PDW",
-        "destination": "ASH",
-        "duration": "01:30"
       }
     ]
   },

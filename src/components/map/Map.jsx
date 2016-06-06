@@ -43,12 +43,11 @@ export default class Map extends React.Component {
           transitOptions: transitOptions
         }, (result, status) => {
           if (status === google.maps.DirectionsStatus.OK) {
-            console.log(result);
             this.setState({
               directions: this.state.directions.concat(result),
               highlighted:
                 directionData.highlighted ?
-                this.state.highlighted.concat(this.state.directions.lenght) :
+                this.state.highlighted.concat(this.state.directions.length) :
                 this.state.highlighted
             });
           } else {
@@ -76,7 +75,20 @@ export default class Map extends React.Component {
   renderDirections() {
     if (!this.state) return null;
 
-    return _.map(this.state.directions, (x, i) => (<DirectionsRenderer key={i} directions={x} />));
+    return _.map(
+      //this.state.directions,
+      _.filter(this.state.directions, (x, i) => _.contains(this.state.highlighted, i)),
+      (x, i) => {
+        console.log(x, i)
+        return (
+          <DirectionsRenderer
+            key={i}
+            directions={x}
+            options={{ suppressMarkers: true, markerOptions: { opacity: 0 } }} />
+        )
+      },
+      this
+    );
   }
 
   renderGoogleMapElement() {

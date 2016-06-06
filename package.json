@@ -24,7 +24,7 @@
   },
   "betterScripts": {
     "compile": {
-      "command": "babel-node --harmony bin/compile",
+      "command": "babel-node bin/compile",
       "env": {
         "DEBUG": "app:*"
       }
@@ -37,33 +37,33 @@
       }
     },
     "deploy": {
-      "command": "npm --harmony run clean && npm --harmony run compile",
+      "command": "npm run clean && npm run compile",
       "env": {
         "DEBUG": "app:*"
       }
     },
     "deploy:dev": {
-      "command": "npm --harmony run deploy",
+      "command": "npm run deploy",
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "app:*"
       }
     },
     "deploy:prod": {
-      "command": "npm --harmony run deploy",
+      "command": "npm run deploy",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "app:*"
       }
     },
     "start": {
-      "command": "babel-node --harmony bin/server",
+      "command": "babel-node bin/server",
       "env": {
         "DEBUG": "app:*"
       }
     },
     "test": {
-      "command": "babel-node --harmony ./node_modules/karma/bin/karma start build/karma.conf",
+      "command": "babel-node ./node_modules/karma/bin/karma start build/karma.conf",
       "env": {
         "NODE_ENV": "test",
         "DEBUG": "app:*"

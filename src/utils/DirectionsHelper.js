@@ -8,7 +8,7 @@ export default class DirectionsHelper {
       _.each(journey.legs, (leg, legIndex) => {
         if (leg.mode == 'train') {
           _.each(leg.callingPoints, (callingPoint, callingPointIndex) => {
-            if (callingPointIndex < leg.callingPoints.length - 2) {
+            if (callingPointIndex < leg.callingPoints.length - 1) {
               const directionData = this.getDirectionData(
                 locations,
                 callingPoint.station,
