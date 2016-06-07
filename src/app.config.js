@@ -1,3 +1,3 @@
 export default {
-  directionsUrl: 'http://localhost/'
+  directionsUrl: 'http://ttt.local/api/journey-plan'
 }
