@@ -24,7 +24,8 @@ export default class LocationsHelper {
     const inputLength = inputValue.length;
 
     return inputLength === 0 ? [] : _.filter(locations, x =>
-      this.getStringValue(x).toLowerCase().slice(0, inputLength) === inputValue,
+      x.name.toLowerCase().slice(0, inputLength) === inputValue ||
+      x.code.toLowerCase().slice(0, inputLength) === inputValue,
       this);
   }
 }

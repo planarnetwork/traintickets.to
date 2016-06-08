@@ -1,12 +1,16 @@
 import classes from './Map.scss'
-import { GoogleMapLoader, GoogleMap, DirectionsService, DirectionsRenderer } from 'react-google-maps'
-import { DirectionsHelper } from 'utils'
+import { GoogleMapLoader, GoogleMap, Marker, DirectionsService, DirectionsRenderer } from 'react-google-maps'
+import { DirectionsHelper, LocationsHelper } from 'utils'
 
 export default class Map extends React.Component {
   static propTypes = {
     locations: React.PropTypes.array.isRequired,
     data: React.PropTypes.array.isRequired,
     params: React.PropTypes.object
+  };
+
+  static defaultProps = {
+    locations: []
   };
 
   setDirections(props) {
@@ -79,7 +83,6 @@ export default class Map extends React.Component {
       //this.state.directions,
       _.filter(this.state.directions, (x, i) => _.contains(this.state.highlighted, i)),
       (x, i) => {
-        console.log(x, i)
         return (
           <DirectionsRenderer
             key={i}
@@ -91,6 +94,36 @@ export default class Map extends React.Component {
     );
   }
 
+  renderMarkers() {
+    const { origin, destination } = this.props.params;
+
+    if (_.isEmpty(origin) || _.isEmpty(destination)) return null;
+
+    const { locations } = this.props,
+          originLocation = LocationsHelper.getByCode(this.props.locations, origin),
+          destinationLocation = LocationsHelper.getByCode(this.props.locations, destination);
+
+    if (_.isEmpty(originLocation) || _.isEmpty(destinationLocation)) return null;
+
+    const originLatLon = new google.maps.LatLng(originLocation.lat, originLocation.lon),
+          destinationLatLon = new google.maps.LatLng(destinationLocation.lat, destinationLocation.lon);
+
+    return [
+      (
+      <Marker
+        key={1}
+        position={originLatLon}
+        label={'A'} />
+      ),
+      (
+      <Marker
+        key={2}
+        position={destinationLatLon}
+        label={'B'} />
+      )
+    ]
+  }
+
   renderGoogleMapElement() {
     const googleMapStyle = { height: `100%`, width: '100%' }
 
@@ -99,6 +132,7 @@ export default class Map extends React.Component {
       defaultZoom={7}
       defaultCenter={null} >
         {this.renderDirections()}
+        {this.renderMarkers()}
     </GoogleMap>
   }
 

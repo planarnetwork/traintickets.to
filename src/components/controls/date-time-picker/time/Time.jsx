@@ -4,7 +4,6 @@ import InputSlider from 'react-input-slider'
 export default class Time extends React.Component {
   changeHours(pos) {
     let m = this.props.moment;
-    console.log(parseInt(pos.x, 10))
     m.hours(parseInt(pos.x, 10));
     this.props.onChange(m);
   }
