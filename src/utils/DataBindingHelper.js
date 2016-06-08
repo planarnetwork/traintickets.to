@@ -40,7 +40,7 @@ class DataBindingHelper {
 
         return {
             value: this.getValue(state, key),
-            requestChange: (value => {
+            onChange: (value => {
                 this.setValue(key, value, state, changeFn);
             }).bind(this)
         }

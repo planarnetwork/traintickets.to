@@ -1,5 +1,6 @@
 import classes from './JourneyForm.scss';
 import moment from 'moment';
+import DateInput from 'components/controls/date-input/DateInput'
 import BlockCentered from 'components/layout/block-centered/BlockCentered'
 import LocationAutocompleteInput from 'components/controls/location-autocomplete-input/LocationAutocompleteInput'
 import CustomIcon from 'components/controls/icon/CustomIcon'
@@ -101,8 +102,16 @@ export default class JourneyForm extends React.Component {
     this.setDefaultData(nextProps);
   }
 
+  onDateChange(value) {
+    debugger;
+  }
+
   render() {
     const { locations, className } = this.props;
+
+    const origin = DataBindingHelper.linkWithState('origin', this),
+          destination = DataBindingHelper.linkWithState('destination', this),
+          date = DataBindingHelper.linkWithState('date', this);
 
     return (
       <form onSubmit={::this.onSubmit} className={className + ' ' + classes.journeyForm}>
@@ -112,24 +121,22 @@ export default class JourneyForm extends React.Component {
 
           <div className={classes.origin}>
             <LocationAutocompleteInput
-              valueLink={DataBindingHelper.linkWithState('origin', this)}
+              {...origin}
               autocompleteItems={locations}
               placeholder="Origin" />
           </div>
 
           <div className={classes.destination}>
             <LocationAutocompleteInput
-              valueLink={DataBindingHelper.linkWithState('destination', this)}
+              {...destination}
               autocompleteItems={locations}
               placeholder="Destinition" />
           </div>
         </figure>
 
         <div className={classes.submitAndDate} >
-          <input
-            valueLink={DataBindingHelper.linkWithState('date', this)}
-            className={classes.date}
-            type="date" />
+          <DateInput
+            {...date} />
           <button className={classes.submit} type="submit" >Go</button>
         </div>
 

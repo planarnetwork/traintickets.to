@@ -1,0 +1,12 @@
+@import '~static/styles/color-palette.scss';
+
+.currentDay {
+  color: $white !important;
+  font-weight: bold;
+  background-color: $blue;
+}
+
+.prevMonth,
+.nextMonth {
+  color: $gray-dark;
+}

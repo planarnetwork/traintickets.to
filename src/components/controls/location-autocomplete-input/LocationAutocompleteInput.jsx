@@ -1,5 +1,5 @@
 import classes from './LocationAutocompleteInput.scss'
-import ValueLinkedComponent from '../ValueLinkedComponent'
+import ValueLinkedComponent from 'components/controls/ValueLinkedComponent'
 import Autosuggest from 'react-autosuggest'
 import { LocationsHelper } from 'utils'
 

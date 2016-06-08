@@ -46,25 +46,7 @@
   width: 165px;
   height: 26px;
   margin: 0 10px 0 0;
-  padding: 10px 0px 10px 20px;
-  font-family: Helvetica, sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  border: none;
-  border-bottom: 2px solid $blue-light;
-  border-radius: 0px;
-  background-color: transparent;
-  background-image: url(static/images/custom-icons/date.png);
-  background-position: left center;
-  background-repeat: no-repeat;
-  color: $white;
-  appearance: none;
-
-  &:focus {
-    outline: none;
-  }
-
-  &::-webkit-calendar-picker-indicator { background: transparent; }
+  display: inline-block;
 }
 
 .submit {

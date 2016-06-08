@@ -57,7 +57,10 @@ const config = {
     'react-bootstrap',
     'react-google-maps',
     'moment',
-    'moment-duration-format'
+    'moment-duration-format',
+    'classnames',
+    'lodash',
+    'react-input-slider'
   ],
 
   // ----------------------------------

@@ -66,7 +66,9 @@ webpackConfig.plugins = [
       'ReactRedux': 'react-redux',
       'FontAwesome': 'react-fontawesome',
       '_': 'underscore',
-      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
+      'moment': 'moment',
+      'classnames': 'classnames'
   })
 ]
 
@@ -148,6 +150,21 @@ webpackConfig.module.loaders = [{
 {
   test: /\.json$/,
   loader: 'file'
+},
+{
+  test: /\.(js|jsx)$/,
+  include: /node_modules\/input-moment/,
+  loader: 'babel',
+  query: {
+    cacheDirectory: true,
+    plugins: [],
+    presets: ["react"],
+    env: {
+      production: {
+        presets: ['react-optimize']
+      }
+    }
+  }
 }]
 
 // ------------------------------------
