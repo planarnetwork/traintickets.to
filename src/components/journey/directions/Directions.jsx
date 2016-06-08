@@ -39,6 +39,8 @@ export default class Directions extends React.Component {
         expanded={ i == (expanded * 1) } />
     ), this);
 
+    console.log(directionComponents)
+
     let directionsClass = `${(className || '')} ${!this.state.expanded && classes.directionsCollapsed} ${classes.directions}`;
 
     return (

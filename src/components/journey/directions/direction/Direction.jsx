@@ -4,6 +4,7 @@ import WalkLeg from './legs/walk/WalkLeg';
 import TubeLeg from './legs/tube/TubeLeg';
 import BusLeg from './legs/bus/BusLeg';
 import CustomIcon from 'components/controls/icon/CustomIcon';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 export default class Direction extends React.Component {
   constructor() {
@@ -55,11 +56,23 @@ export default class Direction extends React.Component {
             name={expanded ? 'chevron-down' : 'chevron-right' } />
           <h3 >{direction.departureTime} - {direction.arrivalTime}</h3>
         </section>
-        <section className={classes.directionBody} style={{ display: expanded ? 'block' : 'none' }}>
-          <section>
-            {legs}
-          </section>
-        </section>
+
+        <div className={classes.directionsBodyContainer}>
+          <ReactCSSTransitionGroup
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}
+            transitionName={classes}
+            component="section"
+            className={classes.directionBody} >
+
+            { expanded && (
+              <section>
+                {legs}
+              </section>
+            )}
+
+          </ReactCSSTransitionGroup>
+        </div>
       </section>
     )
   }
