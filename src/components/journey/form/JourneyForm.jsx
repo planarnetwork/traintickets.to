@@ -15,7 +15,7 @@ export default class JourneyForm extends React.Component {
   state = {
     origin: null,
     destination: null,
-    date: null
+    date: moment().format('YYYY-MM-DD H:mm')
   }
 
   static propTypes = {
@@ -45,7 +45,7 @@ export default class JourneyForm extends React.Component {
 
     let origin = defaultOrigin || '',
         destination = defaultDestination || '',
-        date = defaultDate || '';
+        date = defaultDate || moment().format('YYYY-MM-DD H:mm');
 
     this.setState({
       origin: LocationsHelper.getNameByCode(locations, origin),
