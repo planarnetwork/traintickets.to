@@ -1,3 +1,3 @@
 export default {
-  directionsUrl: require('static/data/directions.json')
+  directionsUrl: "http://ttt.local/api/journey-plan"
 }
