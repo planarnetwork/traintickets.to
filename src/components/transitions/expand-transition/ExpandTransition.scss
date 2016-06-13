@@ -1,0 +1,16 @@
+.enter {
+  margin-top: -100%;
+  overflow: hidden;
+}
+.enter.enterActive {
+  margin-top: 0%;
+  transition: all 500ms ease-in;
+}
+.leave {
+  margin-top: 0%;
+  overflow: hidden;
+}
+.leave.leaveActive {
+  margin-top: -100%;
+  transition: all 300ms ease-in;
+}

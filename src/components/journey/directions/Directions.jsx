@@ -27,8 +27,8 @@ export default class Directions extends React.Component {
     this.setState({ expanded: !this.state.expanded })
   }
 
-  render() {
-    const { className, loading, locations, directions, expanded, expandDirection } = this.props;
+  renderDirections() {
+    const { loading, directions, locations, expandDirection, expanded } = this.props;
 
     const directionComponents = _.map(directions, (x, i) => (
       <Direction
@@ -39,25 +39,29 @@ export default class Directions extends React.Component {
         expanded={ i == (expanded * 1) } />
     ), this);
 
-    console.log(directionComponents)
+    return (
+      <section className={classes.directionsBody} >
+        { loading ? (
+          <figure className={classes.directionsLoadingIndicator}>
+            <LoadingIndicator />
+          </figure>
+        ) : directionComponents }
+      </section>
+    )
+  }
 
-    let directionsClass = `${(className || '')} ${!this.state.expanded && classes.directionsCollapsed} ${classes.directions}`;
+  render() {
+    const { className, loading, locations, directions, expanded, expandDirection } = this.props;
 
     return (
-      <section className={directionsClass}>
+      <section className={classnames(className, classes.directions, {[classes.directionsCollapsed]: !this.state.expanded})}>
         <section className={classes.header} onClick={::this.toggle}>
           <h2>Directions</h2>
           <CustomIcon
-            className={classes.expandIcon}
-            name={this.state.expanded ? 'chevron-down' : 'chevron-right' } />
+            className={classnames(classes.expandIcon, { [classes.expandIconDown]: this.state.expanded })}
+            name="chevron-right" />
         </section>
-        <section className={classes.directionsBody} style={{ display: this.state.expanded ? 'block' : 'none' }}>
-          { loading ? (
-            <figure className={classes.directionsLoadingIndicator}>
-              <LoadingIndicator />
-            </figure>
-          ) : directionComponents }
-        </section>
+        { this.renderDirections() }
       </section>
     )
   }

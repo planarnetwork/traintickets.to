@@ -1,7 +1,6 @@
 @import '~static/styles/color-palette.scss';
 
 .dateInputContainer {
-  position: relative;
   width: 150px;
   height: 100%;
   margin: 0 10px 0 0;
@@ -32,8 +31,19 @@
   &::-webkit-calendar-picker-indicator { background: transparent; }
 }
 
+.datePickerContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: rgba(255, 255, 255, .85)
+}
+
 .datePicker {
   position: absolute;
-
-
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

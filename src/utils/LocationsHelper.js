@@ -25,7 +25,12 @@ export default class LocationsHelper {
 
     return inputLength === 0 ? [] : _.filter(locations, x =>
       x.name.toLowerCase().slice(0, inputLength) === inputValue ||
-      x.code.toLowerCase().slice(0, inputLength) === inputValue,
+      x.code.toLowerCase().slice(0, inputLength) === inputValue ||
+      this.getStringValue(x).toLowerCase().slice(0, inputLength) === inputValue,
       this);
+  }
+
+  static findClosestLocation(locations, lat, lon) {
+    return _.min(locations, (x) => Math.abs(x.lat - lat) + Math.abs(x.lon - lon), this);
   }
 }

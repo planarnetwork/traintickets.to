@@ -2,6 +2,8 @@
 
 .directions {
   height: 100%;
+  overflow: hidden;
+  transition: height 500ms ease-in;
 }
 
 .directionsCollapsed {
@@ -10,7 +12,15 @@
 
 .directionsBody {
   height: calc(100% - 40px);
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.directionsContainer {
+  margin: 0;
+  padding: 0;
+  height: 100%;
   position: relative;
 }
 
@@ -47,4 +57,11 @@
   float: right;
   height: 40px;
   margin: 0 10px 0 0;
+  cursor: pointer;
+  transform: none;
+  transition: transform 200ms linear;
+}
+
+.expandIconDown {
+  transform: rotateZ(90deg);
 }

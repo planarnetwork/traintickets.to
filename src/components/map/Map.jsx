@@ -1,8 +1,14 @@
 import classes from './Map.scss'
 import { GoogleMapLoader, GoogleMap, Marker, DirectionsService, DirectionsRenderer } from 'react-google-maps'
-import { DirectionsHelper, LocationsHelper } from 'utils'
+import { DirectionsHelper, LocationsHelper, geolocation } from 'utils'
+
+const londonLatLon = new google.maps.LatLng(51.5085300, -0.1257400)
 
 export default class Map extends React.Component {
+  state = {
+    defaultCenter: londonLatLon
+  };
+
   static propTypes = {
     locations: React.PropTypes.array.isRequired,
     data: React.PropTypes.array.isRequired,
@@ -62,12 +68,42 @@ export default class Map extends React.Component {
     })
   }
 
+  getOriginAndDestinitionLocations() {
+    const { origin, destination } = this.props.params;
+
+    if (_.isEmpty(origin) || _.isEmpty(destination)) return null;
+
+    const { locations } = this.props,
+          originLocation = LocationsHelper.getByCode(this.props.locations, origin),
+          destinationLocation = LocationsHelper.getByCode(this.props.locations, destination);
+
+    if (_.isEmpty(originLocation) || _.isEmpty(destinationLocation)) return null;
+
+    const originLatLon = new google.maps.LatLng(originLocation.lat, originLocation.lon),
+          destinationLatLon = new google.maps.LatLng(destinationLocation.lat, destinationLocation.lon);
+
+    return { origin: originLatLon, destination: destinationLatLon }
+  }
+
   componentWillMount() {
     this.setDirections(this.props);
   }
 
   componentWillReceiveProps(newProps) {
     this.setDirections(newProps);
+
+    const { locations, params } = newProps;
+
+    if (locations.length && _.isEmpty(params.origin)) {
+      geolocation.getCurrentPosition((position) => {
+        const location = LocationsHelper.findClosestLocation(locations, position.coords.latitude, position.coords.longitude);
+        this.setState({
+          defaultCenter: new google.maps.LatLng(location.lat, location.lon)
+        })
+      }, (reason) => {
+        console.log(reason);
+      });
+    }
   }
 
   renderContainer() {
@@ -87,38 +123,27 @@ export default class Map extends React.Component {
           <DirectionsRenderer
             key={i}
             directions={x}
-            options={{ suppressMarkers: true, markerOptions: { opacity: 0 } }} />
+            options={{ suppressMarkers: true, markerOptions: { opacity: 0 }, preserveViewport: true }} />
         )
       },
       this
     );
   }
 
-  renderMarkers() {
-    const { origin, destination } = this.props.params;
-
-    if (_.isEmpty(origin) || _.isEmpty(destination)) return null;
-
-    const { locations } = this.props,
-          originLocation = LocationsHelper.getByCode(this.props.locations, origin),
-          destinationLocation = LocationsHelper.getByCode(this.props.locations, destination);
-
-    if (_.isEmpty(originLocation) || _.isEmpty(destinationLocation)) return null;
-
-    const originLatLon = new google.maps.LatLng(originLocation.lat, originLocation.lon),
-          destinationLatLon = new google.maps.LatLng(destinationLocation.lat, destinationLocation.lon);
+  renderMarkers(originDestinitionLocations) {
+    if (!originDestinitionLocations) return null;
 
     return [
       (
       <Marker
         key={1}
-        position={originLatLon}
+        position={originDestinitionLocations.origin}
         label={'A'} />
       ),
       (
       <Marker
         key={2}
-        position={destinationLatLon}
+        position={originDestinitionLocations.destination}
         label={'B'} />
       )
     ]
@@ -126,13 +151,15 @@ export default class Map extends React.Component {
 
   renderGoogleMapElement() {
     const googleMapStyle = { height: `100%`, width: '100%' }
+    const originDestinitionLocations = this.getOriginAndDestinitionLocations();
 
     return <GoogleMap
       containerProps={{ style: googleMapStyle }}
-      defaultZoom={7}
-      defaultCenter={null} >
+      zoom={9}
+      center={originDestinitionLocations ? originDestinitionLocations.origin : this.state.defaultCenter}
+      options={{ mapTypeControl: false, panControl: false, streetViewControl: false }} >
         {this.renderDirections()}
-        {this.renderMarkers()}
+        {this.renderMarkers(originDestinitionLocations)}
     </GoogleMap>
   }
 

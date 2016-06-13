@@ -4,7 +4,7 @@ import DateInput from 'components/controls/date-input/DateInput'
 import BlockCentered from 'components/layout/block-centered/BlockCentered'
 import LocationAutocompleteInput from 'components/controls/location-autocomplete-input/LocationAutocompleteInput'
 import CustomIcon from 'components/controls/icon/CustomIcon'
-import { DataBindingHelper, LocationsHelper } from 'utils'
+import { DataBindingHelper, LocationsHelper, geolocation } from 'utils'
 import { push } from 'react-router-redux';
 
 export default class JourneyForm extends React.Component {
@@ -46,6 +46,17 @@ export default class JourneyForm extends React.Component {
     let origin = defaultOrigin || '',
         destination = defaultDestination || '',
         date = defaultDate || moment().format('YYYY-MM-DD H:mm');
+
+    if (_.isEmpty(origin) && locations.length) {
+      geolocation.getCurrentPosition((position) => {
+        const location = LocationsHelper.findClosestLocation(locations, position.coords.latitude, position.coords.longitude);
+        this.setState({
+          origin: LocationsHelper.getStringValue(location)
+        })
+      }, (reason) => {
+        console.log(reason);
+      });
+    }
 
     this.setState({
       origin: LocationsHelper.getNameByCode(locations, origin),

@@ -18,9 +18,9 @@ export default class Home extends React.Component {
     const { locations, locationsRequest, dispatch, className } = this.props;
 
     return (
-      <BlockCentered className={(className || '') + ' ' + classes.journeyFormPanel}>
+      <section className={(className || '') + ' ' + classes.journeyFormPanel}>
         <JourneyForm {...locations} dispatch={dispatch} locationsRequest={locationsRequest} className={classes.journeyForm} />
-      </BlockCentered>
+      </section>
     )
   }
 }

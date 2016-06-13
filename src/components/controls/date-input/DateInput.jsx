@@ -1,6 +1,7 @@
 import classes from './DateInput.scss'
 import ValueLinkedComponent from 'components/controls/ValueLinkedComponent'
 import DateTimePicker from 'components/controls/date-time-picker/DateTimePicker'
+import PopupTransition from 'components/transitions/popup-transition/PopupTransition'
 
 const dateFormat = "YYYY-MM-DD H:mm";
 
@@ -60,14 +61,20 @@ export default class DateInput extends ValueLinkedComponent {
           onChange={() => null}
           onClick={this.showDatePicker}
           onFocus={this.showDatePicker} />
-        { datePickerVisible && (
-            <DateTimePicker
-              style={{}}
-              className={classes.datePicker}
-              moment={momentValue}
-              hideDatePicker={this.hideDatePicker}
-              onChange={::this.onChange}
-              onSave={::this.onSave} />) }
+          <PopupTransition className="" component="div">
+            { datePickerVisible && (
+                <div className={classes.datePickerContainer} >
+                    <DateTimePicker
+                      style={{}}
+                      className={classes.datePicker}
+                      moment={momentValue}
+                      hideDatePicker={this.hideDatePicker}
+                      onChange={::this.onChange}
+                      onSave={::this.onSave} />
+                </div>
+              )
+            }
+          </PopupTransition>
       </figure>
     )
   }

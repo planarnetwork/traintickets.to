@@ -4,7 +4,7 @@ import WalkLeg from './legs/walk/WalkLeg';
 import TubeLeg from './legs/tube/TubeLeg';
 import BusLeg from './legs/bus/BusLeg';
 import CustomIcon from 'components/controls/icon/CustomIcon';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import ExpandTransition from 'components/transitions/expand-transition/ExpandTransition'
 
 export default class Direction extends React.Component {
   constructor() {
@@ -33,37 +33,48 @@ export default class Direction extends React.Component {
     }
   }
 
+  showAll() {
+    this.setState({ showAll: true });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.expanded && nextProps.expanded) {
+      this.setState({ showAll: false });
+    }
+  }
+
+  renderModeIcons() {
+    const { direction } = this.props;
+
+    return _.map(_.take(direction.legs, 4), (x, i) => (
+      <figure key={i} className={classes.headerIcon} >
+        <CustomIcon  name={x.mode} />
+      </figure>
+    ), this);
+  }
+
   render() {
     const { className, direction, expand, expanded, ...other } = this.props;
 
     const legs = _.map(direction.legs, this.renderLeg, this);
 
-    const modeIcons = _.map(direction.legs, (x, i) => (
-      <figure key={i} className={classes.headerIcon} >
-        <CustomIcon  name={x.mode} />
-      </figure>
-    ), this);
-
     return (
       <section className={(className || '') + ' ' + classes.direction}>
-        <section className={classes.header}>
+        <section className={classes.header} onClick={expand} >
           <div className={classes.modeIcons}>
-            {modeIcons}
+            {this.renderModeIcons()}
           </div>
           <CustomIcon
-            onClick={expand}
-            className={classes.expandIcon}
-            name={expanded ? 'chevron-down' : 'chevron-right' } />
+            className={classnames(classes.expandIcon, { [classes.expandIconDown]: expanded })}
+            name="chevron-right" />
+          {direction.legs.length > 4 && (<span className={classes.moreDots}>...</span>)}
           <h3 >{direction.departureTime} - {direction.arrivalTime}</h3>
         </section>
 
         <div className={classes.directionsBodyContainer}>
-          <ReactCSSTransitionGroup
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={300}
-            transitionName={classes}
+          <ExpandTransition
             component="section"
-            className={classes.directionBody} >
+            className={''} >
 
             { expanded && (
               <section>
@@ -71,7 +82,7 @@ export default class Direction extends React.Component {
               </section>
             )}
 
-          </ReactCSSTransitionGroup>
+          </ExpandTransition>
         </div>
       </section>
     )
