@@ -26,8 +26,19 @@ export default class LocationLocationAutocompleteInput extends ValueLinkedCompon
     placeholder: ''
   };
 
-  onInputChange(e) {
+  onInputChange(e, data) {
     this.getValueLink().requestChange(e.target.value);
+  }
+
+  onInputKeyDown(e, data) {
+    // tab key
+    if(e.keyCode == 9) {
+      const suggestions = LocationsHelper.find(this.props.autocompleteItems, e.target.value);
+      if (suggestions.length) {
+        const value = LocationsHelper.getStringValue(suggestions[0]);
+        this.getValueLink().requestChange(value);
+      }
+    }
   }
 
   getSuggestions(value) {
@@ -53,13 +64,18 @@ export default class LocationLocationAutocompleteInput extends ValueLinkedCompon
     this.getValueLink().requestChange(this.getSuggestionValue(suggestion));
   }
 
+  shouldRenderSuggestions(value) {
+    return true;
+  }
+
   render() {
     const { className, valueLink, value, onChange, autocompleteItems, placeholder, ...other } = this.props;
 
     const inputProps = {
       value: this.getValueLink().value,
       onChange: this.onInputChange.bind(this),
-      placeholder: placeholder
+      placeholder: placeholder,
+      onKeyDown: this.onInputKeyDown.bind(this)
     }
 
     const suggestions = this.getSuggestions(this.getValueLink().value);
@@ -70,6 +86,7 @@ export default class LocationLocationAutocompleteInput extends ValueLinkedCompon
         suggestions={suggestions}
         getSuggestionValue={::this.getSuggestionValue}
         onSuggestionSelected={::this.onSuggestionSelected}
+        shouldRenderSuggestions={::this.shouldRenderSuggestions}
         renderSuggestion={::this.renderSuggestion}
         inputProps={inputProps} />
     )

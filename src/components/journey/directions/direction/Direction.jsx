@@ -1,10 +1,12 @@
-import classes from './Direction.scss';
-import TrainLeg from './legs/train/TrainLeg';
-import WalkLeg from './legs/walk/WalkLeg';
-import TubeLeg from './legs/tube/TubeLeg';
-import BusLeg from './legs/bus/BusLeg';
-import CustomIcon from 'components/controls/icon/CustomIcon';
+import classes from './Direction.scss'
+import TrainLeg from './legs/train/TrainLeg'
+import WalkLeg from './legs/walk/WalkLeg'
+import TubeLeg from './legs/tube/TubeLeg'
+import MetroLeg from './legs/metro/MetroLeg'
+import BusLeg from './legs/bus/BusLeg'
+import CustomIcon from 'components/controls/icon/CustomIcon'
 import ExpandTransition from 'components/transitions/expand-transition/ExpandTransition'
+import { DateTimeHelper } from 'utils'
 
 export default class Direction extends React.Component {
   constructor() {
@@ -28,6 +30,8 @@ export default class Direction extends React.Component {
         return ( <TubeLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
       case 'bus':
         return ( <BusLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
+      case 'metro':
+        return ( <MetroLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
       default:
         return null
     }
@@ -68,7 +72,7 @@ export default class Direction extends React.Component {
             className={classnames(classes.expandIcon, { [classes.expandIconDown]: expanded })}
             name="chevron-right" />
           {direction.legs.length > 4 && (<span className={classes.moreDots}>...</span>)}
-          <h3 >{direction.departureTime} - {direction.arrivalTime}</h3>
+          <h3 >{DateTimeHelper.parseTime(direction.departureTime)} - {DateTimeHelper.parseTime(direction.arrivalTime)}</h3>
         </section>
 
         <div className={classes.directionsBodyContainer}>

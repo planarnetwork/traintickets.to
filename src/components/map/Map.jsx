@@ -2,7 +2,8 @@ import classes from './Map.scss'
 import { GoogleMapLoader, GoogleMap, Marker, DirectionsService, DirectionsRenderer } from 'react-google-maps'
 import { DirectionsHelper, LocationsHelper, geolocation } from 'utils'
 
-const londonLatLon = new google.maps.LatLng(51.5085300, -0.1257400)
+const londonLatLon = new google.maps.LatLng(51.5085300, -0.1257400);
+let requestId = 0;
 
 export default class Map extends React.Component {
   state = {
@@ -19,53 +20,79 @@ export default class Map extends React.Component {
     locations: []
   };
 
+  iterateDirections(requestId, locations, data, params) {
+    const highlighted = params.expanded ? params.expanded * 1 : 0;
+
+    DirectionsHelper.iterateDirections(data, locations, highlighted, this.requestDirection.bind(this, requestId));
+  }
+
+  requestDirection(requestId, directionData) {
+    const travelMode =
+      directionData.mode == 'walk' ?
+      google.maps.TravelMode.WALKING :
+      google.maps.TravelMode.TRANSIT;
+
+    let transitOptions = {};
+
+    if (directionData.mode == 'train' || directionData.mode == 'tube') {
+      transitOptions.modes = [google.maps.TransitMode.TRAIN]
+    }
+    else if (directionData.mode == 'bus') {
+      transitOptions.modes = [google.maps.TransitMode.BUS]
+    }
+    else if (directionData.mode == 'metro') {
+      transitOptions.modes = [google.maps.TransitMode.SUBWAY]
+    }
+
+    const DirectionsService = new google.maps.DirectionsService();
+
+    const requestRoute = () => {
+      if (this.state.requestId != requestId) return;
+
+      DirectionsService.route({
+        origin: new google.maps.LatLng(directionData.origin.lat, directionData.origin.lon),
+        destination: new google.maps.LatLng(directionData.destination.lat, directionData.destination.lon),
+        travelMode: travelMode,
+        transitOptions: transitOptions
+      }, (result, status) => {
+
+        if (this.state.requestId != requestId) return;
+
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.setState({
+            directions: this.state.directions.concat(result),
+            highlighted:
+              directionData.highlighted ?
+              this.state.highlighted.concat(this.state.directions.length) :
+              this.state.highlighted
+          });
+        }
+        else {
+          if (status == 'OVER_QUERY_LIMIT') {
+            setTimeout(requestRoute, 1000);
+          }
+          else {
+            console.error(`error fetching directions ${ status }`);
+          }
+        }
+      });
+    }
+
+    if (directionData.highlighted) {
+      requestRoute();
+    }
+  }
+
   setDirections(props) {
     if (_.isEmpty(props.locations) || _.isEmpty(props.data)) return;
 
     this.setState({
       directions: [],
-      highlighted: []
-    }, () => {
-      const { locations, data, params } = props;
-      const highlighted = params.expanded ? params.expanded * 1 : 0;
+      highlighted: [],
+      requestId: requestId
+    }, this.iterateDirections.bind(this, requestId, props.locations, props.data, props.params));
 
-      const DirectionsService = new google.maps.DirectionsService();
-
-      DirectionsHelper.iterateDirections(data, locations, highlighted, (directionData) => {
-        const travelMode =
-          directionData.mode == 'walk' ?
-          google.maps.TravelMode.WALKING :
-          google.maps.TravelMode.TRANSIT;
-
-        let transitOptions = {};
-
-        if (directionData.mode == 'train' || directionData.mode == 'tube') {
-          transitOptions.modes = [google.maps.TransitMode.TRAIN]
-        }
-        else if (directionData.mode == 'bus') {
-          transitOptions.modes = [google.maps.TransitMode.BUS]
-        }
-
-        DirectionsService.route({
-          origin: new google.maps.LatLng(directionData.origin.lat, directionData.origin.lon),
-          destination: new google.maps.LatLng(directionData.destination.lat, directionData.destination.lon),
-          travelMode: travelMode,
-          transitOptions: transitOptions
-        }, (result, status) => {
-          if (status === google.maps.DirectionsStatus.OK) {
-            this.setState({
-              directions: this.state.directions.concat(result),
-              highlighted:
-                directionData.highlighted ?
-                this.state.highlighted.concat(this.state.directions.length) :
-                this.state.highlighted
-            });
-          } else {
-            console.error(`error fetching directions ${ result }`);
-          }
-        });
-      });
-    })
+    requestId += 1;
   }
 
   getOriginAndDestinitionLocations() {

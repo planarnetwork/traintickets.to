@@ -34,7 +34,9 @@ export function directionsRequest(origin, destination, date) {
       error: null
     }));
 
-    fetch(`${config.directionsUrl}?origin=${origin}&destination=${destination}&date=${date}`)
+    const url = `${config.directionsUrl}?origin=${origin}&destination=${destination}&date=${date}`;
+
+    fetch(url)
       .then((response) => {
         return response.json();
       })

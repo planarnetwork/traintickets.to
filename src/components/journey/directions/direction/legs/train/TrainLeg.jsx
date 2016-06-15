@@ -1,6 +1,6 @@
 import classes from './TrainLeg.scss'
 import LegIcon from 'components/controls/leg-icon/LegIcon'
-import { LocationsHelper } from 'utils'
+import { LocationsHelper, DateTimeHelper } from 'utils'
 
 export default class TrainLeg extends React.Component {
   constructor() {
@@ -15,7 +15,7 @@ export default class TrainLeg extends React.Component {
   renderCallingPoint(callingPoint, index) {
     return (
       <li className={classes.callingPoint} key={index} >
-        <div className={classes.time} >{callingPoint.time} </div>
+        <div className={classes.time} >{DateTimeHelper.parseTime(callingPoint.time)} </div>
         <div className={classes.station} >
           {LocationsHelper.getNameByCode(this.props.locations, callingPoint.station)}
         </div>

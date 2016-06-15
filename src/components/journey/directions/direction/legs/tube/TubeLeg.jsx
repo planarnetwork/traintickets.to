@@ -1,10 +1,7 @@
 import classes from './TubeLeg.scss';
 
-import moment from 'moment';
-import 'moment-duration-format';
-
 import LegIcon from 'components/controls/leg-icon/LegIcon';
-import { LocationsHelper } from 'utils'
+import { LocationsHelper, DateTimeHelper } from 'utils'
 
 export default class TubeLeg extends React.Component {
   constructor() {
@@ -21,7 +18,7 @@ export default class TubeLeg extends React.Component {
   render() {
     const { className, origin, destination, duration, locations } = this.props;
 
-    const formattedDuration = moment.duration(duration).format("h [hrs], m [min]");
+    const formattedDuration = DateTimeHelper.parseDuration(duration);
     const stationName = LocationsHelper.getNameByCode(locations, destination);
 
     return (
