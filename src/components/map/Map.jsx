@@ -1,5 +1,5 @@
 import classes from './Map.scss'
-import { GoogleMapLoader, GoogleMap, Marker, DirectionsService, DirectionsRenderer } from 'react-google-maps'
+import { GoogleMapLoader, GoogleMap, Marker, DirectionsService, DirectionsRenderer, Polyline } from 'react-google-maps'
 import { DirectionsHelper, LocationsHelper, geolocation } from 'utils'
 
 const londonLatLon = new google.maps.LatLng(51.5085300, -0.1257400);
@@ -147,10 +147,10 @@ export default class Map extends React.Component {
       _.filter(this.state.directions, (x, i) => _.contains(this.state.highlighted, i)),
       (x, i) => {
         return (
-          <DirectionsRenderer
+          <Polyline
             key={i}
-            directions={x}
-            options={{ suppressMarkers: true, markerOptions: { opacity: 0 }, preserveViewport: true }} />
+            path={x.routes[0].overview_path}
+            options={{ strokeColor: '#3367d6', strokeWeight: 4 }} />
         )
       },
       this
@@ -177,13 +177,25 @@ export default class Map extends React.Component {
   }
 
   renderGoogleMapElement() {
-    const googleMapStyle = { height: `100%`, width: '100%' }
-    const originDestinitionLocations = this.getOriginAndDestinitionLocations();
+    const googleMapStyle = { height: `100%`, width: '100%' },
+          originDestinitionLocations = this.getOriginAndDestinitionLocations(),
+          defaultCenter = originDestinitionLocations ? originDestinitionLocations.origin : this.state.defaultCenter,
+          mapComponent = this.refs.mapComponent;
+
+    let center = defaultCenter
+
+    if (mapComponent && mapComponent.props.center) {
+      center = mapComponent.props.defaultCenter.lat() != defaultCenter.lat() ||
+               mapComponent.props.defaultCenter.lng() != defaultCenter.lng() ?
+               defaultCenter : mapComponent.getCenter();
+    }
 
     return <GoogleMap
+      ref="mapComponent"
       containerProps={{ style: googleMapStyle }}
       zoom={9}
-      center={originDestinitionLocations ? originDestinitionLocations.origin : this.state.defaultCenter}
+      defaultCenter={defaultCenter}
+      center={center}
       options={{ mapTypeControl: false, panControl: false, streetViewControl: false }} >
         {this.renderDirections()}
         {this.renderMarkers(originDestinitionLocations)}

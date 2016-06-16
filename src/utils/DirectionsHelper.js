@@ -47,8 +47,8 @@ export default class DirectionsHelper {
     return {
       origin: originLocation,
       destination: destinationLocation,
-      highlighted: highlighted,
-      mode: mode
+      highlighted,
+      mode
     }
   }
 }
