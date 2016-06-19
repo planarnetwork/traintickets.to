@@ -60,6 +60,9 @@ const config = {
     'moment-duration-format',
     'classnames',
     'lodash',
+    'react-input-slider',
+    'classnames',
+    'lodash',
     'react-input-slider'
   ],
 

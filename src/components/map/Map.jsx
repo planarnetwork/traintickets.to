@@ -1,6 +1,8 @@
 import classes from './Map.scss'
-import { GoogleMapLoader, GoogleMap, Marker, DirectionsService, DirectionsRenderer, Polyline } from 'react-google-maps'
+import { GoogleMapLoader, GoogleMap, Marker, DirectionsRenderer, Polyline } from 'react-google-maps'
 import { DirectionsHelper, LocationsHelper, geolocation } from 'utils'
+
+const DirectionsService = new google.maps.DirectionsService();
 
 const londonLatLon = new google.maps.LatLng(51.5085300, -0.1257400);
 let requestId = 0;
@@ -23,7 +25,11 @@ export default class Map extends React.Component {
   iterateDirections(requestId, locations, data, params) {
     const highlighted = params.expanded ? params.expanded * 1 : 0;
 
-    DirectionsHelper.iterateDirections(data, locations, highlighted, this.requestDirection.bind(this, requestId));
+    DirectionsHelper.iterateDirections(
+      data,
+      locations,
+      highlighted,
+      directionData => this.requestDirection(requestId, directionData));
   }
 
   requestDirection(requestId, directionData) {
@@ -43,8 +49,6 @@ export default class Map extends React.Component {
     else if (directionData.mode == 'metro') {
       transitOptions.modes = [google.maps.TransitMode.SUBWAY]
     }
-
-    const DirectionsService = new google.maps.DirectionsService();
 
     const requestRoute = () => {
       if (this.state.requestId != requestId) return;
@@ -69,7 +73,7 @@ export default class Map extends React.Component {
         }
         else {
           if (status == 'OVER_QUERY_LIMIT') {
-            setTimeout(requestRoute, 1000);
+            setTimeout(requestRoute, 100);
           }
           else {
             console.error(`error fetching directions ${ status }`);
@@ -117,7 +121,7 @@ export default class Map extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.setDirections(newProps);
+    setTimeout(() => this.setDirections(newProps), 300);
 
     const { locations, params } = newProps;
 
@@ -193,7 +197,7 @@ export default class Map extends React.Component {
     return <GoogleMap
       ref="mapComponent"
       containerProps={{ style: googleMapStyle }}
-      zoom={9}
+      defaultZoom={9}
       defaultCenter={defaultCenter}
       center={center}
       options={{ mapTypeControl: false, panControl: false, streetViewControl: false }} >

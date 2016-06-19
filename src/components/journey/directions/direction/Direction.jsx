@@ -5,7 +5,6 @@ import TubeLeg from './legs/tube/TubeLeg'
 import MetroLeg from './legs/metro/MetroLeg'
 import BusLeg from './legs/bus/BusLeg'
 import CustomIcon from 'components/controls/icon/CustomIcon'
-import ExpandTransition from 'components/transitions/expand-transition/ExpandTransition'
 import { DateTimeHelper } from 'utils'
 
 export default class Direction extends React.Component {
@@ -17,7 +16,9 @@ export default class Direction extends React.Component {
     direction: React.PropTypes.object.isRequired,
     expand: React.PropTypes.func.isRequired,
     expanded: React.PropTypes.bool.isRequired,
-    locations: React.PropTypes.array.isRequired
+    locations: React.PropTypes.array.isRequired,
+    setTopOffset: React.PropTypes.func.isRequired,
+    getDirectionsBodyTopOffset: React.PropTypes.func.isRequired
   };
 
   renderLeg(leg, index) {
@@ -47,6 +48,19 @@ export default class Direction extends React.Component {
     }
   }
 
+  expand() {
+    const prevPosition = ReactDOM.findDOMNode(this).getBoundingClientRect().top - this.props.getDirectionsBodyTopOffset();
+    this.setState({ prevPosition });
+    this.props.expand();
+  }
+
+  componentDidUpdate() {
+    if (this.props.expanded) {
+      const newTopOffset = ReactDOM.findDOMNode(this).offsetTop - (this.state ? this.state.prevPosition : 0);
+      this.props.setTopOffset(newTopOffset);
+    }
+  }
+
   renderModeIcons() {
     const { direction } = this.props;
 
@@ -64,7 +78,7 @@ export default class Direction extends React.Component {
 
     return (
       <section className={(className || '') + ' ' + classes.direction}>
-        <section className={classes.header} onClick={expand} >
+        <section className={classes.header} onClick={::this.expand} >
           <div className={classes.modeIcons}>
             {this.renderModeIcons()}
           </div>
@@ -76,17 +90,13 @@ export default class Direction extends React.Component {
         </section>
 
         <div className={classes.directionsBodyContainer}>
-          <ExpandTransition
-            component="section"
-            className={''} >
-
-            { expanded && (
+          {
+            expanded && (
               <section>
-                {legs}
+                { legs }
               </section>
-            )}
-
-          </ExpandTransition>
+            )
+          }
         </div>
       </section>
     )

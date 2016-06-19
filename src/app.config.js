@@ -1,5 +1,5 @@
 export default {
-  directionsUrl: 'http://ttt.local/api/journey-plan',
+  directionsUrl: require('static/data/directions0.json'),
   serverTimeFormat: 'HH:mm:ss',
   uiTimeFormat: 'HH:mm',
   uiDurationFormat: 'h [hrs], m [min]'

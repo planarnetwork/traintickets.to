@@ -27,20 +27,31 @@ export default class Directions extends React.Component {
     this.setState({ expanded: !this.state.expanded })
   }
 
+  setTopOffset(value) {
+    this.refs.directionsBody.scrollTop = value;
+  }
+
+  getDirectionsBodyTopOffset() {
+    return this.refs.directionsBody.getBoundingClientRect().top;
+  }
+
   renderDirections() {
     const { loading, directions, locations, expandDirection, expanded } = this.props;
 
     const directionComponents = _.map(directions, (x, i) => (
       <Direction
+        ref={'direction' + i}
         key={i}
         direction={x}
         locations={locations}
         expand={_.partial(expandDirection, i)}
-        expanded={ i == (expanded * 1) } />
+        expanded={ i == (expanded * 1) }
+        setTopOffset={::this.setTopOffset}
+        getDirectionsBodyTopOffset={::this.getDirectionsBodyTopOffset} />
     ), this);
 
     return (
-      <section className={classes.directionsBody} >
+      <section ref="directionsBody" className={classes.directionsBody} >
         { loading ? (
           <figure className={classes.directionsLoadingIndicator}>
             <LoadingIndicator />
