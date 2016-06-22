@@ -1,5 +1,5 @@
 export default {
-  directionsUrl: require('static/data/directions0.json'),
+  directionsUrl: '/api/journey-plan',
   serverTimeFormat: 'HH:mm:ss',
   uiTimeFormat: 'HH:mm',
   uiDurationFormat: 'h [hrs], m [min]'
