@@ -27,7 +27,7 @@ export default class TrainLeg extends React.Component {
     const { className, callingPoints, ...other } = this.props;
 
     return (
-      <section className={(className || '') + ' ' + classes.trainLeg}>
+      <section className={classnames(classes.trainLeg, className)}>
         <LegIcon mode="train" />
         <ul className={classes.callingPoints}>
           {_.map(callingPoints, this.renderCallingPoint, this)}

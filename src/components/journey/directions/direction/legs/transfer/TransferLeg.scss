@@ -1,0 +1,22 @@
+.transferLeg {
+  position: relative;
+  padding-left: 80px;
+  height: 70px;
+  line-height: 70px;
+  margin: 0 10px;
+}
+
+.text {
+  padding: 10px 0;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 300;
+
+  span {
+    font-weight: 500;
+    white-space: nowrap;
+  }
+}

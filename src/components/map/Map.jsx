@@ -2,19 +2,18 @@ import classes from './Map.scss'
 import { GoogleMapLoader, GoogleMap, Marker, DirectionsRenderer, Polyline } from 'react-google-maps'
 import { DirectionsHelper, LocationsHelper, geolocation } from 'utils'
 
-const DirectionsService = new google.maps.DirectionsService();
-
 const londonLatLon = new google.maps.LatLng(51.5085300, -0.1257400);
 let requestId = 0;
 
 export default class Map extends React.Component {
   state = {
-    defaultCenter: londonLatLon
+    defaultCenter: londonLatLon,
+    shouldRenderMap: true
   };
 
   static propTypes = {
     locations: React.PropTypes.array.isRequired,
-    data: React.PropTypes.array.isRequired,
+    data: React.PropTypes.any.isRequired,
     params: React.PropTypes.object
   };
 
@@ -29,62 +28,18 @@ export default class Map extends React.Component {
       data,
       locations,
       highlighted,
-      directionData => this.requestDirection(requestId, directionData));
-  }
-
-  requestDirection(requestId, directionData) {
-    const travelMode =
-      directionData.mode == 'walk' ?
-      google.maps.TravelMode.WALKING :
-      google.maps.TravelMode.TRANSIT;
-
-    let transitOptions = {};
-
-    if (directionData.mode == 'train' || directionData.mode == 'tube') {
-      transitOptions.modes = [google.maps.TransitMode.TRAIN]
-    }
-    else if (directionData.mode == 'bus') {
-      transitOptions.modes = [google.maps.TransitMode.BUS]
-    }
-    else if (directionData.mode == 'metro') {
-      transitOptions.modes = [google.maps.TransitMode.SUBWAY]
-    }
-
-    const requestRoute = () => {
-      if (this.state.requestId != requestId) return;
-
-      DirectionsService.route({
-        origin: new google.maps.LatLng(directionData.origin.lat, directionData.origin.lon),
-        destination: new google.maps.LatLng(directionData.destination.lat, directionData.destination.lon),
-        travelMode: travelMode,
-        transitOptions: transitOptions
-      }, (result, status) => {
-
-        if (this.state.requestId != requestId) return;
-
-        if (status === google.maps.DirectionsStatus.OK) {
-          this.setState({
+      directionData =>
+        DirectionsHelper.requestDirectionsFromGoogle(
+          requestId,
+          directionData,
+          (directionData, result) => this.setState({
             directions: this.state.directions.concat(result),
             highlighted:
               directionData.highlighted ?
               this.state.highlighted.concat(this.state.directions.length) :
               this.state.highlighted
-          });
-        }
-        else {
-          if (status == 'OVER_QUERY_LIMIT') {
-            setTimeout(requestRoute, 100);
-          }
-          else {
-            console.error(`error fetching directions ${ status }`);
-          }
-        }
-      });
-    }
-
-    if (directionData.highlighted) {
-      requestRoute();
-    }
+          }),
+          () => this.state.requestId));
   }
 
   setDirections(props) {
@@ -116,8 +71,21 @@ export default class Map extends React.Component {
     return { origin: originLatLon, destination: destinationLatLon }
   }
 
+  onResize = function() {
+    const { shouldRenderMap } = this.state;
+
+    if(window.innerWidth < 768 && shouldRenderMap) {
+      this.setState({ shouldRenderMap: false })
+    }
+    else if (window.innerWidth >= 768 && !shouldRenderMap) {
+      this.setState({ shouldRenderMap: true })
+    }
+  }.bind(this);
+
   componentWillMount() {
     this.setDirections(this.props);
+    window.addEventListener('resize', this.onResize, true);
+    this.onResize();
   }
 
   componentWillReceiveProps(newProps) {
@@ -135,6 +103,10 @@ export default class Map extends React.Component {
         console.log(reason);
       });
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize, true);
   }
 
   renderContainer() {
@@ -207,13 +179,16 @@ export default class Map extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children } = this.props,
+          { shouldRenderMap } = this.state;
 
     return (
       <section className={classes.mapWrapper}>
-        <GoogleMapLoader
-          containerElement={this.renderContainer()}
-          googleMapElement={this.renderGoogleMapElement()} />
+        { shouldRenderMap && (
+          <GoogleMapLoader
+            containerElement={this.renderContainer()}
+            googleMapElement={this.renderGoogleMapElement()} />
+        )}
 
         {children}
       </section>

@@ -22,7 +22,7 @@ export default class BusLeg extends React.Component {
     const stationName = LocationsHelper.getNameByCode(locations, destination);
 
     return (
-      <section className={(className || '') + ' ' + classes.busLeg}>
+      <section className={classnames(classes.busLeg, className)}>
         <LegIcon mode="bus" />
         <div className={classes.text} >
           <span>{formattedDuration}</span> by bus to <span>{stationName}</span>

@@ -17,7 +17,7 @@ export default class Directions extends React.Component {
     loaded: React.PropTypes.bool.isRequired,
     loading: React.PropTypes.bool.isRequired,
     error: React.PropTypes.any,
-    directions: React.PropTypes.array.isRequired,
+    directions: React.PropTypes.any.isRequired,
     expandDirection: React.PropTypes.func.isRequired,
     expanded: React.PropTypes.string.isRequired,
     locations: React.PropTypes.array.isRequired
@@ -65,7 +65,7 @@ export default class Directions extends React.Component {
     const { className, loading, locations, directions, expanded, expandDirection } = this.props;
 
     return (
-      <section className={classnames(className, classes.directions, {[classes.directionsCollapsed]: !this.state.expanded})}>
+      <div className={classnames(className, classes.directions, {[classes.directionsCollapsed]: !this.state.expanded})}>
         <section className={classes.header} onClick={::this.toggle}>
           <h2>Directions</h2>
           <CustomIcon
@@ -73,7 +73,7 @@ export default class Directions extends React.Component {
             name="chevron-right" />
         </section>
         { this.renderDirections() }
-      </section>
+      </div>
     )
   }
 }

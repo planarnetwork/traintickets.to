@@ -80,3 +80,9 @@
   font-size: 16px;
   border-radius: 3px;
 }
+
+@media (max-width: 767.999px) {
+  .dateTimePicker {
+    box-shadow: none;
+  }
+}

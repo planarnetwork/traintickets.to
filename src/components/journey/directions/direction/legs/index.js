@@ -1,0 +1,6 @@
+export train from './train/TrainLeg'
+export walk from './walk/WalkLeg'
+export tube from './tube/TubeLeg'
+export metro from './metro/MetroLeg'
+export bus from './bus/BusLeg'
+export transfer from './transfer/TransferLeg'

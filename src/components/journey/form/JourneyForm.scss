@@ -67,3 +67,17 @@
   border: 1px solid transparent;
   border-radius: 4px;
 }
+
+@media (max-width: 767.999px) {
+  .origin {
+    width: calc(100% - 60px);
+  }
+
+  .destination {
+    width: calc(100% - 60px);
+  }
+
+  .submitAndDate {
+    width: calc(100% - 20px);
+  }
+}

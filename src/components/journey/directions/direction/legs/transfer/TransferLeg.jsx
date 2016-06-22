@@ -1,9 +1,9 @@
-import classes from './TubeLeg.scss';
+import classes from './TransferLeg.scss';
 
 import LegIcon from 'components/controls/leg-icon/LegIcon';
 import { LocationsHelper, DateTimeHelper } from 'utils'
 
-export default class TubeLeg extends React.Component {
+export default class TransferLeg extends React.Component {
   constructor() {
     super();
   }
@@ -22,10 +22,10 @@ export default class TubeLeg extends React.Component {
     const stationName = LocationsHelper.getNameByCode(locations, destination);
 
     return (
-      <section className={classnames(classes.tubeLeg, className)}>
-        <LegIcon mode="tube" />
+      <section className={classnames(classes.transferLeg, className)}>
+        <LegIcon mode="walk" />
         <div className={classes.text} >
-          <span>{formattedDuration}</span> by tube to <span>{stationName}</span>
+          Transfer to <span>{stationName}</span>, <span>{formattedDuration}</span>
         </div>
       </section>
     )

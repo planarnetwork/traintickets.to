@@ -1,9 +1,11 @@
 import classes from './Direction.scss'
+import * as legComponents from './legs'
 import TrainLeg from './legs/train/TrainLeg'
 import WalkLeg from './legs/walk/WalkLeg'
 import TubeLeg from './legs/tube/TubeLeg'
 import MetroLeg from './legs/metro/MetroLeg'
 import BusLeg from './legs/bus/BusLeg'
+import TransferLeg from './legs/transfer/TransferLeg'
 import CustomIcon from 'components/controls/icon/CustomIcon'
 import { DateTimeHelper } from 'utils'
 
@@ -22,20 +24,28 @@ export default class Direction extends React.Component {
   };
 
   renderLeg(leg, index) {
-    switch (leg.mode) {
-      case 'train':
-        return ( <TrainLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
-      case 'walk':
-        return ( <WalkLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
-      case 'tube':
-        return ( <TubeLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
-      case 'bus':
-        return ( <BusLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
-      case 'metro':
-        return ( <MetroLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
-      default:
-        return null
-    }
+    // switch (leg.mode) {
+    //   case 'train':
+    //     return ( <TrainLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
+    //   case 'walk':
+    //     return ( <WalkLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
+    //   case 'tube':
+    //     return ( <TubeLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
+    //   case 'bus':
+    //     return ( <BusLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
+    //   case 'metro':
+    //     return ( <MetroLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
+    //   case 'transfer':
+    //     return ( <TransferLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
+    //   default:
+    //     return null
+    // }
+    return React.createElement(legComponents[leg.mode], {
+      key: index,
+      className: classes.leg,
+      locations: this.props.locations,
+      ...leg
+    });
   }
 
   showAll() {

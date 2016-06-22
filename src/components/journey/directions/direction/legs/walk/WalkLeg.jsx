@@ -22,7 +22,7 @@ export default class WalkLeg extends React.Component {
     const stationName = LocationsHelper.getNameByCode(locations, destination);
 
     return (
-      <section className={(className || '') + ' ' + classes.walkLeg}>
+      <section className={classnames(classes.walkLeg, className)}>
         <LegIcon mode="walk" />
         <div className={classes.text} >
           Go about <span>{formattedDuration}</span> to <span>{stationName}</span>

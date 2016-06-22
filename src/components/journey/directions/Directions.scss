@@ -65,3 +65,13 @@
 .expandIconDown {
   transform: rotateZ(90deg);
 }
+
+@media (max-width: 767.999px) {
+  .directionsBody {
+    height: 100%;
+  }
+
+  .header {
+    display: none;
+  }
+}

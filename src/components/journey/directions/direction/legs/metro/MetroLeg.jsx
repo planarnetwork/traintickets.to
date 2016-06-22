@@ -22,7 +22,7 @@ export default class TubeLeg extends React.Component {
     const stationName = LocationsHelper.getNameByCode(locations, destination);
 
     return (
-      <section className={(className || '') + ' ' + classes.metroLeg}>
+      <section className={classnames(classes.metroLeg, className)}>
         <LegIcon mode="tube" />
         <div className={classes.text} >
           <span>{formattedDuration}</span> by tube to <span>{stationName}</span>
