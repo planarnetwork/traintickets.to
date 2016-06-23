@@ -17,7 +17,7 @@ export default class TrainLeg extends React.Component {
       <li className={classes.callingPoint} key={index} >
         <div className={classes.time} >{DateTimeHelper.parseTime(callingPoint.time)} </div>
         <div className={classes.station} >
-          {LocationsHelper.getNameByCode(this.props.locations, callingPoint.station)}
+          {LocationsHelper.getNameByCode(this.props.locations, callingPoint.station).substring(0, 31)}
         </div>
       </li>
     )

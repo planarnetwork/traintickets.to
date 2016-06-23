@@ -1,11 +1,5 @@
 import classes from './Direction.scss'
 import * as legComponents from './legs'
-import TrainLeg from './legs/train/TrainLeg'
-import WalkLeg from './legs/walk/WalkLeg'
-import TubeLeg from './legs/tube/TubeLeg'
-import MetroLeg from './legs/metro/MetroLeg'
-import BusLeg from './legs/bus/BusLeg'
-import TransferLeg from './legs/transfer/TransferLeg'
 import CustomIcon from 'components/controls/icon/CustomIcon'
 import { DateTimeHelper } from 'utils'
 
@@ -24,22 +18,6 @@ export default class Direction extends React.Component {
   };
 
   renderLeg(leg, index) {
-    // switch (leg.mode) {
-    //   case 'train':
-    //     return ( <TrainLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
-    //   case 'walk':
-    //     return ( <WalkLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
-    //   case 'tube':
-    //     return ( <TubeLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
-    //   case 'bus':
-    //     return ( <BusLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
-    //   case 'metro':
-    //     return ( <MetroLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
-    //   case 'transfer':
-    //     return ( <TransferLeg className={classes.leg} key={index} locations={this.props.locations} {...leg} /> )
-    //   default:
-    //     return null
-    // }
     return React.createElement(legComponents[leg.mode], {
       key: index,
       className: classes.leg,
@@ -89,14 +67,14 @@ export default class Direction extends React.Component {
     return (
       <section className={(className || '') + ' ' + classes.direction}>
         <section className={classes.header} onClick={::this.expand} >
-          <div className={classes.modeIcons}>
-            {this.renderModeIcons()}
-          </div>
+          <h3 >
+            {DateTimeHelper.parseTime(direction.departureTime)} - {DateTimeHelper.parseTime(direction.arrivalTime)} (
+            {DateTimeHelper.getDuration(direction.departureTime, direction.arrivalTime)}, { legs.length -1 } changes)
+          </h3>
+
           <CustomIcon
             className={classnames(classes.expandIcon, { [classes.expandIconDown]: expanded })}
             name="chevron-right" />
-          {direction.legs.length > 4 && (<span className={classes.moreDots}>...</span>)}
-          <h3 >{DateTimeHelper.parseTime(direction.departureTime)} - {DateTimeHelper.parseTime(direction.arrivalTime)}</h3>
         </section>
 
         <div className={classes.directionsBodyContainer}>

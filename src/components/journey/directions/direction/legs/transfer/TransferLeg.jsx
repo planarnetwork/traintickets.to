@@ -23,7 +23,7 @@ export default class TransferLeg extends React.Component {
 
     return (
       <section className={classnames(classes.transferLeg, className)}>
-        <LegIcon mode="walk" />
+        <LegIcon mode="transfer" />
         <div className={classes.text} >
           Transfer to <span>{stationName}</span>, <span>{formattedDuration}</span>
         </div>

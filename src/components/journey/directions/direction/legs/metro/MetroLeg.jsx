@@ -23,7 +23,7 @@ export default class TubeLeg extends React.Component {
 
     return (
       <section className={classnames(classes.metroLeg, className)}>
-        <LegIcon mode="tube" />
+        <LegIcon mode="metro" />
         <div className={classes.text} >
           <span>{formattedDuration}</span> by tube to <span>{stationName}</span>
         </div>
