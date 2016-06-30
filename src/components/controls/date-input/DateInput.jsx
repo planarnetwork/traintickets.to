@@ -3,7 +3,7 @@ import ValueLinkedComponent from 'components/controls/ValueLinkedComponent'
 import DateTimePicker from 'components/controls/date-time-picker/DateTimePicker'
 import PopupTransition from 'components/transitions/popup-transition/PopupTransition'
 
-const dateFormat = "YYYY-MM-DD H:mm";
+const dateFormat = "YYYY-MM-DD HH:mm";
 
 export default class DateInput extends ValueLinkedComponent {
 
