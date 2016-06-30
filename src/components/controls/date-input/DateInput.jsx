@@ -56,6 +56,7 @@ export default class DateInput extends ValueLinkedComponent {
         className={classes.dateInputContainer} >
         <input
           tabIndex="-1"
+          readOnly="readonly"
           type="text"
           className={classes.dateInput}
           value={value}
