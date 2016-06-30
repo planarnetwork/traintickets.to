@@ -141,7 +141,7 @@ export default class JourneyForm extends React.Component {
             <LocationAutocompleteInput
               {...destination}
               autocompleteItems={locations}
-              placeholder="Destinition" />
+              placeholder="Destination" />
           </div>
         </figure>
 
