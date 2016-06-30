@@ -50,3 +50,9 @@
   max-height: 100%;
   overflow: scroll;
 }
+
+@media (max-width: 767.999px) {
+  .datePickerContainer {
+    height: 425px;
+  }
+}
