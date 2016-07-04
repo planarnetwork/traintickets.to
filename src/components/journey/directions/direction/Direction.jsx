@@ -48,17 +48,7 @@ export default class Direction extends React.Component {
       this.props.setTopOffset(newTopOffset);
     }
   }
-
-  renderModeIcons() {
-    const { direction } = this.props;
-
-    return _.map(_.take(direction.legs, 4), (x, i) => (
-      <figure key={i} className={classes.headerIcon} >
-        <CustomIcon  name={x.mode} />
-      </figure>
-    ), this);
-  }
-
+  
   render() {
     const { className, direction, expand, expanded, ...other } = this.props;
 
