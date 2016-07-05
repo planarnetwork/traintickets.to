@@ -8,7 +8,7 @@ export default class DirectionsHelper {
       const highlightedCurrent = journeyIndex == highlighted;
 
       _.each(journey.legs, (leg, legIndex) => {
-        if (leg.mode == 'train') {
+        if (leg.callingPoints) {
           _.each(leg.callingPoints, (callingPoint, callingPointIndex) => {
             if (callingPointIndex < leg.callingPoints.length - 1) {
               const directionData = this.getDirectionData(

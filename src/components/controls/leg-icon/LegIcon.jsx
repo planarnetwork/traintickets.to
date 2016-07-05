@@ -10,7 +10,7 @@ export default class LegIcon extends React.Component {
         const { mode, className, ...other } = this.props;
 
         return (
-            <span className={className + ' ' + classes.legIcon}>
+            <span title={mode} className={className + ' ' + classes.legIcon}>
               <CustomIcon name={mode} />
             </span>
         );
