@@ -15484,5 +15484,227 @@
     "code": "ZNP",
     "lat": 51.57505,
     "lon": 0.08969
+  },
+  {
+    "code": "0410",
+    "name": "Bedford Stations",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0418",
+    "name": "Birmingham",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "1780",
+    "name": "Bootle (Merseyside)",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0424",
+    "name": "Bradford (West Yorkshire)",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0428",
+    "name": "Canterbury",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0258",
+    "name": "Catford Stations",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0254",
+    "name": "Colchester Stations",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0449",
+    "name": "Croydon",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0429",
+    "name": "Dorchester",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0416",
+    "name": "Dorking Stations",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0259",
+    "name": "Edenbridge Stations",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0263",
+    "name": "Enfield",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0431",
+    "name": "Falkirk",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0260",
+    "name": "Farnborough",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0432",
+    "name": "Folkestone",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0433",
+    "name": "Glasgow",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0404",
+    "name": "Helensburgh",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0413",
+    "name": "Hertford",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0435",
+    "name": "Liverpool",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "1072",
+    "name": "London (Any)",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "3667",
+    "name": "Luton Airport",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0437",
+    "name": "Maidstone",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0438",
+    "name": "Manchester",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0441",
+    "name": "Newark",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0262",
+    "name": "Penge",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0268",
+    "name": "Pontefract",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0440",
+    "name": "Portsmouth",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0403",
+    "name": "Reading Stations",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0411",
+    "name": "Southend",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0271",
+    "name": "Thorne",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "7468",
+    "name": "Tilbury",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0443",
+    "name": "Tyndrum",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0265",
+    "name": "West Hampstead",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0444",
+    "name": "Wakefield",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0445",
+    "name": "Warrington",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0446",
+    "name": "Wigan",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0447",
+    "name": "Worcester",
+    "lat": 51.0000,
+    "lon": 0.0000
   }
 ]
