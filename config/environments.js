@@ -14,7 +14,7 @@ export default {
       enabled: false,
       options: {
         host: 'http://localhost:8000',
-        match: /^\/api\/.*/
+        match: /^\/jp\/.*/
       }
     }
   }),
