@@ -1,0 +1,17 @@
+@import "../../styles/vars";
+.graph {
+  background: $color-white;
+  padding: 20px 0;
+}
+.h-title {
+  width: 1366px;
+  margin: 0 auto;
+  text-transform: uppercase;
+  color: $color-darkblue;
+  font-weight: $bold;
+  padding: 0 70px 20px;
+  font-size: 28px;
+}
+.recharts-wrapper {
+  margin: 0 auto;
+}

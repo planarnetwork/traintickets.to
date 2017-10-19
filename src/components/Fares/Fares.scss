@@ -1,0 +1,171 @@
+@import "../../styles/vars";
+.fares {
+  padding-bottom: 60px;
+  background: $bg-body;
+  .owl-prev {
+    position: absolute;
+    left: -80px;
+    top: 40%;
+  }
+  .owl-next {
+    position: absolute;
+    right: -80px;
+    top: 40%;
+  }
+  .owl-stage {
+    margin: 5px;
+  }
+  .fa-caret-left, .fa-caret-right {
+    font-size: 42px;
+    color: #5a8fd5;
+  }
+
+  &-out, &-return {
+    padding: 30px 0;
+  }
+
+  &-title {
+    font-size: 20px;
+    margin-bottom: 30px;
+    color: $color-primary;
+  }
+}
+
+.fare {
+  margin-right: 20px;
+
+  &-input {
+    width: 140px;
+    background-color: $bg-grey;
+    padding-top: 10px;
+    display: block;
+  }
+
+  &-bottom {
+    background-color: $color-white;
+    padding-bottom: 10px;
+  }
+
+  &-station, &-time {
+    width: 65px;
+  }
+
+  &-station {
+    font-size: 12px;
+  }
+
+  &-time {
+    font-size: 14px;
+    color: $color-primary;
+    margin-top: 3px;
+  }
+
+  &-ticket {
+    font-size: 12px;
+    line-height: 16px;
+    height: 60px;
+    padding: 0 10px;
+  }
+
+  &-price {
+    color: $color-primary;
+    font-size: 20px;
+    padding-top: 12px;
+    margin-bottom: 7px;
+  }
+
+  .pound {
+    font-size: 16px;
+  }
+
+  .pence {
+    font-size: 18px;
+  }
+}
+.radio {
+  display: none;
+}
+.radio-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+.radio:checked + .radio-custom::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  background: #fd9210;
+  border-radius: 2px;
+}
+.radio-custom,
+.radio:checked + .radio-custom::before {
+  border-radius: 50%;
+}
+.duration {
+  font-size: 11px;
+  color: $color-duration;
+  margin-top: 8px;
+  margin-bottom: 10px;
+
+  &:after {
+    content: "";
+    display: block;
+    height: 1px;
+    background-color: $color-white;
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 8px;
+  }
+}
+.tap {
+  position: fixed;
+  opacity: 0;
+  border-radius: 50%;
+  bottom: -190px;
+  right: -190px;
+  padding: 90px 75px 20px;
+  background-color: #fb9212;
+  z-index: 55;
+  box-shadow: 0 20px 20px 0 rgba(0,0,0,0.55), 0 10px 50px 0 rgba(0,0,0,0.55), 0 30px 10px -20px rgba(0,0,0,0.2);
+  animation: load-tap .5s cubic-bezier(.51,.92,.24,1.15) forwards;
+  &-head {
+    color: #034496;
+    font-size: 32px;
+    text-transform: uppercase;
+  }
+  &-price {
+    font-size: 32px;
+    padding-top: 7px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    color: $color-white;
+    .pence, .pound {
+      font-size: 20px;
+    }
+  }
+  &-footer {
+    color: $color-white;
+    font-size: 18px;
+  }
+}
+
+@keyframes load-tap {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  100% {
+    width: 400px;
+    height: 400px;
+    opacity: 1;
+  }
+}
