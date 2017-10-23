@@ -16,8 +16,16 @@
     margin: 5px;
   }
   .fa-caret-left, .fa-caret-right {
-    font-size: 42px;
+    font-size: 64px;
     color: #5a8fd5;
+  }
+  .owl-nav {
+    .disabled {
+      cursor: auto;
+      .fa-caret-left, .fa-caret-right {
+        opacity: 0.4;
+      }
+    }
   }
 
   &-out, &-return {
@@ -32,7 +40,6 @@
 }
 
 .fare {
-  margin-right: 20px;
 
   &-input {
     width: 140px;

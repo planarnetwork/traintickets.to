@@ -9,7 +9,7 @@
   }
 
   &-col-1 {
-    width: auto;
+    width: 200px;
     padding-left: 0;
   }
   &-col-2 {
@@ -21,7 +21,7 @@
   }
 
   &-col-4 {
-    width: auto;
+    width: 325px;
     border-right: none;
   }
 
@@ -53,11 +53,11 @@
 
   &-group {
     margin-bottom: 10px;
+    position: relative;
     input[type='text'] {
       padding: 0 40px 0 10px;
     }
   }
-
   &-label-input {
     input {
       height: 40px !important;
@@ -80,7 +80,7 @@
   }
 
   &-number {
-    width: 50px !important;
+    width: 28px !important;
     input {
       text-align: center;
     }
@@ -101,4 +101,17 @@
     margin: 5px 40px 5px 0;
     vertical-align: text-top;
   }
+}
+.number-left, .number-right {
+  position: absolute;
+  top: 22px;
+  font-size: 24px;
+  color: #598ed4;
+  cursor: pointer;
+}
+.number-left {
+  left: -5px;
+}
+.number-right {
+  right: -5px;
 }

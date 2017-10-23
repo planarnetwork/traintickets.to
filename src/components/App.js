@@ -8,6 +8,7 @@ import Footer from  './Footer/Footer';
 class App extends Component {
     constructor(props) {
         super(props);
+        sessionStorage.clear()
     }
     render() {
         return (

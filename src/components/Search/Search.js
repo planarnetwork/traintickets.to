@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {AutoComplete, DatePicker, TextField, SelectField, MenuItem, RadioButtonGroup, RadioButton, Checkbox} from 'material-ui';
+import {AutoComplete, DatePicker, TextField, SelectField, Chip, MenuItem, RadioButtonGroup, RadioButton, Checkbox, FontIcon} from 'material-ui';
 import moment from 'moment'
 import locations from '../../data/locations.json';
 import railcards from '../../data/railcards.json';
@@ -14,25 +14,32 @@ class Search extends Component {
         minDate.setFullYear(minDate.getFullYear());
         minDate.setHours(0, 0, 0, 0);
         maxDate.setFullYear(maxDate.getFullYear());
-        maxDate.setHours(0, 0, 0, 0);
+        maxDate.setHours(24, 0, 0, 0);
 
         this.state = {
             origin: '',
             destination: '',
-            adults: 1,
-            children: 0,
+            adults: 2,
+            children: 2,
             minDate: minDate,
             maxDate: maxDate,
+            searchText: '',
+            railcards: railcards.map((key) => key.name),
+            chipData: [],
+            chipCode: [],
             autoOk: false,
             disableYearSelection: false,
-            railcards: ['HMF'],
             filClass: 'standardClass',
-            singles: false,
-            returns: false,
+            singles: true,
+            returns: true,
             advance: false,
+            offPeack: true,
+            anytime: true,
         };
 
         this.search = this.search.bind(this);
+        this.testAdults = this.testAdults.bind(this);
+        this.testChildren = this.testChildren.bind(this);
     }
 
     handleChangeMinDate = (event, date) => {
@@ -53,27 +60,111 @@ class Search extends Component {
         }
     };
 
-    handleChange = (event, index, railcards) => {
-        this.setState({railcards});
+    handleUpdateInput = (searchText) => {
+        let chipKey;
+        for (let i = 0; i < this.state.chipCode.length; i++) {
+            chipKey = i + 1;
+        }
+        if(this.state.chipData.map((chip) => chip.key).indexOf(chipKey) > -1) {
+            chipKey = this.state.chipData.length + 1;
+        } else {
+            for (let i = 0; i < this.state.chipCode.length; i++) {
+                chipKey = i + 1;
+            }
+        }
+        this.setState({
+            chipData: this.state.chipData.concat([{key: chipKey === undefined ? 0 : chipKey, label: searchText}]),
+            searchText: '',
+        });
+    };
+
+    handleRequestDelete = (key) => {
+        this.chipData = this.state.chipData;
+        this.chipCode = this.state.chipCode;
+        const chipToDelete = this.chipData.map((chip) => chip.key).indexOf(key);
+        const chipCodeToDelete = this.chipCode.map((chip) => chip.key).indexOf(key);
+        this.chipData.splice(chipToDelete, 1);
+        this.chipCode.splice(chipCodeToDelete, 1);
+        this.setState({
+            chipData: this.chipData,
+            chipCode: this.chipCode,
+        });
         if(this.state.origin.length && this.state.destination.length) {
             this.search()
         }
     };
 
-    selectionRenderer = (railcard) => {
-        let railcardFound = railcards.find((e) => {
-            return e.code === this.state.railcards.toString();
+    handleRequestAdd = () => {
+        let chipsFound = railcards.find((e) => {
+            let result;
+            this.state.chipData.map((key) => key.label).forEach(function(item) {
+                result = e.name === item;
+            });
+            return result;
         });
-        let oneRailcard = railcardFound ? railcardFound.name : undefined;
-        switch (railcard.length) {
-            case 0:
-                return '';
-            case 1:
-                return `${oneRailcard} selected`;
-            default:
-                return `${railcard.length} railcards selected`;
+        let chips = chipsFound ? chipsFound.code : undefined;
+        let chipKey;
+        for (let i = 0; i < this.state.chipData.length; i++) {
+            chipKey = i;
         }
+        if(this.state.chipCode.map((chip) => chip.key).indexOf(chipKey) > -1) {
+            chipKey = this.state.chipCode.length + 1;
+        } else {
+            for (let i = 0; i < this.state.chipData.length; i++) {
+                chipKey = i;
+            }
+        }
+        this.setState({chipCode: this.state.chipCode.concat([{key: chipKey, label: chips}])})
     };
+
+    renderChip(data) {
+        return (
+            <Chip
+                key={data.key}
+                onRequestDelete={() => this.handleRequestDelete(data.key)}
+                style={{
+                    margin: '1px',
+                    display: 'inline-block',
+                }}
+                labelStyle={{
+                    fontSize: 9,
+                }}
+                deleteIconStyle={{
+                    height: 16,
+                    width: 16,
+                    margin: '0px 7px -4px -7px',
+                }}
+            >
+                {data.label}
+            </Chip>
+        );
+    }
+
+    testAdults(event) {
+        let value = event.target.value;
+        let rep = /[-\.;":'a-zA-Zа-яА-Я]/;
+        if (rep.test(value)) {
+            value = value.replace(rep, this.state.adults);
+            event.target.value = value;
+        }
+        this.setState({adults: event.target.value});
+        if(this.state.origin.length && this.state.destination.length) {
+            this.search()
+        }
+    }
+
+    testChildren(event) {
+        let value = event.target.value;
+        let rep = /[-\.;":'a-zA-Zа-яА-Я]/;
+        if (rep.test(value)) {
+            value = value.replace(rep, this.state.children);
+            event.target.value = value;
+        }
+        this.setState({children: event.target.value});
+        if(this.state.origin.length && this.state.destination.length) {
+            this.search()
+        }
+    }
 
     async search() {
         let self = await this;
@@ -84,7 +175,9 @@ class Search extends Component {
         o = o[o.length - 1];
         d = d[d.length - 1];
         let filClass = self.state.filClass;
-        search(o, d, self.state.minDate, self.state.adults, self.state.children, self.state.maxDate, self.state.railcards.toString(), filClass, self.state.singles, self.state.returns, self.state.advance)
+        let chipCode = self.state.chipCode.map((chips) => chips.label).toString();
+
+        search(o, d, moment(self.state.minDate).format("YYYY-MM-DD"), self.state.adults, self.state.children, moment(self.state.maxDate).format("YYYY-MM-DD"), chipCode, filClass, self.state.singles, self.state.returns, self.state.advance, self.state.offPeack, self.state.anytime)
             .then((data) => {
                 self.props.rebaseData('searchResult', data)
             })
@@ -94,6 +187,7 @@ class Search extends Component {
     }
 
     render() {
+        const today = new Date();
         const styles = {
             selectRoot: {
                 width: 200,
@@ -134,11 +228,13 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">ORIGIN</p>
                                 <AutoComplete
-                                    filter={AutoComplete.fuzzyFilter}
                                     dataSource={locations.map((key) => key.name + ' - ' + key.code)}
                                     maxSearchResults={10}
                                     className="form-label-input Indigo"
                                     menuProps={menuProps}
+                                    textFieldStyle={{
+                                        width: 180,
+                                    }}
                                     onNewRequest={(data) => {
                                         this.setState({origin: data});
                                         if(this.state.destination.length) {
@@ -151,11 +247,13 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">DESTINATION</p>
                                 <AutoComplete
-                                    filter={AutoComplete.fuzzyFilter}
                                     dataSource={locations.map((key) => key.name + ' - ' + key.code)}
                                     maxSearchResults={10}
                                     className="form-label-input"
                                     menuProps={menuProps}
+                                    textFieldStyle={{
+                                        width: 180,
+                                    }}
                                     onNewRequest={(data) => {
                                         this.setState({destination: data});
                                         if(this.state.origin.length) {
@@ -172,8 +270,9 @@ class Search extends Component {
                                 <DatePicker
                                     onChange={this.handleChangeMinDate}
                                     autoOk={this.state.autoOk}
-                                    defaultDate={this.state.maxDate}
+                                    defaultDate={this.state.minDate}
                                     disableYearSelection={this.state.disableYearSelection}
+                                    minDate={today}
                                     className="form-label-input form-calendar"
                                     formatDate={(date) => moment(date).format('ddd, ' + 'DD MMM YYYY')}
                                     style={styles.calendar}
@@ -186,8 +285,8 @@ class Search extends Component {
                                 <DatePicker
                                     onChange={this.handleChangeMaxDate}
                                     autoOk={this.state.autoOk}
-                                    defaultDate={this.state.minDate}
                                     disableYearSelection={this.state.disableYearSelection}
+                                    minDate={this.state.minDate}
                                     className="form-label-input form-calendar"
                                     formatDate={(date) => moment(date).format('ddd, ' + 'DD MMM YYYY')}
                                     style={styles.calendar}
@@ -200,64 +299,91 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">Adults</p>
                                 <TextField
-                                    type="number"
-                                    defaultValue={this.state.adults}
-                                    min="0"
-                                    max="9"
+                                    type="text"
+                                    value={this.state.adults}
                                     className="form-label-input form-number"
                                     onChange={(event) => {
-                                        this.setState({adults: event.target.value});
-                                        if(this.state.origin.length && this.state.destination.length) {
-                                            this.search()
-                                        }
+                                        this.testAdults(event);
                                     }}
                                 />
+                                <i className="fa fa-caret-left number-left" aria-hidden="true" onClick={() => {
+                                    if(this.state.adults <= 1) {
+                                        this.setState({adults: 0})
+                                    } else {
+                                        this.setState({adults: this.state.adults - 1})
+                                    }
+                                    if(this.state.origin.length && this.state.destination.length) {
+                                        this.search()
+                                    }
+                                }}></i>
+                                <i className="fa fa-caret-right number-right" aria-hidden="true" onClick={() => {
+                                    if(this.state.adults >= 9) {
+                                        this.setState({adults: 9})
+                                    } else {
+                                        this.setState({adults: this.state.adults + 1})
+                                    }
+                                    if(this.state.origin.length && this.state.destination.length) {
+                                        this.search()
+                                    }
+                                }}></i>
                             </div>
 
                             <div className="form-group">
                                 <p className="form-label">Children</p>
                                 <TextField
-                                    type="number"
-                                    defaultValue={this.state.children}
-                                    min="0"
-                                    max="9"
+                                    type="text"
+                                    value={this.state.children}
                                     className="form-label-input form-number"
                                     onChange={(event) => {
-                                        this.setState({children: event.target.value});
-                                        if(this.state.origin.length && this.state.destination.length) {
-                                            this.search()
-                                        }
+                                        this.testChildren(event)
                                     }}
                                 />
+                                <i className="fa fa-caret-left number-left" aria-hidden="true" onClick={() => {
+                                    if(this.state.children <= 1) {
+                                        this.setState({children: 0})
+                                    } else {
+                                        this.setState({children: this.state.children - 1})
+                                    }
+                                    if(this.state.origin.length && this.state.destination.length) {
+                                        this.search()
+                                    }
+                                }}></i>
+                                <i className="fa fa-caret-right number-right" aria-hidden="true" onClick={() => {
+                                    if(this.state.children >= 9) {
+                                        this.setState({children: 9})
+                                    } else {
+                                        this.setState({children: this.state.children + 1})
+                                    }
+                                    if(this.state.origin.length && this.state.destination.length) {
+                                        this.search()
+                                    }
+                                }}></i>
                             </div>
                         </div>
 
                         <div className="search-col search-col-4 pull-left">
                             <div className="form-group">
                                 <p className="form-label">Railcards</p>
-                                <SelectField
-                                    multiple={true}
-                                    hintText="Select a railcards"
-                                    value={this.state.railcards}
-                                    onChange={this.handleChange}
-                                    selectionRenderer={this.selectionRenderer}
-                                    className="form-label-select"
-                                    style={styles.selectRoot}
-                                    underlineStyle={styles.underlineStyle}
-                                    autoWidth={true}
-                                >
-                                    {railcards.map((key) => {
-                                        return (
-                                            <MenuItem
-                                                key={key.code}
-                                                insetChildren={true}
-                                                checked={this.state.railcards.indexOf(key.code) > -1}
-                                                value={key.code}
-                                                primaryText={key.name}
-                                            />
-                                        )
-                                    })}
-                                </SelectField>
+                                <AutoComplete
+                                    filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
+                                    searchText={this.state.searchText}
+                                    onUpdateInput={this.handleUpdateInput}
+                                    openOnFocus={true}
+                                    dataSource={this.state.railcards}
+                                    menuProps={menuProps}
+                                    textFieldStyle={{
+                                        width: 270,
+                                    }}
+                                    readOnly
+                                    className="form-label-input"
+                                    onNewRequest={() => {
+                                        this.handleRequestAdd();
+                                        this.search()
+                                    }}
+                                />
+                                <div>
+                                    {this.state.chipData.map(this.renderChip, this)}
+                                </div>
                             </div>
                         </div>
 
@@ -327,14 +453,28 @@ class Search extends Component {
                                 <Checkbox
                                     key='2'
                                     label="Off Peak"
+                                    defaultChecked={this.state.offPeack}
                                     style={styles.checkbox}
                                     iconStyle={styles.iconStyle}
+                                    onCheck={() => {
+                                        this.setState({offPeack: !this.state.offPeack});
+                                        if(this.state.origin.length && this.state.destination.length) {
+                                            this.search()
+                                        }
+                                    }}
                                 />
                                 <Checkbox
                                     key='3'
                                     label="Anytime"
+                                    defaultChecked={this.state.anytime}
                                     style={styles.checkbox}
                                     iconStyle={styles.iconStyle}
+                                    onCheck={() => {
+                                        this.setState({anytime: !this.state.anytime});
+                                        if(this.state.origin.length && this.state.destination.length) {
+                                            this.search()
+                                        }
+                                    }}
                                 />
                             </div>
                         </div>

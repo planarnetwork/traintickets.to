@@ -1,9 +1,9 @@
 import axios from 'axios';
-
-axios.defaults.baseURL = 'http://traintickets.to/';
+import config from '../config.json'
+axios.defaults.baseURL = config.baseUrl;
 
 // get all api data
-export async function search(origin, destination, outwardDate, adults, children, returnDate, railcards, filClass, singles, returns, advance) {
+export async function search(origin, destination, outwardDate, adults, children, returnDate, railcards, filClass, singles, returns, advance, offpeack, anytime) {
     let firstClass, standardClass;
     if(filClass === 'firstClass') {
         firstClass = true;
@@ -14,13 +14,8 @@ export async function search(origin, destination, outwardDate, adults, children,
         standardClass = false;
     }
     try {
-        const search = await axios.get(`jp/journey-plan`, {
-            withCredentials: true,
-            headers: {
-                'Accept': '/',
-                'Content-Type': 'application/json',
-            },
-            params: {origin,destination,outwardDate,adults,children,returnDate,railcards,firstClass,standardClass,singles,returns,advance}
+        const search = await axios.get(`jp`, {
+            params: {origin,destination,outwardDate,adults,children,returnDate,railcards,firstClass,standardClass,singles,returns,advance,offpeack,anytime}
         });
         return search.data;
     } catch (e) {

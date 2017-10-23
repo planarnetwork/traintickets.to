@@ -14,8 +14,8 @@ class Main extends Component {
         return (
             <main>
                 <Search />
-                <Graph />
-                <Fares />
+                {this.props.searchResult.response ? <Graph /> : undefined}
+                {this.props.searchResult.response ? <Fares />  : undefined}
             </main>
         );
     }

@@ -1,48 +1,46 @@
 import React, {Component} from "react";
-import {AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip} from 'recharts';
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import './Graph.css';
 
 class Graph extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-        }
     }
 
     render() {
         const data = [
-            {name: '05:00', Funt: 15.30},
-            {name: '06:00', Funt: 15.30},
-            {name: '07:00', Funt: 15.30},
-            {name: '08:00', Funt: 15.30},
-            {name: '09:00', Funt: 15.30},
-            {name: '10:00', Funt: 15.30},
-            {name: '11:00', Funt: 25.47},
-            {name: '12:00', Funt: 25.47},
-            {name: '13:00', Funt: 25.47},
-            {name: '14:00', Funt: 24.20},
-            {name: '15:00', Funt: 24.20},
-            {name: '16:00', Funt: 24.20},
-            {name: '17:00', Funt: 24.20},
-            {name: '18:00', Funt: 14.10},
-            {name: '19:00', Funt: 14.10},
-            {name: '20:00', Funt: 14.10},
-            {name: '21:00', Funt: 19.28},
-            {name: '22:00', Funt: 19.28},
-            {name: '23:00', Funt: 19.28},
-            {name: '00:00', Funt: 19.28},
+            {name: '05:00', a: 15.30, b: 17.20},
+            {name: '06:00', a: 15.30, b: 13.70},
+            {name: '07:00', a: 15.30, b: 13.20},
+            {name: '08:00', a: 15.30, b: 13.20},
+            {name: '09:00', a: 15.30, b: 13.20},
+            {name: '10:00', a: 15.30, b: 19.40},
+            {name: '11:00', a: 25.47, b: 19.40},
+            {name: '12:00', a: 25.47, b: 19.40},
+            {name: '13:00', a: 25.47, b: 19.40},
+            {name: '14:00', a: 24.20, b: 19.40},
+            {name: '15:00', a: 24.20, b: 19.40},
+            {name: '16:00', a: 24.20, b: 19.40},
+            {name: '17:00', a: 24.20, b: 19.40},
+            {name: '18:00', a: 14.10, b: 19.40},
+            {name: '19:00', a: 14.10, b: 24.50},
+            {name: '20:00', a: 14.10, b: 24.50},
+            {name: '21:00', a: 19.28, b: 24.50},
+            {name: '22:00', a: 19.28, b: 11.30},
+            {name: '23:00', a: 19.28, b: 11.30},
+            {name: '00:00', a: 19.28, b: 11.30},
         ];
 
         return (
             <section className="graph">
-                <h4 className="h-title">Fares Graph</h4>
-                <AreaChart label={{ fill: 'red', fontSize: 20 }} width={1366} height={325} data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }} >
-                    <XAxis dataKey="name" padding={{ left: 25 }} />
-                    <YAxis unit=' Funt' dataKey={"Funt"} />
-                    <CartesianGrid strokeDasharray="3 3" horizontal={false}/>
+                <LineChart width={1366} height={225} data={data}>
+                    <XAxis dataKey="name" padding={{left: 30, right: 30}}/>
+                    <YAxis unit=" £"/>
+                    <CartesianGrid strokeDasharray="15 0" horizontal={false} />
                     <Tooltip/>
-                    <Area type='stepAfter' dot={{ stroke: '#5a8fd5', strokeWidth: 2 }} stackId="1" dataKey='Funt' stroke='#5a8fd5' fill='#5a8fd5' fillOpacity={0.7}/>
-                </AreaChart>
+                    <Line type="natural" dataKey="a" stroke="#8884d8" connectNulls={true} />
+                    <Line type="natural" dataKey="b" stroke="#82ca9d" connectNulls={true} />
+                </LineChart>
             </section>
         );
     }

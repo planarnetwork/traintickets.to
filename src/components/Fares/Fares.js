@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Paper} from 'material-ui';
 import OwlCarousel from 'react-owl-carousel2';
 import locations from '../../data/locations.json';
-import demo from '../../data/demo.json';
 
 import './Fares.css';
 
@@ -21,31 +20,35 @@ class Fares extends Component {
     render() {
         let tap = this.state.outbound + this.state.return;
         const options = {
-            items: 7,
+            items: 8,
             nav: true,
             rewind: false,
             autoplay: false,
-            margin: 45,
+            autoWidth: false,
+            margin: 20,
             mouseDrag: false,
             navText: ['<i class="fa fa-caret-left" aria-hidden="true"></i>', '<i class="fa fa-caret-right" aria-hidden="true"></i>']
         };
         let originFound = locations.find((e) => {
-            return e.code === demo.map((key) => key.origin)[0];
+            return this.props.searchResult.response ? e.code === this.props.searchResult.response.inward.map((key) => key.origin)[0] : undefined;
         });
         let destinationFound = locations.find((e) => {
-            return e.code === demo.map((key) => key.destination)[0];
+            return this.props.searchResult.response ? e.code === this.props.searchResult.response.inward.map((key) => key.destination)[0] : undefined;
         });
         let origin = originFound ? originFound.name : undefined;
         let destination = destinationFound ? destinationFound.name : undefined;
 
+
+
         return (
             <section className="fares">
+                {this.props.searchResult.response.inward || this.props.searchResult.response.outward ? (
                 <div className="container">
                     <div className="fares-out">
-                        <h3 className="fares-title bold">OUTBOUND - {origin} to {destination}</h3>
+                        <h3 className="fares-title bold">{origin ? 'OUTBOUND - ' + origin : ''}{destination ? ' to ' + destination : ''}</h3>
                         <ul className="fare-list clearfix">
-                            <OwlCarousel ref="fares-out" options={options} >
-                                {demo.map((key, ind) => {
+                            <OwlCarousel ref="fares-out" options={options}>
+                                {this.props.searchResult.response.inward.map((key, ind) => {
                                     let firstDate = key.departureTime;
                                     let secondDate = key.arrivalTime;
                                     let getDate = (string) => new Date(0, 0,0, string.split(':')[0], string.split(':')[1]);
@@ -89,10 +92,10 @@ class Fares extends Component {
                         </ul>
                     </div>
                     <div className="fares-return">
-                        <h3 className="fares-title bold">RETURN - {destination} to {origin}</h3>
+                        <h3 className="fares-title bold">{destination ? 'RETURN - ' + destination : ''}{origin ? ' to ' + origin: ''}</h3>
                         <ul className="fare-list clearfix">
                             <OwlCarousel ref="fares-out" options={options} >
-                                {demo.map((key, ind) => {
+                                {this.props.searchResult.response.outward.map((key, ind) => {
                                     let firstDate = key.departureTime;
                                     let secondDate = key.arrivalTime;
                                     let getDate = (string) => new Date(0, 0,0, string.split(':')[0], string.split(':')[1]);
@@ -112,12 +115,12 @@ class Fares extends Component {
                                         <Paper key={ind} className="fare pull-left" zDepth={2}>
                                             <label className="fare-input center">
                                                 <div className="fare-stations bold clearfix">
-                                                    <span className="fare-station pull-left">{key.destination}</span>
-                                                    <span className="fare-station pull-right">{key.origin}</span>
+                                                    <span className="fare-station pull-left">{key.origin}</span>
+                                                    <span className="fare-station pull-right">{key.destination}</span>
                                                 </div>
                                                 <div className="fare-times bold clearfix">
-                                                    <time className="fare-time pull-left">{key.arrivalTime}</time>
-                                                    <time className="fare-time pull-right">{key.departureTime}</time>
+                                                    <time className="fare-time pull-left">{key.departureTime}</time>
+                                                    <time className="fare-time pull-right">{key.arrivalTime}</time>
                                                 </div>
                                                 <p className="duration">{result} min</p>
                                                 <p className="fare-ticket">Anytime Day Single with Child Flat Fare Single</p>
@@ -136,6 +139,7 @@ class Fares extends Component {
                         </ul>
                     </div>
                 </div>
+                ) : []}
                 {this.state.outbound > 0 || this.state.return > 0 ? (
                     <div className="tap">
                         <p className="tap-head bold">Total</p>

@@ -3,15 +3,21 @@
   background: $color-white;
   padding: 20px 0;
 }
-.h-title {
-  width: 1366px;
-  margin: 0 auto;
-  text-transform: uppercase;
-  color: $color-darkblue;
-  font-weight: $bold;
-  padding: 0 70px 20px;
-  font-size: 28px;
-}
 .recharts-wrapper {
   margin: 0 auto;
+}
+.recharts-cartesian-axis-tick-value {
+  &:before {
+    content: '250';
+    color: #000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 25px;
+    height: 25px;
+  }
+}
+.recharts-cartesian-axis-tick {
+  font-size: 12px;
+  fill: #000;
 }

@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import { rebaseDataFunc } from '../../actions/index';
 import Search from './Search';
 
-const mapStateToProps = ({app: {}}, ownProps) => {
+const mapStateToProps = ({app: {searchResult}}, ownProps) => {
     return {
+        searchResult,
         ...ownProps
     }
 };
