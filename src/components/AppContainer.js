@@ -3,8 +3,9 @@ import {rebaseDataFunc} from '../actions/index';
 
 import App from './App';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({app: {searchResult}}, ownProps) => {
     return {
+        searchResult,
         ...ownProps,
     }
 };

@@ -9,6 +9,14 @@ class Main extends Component {
     constructor(props) {
         super(props);
     }
+    async componentDidMount() {
+        if(window.location.reload) {
+            sessionStorage.clear();
+            await this.props.rebaseData('searchResult', []);
+        } else {
+            return;
+        }
+    }
 
     render() {
         return (

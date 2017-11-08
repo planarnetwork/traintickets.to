@@ -10,15 +10,39 @@ class Fares extends Component {
         super(props);
         this.state = {
             data: [],
-            outbound: 0,
-            return: 0,
+            inwardPrice: 0,
+            outwardPrice: 0,
         };
-
+        this.handleInwardPrice = this.handleInwardPrice.bind(this);
+        this.handleOutwardPrice = this.handleOutwardPrice.bind(this);
     }
 
+    async handleInwardPrice(val) {
+        let data = await val;
+        let self = await this;
+
+        self.setState({
+            inwardPrice: data,
+        })
+    }
+    async handleOutwardPrice(val) {
+        let data = await val;
+        let self = await this;
+
+        self.setState({
+            outwardPrice: data,
+        })
+    }
+    componentWillReceiveProps() {
+        this.setState({
+            inwardPrice: 0,
+            outwardPrice: 0,
+        })
+    }
 
     render() {
-        let tap = this.state.outbound + this.state.return;
+        let tap = Number(this.state.inwardPrice * 100  + Number(this.state.outwardPrice * 100)) / 100;
+
         const options = {
             items: 8,
             nav: true,
@@ -27,7 +51,7 @@ class Fares extends Component {
             autoWidth: false,
             margin: 20,
             mouseDrag: false,
-            navText: ['<i class="fa fa-caret-left" aria-hidden="true"></i>', '<i class="fa fa-caret-right" aria-hidden="true"></i>']
+            navText: ['<i class="fa fa-caret-left" aria-hidden="true"></i>', '<i class="fa fa-caret-right" aria-hidden="true"></i>'],
         };
         let originFound = locations.find((e) => {
             return this.props.searchResult.response ? e.code === this.props.searchResult.response.inward.map((key) => key.origin)[0] : undefined;
@@ -38,7 +62,7 @@ class Fares extends Component {
         let origin = originFound ? originFound.name : undefined;
         let destination = destinationFound ? destinationFound.name : undefined;
 
-
+        console.log('update');
 
         return (
             <section className="fares">
@@ -47,8 +71,10 @@ class Fares extends Component {
                     <div className="fares-out">
                         <h3 className="fares-title bold">{origin ? 'OUTBOUND - ' + origin : ''}{destination ? ' to ' + destination : ''}</h3>
                         <ul className="fare-list clearfix">
+                            {this.props.searchResult.response.length ? '0 Result' : ''}
                             <OwlCarousel ref="fares-out" options={options}>
                                 {this.props.searchResult.response.inward.map((key, ind) => {
+                                    let price, result;
                                     let firstDate = key.departureTime;
                                     let secondDate = key.arrivalTime;
                                     let getDate = (string) => new Date(0, 0,0, string.split(':')[0], string.split(':')[1]);
@@ -63,7 +89,18 @@ class Fares extends Component {
                                         hours = Math.floor(24 - (differentRes % 86400000) / 3600000);
                                         minuts = Math.round(60 - ((differentRes % 86400000) % 3600000) / 60000);
                                     }
-                                    let result = hours + ':' + minuts;
+                                    result = hours + ':' + minuts;
+
+                                    this.props.searchResult.response.outward.map((out) => {
+                                        let temp = Object.keys(this.props.searchResult.response.fares).filter((k) => {
+                                            return (k.indexOf(out.id) > -1) && (k.indexOf(key.id) > -1)
+                                        }).map((key) => key);
+                                        let value = this.props.searchResult.response.fares[temp];
+                                        price = this.props.searchResult.links[value[0]];
+                                        price = price.totalPrice / 100;
+                                    });
+                                    console.log('Inward - ' + key.id + ': ---------------------------------- PRICE: ' + price);
+
                                     return (
                                         <Paper key={ind} className="fare pull-left" zDepth={2}>
                                             <label className="fare-input center">
@@ -79,9 +116,9 @@ class Fares extends Component {
                                                 <p className="fare-ticket">Anytime Day Single with Child Flat Fare Single</p>
                                                 <div className="fare-bottom">
                                                     <p className="fare-price bold">
-                                                        <span className="pound">&#163;</span>15<span className="pence">.20</span>
+                                                        <span className="pound">&#163;</span>{price ? price.toString().match(/^\d+/g) : ''}<span className="pence">{price ? price.toString().match(/\.\d+/g) : ''}</span>
                                                     </p>
-                                                    <input type="radio" className="radio" name="out" onClick={() => this.setState({outbound: 15.2})} />
+                                                    <input type="radio" className="radio" name="out" onClick={() => this.handleInwardPrice(price)} />
                                                     <span className="radio-custom"></span>
                                                 </div>
                                             </label>
@@ -94,8 +131,11 @@ class Fares extends Component {
                     <div className="fares-return">
                         <h3 className="fares-title bold">{destination ? 'RETURN - ' + destination : ''}{origin ? ' to ' + origin: ''}</h3>
                         <ul className="fare-list clearfix">
+                            {this.props.searchResult.response.length ? '0 Result' : ''}
                             <OwlCarousel ref="fares-out" options={options} >
                                 {this.props.searchResult.response.outward.map((key, ind) => {
+                                    let price, result;
+
                                     let firstDate = key.departureTime;
                                     let secondDate = key.arrivalTime;
                                     let getDate = (string) => new Date(0, 0,0, string.split(':')[0], string.split(':')[1]);
@@ -110,10 +150,21 @@ class Fares extends Component {
                                         hours = Math.floor(24 - (differentRes % 86400000) / 3600000);
                                         minuts = Math.round(60 - ((differentRes % 86400000) % 3600000) / 60000);
                                     }
-                                    let result = hours + ':' + minuts;
+                                    result = hours + ':' + minuts;
+
+                                    this.props.searchResult.response.inward.map((inw) => {
+                                        let temp = Object.keys(this.props.searchResult.response.fares).filter((k) => {
+                                            return (k.indexOf(inw.id) > -1) && (k.indexOf(key.id) > -1)
+                                        }).map((key) => key);
+                                        let value = this.props.searchResult.response.fares[temp];
+                                        price = this.props.searchResult.links[value[1] || value[0]];
+                                        price = price.totalPrice / 100;
+                                    });
+                                    console.log('Outward - ' + key.id + ': ---------------------------------- PRICE: ' + price);
+
                                     return (
                                         <Paper key={ind} className="fare pull-left" zDepth={2}>
-                                            <label className="fare-input center">
+                                            <label className="fare-input center" onClick={() => this.handleOutwardPrice(price)}>
                                                 <div className="fare-stations bold clearfix">
                                                     <span className="fare-station pull-left">{key.origin}</span>
                                                     <span className="fare-station pull-right">{key.destination}</span>
@@ -126,9 +177,9 @@ class Fares extends Component {
                                                 <p className="fare-ticket">Anytime Day Single with Child Flat Fare Single</p>
                                                 <div className="fare-bottom">
                                                     <p className="fare-price bold">
-                                                        <span className="pound">&#163;</span>36<span className="pence">.99</span>
+                                                        <span className="pound">&#163;</span>{price ? price.toString().match(/^\d+/g) : ''}<span className="pence">{price ? price.toString().match(/\.\d+/g) : ''}</span>
                                                     </p>
-                                                    <input type="radio" className="radio" name="return" onClick={() => this.setState({return: 36.99})} />
+                                                    <input type="radio" className="radio" name="return"/>
                                                     <span className="radio-custom"></span>
                                                 </div>
                                             </label>
@@ -140,10 +191,12 @@ class Fares extends Component {
                     </div>
                 </div>
                 ) : []}
-                {this.state.outbound > 0 || this.state.return > 0 ? (
+                {this.state.inwardPrice > 0 || this.state.outwardPrice > 0 ? (
                     <div className="tap">
                         <p className="tap-head bold">Total</p>
-                        <p className="tap-price bold"><span className="pound">&#163;</span>{tap.toString().slice(0, 6)}</p>
+                        <p className="tap-price bold">
+                            <span className="pound">&#163;</span>{tap.toString().match(/^\d+/g)}<span className="pence">{tap.toString().match(/\.\d+/g)}</span>
+                        </p>
                         <p className="tap-footer">all passengers</p>
                     </div>
                 ) : []}
