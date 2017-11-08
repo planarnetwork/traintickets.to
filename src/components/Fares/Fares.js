@@ -62,8 +62,6 @@ class Fares extends Component {
         let origin = originFound ? originFound.name : undefined;
         let destination = destinationFound ? destinationFound.name : undefined;
 
-        console.log('update');
-
         return (
             <section className="fares">
                 {this.props.searchResult.response.inward || this.props.searchResult.response.outward ? (
