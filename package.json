@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
-    "immutability-helper": "^2.2.3",
+    "immutability-helper": "^2.5.0",
     "jquery": "^3.2.1",
     "material-ui": "^0.19.4",
     "moment": "^2.19.1",
@@ -18,9 +18,9 @@
     "react-router-dom": "^4.1.1",
     "react-scripts": "1.0.10",
     "react-token-autocomplete": "^0.5.3",
-    "recharts": "^1.0.0-alpha.6",
+    "recharts": "^1.0.0-beta.1",
     "redux": "^3.7.1",
-    "redux-persist": "^4.8.2",
+    "redux-persist": "^4.10.2",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
@@ -34,6 +34,6 @@
   },
   "devDependencies": {
     "node-sass-chokidar": "^0.0.3",
-    "npm-run-all": "^4.0.2"
+    "npm-run-all": "^4.1.2"
   }
 }
