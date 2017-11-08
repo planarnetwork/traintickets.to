@@ -62,8 +62,6 @@ class Fares extends Component {
         let origin = originFound ? originFound.name : undefined;
         let destination = destinationFound ? destinationFound.name : undefined;
 
-        console.log('update');
-
         return (
             <section className="fares">
                 {this.props.searchResult.response.inward || this.props.searchResult.response.outward ? (
@@ -92,11 +90,12 @@ class Fares extends Component {
                                     result = hours + ':' + minuts;
 
                                     this.props.searchResult.response.outward.map((out) => {
-                                        let temp = Object.keys(this.props.searchResult.response.fares).filter((k) => {
-                                            return (k.indexOf(out.id) > -1) && (k.indexOf(key.id) > -1)
-                                        }).map((key) => key);
-                                        let value = this.props.searchResult.response.fares[temp];
-                                        price = this.props.searchResult.links[value[0]];
+                                        {/*let temp = Object.keys(this.props.searchResult.response.fares).filter((k) => {*/}
+                                            {/*return (k.indexOf(out.id+key.id) > -1)*/}
+                                        {/*});*/}
+                                        {/*let value = this.props.searchResult.response.fares[temp];*/}
+                                        let temp = this.props.searchResult.response.fares[out.id+key.id];
+                                        price = this.props.searchResult.links[temp[1] || temp[0]];
                                         price = price.totalPrice / 100;
                                     });
                                     console.log('Inward - ' + key.id + ': ---------------------------------- PRICE: ' + price);
@@ -153,11 +152,12 @@ class Fares extends Component {
                                     result = hours + ':' + minuts;
 
                                     this.props.searchResult.response.inward.map((inw) => {
-                                        let temp = Object.keys(this.props.searchResult.response.fares).filter((k) => {
-                                            return (k.indexOf(inw.id) > -1) && (k.indexOf(key.id) > -1)
-                                        }).map((key) => key);
-                                        let value = this.props.searchResult.response.fares[temp];
-                                        price = this.props.searchResult.links[value[1] || value[0]];
+                                        {/*let temp = Object.keys(this.props.searchResult.response.fares).filter((k) => {*/}
+                                            {/*return (k.indexOf(inw.id) > -1) && (k.indexOf(key.id) > -1)*/}
+                                        {/*});*/}
+                                        {/*let value = this.props.searchResult.response.fares[temp];*/}
+                                        let temp = this.props.searchResult.response.fares[key.id+inw.id];
+                                        price = this.props.searchResult.links[temp[1] || temp[0]];
                                         price = price.totalPrice / 100;
                                     });
                                     console.log('Outward - ' + key.id + ': ---------------------------------- PRICE: ' + price);
