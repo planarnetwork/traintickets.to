@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 
 import { rebaseDataFunc } from '../../actions/index';
-import Fares from './Fares';
+import Tap from './Tap';
 
 const mapStateToProps = ({app: {outwardPrice, searchResult, passenger, route}},ownProps) => {
     return {
@@ -21,9 +21,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const FaresContainer = connect(
+const TapContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Fares);
+)(Tap);
 
-export default FaresContainer;
+export default TapContainer;

@@ -1,13 +1,12 @@
 import {connect} from 'react-redux';
-import {rebaseDataFunc} from '../actions/index';
 
-import App from './App';
+import { rebaseDataFunc } from '../../actions/index';
+import Loader from './Loader';
 
-const mapStateToProps = ({app: {searchResult, loading}}, ownProps) => {
+const mapStateToProps = ({app: {loading}},ownProps) => {
     return {
-        searchResult,
         loading,
-        ...ownProps,
+        ...ownProps
     }
 };
 
@@ -15,13 +14,13 @@ const mapDispatchToProps = (dispatch) => {
     return {
         rebaseData (key, value) {
             rebaseDataFunc(key, value)(dispatch);
-        }
+        },
     }
 };
 
-const AppContainer = connect(
+const LoaderContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(App);
+)(Loader);
 
-export default AppContainer;
+export default LoaderContainer;

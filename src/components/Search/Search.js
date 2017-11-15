@@ -176,6 +176,8 @@ class Search extends Component {
         d = d[d.length - 1];
         let filClass = self.state.filClass;
         let chipCode = self.state.chipCode.map((chips) => chips.label).toString();
+        this.props.rebaseData('passenger', self.state.adults + self.state.children);
+        this.props.rebaseData('loading', true);
 
         search(o, d, moment(self.state.minDate).format("YYYY-MM-DD"), self.state.adults, self.state.children, moment(self.state.maxDate).format("YYYY-MM-DD"), chipCode, filClass, self.state.singles, self.state.returns, self.state.advance, self.state.offPeack, self.state.anytime)
             .then((data) => {
@@ -189,6 +191,9 @@ class Search extends Component {
     render() {
         const today = new Date();
         const styles = {
+            menuStyle: {
+                maxHeight: '400px',
+            },
             selectRoot: {
                 width: 200,
                 backgroundColor: '#ffffff',
@@ -216,8 +221,7 @@ class Search extends Component {
             }
         };
         const menuProps = {
-            desktop: true,
-            disableAutoFocus: true,
+            // desktop: true,
         };
 
         return (
@@ -229,12 +233,14 @@ class Search extends Component {
                                 <p className="form-label">ORIGIN</p>
                                 <AutoComplete
                                     dataSource={locations.map((key) => key.name + ' - ' + key.code)}
-                                    maxSearchResults={10}
+                                    maxSearchResults={40}
                                     className="form-label-input Indigo"
                                     menuProps={menuProps}
+                                    filter={AutoComplete.caseInsensitiveFilter}
                                     textFieldStyle={{
                                         width: 180,
                                     }}
+                                    menuStyle={styles.menuStyle}
                                     onNewRequest={(data) => {
                                         this.setState({origin: data});
                                         if(this.state.destination.length) {
@@ -248,12 +254,14 @@ class Search extends Component {
                                 <p className="form-label">DESTINATION</p>
                                 <AutoComplete
                                     dataSource={locations.map((key) => key.name + ' - ' + key.code)}
-                                    maxSearchResults={10}
+                                    maxSearchResults={40}
                                     className="form-label-input"
                                     menuProps={menuProps}
+                                    filter={AutoComplete.caseInsensitiveFilter}
                                     textFieldStyle={{
                                         width: 180,
                                     }}
+                                    menuStyle={styles.menuStyle}
                                     onNewRequest={(data) => {
                                         this.setState({destination: data});
                                         if(this.state.origin.length) {

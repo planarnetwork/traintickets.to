@@ -3,7 +3,11 @@ import update from 'immutability-helper';
 import { rebaseData } from '../config/actionEvents';
 
 const defaultState = {
+    outwardPrice: 0,
+    passenger: 0,
     searchResult: [],
+    route: '',
+    loading: false,
 };
 
 
