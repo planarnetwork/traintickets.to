@@ -27,7 +27,7 @@ class Search extends Component {
             railcards: railcards.map((key) => key.name),
             chipData: [],
             chipCode: [],
-            autoOk: false,
+            autoOk: true,
             disableYearSelection: false,
             filClass: 'standardClass',
             singles: true,
@@ -40,6 +40,8 @@ class Search extends Component {
         this.search = this.search.bind(this);
         this.testAdults = this.testAdults.bind(this);
         this.testChildren = this.testChildren.bind(this);
+        this.getMaxDate = this.getMaxDate.bind(this);
+        this.removeDate = this.removeDate.bind(this);
     }
 
     handleChangeMinDate = (event, date) => {
@@ -56,7 +58,9 @@ class Search extends Component {
             maxDate: date,
         });
         if(this.state.origin.length && this.state.destination.length) {
-            this.search()
+            if(date !== undefined) {
+                this.search()
+            }
         }
     };
 
@@ -166,8 +170,31 @@ class Search extends Component {
         }
     }
 
-    async search() {
+    async getMaxDate(newDay) {
         let self = await this;
+        self.setState({
+            maxDate: moment(newDay).add(1, 'day')._d
+        });
+    }
+
+    removeDate(event) {
+        event.preventDefault();
+
+        // We manually reach into the composed component and set it's date to undefined.
+        let newDate;
+        this.refs.datePicker.setState({
+            maxDate: newDate
+        }, () => {
+            this.refs.datePicker.props.onChange(null, newDate);
+        });
+        if(this.state.origin.length && this.state.destination.length) {
+            this.search('false');
+        }
+    }
+
+    async search(returnDate) {
+        let self = await this;
+        let retDate;
         let origin = this.state.origin;
         let destination = this.state.destination;
         let o = origin.split(' ');
@@ -177,9 +204,14 @@ class Search extends Component {
         let filClass = self.state.filClass;
         let chipCode = self.state.chipCode.map((chips) => chips.label).toString();
         this.props.rebaseData('passenger', self.state.adults + self.state.children);
-        this.props.rebaseData('loading', true);
 
-        search(o, d, moment(self.state.minDate).format("YYYY-MM-DD"), self.state.adults, self.state.children, moment(self.state.maxDate).format("YYYY-MM-DD"), chipCode, filClass, self.state.singles, self.state.returns, self.state.advance, self.state.offPeack, self.state.anytime)
+        if(returnDate || self.state.maxDate === undefined) {
+            retDate = null;
+        } else {
+            retDate = moment(self.state.maxDate).format("YYYY-MM-DD");
+        }
+
+        search(o, d, moment(self.state.minDate).format("YYYY-MM-DD"), self.state.adults, self.state.children, retDate, chipCode, filClass, self.state.singles, self.state.returns, self.state.advance, self.state.offPeack, self.state.anytime)
             .then((data) => {
                 self.props.rebaseData('searchResult', data)
             })
@@ -220,9 +252,6 @@ class Search extends Component {
                 fill: '#1066d3',
             }
         };
-        const menuProps = {
-            // desktop: true,
-        };
 
         return (
             <section className="search">
@@ -235,7 +264,6 @@ class Search extends Component {
                                     dataSource={locations.map((key) => key.name + ' - ' + key.code)}
                                     maxSearchResults={40}
                                     className="form-label-input Indigo"
-                                    menuProps={menuProps}
                                     filter={AutoComplete.caseInsensitiveFilter}
                                     textFieldStyle={{
                                         width: 180,
@@ -244,7 +272,10 @@ class Search extends Component {
                                     onNewRequest={(data) => {
                                         this.setState({origin: data});
                                         if(this.state.destination.length) {
-                                            this.search()
+                                            this.search();
+                                            if(this.state.origin.length && this.state.destination.length) {
+                                                this.props.rebaseData('loading', true);
+                                            }
                                         }
                                     }}
                                 />
@@ -256,7 +287,6 @@ class Search extends Component {
                                     dataSource={locations.map((key) => key.name + ' - ' + key.code)}
                                     maxSearchResults={40}
                                     className="form-label-input"
-                                    menuProps={menuProps}
                                     filter={AutoComplete.caseInsensitiveFilter}
                                     textFieldStyle={{
                                         width: 180,
@@ -266,6 +296,9 @@ class Search extends Component {
                                         this.setState({destination: data});
                                         if(this.state.origin.length) {
                                             this.search()
+                                        }
+                                        if(this.state.origin.length && this.state.destination.length) {
+                                            this.props.rebaseData('loading', true);
                                         }
                                     }}
                                 />
@@ -278,7 +311,7 @@ class Search extends Component {
                                 <DatePicker
                                     onChange={this.handleChangeMinDate}
                                     autoOk={this.state.autoOk}
-                                    defaultDate={this.state.minDate}
+                                    defaultDate={this.state.minDate > this.state.maxDate ? this.getMaxDate(this.state.minDate) : this.state.minDate}
                                     disableYearSelection={this.state.disableYearSelection}
                                     minDate={today}
                                     className="form-label-input form-calendar"
@@ -289,17 +322,20 @@ class Search extends Component {
                             </div>
 
                             <div className="form-group">
-                                <p className="form-label">Return date</p>
+                                <p className="form-label">Return date <button className='clear-date' onClick={this.removeDate}>clear</button></p>
                                 <DatePicker
                                     onChange={this.handleChangeMaxDate}
                                     autoOk={this.state.autoOk}
                                     disableYearSelection={this.state.disableYearSelection}
                                     minDate={this.state.minDate}
+                                    value={this.state.maxDate}
+                                    ref="datePicker"
                                     className="form-label-input form-calendar"
                                     formatDate={(date) => moment(date).format('ddd, ' + 'DD MMM YYYY')}
                                     style={styles.calendar}
                                     textFieldStyle={styles.calendar}
                                 />
+                                {/*{this.renderClearButton()}*/}
                             </div>
                         </div>
 
@@ -378,7 +414,6 @@ class Search extends Component {
                                     onUpdateInput={this.handleUpdateInput}
                                     openOnFocus={true}
                                     dataSource={this.state.railcards}
-                                    menuProps={menuProps}
                                     textFieldStyle={{
                                         width: 270,
                                     }}

@@ -1,5 +1,12 @@
 @import "../../styles/vars";
+.loader-hidden {
+  display: none;
+}
+.loader-active {
+  display: block;
+}
 .fares {
+  position: relative;
   padding-bottom: 60px;
   background: $bg-body;
   .owl-prev {
@@ -72,6 +79,9 @@
     line-height: 16px;
     height: 60px;
     padding: 0 10px;
+    a {
+      color: $color-primary;
+    }
   }
 
   &-price {

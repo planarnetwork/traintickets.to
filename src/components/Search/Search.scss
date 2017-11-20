@@ -118,3 +118,16 @@
 div[role='menu'] {
   width: 100% !important;
 }
+.clear-date {
+  font-size: 9px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #6e6e6e;
+  font-weight: bold;
+  text-transform: capitalize;
+  outline: none;
+}
