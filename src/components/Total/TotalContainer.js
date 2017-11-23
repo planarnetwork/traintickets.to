@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 
 import { rebaseDataFunc } from '../../actions/index';
-import FullFares from './FullFares';
+import Total from './Total';
 
 const mapStateToProps = ({app: {outwardPrice, searchResult, adults, children, route}},ownProps) => {
     return {
@@ -22,9 +22,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const FullFaresContainer = connect(
+const TotalContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(FullFares);
+)(Total);
 
-export default FullFaresContainer;
+export default TotalContainer;

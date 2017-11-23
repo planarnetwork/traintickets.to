@@ -4,10 +4,12 @@ import { rebaseData } from '../config/actionEvents';
 
 const defaultState = {
     outwardPrice: 0,
-    passenger: 0,
+    adults: 0,
+    children: 0,
     searchResult: [],
     route: '',
     loading: false,
+    fares: [],
 };
 
 

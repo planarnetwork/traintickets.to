@@ -2,9 +2,9 @@ import React, {Component} from "react";
 import {Paper} from 'material-ui';
 import OwlCarousel from 'react-owl-carousel2';
 import locations from '../../data/locations.json';
-import Loader from  '../Loader/LoaderContainer';
 import FullFares from '../FullFares/FullFaresContainer'
-
+import Total from  '../Total/TotalContainer';
+import Loader from  '../Loader/LoaderContainer';
 import './Fares.css';
 
 const options = {
@@ -28,10 +28,12 @@ class Fares extends Component {
             inwardDom: [],
             route: [],
             fullFaresStatus: false,
+            totalStatus: false,
             fullFaresPrice: 0,
         };
         this.handlePrice = this.handlePrice.bind(this);
         this.handleFullFaresModal = this.handleFullFaresModal.bind(this);
+        this.handleTotalModal = this.handleTotalModal.bind(this);
     }
 
     createRoute(id) {
@@ -49,6 +51,12 @@ class Fares extends Component {
         this.setState({
             fullFaresStatus: !this.state.fullFaresStatus,
             fullFaresPrice: price,
+        });
+    }
+    handleTotalModal(event) {
+        event.preventDefault();
+        this.setState({
+            totalStatus: !this.state.totalStatus,
         });
     }
 
@@ -72,8 +80,12 @@ class Fares extends Component {
             inwardDom: [],
         });
     }
+    componentDidMount() {
+        this.setState({loading: false})
+    }
 
     render() {
+        let self = this;
         let tap = Number(this.state.outwardPrice !== 0 ? this.state.outwardPrice : this.props.outwardPrice) + Number(this.state.inwardPrice);
         let originFound = locations.find((e) => {
             return this.props.searchResult.response ? e.code === this.props.searchResult.response.outward.map((key) => key.origin)[0] : undefined;
@@ -85,13 +97,16 @@ class Fares extends Component {
         let destination = destinationFound ? destinationFound.name : undefined;
 
         const fares = this.getFares();
-        this.props.rebaseData('loading', false);
+
+        setTimeout(function () {
+            self.props.rebaseData('loading', false);
+        }, 1000);
 
         return (
             <section className="fares">
-                {this.props.loading ? (<Loader />) : []}
                 {this.props.searchResult.response.inward || this.props.searchResult.response.outward ? (
                 <div className="container">
+                    {this.props.loading ? (<Loader />) : []}
                     <div className="fares-out">
                         <h3 className="fares-title bold">{origin ? 'OUTBOUND - ' + origin : ''}{destination ? ' to ' + destination : ''}</h3>
                         <ul className="fare-list clearfix">
@@ -113,7 +128,7 @@ class Fares extends Component {
                         if(!this.state.route.length) {
                             this.createRoute();
                         }
-                        this.handleTapModal(event);
+                        this.handleTotalModal(event);
                     }}>
                         <p className="tap-head bold">Total</p>
                         <p className="tap-price bold">
@@ -133,12 +148,21 @@ class Fares extends Component {
                         destination={destination}
                         handleFullFaresModal={this.handleFullFaresModal} />
                 ) : []}
+                {this.state.totalStatus === true ? (
+                    <Total
+                        key='total-modal'
+                        tap={tap}
+                        routeFull={this.state.route}
+                        origin={originFound}
+                        destination={destinationFound}
+                        handleTotalModal={this.handleTotalModal} />
+                ) : []}
             </section>
         );
     }
 
     getCarosel(journeys, direction, fares, selectedId) {
-      return (<OwlCarousel ref={"fares-" +direction} options={options}>
+      return (<OwlCarousel onLoad={() => console.log('load')} ref={"fares-" +direction} options={options}>
         {journeys.map(journey => {
           let price = fares[journey.id].price;
           let pence;
@@ -150,8 +174,8 @@ class Fares extends Component {
                     price = fares[journey.id].price;
                 }
                 if(journey.id === selectedId) {
-                    this.props.rebaseData('outwardPrice', price)
-                    this.props.rebaseData('route', selectedId)
+                    this.props.rebaseData('outwardPrice', price);
+                    this.props.rebaseData('route', selectedId);
                 }
             }
 
@@ -175,12 +199,12 @@ class Fares extends Component {
                   <time className="fare-time pull-right">{journey.arrivalTime}</time>
                 </div>
                 <p className="duration">{journey.duration} min</p>
-                <p className="fare-ticket"><a href="/" onClick={(event) => {
+                <p className="fare-ticket"><span onClick={(event) => {
                     if(!this.state.route.length) {
                         this.createRoute();
                     }
                     this.handleFullFaresModal(event, journey.id, price);
-                }}>More info</a></p>
+                }}>More info</span></p>
                 <div className="fare-bottom" onClick={() => {
                     if(direction === 'inw') {
                         this.handlePrice(price, direction);
@@ -206,8 +230,8 @@ class Fares extends Component {
     getNewFares(id) {
         const fares = this.getFares();
         this.setState({
-            inwardDom: fares[id].with
-        })
+            inwardDom: fares[id].with,
+        });
     }
 
     getFares() {
@@ -242,7 +266,7 @@ class Fares extends Component {
         for (const inwardJourneyId in journey) {
           const journeyPairTotal = journey[inwardJourneyId]
             .map(fId => this.getFareOptions(fId))
-            .map(f => f.totalPrice ? f.totalPrice : 0)
+            .map(f => f ? f.totalPrice : 0)
             .reduce((total, price) => total + price, 0);
 
           if (journeyPairTotal < cheapestInwardPrice) {
@@ -256,7 +280,6 @@ class Fares extends Component {
         const result = { cheapestInward, price: cheapestInwardPrice, "with": {} };
 
         for (const inwardJourneyId in journey) {
-          // result.with[inwardJourneyId] = { price: pairedJourneys[inwardJourneyId] - Math.floor(Math.random() * 100) }; // Demo random price for inwards
           result.with[inwardJourneyId] = { price: pairedJourneys[inwardJourneyId] - cheapestInwardPrice };
         }
 

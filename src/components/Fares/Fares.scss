@@ -79,8 +79,10 @@
     line-height: 16px;
     height: 60px;
     padding: 0 10px;
-    a {
+    span {
+      cursor: pointer;
       color: $color-primary;
+      text-decoration: underline;
     }
   }
 

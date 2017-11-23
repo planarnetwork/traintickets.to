@@ -110,8 +110,8 @@ class FullFares extends Component {
                         ))}
                     </div>
                     <div className="ff-element">
-                        <h2>{this.props.passenger > 1 ? 'Passengers' : 'Passenger'}</h2>
-                        <p>{this.props.passenger}</p>
+                        <h2>{this.props.adults + this.props.children > 1 ? 'Passengers' : 'Passenger'}</h2>
+                        <p>{this.props.adults + this.props.children}</p>
                     </div>
                     <div className="ff-element">
                         <h2>Ticket</h2>

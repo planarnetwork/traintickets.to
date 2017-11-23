@@ -152,6 +152,7 @@ class Search extends Component {
             event.target.value = value;
         }
         this.setState({adults: event.target.value});
+
         if(this.state.origin.length && this.state.destination.length) {
             this.search()
         }
@@ -203,7 +204,8 @@ class Search extends Component {
         d = d[d.length - 1];
         let filClass = self.state.filClass;
         let chipCode = self.state.chipCode.map((chips) => chips.label).toString();
-        this.props.rebaseData('passenger', self.state.adults + self.state.children);
+        this.props.rebaseData('adults', this.state.adults);
+        this.props.rebaseData('children', this.state.children);
 
         if(returnDate || self.state.maxDate === undefined) {
             retDate = null;
@@ -269,6 +271,7 @@ class Search extends Component {
                                         width: 180,
                                     }}
                                     menuStyle={styles.menuStyle}
+                                    openOnFocus={true}
                                     onNewRequest={(data) => {
                                         this.setState({origin: data});
                                         if(this.state.destination.length) {
@@ -292,6 +295,7 @@ class Search extends Component {
                                         width: 180,
                                     }}
                                     menuStyle={styles.menuStyle}
+                                    openOnFocus={true}
                                     onNewRequest={(data) => {
                                         this.setState({destination: data});
                                         if(this.state.origin.length) {
@@ -335,7 +339,6 @@ class Search extends Component {
                                     style={styles.calendar}
                                     textFieldStyle={styles.calendar}
                                 />
-                                {/*{this.renderClearButton()}*/}
                             </div>
                         </div>
 
