@@ -6,16 +6,18 @@ import FullFares from '../FullFares/FullFaresContainer'
 import Total from  '../Total/TotalContainer';
 import Loader from  '../Loader/LoaderContainer';
 import './Fares.css';
-
 const options = {
-  items: 8,
-  nav: true,
-  rewind: false,
-  autoplay: false,
-  autoWidth: false,
-  margin: 20,
-  mouseDrag: false,
-  navText: ['<i class="fa fa-caret-left" aria-hidden="true"></i>', '<i class="fa fa-caret-right" aria-hidden="true"></i>'],
+    items: 8,
+    nav: true,
+    rewind: false,
+    autoplay: false,
+    autoWidth: false,
+    dotsEach: true,
+    dotData: true,
+    margin: 20,
+    mouseDrag: true,
+    touchDrag: true,
+    navText: ['<i class="fa fa-caret-left" aria-hidden="true"></i>', '<i class="fa fa-caret-right" aria-hidden="true"></i>'],
 };
 
 class Fares extends Component {
@@ -162,7 +164,7 @@ class Fares extends Component {
     }
 
     getCarosel(journeys, direction, fares, selectedId) {
-      return (<OwlCarousel onLoad={() => console.log('load')} ref={"fares-" +direction} options={options}>
+      return (<OwlCarousel id="sync1" ref={"fares-" +direction} options={options}>
         {journeys.map(journey => {
           let price = fares[journey.id].price;
           let pence;

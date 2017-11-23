@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import locations from '../../data/locations.json';
-
+import ScrollArea from 'react-scrollbar';
 import './FullFares.css';
 
 class FullFares extends Component {
@@ -25,21 +25,41 @@ class FullFares extends Component {
 
     render() {
         return (
-            <div className="ff-modal">
-                <div className="ff-list">
-                    <a className="ff-close" href="" onClick={(event) => this.props.handleFullFaresModal(event)}><i className="fa fa-times-circle" aria-hidden="true"></i></a>
-                    <div className="ff-element">
-                        <h2>Origin</h2>
-                        <p>{this.props.origin}</p>
+            <div className="map-container">
+                <div className="map-info">
+                    <div className="top-block">
+                        <a className="block-close" href="" onClick={(event) => this.props.handleFullFaresModal(event)}><i className="fa fa-times-circle" aria-hidden="true"></i></a>
+                        <div className="block-element">
+                            <h3>Origin</h3>
+                            <span>{this.props.origin}</span>
+                        </div>
+                        <div className="block-element">
+                            <h3>Destination</h3>
+                            <span>{this.props.destination}</span>
+                        </div>
+                        <div className="block-element">
+                            <h3>{this.props.adults + this.props.children > 1 ? 'Passengers' : 'Passenger'}</h3>
+                            <span>{this.props.adults + this.props.children}</span>
+                        </div>
+                        <div className="block-element">
+                            <h3>Ticket</h3>
+                            <span>Ticket Type</span>
+                        </div>
+                        <div className="block-element">
+                            <h3>Price</h3>
+                            <p><span className="pound">&#163;</span>{Math.floor(this.props.fullFaresPrice / 100)}<span className="pence">.{(this.props.fullFaresPrice % 100) === 0 ? (this.props.fullFaresPrice % 100) + '0' : (this.props.fullFaresPrice % 100)}</span></p>
+                        </div>
                     </div>
-                    <div className="ff-element">
-                        <h2>Destination</h2>
-                        <p>{this.props.destination}</p>
-                    </div>
-                    <div className="ff-element rout-element">
-                        <h2>Route</h2>
+                    <div className="bottom-block">
+
                         {this.props.routeFull.map((key, ind) => (
-                            <div key={ind} className="leg-list">
+                            <ScrollArea
+                                speed={0.8}
+                                className="area"
+                                contentClassName="content leg-list"
+                                horizontal={true}
+                                key={ind}
+                            >
                                 {key.legs.map((leg, i) => {
                                     let mode, data;
                                     let legLoc = locations.find((e) => {
@@ -106,20 +126,8 @@ class FullFares extends Component {
                                         </div>
                                     )
                                 })}
-                            </div>
+                            </ScrollArea>
                         ))}
-                    </div>
-                    <div className="ff-element">
-                        <h2>{this.props.adults + this.props.children > 1 ? 'Passengers' : 'Passenger'}</h2>
-                        <p>{this.props.adults + this.props.children}</p>
-                    </div>
-                    <div className="ff-element">
-                        <h2>Ticket</h2>
-                        <p>Ticket Type</p>
-                    </div>
-                    <div className="ff-element">
-                        <h2>Price</h2>
-                        <p><span className="pound">&#163;</span>{Math.floor(this.props.fullFaresPrice / 100)}<span className="pence">.{(this.props.fullFaresPrice % 100)}</span></p>
                     </div>
                 </div>
             </div>

@@ -144,3 +144,34 @@
     margin-top: 8px;
   }
 }
+.owl-dots {
+  margin: 10px 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  overflow: hidden;
+  .owl-dot {
+    flex-grow: 1;
+    height: 8px;
+    transition: .7s;
+    background: #5a8fd5;
+    &:hover {
+      background: rgba(90, 143, 213, 0.4)
+    }
+  }
+  .active {
+    background: #5a8fd5;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    &:hover {
+      background: #5a8fd5;
+    }
+  }
+  .active ~ .owl-dot {
+    background: $bg-grey;
+    &:hover {
+      background: rgba(90, 143, 213, 0.4);
+    }
+  }
+}
