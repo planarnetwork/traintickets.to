@@ -1,11 +1,8 @@
 import React, {Component} from "react";
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip} from 'recharts';
 import './Graph.css';
 
 class Graph extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         const data = [

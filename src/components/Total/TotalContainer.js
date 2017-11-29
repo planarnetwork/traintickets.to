@@ -1,15 +1,11 @@
 import {connect} from 'react-redux';
 
 import { rebaseDataFunc } from '../../actions/index';
-import Total from './Total';
+import TotalTable from './TotalTable';
 
-const mapStateToProps = ({app: {outwardPrice, searchResult, adults, children, route}},ownProps) => {
+const mapStateToProps = ({app},ownProps) => {
     return {
-        outwardPrice,
-        searchResult,
-        adults,
-        children,
-        route,
+        ...app,
         ...ownProps
     }
 };
@@ -25,6 +21,6 @@ const mapDispatchToProps = (dispatch) => {
 const TotalContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Total);
+)(TotalTable);
 
 export default TotalContainer;

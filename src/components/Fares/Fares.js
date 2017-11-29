@@ -3,9 +3,10 @@ import {Paper} from 'material-ui';
 import OwlCarousel from 'react-owl-carousel2';
 import locations from '../../data/locations.json';
 import FullFares from '../FullFares/FullFaresContainer'
-import Total from  '../Total/TotalContainer';
+import TotalTable from  '../Total/TotalContainer';
 import Loader from  '../Loader/LoaderContainer';
 import './Fares.css';
+
 const options = {
     items: 8,
     nav: true,
@@ -34,7 +35,7 @@ class Fares extends Component {
             fullFaresPrice: 0,
             outwardSelected: this.props.searchResult.outwardSelected
         };
-        this.handlePrice = this.handlePrice.bind(this);
+
         this.handleFullFaresModal = this.handleFullFaresModal.bind(this);
         this.handleTotalModal = this.handleTotalModal.bind(this);
     }
@@ -63,18 +64,6 @@ class Fares extends Component {
         });
     }
 
-    handlePrice(price, direction) {
-        if(direction === 'inw') {
-            this.setState({
-                inwardPrice: "+" + price,
-            })
-        } else {
-            this.setState({
-                outwardPrice: price,
-            })
-        }
-    }
-
     componentWillReceiveProps() {
         this.createRoute();
         this.setState({
@@ -101,10 +90,14 @@ class Fares extends Component {
 
         const fares = this.props.searchResult.fares;
 
+        // why is this hardcoded?
         setTimeout(function () {
             self.props.rebaseData('loading', false);
         }, 1000);
 
+        if (!fares[this.state.outwardSelected]) {
+          console.log(this.state.outwardSelected, fares);
+        }
         return (
             <section className="fares">
                 {this.props.searchResult.response.inward || this.props.searchResult.response.outward ? (
@@ -152,12 +145,10 @@ class Fares extends Component {
                         handleFullFaresModal={this.handleFullFaresModal} />
                 ) : []}
                 {this.state.totalStatus === true ? (
-                    <Total
+                    <TotalTable
                         key='total-modal'
-                        tap={tap}
-                        routeFull={this.state.route}
-                        origin={originFound}
-                        destination={destinationFound}
+                        fares={this.props.searchResult.response.fares[this.state.outwardSelected][this.state.inwardSelected]}
+                        links={this.props.searchResult.links}
                         handleTotalModal={this.handleTotalModal} />
                 ) : []}
             </section>
@@ -170,17 +161,18 @@ class Fares extends Component {
           let price = fares[journey.id].price;
           let pence;
 
-            if(this.props.searchResult.response.inward.length > 1) {
-                if(this.state.inwardDom[journey.id]) {
-                    price = this.state.inwardDom[journey.id].price;
-                } else {
-                    price = fares[journey.id].price;
-                }
-                if(journey.id === selectedId) {
-                    this.props.rebaseData('outwardPrice', price);
-                    this.props.rebaseData('route', selectedId);
-                }
-            }
+            // not sure what this was doing but doesn't look right
+            // if(this.props.searchResult.response.inward.length > 1) {
+            //     if(this.state.inwardDom[journey.id]) {
+            //         price = this.state.inwardDom[journey.id].price;
+            //     } else {
+            //         price = fares[journey.id].price;
+            //     }
+            //     if(journey.id === selectedId) {
+            //         this.props.rebaseData('outwardPrice', price);
+            //         this.props.rebaseData('route', selectedId);
+            //     }
+            // }
 
             if(price === 0) {
                 pence = '--'
@@ -188,9 +180,6 @@ class Fares extends Component {
                 pence = (price % 100) + '0'
             } else {
                 pence = (price % 100)
-            }
-            if (direction === 'inw') {
-              price
             }
 
           return (
@@ -211,14 +200,7 @@ class Fares extends Component {
                     }
                     this.handleFullFaresModal(event, journey.id, price);
                 }}>More info</span></p>
-                <div className="fare-bottom" onClick={() => {
-                    if(direction !== 'inw') {
-                      this.createRoute(journey.id);
-                      this.getNewFares(journey.id);
-                    }
-
-                    this.handlePrice(price, direction);
-                }}>
+                <div className="fare-bottom" onClick={() => this.selectJourney(price, journey.id, direction)}>
                   <p className="fare-price bold">
                     <span className="pound">&#163;</span>{price === 0 ? '-' : Math.floor(price / 100)}<span className="pence">.{pence}</span>
                   </p>
@@ -232,13 +214,25 @@ class Fares extends Component {
       </OwlCarousel>);
     }
 
-    getNewFares(id) {
-        console.log(this.props.searchResult.fares);
-        console.log(id);
-        console.log(this.props.searchResult.fares[id]);
+    selectJourney(price, journeyId, direction) {
+      if(direction === 'out') {
+        if (!this.props.searchResult.fares[journeyId]) {
+          console.log(this.props.searchResult.fares, journeyId);
+        }
         this.setState({
-            inwardDom: this.props.searchResult.fares[id].with,
+          outwardPrice: price,
+          outwardSelected: journeyId,
+          inwardDom: this.props.searchResult.fares[journeyId].with,
         });
+
+        this.createRoute(journeyId);
+      }
+      else {
+        this.setState({
+          inwardPrice: price,
+          inwardSelected: journeyId,
+        });
+      }
     }
 
 }
