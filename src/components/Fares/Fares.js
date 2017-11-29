@@ -32,6 +32,7 @@ class Fares extends Component {
             fullFaresStatus: false,
             totalStatus: false,
             fullFaresPrice: 0,
+            outwardSelected: this.props.searchResult.outwardSelected
         };
         this.handlePrice = this.handlePrice.bind(this);
         this.handleFullFaresModal = this.handleFullFaresModal.bind(this);
@@ -65,7 +66,7 @@ class Fares extends Component {
     handlePrice(price, direction) {
         if(direction === 'inw') {
             this.setState({
-                inwardPrice: price,
+                inwardPrice: "+" + price,
             })
         } else {
             this.setState({
@@ -98,7 +99,7 @@ class Fares extends Component {
         let origin = originFound ? originFound.name : undefined;
         let destination = destinationFound ? destinationFound.name : undefined;
 
-        const fares = this.getFares();
+        const fares = this.props.searchResult.fares;
 
         setTimeout(function () {
             self.props.rebaseData('loading', false);
@@ -112,14 +113,14 @@ class Fares extends Component {
                     <div className="fares-out">
                         <h3 className="fares-title bold">{origin ? 'OUTBOUND - ' + origin : ''}{destination ? ' to ' + destination : ''}</h3>
                         <ul className="fare-list clearfix">
-                            {this.props.searchResult.response.length ? 'No results' : this.getCarosel(this.props.searchResult.response.outward, 'out', fares, this.outwardSelected)}
+                            {this.props.searchResult.response.length ? 'No results' : this.getCarosel(this.props.searchResult.response.outward, 'out', fares, this.state.outwardSelected)}
                         </ul>
                     </div>
                     {this.props.searchResult.response.inward.length > 0 ? (
                         <div className="fares-return">
                             <h3 className="fares-title bold">{destination ? 'RETURN - ' + destination : ''}{origin ? ' to ' + origin: ''}</h3>
                             <ul className="fare-list clearfix">
-                                {this.props.searchResult.response.length ? 'No results' : this.getCarosel(this.props.searchResult.response.inward, 'inw', fares[this.outwardSelected].with, this.inwardSelected)}
+                                {this.props.searchResult.response.length ? 'No results' : this.getCarosel(this.props.searchResult.response.inward, 'inw', fares[this.state.outwardSelected].with, this.state.inwardSelected)}
                             </ul>
                         </div>
                     ) : []}
@@ -188,6 +189,9 @@ class Fares extends Component {
             } else {
                 pence = (price % 100)
             }
+            if (direction === 'inw') {
+              price
+            }
 
           return (
             <Paper key={journey.id} className="fare pull-left" zDepth={2}>
@@ -208,13 +212,12 @@ class Fares extends Component {
                     this.handleFullFaresModal(event, journey.id, price);
                 }}>More info</span></p>
                 <div className="fare-bottom" onClick={() => {
-                    if(direction === 'inw') {
-                        this.handlePrice(price, direction);
-                    } else {
-                        this.createRoute(journey.id);
-                        this.getNewFares(journey.id);
-                        this.handlePrice(price, direction);
+                    if(direction !== 'inw') {
+                      this.createRoute(journey.id);
+                      this.getNewFares(journey.id);
                     }
+
+                    this.handlePrice(price, direction);
                 }}>
                   <p className="fare-price bold">
                     <span className="pound">&#163;</span>{price === 0 ? '-' : Math.floor(price / 100)}<span className="pence">.{pence}</span>
@@ -230,79 +233,14 @@ class Fares extends Component {
     }
 
     getNewFares(id) {
-        const fares = this.getFares();
+        console.log(this.props.searchResult.fares);
+        console.log(id);
+        console.log(this.props.searchResult.fares[id]);
         this.setState({
-            inwardDom: fares[id].with,
+            inwardDom: this.props.searchResult.fares[id].with,
         });
     }
 
-    getFares() {
-        const result = {};
-        let cheapestOutwardJourneyPrice = Number.MAX_SAFE_INTEGER;
-        let cheapestJourney;
-        for (const journeyId in this.props.searchResult.response.fares) {
-            result[journeyId] = this.getJourneyFares(this.props.searchResult.response.fares[journeyId]);
-
-            if (result[journeyId].price < cheapestOutwardJourneyPrice) {
-                cheapestOutwardJourneyPrice = result[journeyId].price;
-                cheapestJourney = journeyId;
-            }
-        }
-
-        this.outwardSelected = cheapestJourney;
-
-        return result;
-    }
-
-    getJourneyFares(journey) {
-      // singles
-      if (journey.length) {
-        return { price: this.getFareOptions(journey[0]).totalPrice };
-      }
-      // returns
-      else {
-        let cheapestInwardPrice = Number.MAX_SAFE_INTEGER;
-        let cheapestInward;
-        const pairedJourneys = {};
-
-        for (const inwardJourneyId in journey) {
-          const journeyPairTotal = journey[inwardJourneyId]
-            .map(fId => this.getFareOptions(fId))
-            .map(f => f ? f.totalPrice : 0)
-            .reduce((total, price) => total + price, 0);
-
-          if (journeyPairTotal < cheapestInwardPrice) {
-            cheapestInwardPrice = journeyPairTotal;
-            cheapestInward = inwardJourneyId;
-          }
-
-          pairedJourneys[inwardJourneyId] = journeyPairTotal;
-        }
-
-        const result = { cheapestInward, price: cheapestInwardPrice, "with": {} };
-
-        for (const inwardJourneyId in journey) {
-          result.with[inwardJourneyId] = { price: pairedJourneys[inwardJourneyId] - cheapestInwardPrice };
-        }
-
-        return result;
-      }
-    }
-
-    getFareOptions(fareOptionId) {
-      return this.props.searchResult.links[fareOptionId];
-    }
 }
 
 export default Fares;
-
-// const fares = {
-//   "/journey/1": {
-//     "price": 1000,
-//     "cheapestMatch": "/journey/2",
-//     "with": {
-//       "/journey/2": null,
-//       "/journey/3": 500,
-//     }
-//   }
-// };
