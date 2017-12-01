@@ -4,10 +4,6 @@ import './Loader.css';
 
 class Loader extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="loader">
@@ -28,7 +24,7 @@ class Loader extends Component {
                         <div className='inner'></div>
                     </div>
                 </div>
-                <a href='#' className="loader-link">traintickets.to</a>
+                <a href='http://traintickets.to' className="loader-link">traintickets.to</a>
             </div>
         );
     }

@@ -6,9 +6,7 @@ import Main from  './Main/MainContainer';
 import Footer from  './Footer/Footer';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-    }
+
     render() {
         return (
             <div>

@@ -68,7 +68,8 @@ class FullFares extends Component {
                                 horizontal={true}
                                 key={ind}
                             >
-                                {key.legs.map((leg, i) => {
+                                { // This needs to be cleaned up.
+                                  key.legs.map((leg, i) => {
                                     let mode, data;
                                     let legLoc = locations.find((e) => {
                                         return this.props.searchResult.response ? e.code === leg.origin : undefined;

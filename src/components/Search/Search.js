@@ -1,12 +1,13 @@
 import React, {Component} from "react";
-import {AutoComplete, DatePicker, TextField, SelectField, Chip, MenuItem, RadioButtonGroup, RadioButton, Checkbox, FontIcon} from 'material-ui';
+import {AutoComplete, DatePicker, TextField, Chip, RadioButtonGroup, RadioButton, Checkbox} from 'material-ui';
 import moment from 'moment'
 import locations from '../../data/locations.json';
 import railcards from '../../data/railcards.json';
 import { search } from '../../services/http';
-
 import './Search.css';
+
 class Search extends Component {
+
     constructor(props) {
         super(props);
         const minDate = new Date();
@@ -17,8 +18,8 @@ class Search extends Component {
         maxDate.setHours(24, 0, 0, 0);
 
         this.state = {
-            origin: '',
-            destination: '',
+            origin: 'EUS',
+            destination: 'BHM',
             adults: 2,
             children: 2,
             minDate: minDate,
@@ -33,7 +34,7 @@ class Search extends Component {
             singles: true,
             returns: true,
             advance: false,
-            offPeack: true,
+            offPeak: true,
             anytime: true,
         };
 
@@ -151,7 +152,7 @@ class Search extends Component {
 
     testAdults(event) {
         let value = event.target.value;
-        let rep = /[-\.;":'a-zA-Zа-яА-Я]/;
+        let rep = /[-.;":'a-zA-Zа-яА-Я]/;
         if (rep.test(value)) {
             value = value.replace(rep, this.state.adults);
             event.target.value = value;
@@ -165,7 +166,7 @@ class Search extends Component {
 
     testChildren(event) {
         let value = event.target.value;
-        let rep = /[-\.;":'a-zA-Zа-яА-Я]/;
+        let rep = /[-.;":'a-zA-Zа-яА-Я]/;
         if (rep.test(value)) {
             value = value.replace(rep, this.state.children);
             event.target.value = value;
@@ -218,7 +219,7 @@ class Search extends Component {
             retDate = moment(self.state.maxDate).format("YYYY-MM-DD");
         }
 
-        search(o, d, moment(self.state.minDate).format("YYYY-MM-DD"), self.state.adults, self.state.children, retDate, chipCode, filClass, self.state.singles, self.state.returns, self.state.advance, self.state.offPeack, self.state.anytime)
+        search(o, d, moment(self.state.minDate).format("YYYY-MM-DD"), self.state.adults, self.state.children, retDate, chipCode, filClass, self.state.singles, self.state.returns, self.state.advance, self.state.offPeak, self.state.anytime)
             .then((data) => {
                 self.props.rebaseData('searchResult', data)
             })
@@ -324,7 +325,7 @@ class Search extends Component {
                                     disableYearSelection={this.state.disableYearSelection}
                                     minDate={today}
                                     className="form-label-input form-calendar"
-                                    formatDate={(date) => moment(date).format('ddd, ' + 'DD MMM YYYY')}
+                                    formatDate={(date) => moment(date).format('ddd, DD MMM YYYY')}
                                     style={styles.calendar}
                                     textFieldStyle={styles.calendar}
                                 />
@@ -340,7 +341,7 @@ class Search extends Component {
                                     value={this.state.maxDate}
                                     ref="datePicker"
                                     className="form-label-input form-calendar"
-                                    formatDate={(date) => moment(date).format('ddd, ' + 'DD MMM YYYY')}
+                                    formatDate={(date) => moment(date).format('ddd, DD MMM YYYY')}
                                     style={styles.calendar}
                                     textFieldStyle={styles.calendar}
                                 />
@@ -351,6 +352,7 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">Adults</p>
                                 <TextField
+                                    name="numAdults"
                                     type="text"
                                     value={this.state.adults}
                                     className="form-label-input form-number"
@@ -383,6 +385,7 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">Children</p>
                                 <TextField
+                                    name="numChildren"
                                     type="text"
                                     value={this.state.children}
                                     className="form-label-input form-number"
@@ -504,11 +507,11 @@ class Search extends Component {
                                 <Checkbox
                                     key='2'
                                     label="Off Peak"
-                                    defaultChecked={this.state.offPeack}
+                                    defaultChecked={this.state.offPeak}
                                     style={styles.checkbox}
                                     iconStyle={styles.iconStyle}
                                     onCheck={() => {
-                                        this.setState({offPeack: !this.state.offPeack});
+                                        this.setState({offPeak: !this.state.offPeak});
                                         if(this.state.origin.length && this.state.destination.length) {
                                             this.search()
                                         }
