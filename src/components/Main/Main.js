@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import './Main.css';
 import Search from  '../Search/SearchContainer';
-import Graph from  '../Graph/GraphContainer';
+import Graph from  '../Graph/Graph';
 import Fares from  '../Fares/FaresContainer';
 
 class Main extends Component {
@@ -24,8 +24,8 @@ class Main extends Component {
         return (
             <main>
                 <Search />
-                {this.props.searchResult.response ? <Graph /> : undefined}
-                {this.props.searchResult.response ? <Fares getDataToFullFares={this.getDataToFullFares} />  : undefined}
+                {this.props.searchResult.response ? <Graph journeys={this.props.searchResult.response} fares={this.props.searchResult.fares} /> : undefined}
+                {this.props.searchResult.response ? <Fares />  : undefined}
             </main>
         );
     }
