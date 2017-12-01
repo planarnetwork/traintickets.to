@@ -42,9 +42,14 @@ class Search extends Component {
         this.testChildren = this.testChildren.bind(this);
         this.getMaxDate = this.getMaxDate.bind(this);
         this.removeDate = this.removeDate.bind(this);
+        this.handleChangeMinDate = this.handleChangeMinDate.bind(this);
+        this.handleChangeMaxDate = this.handleChangeMaxDate.bind(this);
+        this.handleUpdateInput = this.handleUpdateInput.bind(this);
+        this.handleRequestDelete = this.handleRequestDelete.bind(this);
+        this.handleRequestAdd = this.handleRequestAdd.bind(this);
     }
 
-    handleChangeMinDate = (event, date) => {
+    handleChangeMinDate(event, date) {
         this.setState({
             minDate: date,
         });
@@ -53,7 +58,7 @@ class Search extends Component {
         }
     };
 
-    handleChangeMaxDate = (event, date) => {
+    handleChangeMaxDate(event, date) {
         this.setState({
             maxDate: date,
         });
@@ -64,7 +69,7 @@ class Search extends Component {
         }
     };
 
-    handleUpdateInput = (searchText) => {
+    handleUpdateInput(searchText) {
         let chipKey;
         for (let i = 0; i < this.state.chipCode.length; i++) {
             chipKey = i + 1;
@@ -82,7 +87,7 @@ class Search extends Component {
         });
     };
 
-    handleRequestDelete = (key) => {
+    handleRequestDelete(key) {
         this.chipData = this.state.chipData;
         this.chipCode = this.state.chipCode;
         const chipToDelete = this.chipData.map((chip) => chip.key).indexOf(key);
@@ -98,7 +103,7 @@ class Search extends Component {
         }
     };
 
-    handleRequestAdd = () => {
+    handleRequestAdd() {
         let chipsFound = railcards.find((e) => {
             let result;
             this.state.chipData.map((key) => key.label).forEach(function(item) {

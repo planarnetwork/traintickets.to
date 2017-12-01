@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import locations from '../../data/locations.json';
 import ScrollArea from 'react-scrollbar';
 import './FullFares.css';
+import {IconButton} from 'material-ui';
+import Map from '../Map/MapContainer'
 
 class FullFares extends Component {
 
@@ -24,8 +26,15 @@ class FullFares extends Component {
     }
 
     render() {
+        let styles = {
+            tooltipStyles: {
+                left: '-40px',
+                top: '-15px',
+            }
+        };
         return (
             <div className="map-container">
+                <Map route={this.props.routeFull} />
                 <div className="map-info">
                     <div className="top-block">
                         <a className="block-close" href="" onClick={(event) => this.props.handleFullFaresModal(event)}><i className="fa fa-times-circle" aria-hidden="true"></i></a>
@@ -51,7 +60,6 @@ class FullFares extends Component {
                         </div>
                     </div>
                     <div className="bottom-block">
-
                         {this.props.routeFull.map((key, ind) => (
                             <ScrollArea
                                 speed={0.8}
@@ -70,31 +78,63 @@ class FullFares extends Component {
                                     });
 
                                     if(leg.mode === 'train') {
-                                        mode = <i className="material-icons">directions_railway</i>;
+                                        mode = (
+                                            <IconButton tooltipStyles={styles.tooltipStyles} tooltip="Train">
+                                                <i className="material-icons">directions_railway</i>
+                                            </IconButton>
+                                        )
                                     } else if(leg.mode === 'transfer' || leg.mode === 'walk') {
-                                        mode = <i className="material-icons">directions_walk</i>;
+                                        mode = (
+                                            <IconButton tooltipStyles={styles.tooltipStyles} tooltip={leg.mode === 'transfer' ? 'Transfer' : 'Walk'}>
+                                                <i className="material-icons">directions_walk</i>
+                                            </IconButton>
+                                        );
                                         data = (
                                             <p className="point-element">
                                                 Transfer to {legDis.name} ({leg.destination}), {leg.duration} min
                                             </p>
                                         )
                                     } else if(leg.mode === 'bus' || leg.mode === 'replacement bus') {
-                                        mode = <i className="material-icons">directions_bus</i>;
+                                        mode = (
+                                            <IconButton tooltipStyles={styles.tooltipStyles} tooltip={leg.mode === 'bus' ? 'Bus' : 'Replacement bus'}>
+                                                <i className="material-icons">directions_bus</i>
+                                            </IconButton>
+                                        )
                                     } else if(leg.mode === 'tram') {
-                                        mode = <i className="material-icons">tram</i>;
+                                        mode = (
+                                            <IconButton tooltipStyles={styles.tooltipStyles} tooltip="Tram">
+                                                <i className="material-icons">tram</i>
+                                            </IconButton>
+                                        )
                                     } else if(leg.mode === 'metro') {
-                                        mode = <i className="material-icons">directions_subway</i>;
+                                        mode = (
+                                            <IconButton tooltipStyles={styles.tooltipStyles} tooltip="Metro">
+                                                <i className="material-icons">directions_subway</i>
+                                            </IconButton>
+                                        )
                                     } else if(leg.mode === 'tube') {
-                                        mode = <i className="material-icons">subway</i>;
+                                        mode = (
+                                            <IconButton tooltipStyles={styles.tooltipStyles} tooltip="Tube">
+                                                <i className="material-icons">subway</i>
+                                            </IconButton>
+                                        );
                                         data = (
                                             <p className="point-element">
                                                 Transfer to {legDis.name} ({leg.destination}), {leg.duration} min
                                             </p>
                                         )
                                     } else if(leg.mode === 'ferry') {
-                                        mode = <i className="material-icons">directions_boat</i>;
+                                        mode = (
+                                            <IconButton tooltipStyles={styles.tooltipStyles} tooltip="Ferry">
+                                                <i className="material-icons">directions_boat</i>
+                                            </IconButton>
+                                        )
                                     } else if(leg.mode === 'cable car') {
-                                        mode = <i className="material-icons">local_taxi</i>;
+                                        mode = (
+                                            <IconButton tooltipStyles={styles.tooltipStyles} tooltip="Cable car">
+                                                <i className="material-icons">local_taxi</i>
+                                            </IconButton>
+                                        )
                                     } else {
                                         mode = [];
                                         data = (

@@ -8,8 +8,8 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loaded: false
-        }
+            loaded: false,
+        };
     }
     async componentDidMount() {
         if(window.location.reload) {
@@ -25,7 +25,7 @@ class Main extends Component {
             <main>
                 <Search />
                 {this.props.searchResult.response ? <Graph /> : undefined}
-                {this.props.searchResult.response ? <Fares />  : undefined}
+                {this.props.searchResult.response ? <Fares getDataToFullFares={this.getDataToFullFares} />  : undefined}
             </main>
         );
     }
