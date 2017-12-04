@@ -64,17 +64,12 @@ class Fares extends Component {
         });
     }
 
-    componentWillReceiveProps(props) {
+    componentWillReceiveProps() {
         this.createRoute();
         this.setState({
-          inwardPrice: 0,
-          outwardPrice: 0,
-          inwardDom: [],
-          route: [],
-          fullFaresStatus: false,
-          totalStatus: false,
-          fullFaresPrice: 0,
-          outwardSelected: props.searchResult.outwardSelected
+            inwardPrice: 0,
+            outwardPrice: 0,
+            inwardDom: [],
         });
     }
     componentDidMount() {
@@ -187,7 +182,7 @@ class Fares extends Component {
                 pence = (price % 100)
             }
 
-            
+
           return (
             <Paper key={journey.id} className="fare pull-left" zDepth={2}>
               <label className="fare-input center">
