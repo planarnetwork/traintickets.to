@@ -113,7 +113,7 @@ class Fares extends Component {
                         <div className="fares-return">
                             <h3 className="fares-title bold">{destination ? 'RETURN - ' + destination : ''}{origin ? ' to ' + origin: ''}</h3>
                             <ul className="fare-list clearfix">
-                                {this.props.searchResult.response.length ? 'No results' : this.getCarosel(this.props.searchResult.response.inward, 'inw', fares[this.state.outwardSelected].with, this.state.inwardSelected)}
+                                {this.props.searchResult.response.length ? 'No results' : this.getCarosel(this.props.searchResult.response.inward, 'inw', fares[this.state.outwardSelected] ? fares[this.state.outwardSelected].with : 0, this.state.inwardSelected)}
                             </ul>
                         </div>
                     ) : []}
@@ -158,7 +158,7 @@ class Fares extends Component {
     getCarosel(journeys, direction, fares, selectedId) {
       return (<OwlCarousel id="sync1" ref={"fares-" +direction} options={options}>
         {journeys.map(journey => {
-          let price = fares[journey.id].price;
+          let price = fares[journey.id] !== undefined ? fares[journey.id].price : 0;
           let pence;
 
             // not sure what this was doing but doesn't look right
@@ -222,7 +222,7 @@ class Fares extends Component {
         this.setState({
           outwardPrice: price,
           outwardSelected: journeyId,
-          inwardDom: this.props.searchResult.fares[journeyId].with,
+          inwardDom: this.props.searchResult.fares[journeyId].with || 0,
         });
 
         this.createRoute(journeyId);
