@@ -64,12 +64,17 @@ class Fares extends Component {
         });
     }
 
-    componentWillReceiveProps() {
+    componentWillReceiveProps(props) {
         this.createRoute();
         this.setState({
-            inwardPrice: 0,
-            outwardPrice: 0,
-            inwardDom: [],
+          inwardPrice: 0,
+          outwardPrice: 0,
+          inwardDom: [],
+          route: [],
+          fullFaresStatus: false,
+          totalStatus: false,
+          fullFaresPrice: 0,
+          outwardSelected: props.searchResult.outwardSelected
         });
     }
     componentDidMount() {
