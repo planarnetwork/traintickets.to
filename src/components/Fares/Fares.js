@@ -182,6 +182,7 @@ class Fares extends Component {
                 pence = (price % 100)
             }
 
+            
           return (
             <Paper key={journey.id} className="fare pull-left" zDepth={2}>
               <label className="fare-input center">
