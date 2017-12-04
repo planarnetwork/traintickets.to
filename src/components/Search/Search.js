@@ -18,8 +18,8 @@ class Search extends Component {
         maxDate.setHours(24, 0, 0, 0);
 
         this.state = {
-            origin: 'EUS',
-            destination: 'BHM',
+            origin: null,
+            destination: null,
             adults: 2,
             children: 2,
             minDate: minDate,
