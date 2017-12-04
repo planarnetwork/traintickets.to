@@ -219,13 +219,14 @@ class Search extends Component {
             retDate = moment(self.state.maxDate).format("YYYY-MM-DD");
         }
 
-        search(o, d, moment(self.state.minDate).format("YYYY-MM-DD"), self.state.adults, self.state.children, retDate, chipCode, filClass, self.state.singles, self.state.returns, self.state.advance, self.state.offPeak, self.state.anytime)
-            .then((data) => {
-                self.props.rebaseData('searchResult', data)
-            })
-            .catch((e) => {
-                console.log('Something going wrong: ' + e)
-            })
+        try {
+          const data = await search(o, d, moment(self.state.minDate).format("YYYY-MM-DD"), self.state.adults, self.state.children, retDate, chipCode, filClass, self.state.singles, self.state.returns, self.state.advance, self.state.offPeak, self.state.anytime);
+
+          self.props.rebaseData('searchResult', data);
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     render() {
