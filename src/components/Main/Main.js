@@ -5,20 +5,6 @@ import Graph from  '../Graph/Graph';
 import Fares from  '../Fares/FaresContainer';
 
 class Main extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loaded: false,
-        };
-    }
-    async componentDidMount() {
-        if(window.location.reload) {
-            sessionStorage.clear();
-            await this.props.rebaseData('searchResult', []);
-        } else {
-            return;
-        }
-    }
 
     render() {
         return (

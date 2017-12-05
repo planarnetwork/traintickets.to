@@ -30,8 +30,8 @@ class Map extends Component {
     }
 
     render() {
-        let MapWithADirectionsRenderer;
-        this.props.route.map((val) => {
+        const val = this.props.route;
+
             let origin = locations.find((e) => {
                 return e.code === val.origin;
             });
@@ -52,7 +52,7 @@ class Map extends Component {
                     }
                 }) : []
             });
-            MapWithADirectionsRenderer = compose(
+            const MapWithADirectionsRenderer = compose(
                 withProps({
                     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyCwD7tScQzIMMwTaC5DLZjaKgPpzvEToGA",
                     loadingElement: <div style={{ height: `100%` }} />,
@@ -67,7 +67,7 @@ class Map extends Component {
                         DirectionsService.route({
                             origin: new google.maps.LatLng(origin.lat, origin.lon),
                             destination: new google.maps.LatLng(destination.lat, destination.lon),
-                            travelMode: google.maps.TravelMode.DRIVING, /*DRIVING, BICYCLING, TRANSIT and WALKING*/
+                            travelMode: google.maps.TravelMode.TRANSIT, /*DRIVING, BICYCLING, TRANSIT and WALKING*/
                             waypoints: wayPointsData.map((key) => {
                                 return {
                                     location: new google.maps.LatLng(key.lat, key.lon),
@@ -93,7 +93,6 @@ class Map extends Component {
                     {props.directions && <DirectionsRenderer directions={props.directions} />}
                 </GoogleMap>
             );
-        });
         return (
             <div className="map">
                 <MapWithADirectionsRenderer />

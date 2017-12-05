@@ -32,41 +32,20 @@ class FullFares extends Component {
                 top: '-15px',
             }
         };
+
+        const key = this.props.routeFull;
         return (
             <div className="map-container">
                 <Map route={this.props.routeFull} />
                 <div className="map-info">
-                    <div className="top-block">
-                        <a className="block-close" href="" onClick={(event) => this.props.handleFullFaresModal(event)}><i className="fa fa-times-circle" aria-hidden="true"></i></a>
-                        <div className="block-element">
-                            <h3>Origin</h3>
-                            <span>{this.props.origin}</span>
-                        </div>
-                        <div className="block-element">
-                            <h3>Destination</h3>
-                            <span>{this.props.destination}</span>
-                        </div>
-                        <div className="block-element">
-                            <h3>{this.props.adults + this.props.children > 1 ? 'Passengers' : 'Passenger'}</h3>
-                            <span>{this.props.adults + this.props.children}</span>
-                        </div>
-                        <div className="block-element">
-                            <h3>Ticket</h3>
-                            <span>Ticket Type</span>
-                        </div>
-                        <div className="block-element">
-                            <h3>Price</h3>
-                            <p><span className="pound">&#163;</span>{Math.floor(this.props.fullFaresPrice / 100)}<span className="pence">.{(this.props.fullFaresPrice % 100) === 0 ? (this.props.fullFaresPrice % 100) + '0' : (this.props.fullFaresPrice % 100)}</span></p>
-                        </div>
-                    </div>
                     <div className="bottom-block">
-                        {this.props.routeFull.map((key, ind) => (
+                        <div className="block-close" onClick={(event) => this.props.handleFullFaresModal(event)}><i className="fa fa-times-circle" aria-hidden="true"></i></div>
                             <ScrollArea
                                 speed={0.8}
                                 className="area"
                                 contentClassName="content leg-list"
                                 horizontal={true}
-                                key={ind}
+                                key={key}
                             >
                                 { // This needs to be cleaned up.
                                   key.legs.map((leg, i) => {
@@ -168,7 +147,6 @@ class FullFares extends Component {
                                     )
                                 })}
                             </ScrollArea>
-                        ))}
                     </div>
                 </div>
             </div>

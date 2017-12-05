@@ -6,24 +6,26 @@ import railcards from '../../data/railcards.json';
 import { search } from '../../services/http';
 import './Search.css';
 
+const inputLocations = locations.map((key) => key.name + ' - ' + key.code);
+
 class Search extends Component {
 
     constructor(props) {
         super(props);
-        const minDate = new Date();
-        const maxDate = new Date();
-        minDate.setFullYear(minDate.getFullYear());
-        minDate.setHours(0, 0, 0, 0);
-        maxDate.setFullYear(maxDate.getFullYear());
-        maxDate.setHours(24, 0, 0, 0);
+        const outwardDate = new Date();
+        const inwardDate = new Date();
+        outwardDate.setFullYear(outwardDate.getFullYear());
+        outwardDate.setHours(0, 0, 0, 0);
+        inwardDate.setFullYear(inwardDate.getFullYear());
+        inwardDate.setHours(24, 0, 0, 0);
 
         this.state = {
             origin: '',
             destination: '',
             adults: 2,
             children: 2,
-            minDate: minDate,
-            maxDate: maxDate,
+            outwardDate: outwardDate,
+            inwardDate: inwardDate,
             searchText: '',
             railcards: railcards.map((key) => key.name),
             chipData: [],
@@ -41,33 +43,28 @@ class Search extends Component {
         this.search = this.search.bind(this);
         this.testAdults = this.testAdults.bind(this);
         this.testChildren = this.testChildren.bind(this);
-        this.getMaxDate = this.getMaxDate.bind(this);
         this.removeDate = this.removeDate.bind(this);
-        this.handleChangeMinDate = this.handleChangeMinDate.bind(this);
-        this.handleChangeMaxDate = this.handleChangeMaxDate.bind(this);
+        this.handleChangeOutwardDate = this.handleChangeOutwardDate.bind(this);
+        this.handleChangeInwardDate = this.handleChangeInwardDate.bind(this);
         this.handleUpdateInput = this.handleUpdateInput.bind(this);
         this.handleRequestDelete = this.handleRequestDelete.bind(this);
-        this.handleRequestAdd = this.handleRequestAdd.bind(this);
+        this.handleRailcardAdd = this.handleRailcardAdd.bind(this);
     }
 
-    handleChangeMinDate(event, date) {
+    handleChangeOutwardDate(event, date) {
         this.setState({
-            minDate: date,
+            outwardDate: date,
         });
-        if(this.state.origin.length && this.state.destination.length) {
-            this.search()
-        }
+
+        this.search();
     };
 
-    handleChangeMaxDate(event, date) {
+    handleChangeInwardDate(event, date) {
         this.setState({
-            maxDate: date,
+            inwardDate: date,
         });
-        if(this.state.origin.length && this.state.destination.length) {
-            if(date !== undefined) {
-                this.search()
-            }
-        }
+
+        this.search()
     };
 
     handleUpdateInput(searchText) {
@@ -99,12 +96,11 @@ class Search extends Component {
             chipData: this.chipData,
             chipCode: this.chipCode,
         });
-        if(this.state.origin.length && this.state.destination.length) {
-            this.search()
-        }
+
+        this.search();
     };
 
-    handleRequestAdd() {
+    handleRailcardAdd() {
         let chipsFound = railcards.find((e) => {
             let result;
             this.state.chipData.map((key) => key.label).forEach(function(item) {
@@ -124,6 +120,7 @@ class Search extends Component {
                 chipKey = i;
             }
         }
+        console.log(chipKey, chips);
         this.setState({chipCode: this.state.chipCode.concat([{key: chipKey, label: chips}])})
     };
 
@@ -159,9 +156,8 @@ class Search extends Component {
         }
         this.setState({adults: event.target.value});
 
-        if(this.state.origin.length && this.state.destination.length) {
-            this.search()
-        }
+
+        this.search();
     }
 
     testChildren(event) {
@@ -172,57 +168,53 @@ class Search extends Component {
             event.target.value = value;
         }
         this.setState({children: event.target.value});
-        if(this.state.origin.length && this.state.destination.length) {
-            this.search()
-        }
-    }
 
-    async getMaxDate(newDay) {
-        let self = await this;
-        self.setState({
-            maxDate: moment(newDay).add(1, 'day')._d
-        });
+        this.search();
     }
 
     removeDate(event) {
         event.preventDefault();
 
         // We manually reach into the composed component and set it's date to undefined.
-        let newDate;
         this.refs.datePicker.setState({
-            maxDate: newDate
+            inwardDate: null
         }, () => {
-            this.refs.datePicker.props.onChange(null, newDate);
+            this.refs.datePicker.props.onChange(null, null);
         });
-        if(this.state.origin.length && this.state.destination.length) {
-            this.search('false');
-        }
+
+        this.search();
     }
 
-    async search(returnDate) {
-        let self = await this;
-        let retDate;
-        let origin = this.state.origin;
-        let destination = this.state.destination;
-        let o = origin.split(' ');
-        let d = destination.split(' ');
-        o = o[o.length - 1];
-        d = d[d.length - 1];
-        let filClass = self.state.filClass;
-        let chipCode = self.state.chipCode.map((chips) => chips.label).toString();
-        this.props.rebaseData('adults', this.state.adults);
-        this.props.rebaseData('children', this.state.children);
-
-        if(returnDate || self.state.maxDate === undefined) {
-            retDate = null;
-        } else {
-            retDate = moment(self.state.maxDate).format("YYYY-MM-DD");
+    async search() {
+        if (this.state.origin.length < 3 || this.state.destination.length < 3) {
+          return;
         }
 
-        try {
-          const data = await search(o, d, moment(self.state.minDate).format("YYYY-MM-DD"), self.state.adults, self.state.children, retDate, chipCode, filClass, self.state.singles, self.state.returns, self.state.advance, self.state.offPeak, self.state.anytime);
+        let outDate = moment(this.state.outwardDate).format("YYYY-MM-DD");
+        let inwDate = this.state.inwardDate ? moment(this.state.inwardDate).format("YYYY-MM-DD") :  null;
+        let filClass = this.state.filClass;
+        let chipCode = this.state.chipCode.map(chips => chips.label).join();
 
-          self.props.rebaseData('searchResult', data);
+        try {
+            // this.props.rebaseData('loading', true);
+
+            const data = await search(
+                this.state.origin.split(" ").reverse()[0],
+                this.state.destination.split(" ").reverse()[0],
+                outDate,
+                this.state.adults,
+                this.state.children,
+                inwDate,
+                chipCode,
+                filClass,
+                this.state.singles,
+                this.state.returns,
+                this.state.advance,
+                this.state.offPeak,
+                this.state.anytime
+            );
+
+            this.props.rebaseData('searchResult', data);
         }
         catch (e) {
             console.log(e);
@@ -270,7 +262,7 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">ORIGIN</p>
                                 <AutoComplete
-                                    dataSource={locations.map((key) => key.name + ' - ' + key.code)}
+                                    dataSource={inputLocations}
                                     maxSearchResults={40}
                                     className="form-label-input Indigo"
                                     filter={AutoComplete.caseInsensitiveFilter}
@@ -281,12 +273,7 @@ class Search extends Component {
                                     openOnFocus={true}
                                     onNewRequest={(data) => {
                                         this.setState({origin: data});
-                                        if(this.state.destination.length) {
-                                            this.search();
-                                            if(this.state.origin.length && this.state.destination.length) {
-                                                this.props.rebaseData('loading', true);
-                                            }
-                                        }
+                                        this.search();
                                     }}
                                 />
                             </div>
@@ -294,7 +281,7 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">DESTINATION</p>
                                 <AutoComplete
-                                    dataSource={locations.map((key) => key.name + ' - ' + key.code)}
+                                    dataSource={inputLocations}
                                     maxSearchResults={40}
                                     className="form-label-input"
                                     filter={AutoComplete.caseInsensitiveFilter}
@@ -305,12 +292,7 @@ class Search extends Component {
                                     openOnFocus={true}
                                     onNewRequest={(data) => {
                                         this.setState({destination: data});
-                                        if(this.state.origin.length) {
-                                            this.search()
-                                        }
-                                        if(this.state.origin.length && this.state.destination.length) {
-                                            this.props.rebaseData('loading', true);
-                                        }
+                                        this.search();
                                     }}
                                 />
                             </div>
@@ -320,9 +302,9 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">Outward date</p>
                                 <DatePicker
-                                    onChange={this.handleChangeMinDate}
+                                    onChange={this.handleChangeOutwardDate}
                                     autoOk={this.state.autoOk}
-                                    defaultDate={this.state.minDate > this.state.maxDate ? this.getMaxDate(this.state.minDate) : this.state.minDate}
+                                    defaultDate={this.state.outwardDate}
                                     disableYearSelection={this.state.disableYearSelection}
                                     minDate={today}
                                     className="form-label-input form-calendar"
@@ -335,11 +317,11 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">Return date <button className='clear-date' onClick={this.removeDate}>clear</button></p>
                                 <DatePicker
-                                    onChange={this.handleChangeMaxDate}
+                                    onChange={this.handleChangeInwardDate}
                                     autoOk={this.state.autoOk}
                                     disableYearSelection={this.state.disableYearSelection}
-                                    minDate={this.state.minDate}
-                                    value={this.state.maxDate}
+                                    minDate={this.state.outwardDate}
+                                    value={this.state.inwardDate}
                                     ref="datePicker"
                                     className="form-label-input form-calendar"
                                     formatDate={(date) => moment(date).format('ddd, DD MMM YYYY')}
@@ -362,24 +344,18 @@ class Search extends Component {
                                     }}
                                 />
                                 <i className="fa fa-caret-left number-left" aria-hidden="true" onClick={() => {
-                                    if(this.state.adults <= 1) {
-                                        this.setState({adults: 0})
-                                    } else {
+                                    if (this.state.adults > 0) {
                                         this.setState({adults: this.state.adults - 1})
                                     }
-                                    if(this.state.origin.length && this.state.destination.length) {
-                                        this.search()
-                                    }
+
+                                    this.search();
                                 }}></i>
                                 <i className="fa fa-caret-right number-right" aria-hidden="true" onClick={() => {
-                                    if(this.state.adults >= 9) {
-                                        this.setState({adults: 9})
-                                    } else {
+                                    if (this.state.adults < 9) {
                                         this.setState({adults: this.state.adults + 1})
                                     }
-                                    if(this.state.origin.length && this.state.destination.length) {
-                                        this.search()
-                                    }
+
+                                    this.search();
                                 }}></i>
                             </div>
 
@@ -400,9 +376,8 @@ class Search extends Component {
                                     } else {
                                         this.setState({children: this.state.children - 1})
                                     }
-                                    if(this.state.origin.length && this.state.destination.length) {
-                                        this.search()
-                                    }
+
+                                    this.search();
                                 }}></i>
                                 <i className="fa fa-caret-right number-right" aria-hidden="true" onClick={() => {
                                     if(this.state.children >= 9) {
@@ -410,9 +385,8 @@ class Search extends Component {
                                     } else {
                                         this.setState({children: this.state.children + 1})
                                     }
-                                    if(this.state.origin.length && this.state.destination.length) {
-                                        this.search()
-                                    }
+
+                                    this.search();
                                 }}></i>
                             </div>
                         </div>
@@ -432,7 +406,7 @@ class Search extends Component {
                                     readOnly
                                     className="form-label-input"
                                     onNewRequest={() => {
-                                        this.handleRequestAdd();
+                                        this.handleRailcardAdd();
                                         this.search()
                                     }}
                                 />
@@ -446,9 +420,8 @@ class Search extends Component {
                             <legend className="form-label">Filters</legend>
                             <RadioButtonGroup className="form-elements" name="shipSpeed" defaultSelected={this.state.filClass} onChange={(event) => {
                                 this.setState({filClass: event.target.value});
-                                if(this.state.origin.length && this.state.destination.length) {
-                                    this.search()
-                                }
+
+                                this.search();
                             }}>
                                 <RadioButton
                                     value="standardClass"
@@ -472,9 +445,8 @@ class Search extends Component {
                                     iconStyle={styles.iconStyle}
                                     onCheck={() => {
                                         this.setState({singles: !this.state.singles});
-                                        if(this.state.origin.length && this.state.destination.length) {
-                                            this.search()
-                                        }
+
+                                        this.search();
                                     }}
                                 />
                                 <Checkbox
@@ -485,9 +457,8 @@ class Search extends Component {
                                     iconStyle={styles.iconStyle}
                                     onCheck={() => {
                                         this.setState({returns: !this.state.returns});
-                                        if(this.state.origin.length && this.state.destination.length) {
-                                            this.search()
-                                        }
+
+                                        this.search();
                                     }}
                                 />
                             </div>
@@ -500,9 +471,8 @@ class Search extends Component {
                                     iconStyle={styles.iconStyle}
                                     onCheck={() => {
                                         this.setState({advance: !this.state.advance});
-                                        if(this.state.origin.length && this.state.destination.length) {
-                                            this.search()
-                                        }
+
+                                        this.search();
                                     }}
                                 />
                                 <Checkbox
@@ -513,9 +483,8 @@ class Search extends Component {
                                     iconStyle={styles.iconStyle}
                                     onCheck={() => {
                                         this.setState({offPeak: !this.state.offPeak});
-                                        if(this.state.origin.length && this.state.destination.length) {
-                                            this.search()
-                                        }
+
+                                        this.search();
                                     }}
                                 />
                                 <Checkbox
@@ -526,9 +495,8 @@ class Search extends Component {
                                     iconStyle={styles.iconStyle}
                                     onCheck={() => {
                                         this.setState({anytime: !this.state.anytime});
-                                        if(this.state.origin.length && this.state.destination.length) {
-                                            this.search()
-                                        }
+
+                                        this.search();
                                     }}
                                 />
                             </div>

@@ -11,11 +11,11 @@
   .map-info {
     position: relative;
     .block-close {
-      right: -20px;
-      top: -20px;
+      right: 15px;
+      top: 30px;
       font-size: 28px;
       position: absolute;
-      overflow: hidden;
+      cursor: hand;
       border-radius: 50%;
       i {
         color: #67bcdb;
@@ -56,8 +56,8 @@
       height: 100%;
       overflow: hidden;
       transition: height .5s ease-in;
-      max-height: calc(100% - 240px);
-      top: 220px;
+      max-height: calc(100% - 40px);
+      top: 20px;
       z-index: 99;
       background-color: #fff;
       .leg-list {

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '../config.json'
+
 axios.defaults.baseURL = config.baseUrl;
 
 // get all api data
@@ -25,12 +26,12 @@ function processResponse(data) {
     let cheapestOutwardJourneyPrice = Number.MAX_SAFE_INTEGER;
     let cheapestJourney;
     for (const journeyId in data.response.fares) {
-      result[journeyId] = getJourneyFares(data.response.fares[journeyId]);
+        result[journeyId] = getJourneyFares(data.response.fares[journeyId]);
 
-      if (result[journeyId].price < cheapestOutwardJourneyPrice) {
-        cheapestOutwardJourneyPrice = result[journeyId].price;
-        cheapestJourney = journeyId;
-      }
+        if (result[journeyId].price < cheapestOutwardJourneyPrice) {
+            cheapestOutwardJourneyPrice = result[journeyId].price;
+            cheapestJourney = journeyId;
+        }
     }
 
     data.outwardSelected = cheapestJourney;

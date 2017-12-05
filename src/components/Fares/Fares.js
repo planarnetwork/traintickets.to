@@ -29,43 +29,35 @@ class Fares extends Component {
             inwardPrice: 0,
             outwardPrice: 0,
             inwardDom: [],
-            route: [],
             fullFaresStatus: false,
             totalStatus: false,
-            fullFaresPrice: 0,
-            outwardSelected: this.props.searchResult.outwardSelected
+            outwardSelected: this.props.searchResult.outwardSelected,
+            route: this.props.searchResult.response.outward.find(j => j.id === this.props.searchResult.outwardSelected),
         };
 
         this.handleFullFaresModal = this.handleFullFaresModal.bind(this);
         this.handleTotalModal = this.handleTotalModal.bind(this);
     }
 
-    createRoute(id) {
-        let data = this.props.searchResult.response.outward.filter((key) => {
-            return key.id.indexOf(id ? id : this.props.route) > -1
-        });
-        this.setState({
-            route: data,
-        })
-    }
-
-    handleFullFaresModal(event, id, price) {
+    handleFullFaresModal(event, id, dir) {
         event.preventDefault();
-        this.createRoute(id);
+        const direction = dir === 'out' ? 'outward' : 'inward';
+
         this.setState({
             fullFaresStatus: !this.state.fullFaresStatus,
-            fullFaresPrice: price,
+            route: this.props.searchResult.response[direction].find(j => j.id === id),
         });
     }
+
     handleTotalModal(event) {
         event.preventDefault();
+
         this.setState({
             totalStatus: !this.state.totalStatus,
         });
     }
 
     componentWillReceiveProps(props) {
-        this.createRoute();
         this.setState({
           inwardPrice: 0,
           outwardPrice: 0,
@@ -73,16 +65,11 @@ class Fares extends Component {
           route: [],
           fullFaresStatus: false,
           totalStatus: false,
-          fullFaresPrice: 0,
-          outwardSelected: props.searchResult.outwardSelected
+          outwardSelected: props.searchResult.outwardSelected,
         });
-    }
-    componentDidMount() {
-        this.setState({loading: false})
     }
 
     render() {
-        let self = this;
         let tap = Number(this.state.outwardPrice !== 0 ? this.state.outwardPrice : this.props.outwardPrice) + Number(this.state.inwardPrice);
         let originFound = locations.find((e) => {
             return this.props.searchResult.response ? e.code === this.props.searchResult.response.outward.map((key) => key.origin)[0] : undefined;
@@ -95,14 +82,6 @@ class Fares extends Component {
 
         const fares = this.props.searchResult.fares;
 
-        // why is this hardcoded?
-        setTimeout(function () {
-            self.props.rebaseData('loading', false);
-        }, 1000);
-
-        if (!fares[this.state.outwardSelected]) {
-          console.log(this.state.outwardSelected, fares);
-        }
         return (
             <section className="fares">
                 {this.props.searchResult.response.inward || this.props.searchResult.response.outward ? (
@@ -126,9 +105,6 @@ class Fares extends Component {
                 ) : []}
                 {this.state.inwardPrice > 0 || this.state.outwardPrice || this.props.outwardPrice > 0 ? (
                     <div className="tap" onClick={(event) => {
-                        if(!this.state.route.length) {
-                            this.createRoute();
-                        }
                         this.handleTotalModal(event);
                     }}>
                         <p className="tap-head bold">Total</p>
@@ -144,7 +120,6 @@ class Fares extends Component {
                     <FullFares
                         key='tap-modal'
                         routeFull={this.state.route}
-                        fullFaresPrice={this.state.fullFaresPrice}
                         origin={origin}
                         destination={destination}
                         handleFullFaresModal={this.handleFullFaresModal} />
@@ -165,19 +140,6 @@ class Fares extends Component {
         {journeys.map(journey => {
           let price = fares[journey.id] !== undefined ? fares[journey.id].price : 0;
           let pence;
-
-            // not sure what this was doing but doesn't look right
-            // if(this.props.searchResult.response.inward.length > 1) {
-            //     if(this.state.inwardDom[journey.id]) {
-            //         price = this.state.inwardDom[journey.id].price;
-            //     } else {
-            //         price = fares[journey.id].price;
-            //     }
-            //     if(journey.id === selectedId) {
-            //         this.props.rebaseData('outwardPrice', price);
-            //         this.props.rebaseData('route', selectedId);
-            //     }
-            // }
 
             if(price === 0) {
                 pence = '--'
@@ -201,10 +163,7 @@ class Fares extends Component {
                 </div>
                 <p className="duration">{journey.duration} min</p>
                 <p className="fare-ticket"><span onClick={(event) => {
-                    if(!this.state.route.length) {
-                        this.createRoute();
-                    }
-                    this.handleFullFaresModal(event, journey.id, price);
+                    this.handleFullFaresModal(event, journey.id, direction);
                 }}>More info</span></p>
                 <div className="fare-bottom" onClick={() => this.selectJourney(price, journey.id, direction)}>
                   <p className="fare-price bold">
@@ -222,16 +181,11 @@ class Fares extends Component {
 
     selectJourney(price, journeyId, direction) {
       if(direction === 'out') {
-        if (!this.props.searchResult.fares[journeyId]) {
-          console.log(this.props.searchResult.fares, journeyId);
-        }
         this.setState({
           outwardPrice: price,
           outwardSelected: journeyId,
           inwardDom: this.props.searchResult.fares[journeyId].with || 0,
         });
-
-        this.createRoute(journeyId);
       }
       else {
         this.setState({
