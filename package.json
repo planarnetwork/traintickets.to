@@ -29,6 +29,7 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
+    "deploy": "npm install && npm run build && rm ./dist/ -rf && mv ./build/ ./dist/",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
