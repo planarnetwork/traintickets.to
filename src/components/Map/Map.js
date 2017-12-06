@@ -30,69 +30,84 @@ class Map extends Component {
     }
 
     render() {
-        const val = this.props.route;
+        const journey = this.props.route;
+        const origin = locations.find(e => e.code === journey.origin);
 
-            let origin = locations.find((e) => {
-                return e.code === val.origin;
-            });
-            let destination = locations.find((e) => {
-                return e.code === val.destination;
-            });
-            let wayPointsData = [];
-            val.legs.map((leg) => {
-                leg.callingPoints ? leg.callingPoints.map((point) => {
-                    let pointOrigin = locations.find((e) => {
-                        return e.code === point.station;
-                    });
-                    if(origin.name !== pointOrigin.name && destination.name !== pointOrigin.name && wayPointsData.length < 23) {
-                        wayPointsData.push({
-                            lat: pointOrigin.lat,
-                            lon: pointOrigin.lon
-                        });
-                    }
-                }) : []
-            });
-            const MapWithADirectionsRenderer = compose(
-                withProps({
-                    googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyCwD7tScQzIMMwTaC5DLZjaKgPpzvEToGA",
-                    loadingElement: <div style={{ height: `100%` }} />,
-                    containerElement: <div style={styles.containerElement} />,
-                    mapElement: <div style={{ height: `100%` }} />,
-                }),
-                withScriptjs,
-                withGoogleMap,
-                lifecycle({
-                    componentDidMount() {
-                        const DirectionsService = new google.maps.DirectionsService();
+        const MapWithADirectionsRenderer = compose(
+            withProps({
+                googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyCwD7tScQzIMMwTaC5DLZjaKgPpzvEToGA",
+                loadingElement: <div style={{ height: `95%` }} />,
+                containerElement: <div style={styles.containerElement} />,
+                mapElement: <div style={{ height: `98%` }} />,
+            }),
+            withScriptjs,
+            withGoogleMap,
+            lifecycle({
+                componentDidMount() {
+                    const DirectionsService = new google.maps.DirectionsService();
+                    const wayPointsData = this.getWayPointsData(journey);
+                    const waypoints = [];
+
+                    for (const [origin, destination, mode] of wayPointsData) {
                         DirectionsService.route({
-                            origin: new google.maps.LatLng(origin.lat, origin.lon),
-                            destination: new google.maps.LatLng(destination.lat, destination.lon),
-                            travelMode: google.maps.TravelMode.TRANSIT, /*DRIVING, BICYCLING, TRANSIT and WALKING*/
-                            waypoints: wayPointsData.map((key) => {
-                                return {
-                                    location: new google.maps.LatLng(key.lat, key.lon),
-                                }
-                            }),
-                            optimizeWaypoints: false,
+                            origin: origin,
+                            destination: destination,
+                            travelMode: mode
                         }, (result, status) => {
                             if (status === google.maps.DirectionsStatus.OK) {
+                                result.geocoded_waypoints = waypoints.concat(result.geocoded_waypoints);
+
                                 this.setState({
                                     directions: result,
                                 });
                             } else {
-                                console.error(`error fetching directions ${result}`);
+                                console.error(`error fetching directions ${result}, ${status}`);
                             }
                         });
                     }
-                })
-            )(props =>
-                <GoogleMap
-                    defaultZoom={8}
-                    defaultCenter={new google.maps.LatLng(origin.lat, origin.lon)}
-                >
-                    {props.directions && <DirectionsRenderer directions={props.directions} />}
-                </GoogleMap>
-            );
+                },
+                getWayPointsData(journey) {
+                    const wayPointsData = [];
+
+                    for (const leg of journey.legs) {
+                        if (leg.callingPoints && leg.callingPoints.length > 1) {
+                            let pointOrigin = locations.find(e => e.code === leg.callingPoints[0].station);
+                            for (let i = 1; i < leg.callingPoints.length; i++) {
+                                const pointDestination = locations.find(e => e.code === leg.callingPoints[i].station);
+
+                                wayPointsData.push([
+                                    new google.maps.LatLng(pointOrigin.lat, pointOrigin.lon),
+                                    new google.maps.LatLng(pointDestination.lat, pointDestination.lon),
+                                    leg.mode === 'train' ? google.maps.TravelMode.TRANSIT : google.maps.TravelMode.DRIVING
+                                ]);
+
+                                pointOrigin = pointDestination;
+                            }
+                        }
+                        else {
+                            const pointOrigin = locations.find(e => e.code === leg.origin);
+                            const pointDestination = locations.find(e => e.code === leg.destination);
+
+                            wayPointsData.push([
+                                new google.maps.LatLng(pointOrigin.lat, pointOrigin.lon),
+                                new google.maps.LatLng(pointDestination.lat, pointDestination.lon),
+                                leg.mode === 'walk' ? google.maps.TravelMode.WALKING : google.maps.TravelMode.TRANSIT
+                            ]);
+                        }
+                    }
+
+                    return wayPointsData;
+                }
+            })
+        )(props =>
+            <GoogleMap
+                defaultZoom={8}
+                defaultCenter={new google.maps.LatLng(origin.lat, origin.lon)}
+            >
+                {props.directions && <DirectionsRenderer directions={props.directions} />}
+            </GoogleMap>
+        );
+
         return (
             <div className="map">
                 <MapWithADirectionsRenderer />

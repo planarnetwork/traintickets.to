@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { rebaseDataFunc } from '../../actions/index';
 import Map from './Map';
 
-const mapStateToProps = ({app: {}}, ownProps) => {
+const mapStateToProps = (app, ownProps) => {
     return {
         ...ownProps
     }

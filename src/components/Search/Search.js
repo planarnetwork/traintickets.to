@@ -41,8 +41,6 @@ class Search extends Component {
         };
 
         this.search = this.search.bind(this);
-        this.testAdults = this.testAdults.bind(this);
-        this.testChildren = this.testChildren.bind(this);
         this.removeDate = this.removeDate.bind(this);
         this.handleChangeOutwardDate = this.handleChangeOutwardDate.bind(this);
         this.handleChangeInwardDate = this.handleChangeInwardDate.bind(this);
@@ -147,31 +145,6 @@ class Search extends Component {
         );
     }
 
-    testAdults(event) {
-        let value = event.target.value;
-        let rep = /[-.;":'a-zA-Zа-яА-Я]/;
-        if (rep.test(value)) {
-            value = value.replace(rep, this.state.adults);
-            event.target.value = value;
-        }
-        this.setState({adults: event.target.value});
-
-
-        this.search();
-    }
-
-    testChildren(event) {
-        let value = event.target.value;
-        let rep = /[-.;":'a-zA-Zа-яА-Я]/;
-        if (rep.test(value)) {
-            value = value.replace(rep, this.state.children);
-            event.target.value = value;
-        }
-        this.setState({children: event.target.value});
-
-        this.search();
-    }
-
     removeDate(event) {
         event.preventDefault();
 
@@ -262,6 +235,7 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">ORIGIN</p>
                                 <AutoComplete
+                                    name="origin"
                                     dataSource={inputLocations}
                                     maxSearchResults={40}
                                     className="form-label-input Indigo"
@@ -281,6 +255,7 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">DESTINATION</p>
                                 <AutoComplete
+                                    name="destination"
                                     dataSource={inputLocations}
                                     maxSearchResults={40}
                                     className="form-label-input"
@@ -302,6 +277,7 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">Outward date</p>
                                 <DatePicker
+                                    name="outwardDate"
                                     onChange={this.handleChangeOutwardDate}
                                     autoOk={this.state.autoOk}
                                     defaultDate={this.state.outwardDate}
@@ -317,6 +293,7 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">Return date <button className='clear-date' onClick={this.removeDate}>clear</button></p>
                                 <DatePicker
+                                    name="inwardDate"
                                     onChange={this.handleChangeInwardDate}
                                     autoOk={this.state.autoOk}
                                     disableYearSelection={this.state.disableYearSelection}
@@ -339,9 +316,6 @@ class Search extends Component {
                                     type="text"
                                     value={this.state.adults}
                                     className="form-label-input form-number"
-                                    onChange={(event) => {
-                                        this.testAdults(event);
-                                    }}
                                 />
                                 <i className="fa fa-caret-left number-left" aria-hidden="true" onClick={() => {
                                     if (this.state.adults > 0) {
@@ -366,9 +340,6 @@ class Search extends Component {
                                     type="text"
                                     value={this.state.children}
                                     className="form-label-input form-number"
-                                    onChange={(event) => {
-                                        this.testChildren(event)
-                                    }}
                                 />
                                 <i className="fa fa-caret-left number-left" aria-hidden="true" onClick={() => {
                                     if(this.state.children <= 1) {
@@ -395,6 +366,7 @@ class Search extends Component {
                             <div className="form-group">
                                 <p className="form-label">Railcards</p>
                                 <AutoComplete
+                                    name="railcards"
                                     filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
                                     searchText={this.state.searchText}
                                     onUpdateInput={this.handleUpdateInput}

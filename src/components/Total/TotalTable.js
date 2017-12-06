@@ -14,7 +14,7 @@ export default class TotalTable extends Component {
         return (
             <div className="ff-modal">
                 <div className="ff-list">
-                    <a className="ff-close" href="" onClick={(event) => this.props.handleTotalModal(event)}><i className="fa fa-times-circle" aria-hidden="true"></i></a>
+                    <div className="ff-close" onClick={(event) => this.props.handleTotalModal(event)}><i className="fa fa-times-circle" aria-hidden="true"></i></div>
                     {
                       this.props.fares.map(fare => <FareOption key={fare} fares={this.props.links[fare].fares} links={this.props.links}/>)
                     }

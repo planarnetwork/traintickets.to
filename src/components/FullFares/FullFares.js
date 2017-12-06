@@ -1,34 +1,16 @@
 import React, {Component} from "react";
 import locations from '../../data/locations.json';
-import ScrollArea from 'react-scrollbar';
+import ScrollArea from 'react-scrollarea';
 import './FullFares.css';
 import {IconButton} from 'material-ui';
 import Map from '../Map/MapContainer'
 
 class FullFares extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            points: [{
-                0: true
-            }],
-        };
-        this.handlePoint = this.handlePoint.bind(this);
-    }
-
-    handlePoint(id) {
-        const newPoint = this.state.points.slice();
-        newPoint[id] = !this.state.points[id];
-        this.setState({
-            points: newPoint,
-        });
-    }
-
     render() {
         let styles = {
             tooltipStyles: {
-                left: '-40px',
+                left: '-15px',
                 top: '-15px',
             }
         };
@@ -38,8 +20,8 @@ class FullFares extends Component {
             <div className="map-container">
                 <Map route={this.props.routeFull} />
                 <div className="map-info">
-                    <div className="bottom-block">
-                        <div className="block-close" onClick={(event) => this.props.handleFullFaresModal(event)}><i className="fa fa-times-circle" aria-hidden="true"></i></div>
+                    <div className="block-close" onClick={(event) => this.props.handleFullFaresModal(event)}><i className="fa fa-times-circle" aria-hidden="true"></i></div>
+                        <div className="bottom-block">
                             <ScrollArea
                                 speed={0.8}
                                 className="area"
@@ -130,9 +112,8 @@ class FullFares extends Component {
                                                 <span className="ff-mode">
                                                     {mode}
                                                 </span>
-                                                <i className={this.state.points[i] ? "fa fa-angle-up" : "fa fa-angle-down" } aria-hidden="true" onClick={() => {this.handlePoint(i)}}></i>
                                             </h3>
-                                            {this.state.points[i] ? leg.callingPoints ? leg.callingPoints.map((point, index) => {
+                                            {leg.callingPoints ? leg.callingPoints.map((point, index) => {
                                                 let pointLoc = locations.find((e) => {
                                                     return this.props.searchResult.response ? e.code === point.station : undefined;
                                                 });
@@ -142,7 +123,7 @@ class FullFares extends Component {
                                                         <span className="point-station">{pointLoc.name}</span>
                                                     </p>
                                                 )
-                                            }) : data : []}
+                                            }) : data}
                                         </div>
                                     )
                                 })}
