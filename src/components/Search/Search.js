@@ -26,12 +26,9 @@ class Search extends Component {
             children: 2,
             outwardDate: outwardDate,
             inwardDate: inwardDate,
-            searchText: '',
             railcards: railcards.map((key) => key.name),
             chipData: [],
             chipCode: [],
-            autoOk: true,
-            disableYearSelection: false,
             filClass: 'standardClass',
             singles: true,
             returns: true,
@@ -42,28 +39,10 @@ class Search extends Component {
 
         this.search = this.search.bind(this);
         this.removeDate = this.removeDate.bind(this);
-        this.handleChangeOutwardDate = this.handleChangeOutwardDate.bind(this);
-        this.handleChangeInwardDate = this.handleChangeInwardDate.bind(this);
         this.handleUpdateInput = this.handleUpdateInput.bind(this);
         this.handleRequestDelete = this.handleRequestDelete.bind(this);
         this.handleRailcardAdd = this.handleRailcardAdd.bind(this);
     }
-
-    handleChangeOutwardDate(event, date) {
-        this.setState({
-            outwardDate: date,
-        });
-
-        this.search();
-    };
-
-    handleChangeInwardDate(event, date) {
-        this.setState({
-            inwardDate: date,
-        });
-
-        this.search()
-    };
 
     handleUpdateInput(searchText) {
         let chipKey;
@@ -79,7 +58,6 @@ class Search extends Component {
         }
         this.setState({
             chipData: this.state.chipData.concat([{key: chipKey === undefined ? 0 : chipKey, label: searchText}]),
-            searchText: '',
         });
     };
 
@@ -94,8 +72,6 @@ class Search extends Component {
             chipData: this.chipData,
             chipCode: this.chipCode,
         });
-
-        this.search();
     };
 
     handleRailcardAdd() {
@@ -118,7 +94,7 @@ class Search extends Component {
                 chipKey = i;
             }
         }
-        console.log(chipKey, chips);
+
         this.setState({chipCode: this.state.chipCode.concat([{key: chipKey, label: chips}])})
     };
 
@@ -154,8 +130,6 @@ class Search extends Component {
         }, () => {
             this.refs.datePicker.props.onChange(null, null);
         });
-
-        this.search();
     }
 
     async search() {
@@ -163,10 +137,8 @@ class Search extends Component {
           return;
         }
 
-        let outDate = moment(this.state.outwardDate).format("YYYY-MM-DD");
-        let inwDate = this.state.inwardDate ? moment(this.state.inwardDate).format("YYYY-MM-DD") :  null;
-        let filClass = this.state.filClass;
-        let chipCode = this.state.chipCode.map(chips => chips.label).join();
+        const outDate = moment(this.state.outwardDate).format("YYYY-MM-DD");
+        const inwDate = this.state.inwardDate ? moment(this.state.inwardDate).format("YYYY-MM-DD") :  null;
 
         try {
             // this.props.rebaseData('loading', true);
@@ -178,8 +150,8 @@ class Search extends Component {
                 this.state.adults,
                 this.state.children,
                 inwDate,
-                chipCode,
-                filClass,
+                this.state.chipCode.map(chips => chips.label).join(),
+                this.state.filClass,
                 this.state.singles,
                 this.state.returns,
                 this.state.advance,
@@ -191,6 +163,16 @@ class Search extends Component {
         }
         catch (e) {
             console.log(e);
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        for (const key in this.state) {
+            if (prevState[key] !== this.state[key]) {
+                this.search();
+
+                return;
+            }
         }
     }
 
@@ -244,10 +226,8 @@ class Search extends Component {
                                         width: 180,
                                     }}
                                     menuStyle={styles.menuStyle}
-                                    openOnFocus={true}
                                     onNewRequest={(data) => {
                                         this.setState({origin: data});
-                                        this.search();
                                     }}
                                 />
                             </div>
@@ -264,10 +244,8 @@ class Search extends Component {
                                         width: 180,
                                     }}
                                     menuStyle={styles.menuStyle}
-                                    openOnFocus={true}
                                     onNewRequest={(data) => {
                                         this.setState({destination: data});
-                                        this.search();
                                     }}
                                 />
                             </div>
@@ -278,10 +256,10 @@ class Search extends Component {
                                 <p className="form-label">Outward date</p>
                                 <DatePicker
                                     name="outwardDate"
-                                    onChange={this.handleChangeOutwardDate}
-                                    autoOk={this.state.autoOk}
+                                    onChange={(e, date) => this.setState({ outwardDate: date })}
+                                    autoOk={true}
                                     defaultDate={this.state.outwardDate}
-                                    disableYearSelection={this.state.disableYearSelection}
+                                    disableYearSelection={false}
                                     minDate={today}
                                     className="form-label-input form-calendar"
                                     formatDate={(date) => moment(date).format('ddd, DD MMM YYYY')}
@@ -294,9 +272,9 @@ class Search extends Component {
                                 <p className="form-label">Return date <button className='clear-date' onClick={this.removeDate}>clear</button></p>
                                 <DatePicker
                                     name="inwardDate"
-                                    onChange={this.handleChangeInwardDate}
-                                    autoOk={this.state.autoOk}
-                                    disableYearSelection={this.state.disableYearSelection}
+                                    onChange={(e, date) => this.setState({ inwardDate: date })}
+                                    autoOk={true}
+                                    disableYearSelection={false}
                                     minDate={this.state.outwardDate}
                                     value={this.state.inwardDate}
                                     ref="datePicker"
@@ -322,14 +300,12 @@ class Search extends Component {
                                         this.setState({adults: this.state.adults - 1})
                                     }
 
-                                    this.search();
                                 }}></i>
                                 <i className="fa fa-caret-right number-right" aria-hidden="true" onClick={() => {
                                     if (this.state.adults < 9) {
                                         this.setState({adults: this.state.adults + 1})
                                     }
 
-                                    this.search();
                                 }}></i>
                             </div>
 
@@ -348,7 +324,6 @@ class Search extends Component {
                                         this.setState({children: this.state.children - 1})
                                     }
 
-                                    this.search();
                                 }}></i>
                                 <i className="fa fa-caret-right number-right" aria-hidden="true" onClick={() => {
                                     if(this.state.children >= 9) {
@@ -357,7 +332,6 @@ class Search extends Component {
                                         this.setState({children: this.state.children + 1})
                                     }
 
-                                    this.search();
                                 }}></i>
                             </div>
                         </div>
@@ -368,7 +342,7 @@ class Search extends Component {
                                 <AutoComplete
                                     name="railcards"
                                     filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
-                                    searchText={this.state.searchText}
+                                    searchText={''}
                                     onUpdateInput={this.handleUpdateInput}
                                     openOnFocus={true}
                                     dataSource={this.state.railcards}
@@ -379,7 +353,6 @@ class Search extends Component {
                                     className="form-label-input"
                                     onNewRequest={() => {
                                         this.handleRailcardAdd();
-                                        this.search()
                                     }}
                                 />
                                 <div>
@@ -392,8 +365,6 @@ class Search extends Component {
                             <legend className="form-label">Filters</legend>
                             <RadioButtonGroup className="form-elements" name="shipSpeed" defaultSelected={this.state.filClass} onChange={(event) => {
                                 this.setState({filClass: event.target.value});
-
-                                this.search();
                             }}>
                                 <RadioButton
                                     value="standardClass"
@@ -417,8 +388,6 @@ class Search extends Component {
                                     iconStyle={styles.iconStyle}
                                     onCheck={() => {
                                         this.setState({singles: !this.state.singles});
-
-                                        this.search();
                                     }}
                                 />
                                 <Checkbox
@@ -429,8 +398,6 @@ class Search extends Component {
                                     iconStyle={styles.iconStyle}
                                     onCheck={() => {
                                         this.setState({returns: !this.state.returns});
-
-                                        this.search();
                                     }}
                                 />
                             </div>
@@ -443,8 +410,6 @@ class Search extends Component {
                                     iconStyle={styles.iconStyle}
                                     onCheck={() => {
                                         this.setState({advance: !this.state.advance});
-
-                                        this.search();
                                     }}
                                 />
                                 <Checkbox
@@ -455,8 +420,6 @@ class Search extends Component {
                                     iconStyle={styles.iconStyle}
                                     onCheck={() => {
                                         this.setState({offPeak: !this.state.offPeak});
-
-                                        this.search();
                                     }}
                                 />
                                 <Checkbox
@@ -467,8 +430,6 @@ class Search extends Component {
                                     iconStyle={styles.iconStyle}
                                     onCheck={() => {
                                         this.setState({anytime: !this.state.anytime});
-
-                                        this.search();
                                     }}
                                 />
                             </div>
