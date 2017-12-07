@@ -10,8 +10,8 @@ class Main extends Component {
         return (
             <main>
                 <Search />
-                {this.props.searchResult.response ? <Graph journeys={this.props.searchResult.response} fares={this.props.searchResult.fares} /> : undefined}
-                {this.props.searchResult.response ? <Fares />  : undefined}
+                {this.props.searchResult && this.props.searchResult.response ? <Graph journeys={this.props.searchResult.response} fares={this.props.searchResult.fares} /> : undefined}
+                {this.props.searchResult && this.props.searchResult.response ? <Fares />  : undefined}
             </main>
         );
     }

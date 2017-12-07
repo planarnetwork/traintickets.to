@@ -2,12 +2,12 @@
 import React, {Component} from "react";
 import locations from '../../data/locations.json';
 import './Map.css';
-const { compose, withProps, lifecycle } = require("recompose");
+const { compose, withProps } = require("recompose");
 const {
     withScriptjs,
     withGoogleMap,
     GoogleMap,
-    DirectionsRenderer,
+    Polyline,
 } = require("react-google-maps");
 
 const styles = {
@@ -32,8 +32,38 @@ class Map extends Component {
     render() {
         const journey = this.props.route;
         const origin = locations.find(e => e.code === journey.origin);
+        const wayPointsData = [];
 
-        const MapWithADirectionsRenderer = compose(
+        for (const leg of journey.legs) {
+            if (leg.callingPoints && leg.callingPoints.length > 1) {
+                let pointOrigin = locations.find(e => e.code === leg.callingPoints[0].station);
+                for (let i = 1; i < leg.callingPoints.length; i++) {
+                    const pointDestination = locations.find(e => e.code === leg.callingPoints[i].station);
+
+                    if (pointOrigin && pointDestination) {
+                        wayPointsData.push([
+                            { lat: pointOrigin.lat, lng: pointOrigin.lon },
+                            { lat: pointDestination.lat, lng: pointDestination.lon }
+                        ]);
+                    }
+
+                    pointOrigin = pointDestination;
+                }
+            }
+            else {
+                const pointOrigin = locations.find(e => e.code === leg.origin);
+                const pointDestination = locations.find(e => e.code === leg.destination);
+
+                if (pointOrigin && pointDestination) {
+                    wayPointsData.push([
+                        { lat: pointOrigin.lat, lng: pointOrigin.lon },
+                        { lat: pointDestination.lat, lng: pointDestination.lon }
+                    ]);
+                }
+            }
+        }
+
+        const MapWithRoute = compose(
             withProps({
                 googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyCwD7tScQzIMMwTaC5DLZjaKgPpzvEToGA",
                 loadingElement: <div style={{ height: `95%` }} />,
@@ -42,75 +72,21 @@ class Map extends Component {
             }),
             withScriptjs,
             withGoogleMap,
-            lifecycle({
-                componentDidMount() {
-                    const DirectionsService = new google.maps.DirectionsService();
-                    const wayPointsData = this.getWayPointsData(journey);
-                    const waypoints = [];
-
-                    for (const [origin, destination, mode] of wayPointsData) {
-                        DirectionsService.route({
-                            origin: origin,
-                            destination: destination,
-                            travelMode: mode
-                        }, (result, status) => {
-                            if (status === google.maps.DirectionsStatus.OK) {
-                                result.geocoded_waypoints = waypoints.concat(result.geocoded_waypoints);
-
-                                this.setState({
-                                    directions: result,
-                                });
-                            } else {
-                                console.error(`error fetching directions ${result}, ${status}`);
-                            }
-                        });
-                    }
-                },
-                getWayPointsData(journey) {
-                    const wayPointsData = [];
-
-                    for (const leg of journey.legs) {
-                        if (leg.callingPoints && leg.callingPoints.length > 1) {
-                            let pointOrigin = locations.find(e => e.code === leg.callingPoints[0].station);
-                            for (let i = 1; i < leg.callingPoints.length; i++) {
-                                const pointDestination = locations.find(e => e.code === leg.callingPoints[i].station);
-
-                                wayPointsData.push([
-                                    new google.maps.LatLng(pointOrigin.lat, pointOrigin.lon),
-                                    new google.maps.LatLng(pointDestination.lat, pointDestination.lon),
-                                    leg.mode === 'train' ? google.maps.TravelMode.TRANSIT : google.maps.TravelMode.DRIVING
-                                ]);
-
-                                pointOrigin = pointDestination;
-                            }
-                        }
-                        else {
-                            const pointOrigin = locations.find(e => e.code === leg.origin);
-                            const pointDestination = locations.find(e => e.code === leg.destination);
-
-                            wayPointsData.push([
-                                new google.maps.LatLng(pointOrigin.lat, pointOrigin.lon),
-                                new google.maps.LatLng(pointDestination.lat, pointDestination.lon),
-                                leg.mode === 'walk' ? google.maps.TravelMode.WALKING : google.maps.TravelMode.TRANSIT
-                            ]);
-                        }
-                    }
-
-                    return wayPointsData;
-                }
-            })
-        )(props =>
+        )(() =>
             <GoogleMap
+                defaultOptions={{
+                    gestureHandling: 'greedy'
+                }}
                 defaultZoom={8}
                 defaultCenter={new google.maps.LatLng(origin.lat, origin.lon)}
             >
-                {props.directions && <DirectionsRenderer directions={props.directions} />}
+                { wayPointsData.map((points, i) => <Polyline key={i} path={points}/>) }
             </GoogleMap>
         );
 
         return (
             <div className="map">
-                <MapWithADirectionsRenderer />
+                <MapWithRoute />
             </div>
         );
     }

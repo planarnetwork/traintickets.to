@@ -11,9 +11,10 @@
   .map-info {
     position: relative;
     .block-close {
-      right: 15px;
-      top: 30px;
-      font-size: 28px;
+      right: 10px;
+      top: 2px;
+      background-color: #fff;
+      font-size: 39px;
       position: absolute;
       cursor: pointer;
       border-radius: 50%;
@@ -71,8 +72,8 @@
           background: #67bcdb;
           color: #fff;
           .ff-mode {
-            right: 45px !important;
-            top: 8px !important;
+            right: 15px;
+            top: 8px;
             button {
               padding: 0 !important;
               width: 20px !important;
