@@ -4,6 +4,7 @@ import ScrollArea from 'react-scrollarea';
 import './FullFares.css';
 import {IconButton} from 'material-ui';
 import Map from '../Map/MapContainer'
+import * as moment from "moment";
 
 class FullFares extends Component {
 
@@ -53,7 +54,7 @@ class FullFares extends Component {
                                         );
                                         data = (
                                             <p className="point-element">
-                                                Transfer to {legDis.name} ({leg.destination}), {leg.duration} min
+                                                Transfer to {legDis.name} ({leg.destination}), {moment.unix(leg.duration).format("m")} min
                                             </p>
                                         )
                                     } else if(leg.mode === 'bus' || leg.mode === 'replacement bus') {
@@ -82,7 +83,7 @@ class FullFares extends Component {
                                         );
                                         data = (
                                             <p className="point-element">
-                                                Transfer to {legDis.name} ({leg.destination}), {leg.duration} min
+                                                Transfer to {legDis.name} ({leg.destination}), {moment.unix(leg.duration).format("m")} min
                                             </p>
                                         )
                                     } else if(leg.mode === 'ferry') {
@@ -119,7 +120,7 @@ class FullFares extends Component {
                                                 });
                                                 return (
                                                     <p key={index} className="point-element">
-                                                        <span className="point-time">{point.time}</span>
+                                                        <span className="point-time">{moment.unix(point.time).format(moment.HTML5_FMT.TIME)}</span>
                                                         <span className="point-station">{pointLoc.name}</span>
                                                     </p>
                                                 )

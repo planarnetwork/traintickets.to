@@ -6,10 +6,8 @@ class Graph extends Component {
 
     render() {
         const outwardJourneys = this.props.journeys.outward.map(journey => {
-            const [hours, minutes] = journey.departureTime.split(":");
-
             return [
-                new Date(1970,0,1,parseInt(hours, 10), parseInt(minutes, 10), 0, 0), //(parseInt(hours, 10) * 60) + parseInt(minutes, 10),
+                new Date(journey.departureTime * 1000),
                 this.props.fares[journey.id].price / 100
             ]
         });

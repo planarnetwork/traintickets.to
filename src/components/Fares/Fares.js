@@ -6,6 +6,7 @@ import FullFares from '../FullFares/FullFaresContainer'
 import TotalTable from  '../Total/TotalContainer';
 import Loader from  '../Loader/LoaderContainer';
 import './Fares.css';
+import * as moment from "moment";
 
 const options = {
     items: 8,
@@ -158,10 +159,10 @@ class Fares extends Component {
                   <span className="fare-station pull-right">{journey.destination}</span>
                 </div>
                 <div className="fare-times bold clearfix">
-                  <time className="fare-time pull-left">{journey.departureTime}</time>
-                  <time className="fare-time pull-right">{journey.arrivalTime}</time>
+                  <time className="fare-time pull-left">{moment.unix(journey.departureTime).format(moment.HTML5_FMT.TIME)}</time>
+                  <time className="fare-time pull-right">{moment.unix(journey.arrivalTime).format(moment.HTML5_FMT.TIME)}</time>
                 </div>
-                <p className="duration">{journey.duration} min</p>
+                <p className="duration">{moment.unix(journey.arrivalTime - journey.departureTime).format("H[hrs] m[min]")}</p>
                 <p className="fare-ticket"><span onClick={(event) => {
                     this.handleFullFaresModal(event, journey.id, direction);
                 }}>More info</span></p>
