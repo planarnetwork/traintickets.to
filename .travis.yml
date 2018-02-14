@@ -3,7 +3,7 @@ node_js:
 - 9
 install:
   - npm install
-  - pip install awscli
+  - pip install --user awscli
 script: npm run build
 deploy:
   provider: s3
