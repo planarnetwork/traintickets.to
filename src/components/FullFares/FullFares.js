@@ -109,7 +109,7 @@ class FullFares extends Component {
                                     return (
                                         <div key={i} className="leg-element">
                                             <h3>
-                                                {legLoc.name} {leg.service ? '(' + leg.service +')' : null}
+                                                {legLoc.name} {leg.service ? '(' + leg.operator + ', ' + leg.service +')' : null}
                                                 <span className="ff-mode">
                                                     {mode}
                                                 </span>
