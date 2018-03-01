@@ -22,8 +22,8 @@ class Search extends Component {
         this.state = {
             origin: '',
             destination: '',
-            adults: 2,
-            children: 2,
+            adults: 1,
+            children: 0,
             outwardDate: outwardDate,
             inwardDate: inwardDate,
             railcards: railcards.map((key) => key.name),
