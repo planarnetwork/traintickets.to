@@ -120,7 +120,7 @@ class FullFares extends Component {
                                                 });
                                                 return (
                                                     <p key={index} className="point-element">
-                                                        <span className="point-time">{moment.unix(point.time).format(moment.HTML5_FMT.TIME)}</span>
+                                                        <span className="point-time">{point.time ? moment.unix(point.time).format(moment.HTML5_FMT.TIME) : '--:--'}</span>
                                                         <span className="point-station">{pointLoc.name}</span>
                                                     </p>
                                                 )
