@@ -1,4 +1,3 @@
-import update from 'immutability-helper';
 
 import { rebaseData } from '../config/actionEvents';
 
@@ -16,7 +15,7 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch (action.type) {
         case rebaseData:
-            return update(state, {[action.state.key]: {$set: action.state.value}});
+            return Object.assign({}, state, {[action.state.key]: action.state.value});
         default:
             return state;
     }

@@ -1,26 +1,11 @@
 import React, {Component} from "react";
 import {Paper} from 'material-ui';
-import OwlCarousel from 'react-owl-carousel2';
 import locations from '../../data/locations.json';
 import FullFares from '../FullFares/FullFaresContainer'
 import TotalTable from  '../Total/TotalContainer';
 import Loader from  '../Loader/LoaderContainer';
 import './Fares.css';
 import * as moment from "moment";
-
-const options = {
-    items: 8,
-    nav: true,
-    rewind: false,
-    autoplay: false,
-    autoWidth: false,
-    dotsEach: true,
-    dotData: true,
-    margin: 20,
-    mouseDrag: true,
-    touchDrag: true,
-    navText: ['<i class="fa fa-caret-left" aria-hidden="true"></i>', '<i class="fa fa-caret-right" aria-hidden="true"></i>'],
-};
 
 class Fares extends Component {
 
@@ -88,18 +73,14 @@ class Fares extends Component {
                 {this.props.searchResult.response.inward || this.props.searchResult.response.outward ? (
                 <div className="container">
                     {this.props.loading ? (<Loader />) : []}
-                    <div className="fares-out">
+                    <div className="fares-out clearfix">
                         <h3 className="fares-title bold">{origin ? 'OUTBOUND - ' + origin : ''}{destination ? ' to ' + destination : ''}</h3>
-                        <ul className="fare-list clearfix">
-                            {this.props.searchResult.response.length ? 'No results' : this.getCarosel(this.props.searchResult.response.outward, 'out', fares, this.state.outwardSelected)}
-                        </ul>
+                        {this.props.searchResult.response.length ? 'No results' : this.getCarosel(this.props.searchResult.response.outward, 'out', fares, this.state.outwardSelected)}
                     </div>
                     {this.props.searchResult.response.inward.length > 0 ? (
-                        <div className="fares-return">
+                        <div className="fares-return clearfix">
                             <h3 className="fares-title bold">{destination ? 'RETURN - ' + destination : ''}{origin ? ' to ' + origin: ''}</h3>
-                            <ul className="fare-list clearfix">
-                                {this.props.searchResult.response.length ? 'No results' : this.getCarosel(this.props.searchResult.response.inward, 'inw', fares[this.state.outwardSelected] ? fares[this.state.outwardSelected].with : 0, this.state.inwardSelected)}
-                            </ul>
+                            {this.props.searchResult.response.length ? 'No results' : this.getCarosel(this.props.searchResult.response.inward, 'inw', fares[this.state.outwardSelected] ? fares[this.state.outwardSelected].with : 0, this.state.inwardSelected)}
                         </div>
                     ) : []}
                 </div>
@@ -137,7 +118,7 @@ class Fares extends Component {
     }
 
     getCarosel(journeys, direction, fares, selectedId) {
-      return (<OwlCarousel id="sync1" ref={"fares-" +direction} options={options}>
+      return (<div className="fare-container">
         {journeys.map(journey => {
           let price = fares[journey.id] !== undefined ? fares[journey.id].price : 0;
           let pence;
@@ -147,12 +128,12 @@ class Fares extends Component {
             } else if((price % 100) === 0) {
                 pence = (price % 100) + '0'
             } else {
-                pence = (price % 100)
+                pence = (price % 100) < 10 ? "0" + price % 100 : price % 100;
             }
 
             
           return (
-            <Paper key={journey.id} className="fare pull-left" zDepth={2}>
+            <Paper key={journey.id} className="fare" zDepth={2}>
               <label className="fare-input center">
                 <div className="fare-stations bold clearfix">
                   <span className="fare-station pull-left">{journey.origin}</span>
@@ -177,7 +158,7 @@ class Fares extends Component {
             </Paper>
           );
         })}
-      </OwlCarousel>);
+      </div>);
     }
 
     selectJourney(price, journeyId, direction) {
