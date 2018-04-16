@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import locations from '../../data/locations.json';
-import ScrollArea from 'react-scrollarea';
+
 import './FullFares.css';
 import {IconButton} from 'material-ui';
 import Map from '../Map/MapContainer'
@@ -23,13 +23,7 @@ class FullFares extends Component {
                 <div className="map-info">
                     <div className="block-close" onClick={(event) => this.props.handleFullFaresModal(event)}><i className="fa fa-times-circle" aria-hidden="true"></i></div>
                         <div className="bottom-block">
-                            <ScrollArea
-                                speed={0.8}
-                                className="area"
-                                contentClassName="content leg-list"
-                                horizontal={true}
-                                key={key}
-                            >
+
                                 { // This needs to be cleaned up.
                                   key.legs.map((leg, i) => {
                                     let mode, data;
@@ -128,7 +122,7 @@ class FullFares extends Component {
                                         </div>
                                     )
                                 })}
-                            </ScrollArea>
+
                     </div>
                 </div>
             </div>
