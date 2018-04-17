@@ -1,0 +1,59 @@
+@import "../../variables.scss";
+
+.search {
+  background-color: $bg-grey;
+
+  &-col {
+    margin: 25px 0;
+    padding: 0 25px;
+    border-right: solid 1px $color-white;
+    height: 120px;
+  }
+
+  &-col-1 {
+    width: 275px;
+    padding-left: 0;
+  }
+
+  &-col-2 {
+    width: 220px;
+  }
+
+  &-col-3 {
+    width: 100px;
+  }
+
+  &-col-4 {
+    width: 195px;
+  }
+
+  &-col-5 {
+    width: 380px;
+  }
+}
+
+.form {
+  &-label {
+    text-transform: uppercase;
+    display: inline-block;
+    font-size: 12px;
+    color: $color-label;
+    margin-bottom: 3px;
+  }
+
+  &-control {
+    display: block;
+    width: 100%;
+    height: 32px;
+    background-color: $color-white;
+    border: none;
+  }
+
+  &-group {
+    margin-bottom: 10px;
+  }
+
+  &-radio {
+    color: #364a68;
+  }
+}
