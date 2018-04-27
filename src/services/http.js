@@ -1,5 +1,8 @@
 import axios from 'axios';
-import config from '../config.json'
+import production from '../config/production.json'
+import dev from '../config/dev.json'
+
+const config = process.env.REACT_APP_ENV === 'dev' ? dev : production;
 
 axios.defaults.baseURL = config.baseUrl;
 
