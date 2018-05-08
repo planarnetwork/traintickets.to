@@ -15728,5 +15728,9 @@
   { "code": "0841", "name": "London Underground Zone 4", "lat": 51.52814, "lon": -0.13392 },
   { "code": "0844", "name": "London Underground and DLR Zones 4-6", "lat": 51.52814, "lon": -0.13392 },
   { "code": "0847", "name": "London Underground Zones 5-6", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "4452", "name": "London Thameslink", "lat": 51.52814, "lon": -0.13392 }
+  { "code": "4452", "name": "London Thameslink", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0035", "name": "London Travelcard Zones 1-6", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0034", "name": "London Travelcard Zones 1-4", "lat": 51.52814, "lon": -0.13392 }
+
+
 ]
