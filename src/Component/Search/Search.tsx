@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './Search.css';
+import {StationInput} from "./StationInput/StationInput";
 
 export function Search() {
   return (
@@ -9,7 +10,7 @@ export function Search() {
           <div className="search-col search-col-1 pull-left">
             <div className="form-group">
               <label className="form-label" htmlFor="origin">Origin</label>
-              <input className="form-control" id="origin" type="text" placeholder="Leaving from"/>
+              <StationInput/>
             </div>
 
             <div className="form-group">
