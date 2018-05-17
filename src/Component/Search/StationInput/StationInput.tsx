@@ -2,16 +2,15 @@ import * as Autosuggest from "react-autosuggest";
 import * as React from "react";
 import {locations, Location} from "../../../Data/locations";
 
-export class StationInput extends React.Component {
-  public state: StationInputState;
+/**
+ * Auto complete for stations
+ */
+export class StationInput extends React.Component<StationInputProps, StationInputState> {
 
-  constructor() {
-    super({});
+  constructor(props: StationInputProps) {
+    super(props);
 
-    this.state = {
-      value: "",
-      suggestions: []
-    };
+    this.state = { value: "", suggestions: [] };
   }
 
   public onChange = (event: React.FormEvent<HTMLInputElement>, { newValue }: any) => {
@@ -34,7 +33,8 @@ export class StationInput extends React.Component {
 
   public render() {
     const inputProps = {
-      placeholder: "TODO",
+      placeholder: this.props.placeholder,
+      name: this.props.name,
       value: this.state.value,
       onChange: this.onChange
     };
@@ -50,6 +50,11 @@ export class StationInput extends React.Component {
       />
     );
   }
+}
+
+interface StationInputProps {
+  placeholder: string;
+  name: string;
 }
 
 interface StationInputState {
@@ -68,8 +73,4 @@ const getSuggestions = (value: string) => {
 
 const getSuggestionValue = (location: Location) => location.name;
 
-const renderSuggestion = (location: Location) => (
-  <div>
-    {location.name} [{location.code}]
-  </div>
-);
+const renderSuggestion = (location: Location) => <div>{location.name} [{location.code}]</div>;

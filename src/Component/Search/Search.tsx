@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './Search.css';
 import {StationInput} from "./StationInput/StationInput";
+import {DatePicker} from "./DatePicker/DatePicker";
 
 export function Search() {
   return (
@@ -10,24 +11,19 @@ export function Search() {
           <div className="search-col search-col-1 pull-left">
             <div className="form-group">
               <label className="form-label" htmlFor="origin">Origin</label>
-              <StationInput/>
+              <StationInput name="origin" placeholder="Leaving from"/>
             </div>
 
             <div className="form-group">
               <label className="form-label" htmlFor="destination">Destination</label>
-              <input className="form-control" id="destination" type="text" placeholder="Going to"/>
+              <StationInput name="destination" placeholder="Going to"/>
             </div>
           </div>
 
           <div className="search-col search-col-2 pull-left">
             <div className="form-group">
-              <label className="form-label" htmlFor="outDate">Outward date</label>
-              <input className="form-control" id="outDate" type="date" placeholder="Leaving on"/>
-            </div>
-
-            <div className="form-group">
-              <label className="form-label" htmlFor="returnDate">Return date</label>
-              <input className="form-control" id="returnDate" type="date" placeholder="Returning on"/>
+              <label className="form-label" htmlFor="outDate">Dates</label>
+              <DatePicker startDateId="startDate" endDateId="endDate"/>
             </div>
           </div>
 
