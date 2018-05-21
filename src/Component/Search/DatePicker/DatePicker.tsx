@@ -11,7 +11,7 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
     super(props);
 
     this.state = {
-      focusedInput: "startDate",
+      focusedInput: null,
       startDate: moment(),
       endDate: null
     };
@@ -71,7 +71,7 @@ interface DatePickerState extends DateValueState {
   focusedInput: DateType;
 }
 
-type DateType = "startDate" | "endDate";
+type DateType = "startDate" | "endDate" | null;
 
 interface DatePreset extends DateValueState {
   text: string;

@@ -2,6 +2,7 @@ import * as React from 'react';
 import './Search.css';
 import {StationInput} from "./StationInput/StationInput";
 import {DatePicker} from "./DatePicker/DatePicker";
+import {RailcardSelect} from "./RailcardSelect/RailcardSelect";
 
 export function Search() {
   return (
@@ -42,10 +43,7 @@ export function Search() {
           <div className="search-col search-col-4 pull-left">
             <div className="form-group">
               <label className="form-label" htmlFor="child">Railcards</label>
-              <select className="form-control">
-                <option>16-25 Railcard</option>
-                <option>Network Railcard</option>
-              </select>
+              <RailcardSelect name="railcards"/>
             </div>
           </div>
 
