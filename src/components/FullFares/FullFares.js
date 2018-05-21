@@ -48,7 +48,7 @@ class FullFares extends Component {
                                         );
                                         data = (
                                             <p className="point-element">
-                                                Transfer to {legDis.name} ({leg.destination}), {moment.unix(leg.duration).format("m")} min
+                                                {leg.mode === 'transfer' ? 'Transfer' : 'Walk'} to {legDis.name} ({leg.destination}), {moment.unix(leg.duration).format("m")} min
                                             </p>
                                         )
                                     } else if(leg.mode === 'bus' || leg.mode === 'replacement bus') {
@@ -77,7 +77,7 @@ class FullFares extends Component {
                                         );
                                         data = (
                                             <p className="point-element">
-                                                Transfer to {legDis.name} ({leg.destination}), {moment.unix(leg.duration).format("m")} min
+                                                Tube to {legDis.name} ({leg.destination}), {moment.unix(leg.duration).format("m")} min
                                             </p>
                                         )
                                     } else if(leg.mode === 'ferry') {
@@ -114,7 +114,9 @@ class FullFares extends Component {
                                                 });
                                                 return (
                                                     <p key={index} className="point-element">
-                                                        <span className="point-time">{point.time ? moment.unix(point.time).format(moment.HTML5_FMT.TIME) : '--:--'}</span>
+                                                        <span className="point-time">{point.arrive ? moment.unix(point.arrive).format(moment.HTML5_FMT.TIME) : '––:––'}</span>
+                                                        <br/>
+                                                        <span className="point-time">{point.depart ? moment.unix(point.depart).format(moment.HTML5_FMT.TIME) : '––:––'}</span>
                                                         <span className="point-station">{pointLoc ? pointLoc.name : point.station}</span>
                                                     </p>
                                                 )

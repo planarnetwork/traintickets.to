@@ -94,7 +94,7 @@
           }
         }
         .point-element {
-          padding: 15px 15px 0;
+          padding: 8px 0 0 15px;
           text-align: left;
           &:last-child {
             padding-bottom: 15px;
@@ -102,10 +102,12 @@
           .point-time {
             color: #67bcdb;
             font-size: 11px;
-            padding-right: 15px;
+            padding-right: 10px;
           }
           .point-station {
             font-size: 14px;
+            top:-8px;
+            position: relative;
           }
         }
       }
