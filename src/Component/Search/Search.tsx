@@ -43,7 +43,7 @@ export function Search() {
           <div className="search-col search-col-4 pull-left">
             <div className="form-group">
               <label className="form-label" htmlFor="child">Railcards</label>
-              <RailcardSelect name="railcards"/>
+              <RailcardSelect name="railcards" max={4}/>
             </div>
           </div>
 
