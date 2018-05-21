@@ -1,22 +1,21 @@
 import * as Autosuggest from "react-autosuggest";
 import * as React from "react";
 import {locations, Location} from "../../../Data/locations";
+import {SearchContext, SearchProviderContext} from "../Search";
 
 /**
  * Auto complete for stations
  */
 export class StationInput extends React.Component<StationInputProps, StationInputState> {
 
-  constructor(props: StationInputProps) {
-    super(props);
+  public state = {
+    suggestions: []
+  };
 
-    this.state = { value: "", suggestions: [] };
-  }
-
-  public onChange = (event: React.FormEvent<HTMLInputElement>, { newValue }: any) => {
-    this.setState({
-      value: newValue
-    });
+  public onChange = (setState: any) => {
+    return (event: React.FormEvent<HTMLInputElement>, { newValue }: any) => {
+      setState({ [this.props.name]: newValue });
+    };
   };
 
   public onSuggestionsFetchRequested = ({ value }: any) => {
@@ -32,22 +31,24 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
   };
 
   public render() {
-    const inputProps = {
-      placeholder: this.props.placeholder,
-      name: this.props.name,
-      value: this.state.value,
-      onChange: this.onChange
-    };
-
     return (
-      <Autosuggest
-        suggestions={this.state.suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        inputProps={inputProps}
-      />
+      <SearchContext.Consumer>
+        {(context: SearchProviderContext) => (
+          <Autosuggest
+            suggestions={this.state.suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={renderSuggestion}
+            inputProps={{
+              placeholder: this.props.placeholder,
+              name: this.props.name,
+              onChange: this.onChange(context.setState),
+              value: context.state[this.props.name]
+            }}
+          />
+        )}
+      </SearchContext.Consumer>
     );
   }
 }
@@ -58,7 +59,6 @@ interface StationInputProps {
 }
 
 interface StationInputState {
-  value: string;
   suggestions: Location[];
 }
 
