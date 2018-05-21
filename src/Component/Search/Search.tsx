@@ -31,12 +31,12 @@ export function Search() {
           <div className="search-col search-col-3 pull-left center">
             <div className="form-group">
               <label className="form-label" htmlFor="adult">Adult</label>
-              <input className="form-control center" id="adult" type="number" value="1" min="0" max="9"/>
+              <input className="form-control center" id="adult" type="number" defaultValue="1" min="0" max="9"/>
             </div>
 
             <div className="form-group">
               <label className="form-label" htmlFor="child">Child</label>
-              <input className="form-control center" id="child" type="number" value="0" min="0" max="9"/>
+              <input className="form-control center" id="child" type="number" defaultValue="0" min="0" max="9"/>
             </div>
           </div>
 
@@ -52,7 +52,7 @@ export function Search() {
               <legend className="form-label">Filters</legend>
               <div className="form-group">
                 <label className="form-label-radio">
-                  <input type="radio" className="form-check-input" name="class" id="class1" value="Standard" checked={true}/>
+                  <input type="radio" className="form-check-input" name="class" id="class1" value="Standard" defaultChecked={true}/>
                   Standard
                 </label>
               </div>
