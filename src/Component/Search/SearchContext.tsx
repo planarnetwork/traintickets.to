@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as moment from "moment";
 
 export const SearchContext = React.createContext({} as SearchProviderContext);
 
@@ -7,17 +8,19 @@ export class SearchProvider extends React.Component<SearchProviderProps, SearchQ
   public state = {
     origin: "",
     destination: "",
-    outwardDate: "",
+    outwardDate: moment().format(),
     returnDate: null,
     railcards: "",
   };
 
   public set = (values: Partial<SearchQuery>): void => {
-    this.setState({...this.state, ...values});
+    this.setState(values as SearchQuery);
   };
 
-  public componentDidUpdate(prevProps: SearchProviderProps, prevState: SearchQuery): void {
-    prevProps.listener(prevState);
+  public componentDidUpdate(): void {
+    if (this.state.origin && this.state.destination && this.state.outwardDate) {
+      this.props.listener(this.state);
+    }
   }
 
   public render() {
