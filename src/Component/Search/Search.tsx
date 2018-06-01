@@ -72,7 +72,7 @@ export function Search() {
   )
 }
 
-export const SearchContext = React.createContext<SearchProviderContext>({} as SearchProviderContext);
+export const SearchContext = React.createContext({} as SearchProviderContext);
 
 export class SearchProvider extends React.Component<{}, SearchFields> {
 
@@ -85,7 +85,7 @@ export class SearchProvider extends React.Component<{}, SearchFields> {
   };
 
   public set = (values: Partial<SearchFields>): void => {
-    this.setState(values as any);
+    this.setState(values as SearchFields);
   };
 
   public render() {
