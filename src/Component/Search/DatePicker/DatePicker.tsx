@@ -3,7 +3,8 @@ import {DateRangePicker} from "react-dates";
 import {Moment} from "moment";
 import * as moment from "moment";
 import 'react-dates/lib/css/_datepicker.css';
-import {SearchContext, SearchProviderContext} from "../Search";
+import {SearchProviderContext} from "../SearchContext";
+import {SearchContext} from "../SearchContext";
 
 export class DatePicker extends React.Component<DatePickerProps, DatePickerState> {
 

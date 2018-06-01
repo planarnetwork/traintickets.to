@@ -1,7 +1,8 @@
 import * as Autosuggest from "react-autosuggest";
 import * as React from "react";
 import {locations, Location} from "../../../Data/locations";
-import {SearchContext, SearchProviderContext} from "../Search";
+import {SearchProviderContext} from "../SearchContext";
+import {SearchContext} from "../SearchContext";
 
 /**
  * Auto complete for stations

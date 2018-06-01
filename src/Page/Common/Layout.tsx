@@ -1,20 +1,13 @@
 import * as React from 'react';
-import {Fares} from "../../Component/Fares/Fares";
 import {Footer} from "../../Component/Footer/Footer";
-import {Graph} from "../../Component/Graph/Graph";
 import {Header} from "../../Component/Header/Header";
-import {Search} from "../../Component/Search/Search";
 
-export function App() {
+export function Layout({ children }: { children: JSX.Element[] }) {
   return (
     <div className="App">
       <Header/>
-      <Search/>
-      <Graph/>
-      <Fares/>
+      { ...children }
       <Footer/>
     </div>
   );
 }
-
-

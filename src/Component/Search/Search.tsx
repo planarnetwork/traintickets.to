@@ -3,12 +3,13 @@ import './Search.css';
 import {StationInput} from "./StationInput/StationInput";
 import {DatePicker} from "./DatePicker/DatePicker";
 import {RailcardSelect} from "./RailcardSelect/RailcardSelect";
+import {SearchProvider, SearchProviderProps} from './SearchContext';
 
-export function Search() {
+export function Search(props: SearchProviderProps) {
   return (
     <section className="search">
       <div className="container clearfix">
-        <SearchProvider>
+        <SearchProvider {...props}>
           <form>
             <div className="search-col search-col-1 pull-left">
               <div className="form-group">
@@ -72,40 +73,5 @@ export function Search() {
   )
 }
 
-export const SearchContext = React.createContext({} as SearchProviderContext);
 
-export class SearchProvider extends React.Component<{}, SearchFields> {
 
-  public state = {
-    origin: "",
-    destination: "",
-    outwardDate: "",
-    returnDate: null,
-    railcards: "",
-  };
-
-  public set = (values: Partial<SearchFields>): void => {
-    this.setState(values as SearchFields);
-  };
-
-  public render() {
-    return (
-      <SearchContext.Provider value={{ state: this.state, setState: this.set }}>
-        {this.props.children}
-      </SearchContext.Provider>
-    );
-  }
-}
-
-interface SearchFields {
-  origin: string;
-  destination: string;
-  outwardDate: string;
-  returnDate: string | null;
-  railcards: string;
-}
-
-export interface SearchProviderContext {
-  setState: (state: Partial<SearchFields>) => void;
-  state: SearchFields;
-}
