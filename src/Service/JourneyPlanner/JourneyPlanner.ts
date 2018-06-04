@@ -1,12 +1,12 @@
-import {EventEmitter} from "eventemitter3";
 import {SearchQuery} from "../../Component/Search/SearchContext";
+import {Fare} from "../../Component/Fares/Fares";
 
-export class JourneyPlanner extends EventEmitter {
+export class JourneyPlanner {
 
-  public search = async (query: SearchQuery) => {
-
-    console.log(query);
-    this.emit("results", []);
+  public search = async (query: SearchQuery): Promise<SearchResults> => {
+    return Promise.resolve([]);
   };
 
 }
+
+export type SearchResults = Fare[];

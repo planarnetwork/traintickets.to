@@ -19,7 +19,7 @@ export class SearchProvider extends React.Component<SearchProviderProps, SearchQ
 
   public componentDidUpdate(): void {
     if (this.state.origin && this.state.destination && this.state.outwardDate) {
-      this.props.listener(this.state);
+      this.props.onSubmit(this.state);
     }
   }
 
@@ -33,7 +33,7 @@ export class SearchProvider extends React.Component<SearchProviderProps, SearchQ
 }
 
 export interface SearchProviderProps {
-  listener: (form: SearchQuery) => any;
+  onSubmit: (form: SearchQuery) => any;
 }
 
 export interface SearchQuery {
