@@ -140,8 +140,8 @@ class Fares extends Component {
                   <span className="fare-station pull-right">{journey.destination}</span>
                 </div>
                 <div className="fare-times bold clearfix">
-                  <time className="fare-time pull-left">{moment.unix(journey.departureTime).format(moment.HTML5_FMT.TIME)}</time>
-                  <time className="fare-time pull-right">{moment.unix(journey.arrivalTime).format(moment.HTML5_FMT.TIME)}</time>
+                  <time className="fare-time pull-left">{moment.unix(journey.departureTime).utc().format(moment.HTML5_FMT.TIME)}</time>
+                  <time className="fare-time pull-right">{moment.unix(journey.arrivalTime).utc().format(moment.HTML5_FMT.TIME)}</time>
                 </div>
                 <p className="duration">{moment.unix(journey.arrivalTime - journey.departureTime).utc().format("H[hrs] m[min]")}</p>
                 <p className="fare-ticket"><span onClick={(event) => {
