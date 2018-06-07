@@ -15,12 +15,12 @@ export function Search(props: SearchProviderProps) {
           <form>
             <div className="search-col search-col-1 pull-left">
               <div className="form-group">
-                <label className="form-label" htmlFor="origin">Origin</label>
+                <label className="form-label" htmlFor="origin">Leaving from</label>
                 <StationInput name="origin" placeholder="Leaving from"/>
               </div>
 
               <div className="form-group">
-                <label className="form-label" htmlFor="destination">Destination</label>
+                <label className="form-label" htmlFor="destination">Going to</label>
                 <StationInput name="destination" placeholder="Going to"/>
               </div>
             </div>

@@ -1,3 +1,4 @@
+@import "styles/vendor/bootstrap/bootstrap-grid.scss";
 @import "variables.scss";
 
 // reset
@@ -56,8 +57,8 @@ body {
   background-color: $bg-body;
 }
 
-.container {
-  width: 1170px;
+.max {
+  max-width: 1920px;
   margin: 0 auto;
 }
 
