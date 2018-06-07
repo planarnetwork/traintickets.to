@@ -4,50 +4,59 @@ import {locations, Location} from "../../../config/locations";
 import {SearchProviderContext} from "../SearchContext";
 import {SearchContext} from "../SearchContext";
 import './StationInput.scss';
+import autobind from "autobind-decorator";
 
 /**
  * Auto complete for stations
  */
+@autobind
 export class StationInput extends React.Component<StationInputProps, StationInputState> {
 
   public state = {
     value: "",
+    code: "",
     suggestions: [],
-    lastSelected: ""
+    lastSelected: "",
+    lastCode: ""
   };
 
-  public onChange = (event: React.FormEvent<HTMLInputElement>, { newValue }: any) => {
+  public onChange(event: React.FormEvent<HTMLInputElement>, { newValue }: any) {
     this.setState({ value: newValue });
-  };
+  }
 
-  public onHighlight = (context: SearchProviderContext) => {
-    return ({ suggestion }: any) => {
-      if (suggestion && this.state.lastSelected !== suggestion.name) {
-        this.setState({ lastSelected: suggestion.name });
-        context.setState({ [this.props.name]: suggestion.code });
+  public onHighlight({ suggestion }: any) {
+      if (suggestion) {
+        this.setState({ lastSelected: suggestion.name, code: suggestion.code });
       }
-    };
-  };
+  }
 
-  public onSuggestionsFetchRequested = ({ value }: any) => {
+  public onSuggestionsFetchRequested({ value }: any) {
     this.setState({ suggestions: this.getSuggestions(value) });
-  };
+  }
 
-  public onSuggestionsClearRequested = () => {
+  public onSuggestionsClearRequested() {
     this.setState({ suggestions: [] });
+  }
+
+  public onBlur(context: SearchProviderContext) {
+    return () => {
+      if (this.state.lastCode !== this.state.code) {
+        context.setState({ [this.props.name]: this.state.code });
+      }
+
+      this.setState({ value: this.state.lastSelected, lastCode: this.state.code });
+    }
   };
 
-  public onBlur = () => {
-    this.setState({ value: this.state.lastSelected });
+  public renderSuggestion(location: Location, { query, isHighlighted }: any) {
+    return (
+      <div className={isHighlighted ? "selected" : "not-selected"}>
+        {location.name} [{location.code}]
+      </div>
+    )
   };
 
-  public renderSuggestion = (location: Location, { query, isHighlighted }: any) => (
-    <div className={isHighlighted ? "selected" : "not-selected"}>
-      {location.name} [{location.code}]
-    </div>
-  );
-
-  public getSuggestions = (value: string) => {
+  public getSuggestions(value: string) {
     const inputValue = value.trim().toUpperCase();
     const inputLength = inputValue.length;
 
@@ -56,7 +65,7 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
     );
   };
 
-  public getSuggestionValue = (location: Location) => {
+  public getSuggestionValue(location: Location) {
     return location.name;
   };
 
@@ -67,7 +76,7 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
           <Autosuggest
             highlightFirstSuggestion={true}
             suggestions={this.state.suggestions}
-            onSuggestionHighlighted={this.onHighlight(context)}
+            onSuggestionHighlighted={this.onHighlight}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={this.getSuggestionValue}
@@ -76,7 +85,7 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
               placeholder: this.props.placeholder,
               name: this.props.name,
               onChange: this.onChange,
-              onBlur: this.onBlur,
+              onBlur: this.onBlur(context),
               value: this.state.value
             }}
           />
@@ -95,5 +104,7 @@ interface StationInputState {
   suggestions: Location[];
   value: string;
   lastSelected: string;
+  code: string;
+  lastCode: string;
 }
 
