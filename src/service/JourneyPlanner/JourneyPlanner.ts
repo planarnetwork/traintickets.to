@@ -31,18 +31,20 @@ class ResponseHandler {
   ) { }
 
   public getFares(): SearchResults {
-    const result: FaresIndex = {};
+    const fares: FaresIndex = {};
     let cheapestOutwardJourneyPrice = Number.MAX_SAFE_INTEGER;
-    let cheapestJourney = "";
+    let cheapestOutward = "";
+    let cheapestInward = "";
 
     for (const journeyId of Object.keys(this.data.response.fares)) {
-      result[journeyId] = isArray(this.data.response.fares[journeyId])
+      fares[journeyId] = isArray(this.data.response.fares[journeyId])
         ? this.getJourneyFaresForSingle(this.data.response.fares[journeyId] as string[])
         : this.getJourneyFares(this.data.response.fares[journeyId] as JourneyFareMap);
 
-      if (result[journeyId].price < cheapestOutwardJourneyPrice) {
-        cheapestOutwardJourneyPrice = result[journeyId].price;
-        cheapestJourney = journeyId;
+      if (fares[journeyId].price < cheapestOutwardJourneyPrice) {
+        cheapestOutwardJourneyPrice = fares[journeyId].price;
+        cheapestOutward = journeyId;
+        cheapestInward = (fares[journeyId] as ReturnJourneyFares).cheapestInward || "";
       }
     }
 
@@ -51,8 +53,9 @@ class ResponseHandler {
       response: {
         outward: this.data.response.outward,
         inward: this.data.response.inward,
-        fares: result,
-        cheapestOutward: cheapestJourney
+        fares,
+        cheapestOutward,
+        cheapestInward
       }
     };
   }
@@ -167,6 +170,7 @@ export interface SearchResults {
     inward: Journey[];
     fares: FaresIndex;
     cheapestOutward: string;
+    cheapestInward: string;
   },
   links: any;
 }

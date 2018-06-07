@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {Fares} from "../../component/Fares/Fares";
-import {Graph} from "../../component/Graph/Graph";
 import {Layout} from "../Common/Layout";
 import {Search} from "../../component/Search/Search";
 import {ErrorResponse, JourneyPlanner, SearchResults} from "../../service/JourneyPlanner/JourneyPlanner";
@@ -18,7 +17,14 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
   );
 
   public state = {
-    fares: [],
+    links: {},
+    response: {
+      outward: [],
+      inward: [],
+      fares: {},
+      cheapestOutward: "",
+      cheapestInward: ""
+    },
     error: null
   };
 
@@ -27,8 +33,6 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
     const reset = { error: undefined, response: undefined, links: undefined };
     const results = await this.journeyPlanner.search(query);
 
-    console.log(results);
-
     this.setState(Object.assign(reset, results));
   };
 
@@ -36,8 +40,7 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
     return (
       <Layout>
         <Search onSubmit={this.onSearch}/>
-        <Graph/>
-        { this.state.error ? <div>Error</div> : <Fares fares={this.state.fares}/> }
+        { this.state.error ? <div>Error</div> : <Fares {...this.state}/> }
       </Layout>
     );
   }

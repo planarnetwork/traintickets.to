@@ -1,111 +1,76 @@
 import * as React from 'react';
-import './Fares.css';
+import {Journey, SearchResults} from "../../service/JourneyPlanner/JourneyPlanner";
+import * as moment from "moment";
+import autobind from "autobind-decorator";
 
-export function Fares(props: FaresProps) {
-  return (
-    <section className="fares">
-      <div className="container">
-        <div className="fares-out">
-          <h3 className="fares-title bold">OUTBOUND - London Charing Cross to Sevenoaks</h3>
-          <ul className="fare-list clearfix">
-            <li className="fare pull-left">
-              <label className="fare-input center">
-                <div className="fare-stations bold clearfix">
-                  <span className="fare-station pull-left">CHX</span>
-                  <span className="fare-station pull-right">SEV</span>
-                </div>
-                <div className="fare-times bold clearfix">
-                  <time className="fare-time pull-left">06:30</time>
-                  <time className="fare-time pull-right">06:30</time>
-                </div>
-                <p className="duration">36 mins</p>
-                <p className="fare-ticket">Anytime Day Single with Child Flat Fare Single</p>
-                <div className="fare-bottom">
-                  <p className="fare-price bold">
-                    <span className="pound">&#163;</span>63<span className="pence">.00</span>
-                  </p>
-                  <input type="radio" name="outward"/>
-                </div>
-              </label>
-            </li>
-            <li className="fare pull-left">
-              <label className="fare-input center">
-                <div className="fare-stations bold clearfix">
-                  <span className="fare-station pull-left">CHX</span>
-                  <span className="fare-station pull-right">SEV</span>
-                </div>
-                <div className="fare-times bold clearfix">
-                  <time className="fare-time pull-left">05:32</time>
-                  <time className="fare-time pull-right">06:27</time>
-                </div>
-                <p className="duration">55 mins</p>
-                <p className="fare-ticket">Advance Single</p>
-                <div className="fare-bottom">
-                  <p className="fare-price bold">
-                    <span className="pound">&#163;</span>63<span className="pence">.00</span>
-                  </p>
-                  <input type="radio" name="outward"/>
-                </div>
-              </label>
-            </li>
-          </ul>
+@autobind
+export class Fares extends React.Component<SearchResults, FaresState> {
+
+  public state = {
+    outwardSelected: "",
+    inwardSelected: ""
+  };
+
+  public static getDerivedStateFromProps(props: SearchResults) {
+    return {
+      outwardSelected: props.response.cheapestOutward,
+      inwardSelected: props.response.cheapestInward
+    };
+  }
+
+  public render() {
+    return (
+      <section className="fares">
+        <div className="container">
+
+          { this.props.response.inward.length > 0
+              ? this.renderJourneys("fares-out", this.props.response.outward, this.props.response.fares, this.state.outwardSelected)
+              : this.renderJourneys("fares-single", this.props.response.outward, this.props.response.fares, this.state.outwardSelected) }
+
+          { this.props.response.inward.length > 0
+              ? this.renderJourneys("return", this.props.response.inward, (this.props.response.fares[this.state.outwardSelected] as any).with, this.state.inwardSelected)
+              : "" }
+
         </div>
-        <div className="fares-return">
-          <h3 className="fares-title bold">RETURN - Sevenoaks to London Charing Cross</h3>
-          <ul className="fare-list clearfix">
-            <li className="fare pull-left">
-              <label className="fare-input center">
-                <div className="fare-stations bold clearfix">
-                  <span className="fare-station pull-left">SEV</span>
-                  <span className="fare-station pull-right">CHX</span>
-                </div>
-                <div className="fare-times bold clearfix">
-                  <time className="fare-time pull-left">05:30</time>
-                  <time className="fare-time pull-right">06:06</time>
-                </div>
-                <p className="duration">36 mins</p>
-                <p className="fare-ticket">Anytime Day Single with Child Flat Fare Single</p>
-                <div className="fare-bottom">
-                  <p className="fare-price bold">
-                    <span className="pound">&#163;</span>63<span className="pence">.00</span>
-                  </p>
-                  <input type="radio" name="outward"/>
-                </div>
-              </label>
-            </li>
-            <li className="fare pull-left">
-              <label className="fare-input center">
-                <div className="fare-stations bold clearfix">
-                  <span className="fare-station pull-left">SEV</span>
-                  <span className="fare-station pull-right">CHX</span>
-                </div>
-                <div className="fare-times bold clearfix">
-                  <time className="fare-time pull-left">05:32</time>
-                  <time className="fare-time pull-right">06:27</time>
-                </div>
-                <p className="duration">55 mins</p>
-                <p className="fare-ticket">Advance Single</p>
-                <div className="fare-bottom">
-                  <p className="fare-price bold">
-                    <span className="pound">&#163;</span>63<span className="pence">.00</span>
-                  </p>
-                  <input type="radio" name="outward"/>
-                </div>
-              </label>
-            </li>
-          </ul>
-        </div>
+      </section>
+    );
+  }
+
+  public renderJourneys(className: string, journeys: Journey[], journeyPrice: JourneyPriceIndex, selected: string) {
+    return (
+      <div className={className}>
+        <h3 className="fares-title bold">OUTBOUND - London Charing Cross to Sevenoaks</h3>
+        <table className="fare-list clearfix">
+          <tbody>
+            { journeys.map(j => this.renderJourney(j, journeyPrice, selected)) }
+          </tbody>
+        </table>
       </div>
-    </section>
-  )
+    )
+  }
+
+  public renderJourney(journey: Journey, journeyPrice: JourneyPriceIndex, selected: string) {
+    return (
+      <tr key={journey.id} className={journey.id === selected ? "selected-journey" : ""}>
+        <td>{journey.origin}</td>
+        <td>{journey.destination}</td>
+        <td>{moment.unix(journey.departureTime).utc().format(moment.HTML5_FMT.TIME)}</td>
+        <td>{moment.unix(journey.arrivalTime).utc().format(moment.HTML5_FMT.TIME)}</td>
+        <td>{moment.unix(journey.arrivalTime - journey.departureTime).utc().format("H[hrs] m[min]")}</td>
+        <td>{journeyPrice[journey.id].price}</td>
+      </tr>
+    );
+  }
+
 }
 
-
-export interface Fare {
-  origin: string;
+interface FaresState {
+  outwardSelected: string;
+  inwardSelected: string;
 }
 
-interface FaresProps {
-  fares: Fare[]
+interface JourneyPriceIndex {
+  [journeyId: string]: {
+    price: number;
+  }
 }
-
