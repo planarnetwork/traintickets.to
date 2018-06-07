@@ -1,5 +1,5 @@
 
-export const railcards = [
+export const railcards: Railcard[] = [
   {
     "label": "16-25 RAILCARD",
     "value": "YNG"
@@ -41,3 +41,8 @@ export const railcards = [
     "value": "HMF"
   }
 ];
+
+export interface Railcard {
+  label: string;
+  value: string;
+}

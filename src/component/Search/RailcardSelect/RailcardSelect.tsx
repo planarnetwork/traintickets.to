@@ -1,5 +1,5 @@
 import * as React from "react";
-import {railcards} from "../../../Data/railcards";
+import {railcards} from "../../../config/railcards";
 import {SearchProviderContext} from "../SearchContext";
 import {SearchContext} from "../SearchContext";
 import autobind from "autobind-decorator";

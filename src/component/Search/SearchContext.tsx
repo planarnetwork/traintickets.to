@@ -8,7 +8,7 @@ export class SearchProvider extends React.Component<SearchProviderProps, SearchQ
   public state = {
     origin: "",
     destination: "",
-    outwardDate: moment().format(),
+    outwardDate: moment().format("YYYY-MM-DD"),
     returnDate: null,
     railcards: "",
     standardClass: true,

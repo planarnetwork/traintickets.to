@@ -38,12 +38,14 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
 
   public onDatesChange(context: SearchProviderContext) {
     return ({ startDate, endDate }: DateValueState): void => {
-      this.setState({startDate, endDate});
+      if (startDate) {
+        this.setState({startDate, endDate});
 
-      context.setState({
-        outwardDate: startDate!.format(),
-        returnDate: endDate ? endDate.format() : null
-      });
+        context.setState({
+          outwardDate: startDate.format("YYYY-MM-DD"),
+          returnDate: endDate ? endDate.format("YYYY-MM-DD") : null
+        });
+      }
     };
   };
 
