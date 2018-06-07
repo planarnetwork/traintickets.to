@@ -1,4 +1,12 @@
+.react-autosuggest {
+  &__container .selected {
+    background-color: #364a68;
+  }
 
-.react-autosuggest__container .selected {
-  background-color: #364a68;
+  &__input {
+    width: 100%;
+    border: none;
+    line-height: 30px;
+    padding: 5px;
+  }
 }

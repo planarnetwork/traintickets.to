@@ -20,7 +20,7 @@
   &-input {
     width: 140px;
     background-color: $bg-grey;
-    box-shadow: 1px 2px 2px 0px fade($color-black, 25%);
+    box-shadow: 1px 2px 2px 0px fade_out($color-black, 0.75);
     padding-top: 10px;
     display: block;
   }

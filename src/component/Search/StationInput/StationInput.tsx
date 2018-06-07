@@ -3,7 +3,7 @@ import * as React from "react";
 import {locations, Location} from "../../../config/locations";
 import {SearchProviderContext} from "../SearchContext";
 import {SearchContext} from "../SearchContext";
-import './StationInput.scss';
+import './StationInput.css';
 
 /**
  * Auto complete for stations
