@@ -11,6 +11,7 @@
     "object-literal-sort-keys": false,
     "interface-name": false,
     "no-console": false,
-    "member-ordering": false
+    "member-ordering": false,
+    "max-classes-per-file": false
   }
 }

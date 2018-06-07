@@ -17,4 +17,5 @@ export interface Config {
   railcards: Railcard[];
 }
 
-export const config: Config = process.env.REACT_APP_ENV === "dev" ? dev : production;
+// export const config: Config = process.env.REACT_APP_ENV === "dev" ? dev : production;
+export const config = production;
