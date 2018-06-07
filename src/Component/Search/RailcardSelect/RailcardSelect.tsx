@@ -2,7 +2,9 @@ import * as React from "react";
 import {railcards} from "../../../Data/railcards";
 import {SearchProviderContext} from "../SearchContext";
 import {SearchContext} from "../SearchContext";
+import autobind from "autobind-decorator";
 
+@autobind
 export class RailcardSelect extends React.Component<RailcardSelectProps, RailcardSelectState> {
 
   constructor(props: RailcardSelectProps) {
@@ -14,7 +16,7 @@ export class RailcardSelect extends React.Component<RailcardSelectProps, Railcar
     };
   }
 
-  public onSelectChange = (context: SearchProviderContext) => {
+  public onSelectChange(context: SearchProviderContext) {
     return (event: React.FormEvent<HTMLSelectElement>) => {
       const values = this.state.values.concat([event.currentTarget.value]);
       const disabled = values.length >= this.props.max;
@@ -26,7 +28,7 @@ export class RailcardSelect extends React.Component<RailcardSelectProps, Railcar
     };
   };
 
-  public onRemoveItem = (context: SearchProviderContext) => {
+  public onRemoveItem(context: SearchProviderContext) {
     return (event: React.FormEvent<HTMLButtonElement>) => {
       const index = parseInt(event.currentTarget.value, 10);
       const values = this.state.values.slice(0, index).concat(this.state.values.slice(index + 1));

@@ -3,7 +3,7 @@ import * as React from "react";
 import {locations, Location} from "../../../Data/locations";
 import {SearchProviderContext} from "../SearchContext";
 import {SearchContext} from "../SearchContext";
-import './StationInput.css';
+import './StationInput.scss';
 
 /**
  * Auto complete for stations
@@ -22,7 +22,7 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
 
   public onHighlight = (context: SearchProviderContext) => {
     return ({ suggestion }: any) => {
-      if (suggestion) {
+      if (suggestion && this.state.lastSelected !== suggestion.name) {
         this.setState({ lastSelected: suggestion.name });
         context.setState({ [this.props.name]: suggestion.code });
       }
@@ -38,7 +38,7 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
   };
 
   public onBlur = () => {
-    this.setState({ lastSelected: "", value: this.state.lastSelected });
+    this.setState({ value: this.state.lastSelected });
   };
 
   public renderSuggestion = (location: Location, { query, isHighlighted }: any) => (

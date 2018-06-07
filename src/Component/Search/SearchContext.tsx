@@ -11,17 +11,24 @@ export class SearchProvider extends React.Component<SearchProviderProps, SearchQ
     outwardDate: moment().format(),
     returnDate: null,
     railcards: "",
+    standardClass: true,
+    firstClass: false,
+    adults: 1,
+    children: 0
   };
 
   public set = (values: Partial<SearchQuery>): void => {
-    this.setState(values as SearchQuery);
+    this.setState((previousState: SearchQuery) => {
+      const state = Object.assign(previousState, values);
+
+      if (state.origin && state.destination && state.outwardDate) {
+        this.props.onSubmit(state);
+      }
+
+      return state;
+    });
   };
 
-  public componentDidUpdate(): void {
-    if (this.state.origin && this.state.destination && this.state.outwardDate) {
-      this.props.onSubmit(this.state);
-    }
-  }
 
   public render() {
     return (
@@ -42,6 +49,10 @@ export interface SearchQuery {
   outwardDate: string;
   returnDate: string | null;
   railcards: string;
+  standardClass: boolean;
+  firstClass: boolean;
+  adults: number;
+  children: number;
 }
 
 export interface SearchProviderContext {

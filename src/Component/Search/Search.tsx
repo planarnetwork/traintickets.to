@@ -3,7 +3,9 @@ import './Search.css';
 import {StationInput} from "./StationInput/StationInput";
 import {DatePicker} from "./DatePicker/DatePicker";
 import {RailcardSelect} from "./RailcardSelect/RailcardSelect";
-import {SearchProvider, SearchProviderProps} from './SearchContext';
+import {SearchProvider, SearchProviderProps, SearchContext, SearchProviderContext} from './SearchContext';
+import {ClassSelector} from "./ClassSelector/ClassSelector";
+import {NumberInput} from "../Form/NumberInput/NumberInput";
 
 export function Search(props: SearchProviderProps) {
   return (
@@ -30,17 +32,14 @@ export function Search(props: SearchProviderProps) {
               </div>
             </div>
 
-            <div className="search-col search-col-3 pull-left center">
-              <div className="form-group">
-                <label className="form-label" htmlFor="adult">Adult</label>
-                <input className="form-control center" id="adult" type="number" defaultValue="1" min="0" max="9"/>
-              </div>
-
-              <div className="form-group">
-                <label className="form-label" htmlFor="child">Child</label>
-                <input className="form-control center" id="child" type="number" defaultValue="0" min="0" max="9"/>
-              </div>
-            </div>
+            <SearchContext.Consumer>
+              {(context: SearchProviderContext) => (
+                <div className="search-col search-col-3 pull-left center">
+                  <NumberInput name="adults" label="Adults" min={0} max={9} defaultValue={context.state.adults} onChange={context.setState}/>
+                  <NumberInput name="children" label="Children" min={0} max={9} defaultValue={context.state.children} onChange={context.setState}/>
+                </div>
+                )}
+            </SearchContext.Consumer>
 
             <div className="search-col search-col-4 pull-left">
               <div className="form-group">
@@ -52,18 +51,7 @@ export function Search(props: SearchProviderProps) {
             <div className="search-col search-col-5 pull-left">
               <div className="form-group">
                 <legend className="form-label">Filters</legend>
-                <div className="form-group">
-                  <label className="form-label-radio">
-                    <input type="radio" className="form-check-input" name="class" id="class1" value="Standard" defaultChecked={true}/>
-                    Standard
-                  </label>
-                </div>
-                <div className="form-group">
-                  <label className="form-label-radio">
-                    <input type="radio" className="form-check-input" name="class" id="class2" value="First"/>
-                    First
-                  </label>
-                </div>
+                <ClassSelector/>
               </div>
             </div>
           </form>

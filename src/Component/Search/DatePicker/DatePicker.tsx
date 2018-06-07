@@ -5,7 +5,9 @@ import * as moment from "moment";
 import 'react-dates/lib/css/_datepicker.css';
 import {SearchProviderContext} from "../SearchContext";
 import {SearchContext} from "../SearchContext";
+import autobind from "autobind-decorator";
 
+@autobind
 export class DatePicker extends React.Component<DatePickerProps, DatePickerState> {
 
   public constructor(props: DatePickerProps) {
@@ -34,36 +36,36 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
     )
   }
 
-  public onDatesChange = (context: SearchProviderContext) => {
+  public onDatesChange(context: SearchProviderContext) {
     return ({ startDate, endDate }: DateValueState): void => {
       this.setState({startDate, endDate});
 
       context.setState({
-        outwardDate: startDate.format(),
+        outwardDate: startDate!.format(),
         returnDate: endDate ? endDate.format() : null
       });
     };
   };
 
-  public onFocusChange = (focusedInput: DateType) => {
+  public onFocusChange(focusedInput: DateType) {
     this.setState({ focusedInput });
-  };
+  }
 
-  public renderDatePresets = (context: SearchProviderContext) => {
+  public renderDatePresets(context: SearchProviderContext) {
     return () => {
       const presets = [
         { text: "no return", startDate: this.state.startDate, endDate: null },
-        { text: "day after", startDate: this.state.startDate, endDate: this.state.startDate.clone().add(1, "day") },
-        { text: "week after", startDate: this.state.startDate, endDate: this.state.startDate.clone().add(1, "week") }
+        { text: "day after", startDate: this.state.startDate, endDate: this.state.startDate!.clone().add(1, "day") },
+        { text: "week after", startDate: this.state.startDate, endDate: this.state.startDate!.clone().add(1, "week") }
       ];
 
       return (
         <div>Return {presets.map(p => this.renderDatePreset(p, context))}</div>
       );
     }
-  };
+  }
 
-  public renderDatePreset = (preset: DatePreset, context: SearchProviderContext) => {
+  public renderDatePreset(preset: DatePreset, context: SearchProviderContext) {
     const onChange = () => this.onDatesChange(context)(preset);
 
     return <button key={preset.text} type="button" onClick={onChange}>{preset.text}</button>;
@@ -77,7 +79,7 @@ interface DatePickerProps {
 }
 
 interface DateValueState {
-  startDate: Moment;
+  startDate: Moment | null;
   endDate: Moment | null;
 }
 

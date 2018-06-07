@@ -5,7 +5,10 @@ import {Layout} from "../Common/Layout";
 import {Search} from "../../Component/Search/Search";
 import {JourneyPlanner} from "../../Service/JourneyPlanner/JourneyPlanner";
 import {SearchQuery} from "../../Component/Search/SearchContext";
+import autobind from "autobind-decorator";
+import {debounce} from "typescript-debounce-decorator";
 
+@autobind
 export class IndexPage extends React.Component<{}, IndexPageState> {
 
   private readonly journeyPlanner = new JourneyPlanner();
@@ -14,7 +17,8 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
     fares: []
   };
 
-  public onSearch = async (query: SearchQuery) => {
+  @debounce(200, { leading: false })
+  public async onSearch(query: SearchQuery) {
     this.setState({
       fares: await this.journeyPlanner.search(query)
     });
