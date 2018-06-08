@@ -4,11 +4,12 @@
 .search {
   background-color: $bg-grey;
   padding: 15px 0;
-  position: sticky;
-  top: 0;
 
   @include media-breakpoint-up(sm) {
     padding: 25px 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
 }
 
@@ -42,6 +43,8 @@
     border-radius: 0;
     height: 40px;
     appearance: none;
+    font-weight: 600;
+    font-size: 14px;
   }
 
   &--select-wrap {

@@ -23,15 +23,17 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     return (
       <section className="fares">
         <div className="container">
+          <div className="row">
 
           { this.props.response.inward.length > 0
-              ? this.renderJourneys("fares-out", this.props.response.outward, this.props.response.fares, "outwardSelected")
-              : this.renderJourneys("fares-single", this.props.response.outward, this.props.response.fares, "outwardSelected") }
+              ? this.renderJourneys("fares-out col-md-12", this.props.response.outward, this.props.response.fares, "outwardSelected")
+              : this.renderJourneys("fares-single col-md-16 offset-md-4 col-lg-12 offset-lg-6", this.props.response.outward, this.props.response.fares, "outwardSelected") }
 
           { this.props.response.inward.length > 0
-              ? this.renderJourneys("return", this.props.response.inward, (this.props.response.fares[this.state.outwardSelected] as any).with, "inwardSelected")
+              ? this.renderJourneys("return col-md-12", this.props.response.inward, (this.props.response.fares[this.state.outwardSelected] as any).with, "inwardSelected")
               : "" }
 
+          </div>
         </div>
       </section>
     );
