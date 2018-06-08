@@ -67,8 +67,8 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
     return (
       <div key={index}>
         <span>{leg.mode}</span>
-        <span>{leg.origin}</span>
-        <span>{leg.destination}</span>
+        <span>{locationByCode[leg.origin].name}</span>
+        <span>{locationByCode[leg.destination].name}</span>
         <span>{leg.duration}</span>
       </div>
     );
