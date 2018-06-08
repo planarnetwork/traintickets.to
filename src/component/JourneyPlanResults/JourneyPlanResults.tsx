@@ -12,10 +12,10 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     inwardSelected: ""
   };
 
-  public static getDerivedStateFromProps(props: SearchResults) {
+  public static getDerivedStateFromProps(props: SearchResults, state: JourneyPlanResultsState) {
     return {
-      outwardSelected: props.response.cheapestOutward,
-      inwardSelected: props.response.cheapestInward
+      outwardSelected: state.outwardSelected || props.response.cheapestOutward,
+      inwardSelected: state.inwardSelected || props.response.cheapestInward
     };
   }
 
