@@ -2,6 +2,7 @@ import autobind from "autobind-decorator";
 import {CallingPoint, FixedLeg, Journey, Leg, TimetableLeg} from "../../../service/JourneyPlanner/JourneyPlanner";
 import * as React from "react";
 import * as moment from "moment";
+import {locationByCode} from "../../../config/locations";
 
 @autobind
 export class JourneyDetails extends React.Component<JourneyDetailsProps, JourneyDetailsState> {
@@ -37,8 +38,8 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
     return (
       <div onClick={this.onSelect} data-index={index} key={index}>
         <span>{leg.mode}</span>
-        <span>{leg.origin}</span>
-        <span>{leg.destination}</span>
+        <span>{locationByCode[leg.origin].name}</span>
+        <span>{locationByCode[leg.destination].name}</span>
         <span>{leg.service}</span>
         <span>{leg.operator}</span>
         <span>{moment.unix(leg.callingPoints[0].depart!).utc().format(moment.HTML5_FMT.TIME)}</span>
@@ -53,7 +54,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
       <ol>
         {points.map((p, i) => (
           <li key={i}>
-            <span>{p.station}</span>
+            <span>{locationByCode[p.station].name}</span>
             <span>{p.arrive ? moment.unix(p.arrive).format(moment.HTML5_FMT.TIME) : "--:--"}</span>
             <span>{p.depart ? moment.unix(p.depart).format(moment.HTML5_FMT.TIME) : "--:--"}</span>
           </li>
