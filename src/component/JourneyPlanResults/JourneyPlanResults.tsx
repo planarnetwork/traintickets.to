@@ -2,9 +2,10 @@ import * as React from 'react';
 import {Journey, SearchResults} from "../../service/JourneyPlanner/JourneyPlanner";
 import * as moment from "moment";
 import autobind from "autobind-decorator";
+import "./JourneyPlanResults.css";
 
 @autobind
-export class Fares extends React.Component<SearchResults, FaresState> {
+export class JourneyPlanResults extends React.Component<SearchResults, JourneyPlanResultsState> {
 
   public state = {
     outwardSelected: "",
@@ -24,11 +25,11 @@ export class Fares extends React.Component<SearchResults, FaresState> {
         <div className="container">
 
           { this.props.response.inward.length > 0
-              ? this.renderJourneys("fares-out", this.props.response.outward, this.props.response.fares, this.state.outwardSelected)
-              : this.renderJourneys("fares-single", this.props.response.outward, this.props.response.fares, this.state.outwardSelected) }
+              ? this.renderJourneys("fares-out", this.props.response.outward, this.props.response.fares, "outwardSelected")
+              : this.renderJourneys("fares-single", this.props.response.outward, this.props.response.fares, "outwardSelected") }
 
           { this.props.response.inward.length > 0
-              ? this.renderJourneys("return", this.props.response.inward, (this.props.response.fares[this.state.outwardSelected] as any).with, this.state.inwardSelected)
+              ? this.renderJourneys("return", this.props.response.inward, (this.props.response.fares[this.state.outwardSelected] as any).with, "inwardSelected")
               : "" }
 
         </div>
@@ -36,7 +37,7 @@ export class Fares extends React.Component<SearchResults, FaresState> {
     );
   }
 
-  public renderJourneys(className: string, journeys: Journey[], journeyPrice: JourneyPriceIndex, selected: string) {
+  public renderJourneys(className: string, journeys: Journey[], journeyPrice: JourneyPriceIndex, selected: keyof JourneyPlanResultsState) {
     return (
       <div className={className}>
         <h3 className="fares-title bold">OUTBOUND - London Charing Cross to Sevenoaks</h3>
@@ -49,9 +50,9 @@ export class Fares extends React.Component<SearchResults, FaresState> {
     )
   }
 
-  public renderJourney(journey: Journey, journeyPrice: JourneyPriceIndex, selected: string) {
+  public renderJourney(journey: Journey, journeyPrice: JourneyPriceIndex, selected: keyof JourneyPlanResultsState) {
     return (
-      <tr key={journey.id} className={journey.id === selected ? "selected-journey" : ""}>
+      <tr onClick={this.onSelect(journey.id, selected)} key={journey.id} className={journey.id === this.state[selected] ? "selected" : ""}>
         <td>{journey.origin}</td>
         <td>{journey.destination}</td>
         <td>{moment.unix(journey.departureTime).utc().format(moment.HTML5_FMT.TIME)}</td>
@@ -62,9 +63,13 @@ export class Fares extends React.Component<SearchResults, FaresState> {
     );
   }
 
+  public onSelect(journeyId: string, stateField: keyof JourneyPlanResultsState) {
+    return () => this.setState({ [stateField]: journeyId } as Pick<JourneyPlanResultsState, keyof JourneyPlanResultsState>);
+  }
+
 }
 
-interface FaresState {
+interface JourneyPlanResultsState {
   outwardSelected: string;
   inwardSelected: string;
 }

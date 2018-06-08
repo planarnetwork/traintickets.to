@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Fares} from "../../component/Fares/Fares";
+import {JourneyPlanResults} from "../../component/JourneyPlanResults/JourneyPlanResults";
 import {Layout} from "../Common/Layout";
 import {Search} from "../../component/Search/Search";
 import {ErrorResponse, JourneyPlanner, SearchResults} from "../../service/JourneyPlanner/JourneyPlanner";
@@ -40,7 +40,7 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
     return (
       <Layout>
         <Search onSubmit={this.onSearch}/>
-        { this.state.error ? <div>Error</div> : <Fares {...this.state}/> }
+        { this.state.error ? <div>Error</div> : <JourneyPlanResults {...this.state}/> }
       </Layout>
     );
   }
