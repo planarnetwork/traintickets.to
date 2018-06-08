@@ -30,7 +30,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
     this.setState((previousState: SearchState) => {
       const state = Object.assign(previousState, values);
 
-      if (state.origin && state.destination && state.outwardDate) {
+      if (state.origin && state.destination && state.outwardDate && state.adults + state.children > 0) {
         this.props.onSubmit(state);
       }
 
