@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './index.css';
-import 'react-dates/initialize';
 import {IndexPage} from './page/Index/IndexPage';
 import registerServiceWorker from './registerServiceWorker';
 

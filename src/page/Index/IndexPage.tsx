@@ -1,9 +1,8 @@
 import * as React from 'react';
 import {JourneyPlanResults} from "../../component/JourneyPlanResults/JourneyPlanResults";
 import {Layout} from "../Common/Layout";
-import {Search} from "../../component/Search/Search";
+import {Search, SearchState} from "../../component/Search/Search";
 import {ErrorResponse, JourneyPlanner, SearchResults} from "../../service/JourneyPlanner/JourneyPlanner";
-import {SearchQuery} from "../../component/Search/SearchContext";
 import autobind from "autobind-decorator";
 import {debounce} from "typescript-debounce-decorator";
 import {config} from "../../config/config";
@@ -29,7 +28,7 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
   };
 
   @debounce(200, { leading: false })
-  public async onSearch(query: SearchQuery) {
+  public async onSearch(query: SearchState) {
     const reset = { error: undefined, response: undefined, links: undefined };
     const results = await this.journeyPlanner.search(query);
 
