@@ -22,6 +22,242 @@ export const locations: Location[] = [
     "lon": -0.109863
   },
   {
+    "code": "0410",
+    "name": "Bedford Stations",
+    "lat": 52.135973,
+    "lon": -0.466655
+  },
+  {
+    "code": "0418",
+    "name": "Birmingham",
+    "lat": 52.486243,
+    "lon": -1.890401
+  },
+  {
+    "code": "1780",
+    "name": "Bootle (Merseyside)",
+    "lat": 53.443255,
+    "lon": -2.998895
+  },
+  {
+    "code": "0424",
+    "name": "Bradford (West Yorkshire)",
+    "lat": 53.795984,
+    "lon": -1.759398
+  },
+  {
+    "code": "0428",
+    "name": "Canterbury",
+    "lat": 51.280233,
+    "lon": 1.078909
+  },
+  {
+    "code": "0258",
+    "name": "Catford Stations",
+    "lat": 51.444641,
+    "lon": -0.020106
+  },
+  {
+    "code": "0254",
+    "name": "Colchester Stations",
+    "lat": 51.895927,
+    "lon": 0.891874
+  },
+  {
+    "code": "0449",
+    "name": "Croydon",
+    "lat": 51.376165,
+    "lon": -0.098234
+  },
+  {
+    "code": "0429",
+    "name": "Dorchester",
+    "lat": 50.711164,
+    "lon": -2.441181
+  },
+  {
+    "code": "0416",
+    "name": "Dorking Stations",
+    "lat": 51.232202,
+    "lon": -0.332378
+  },
+  {
+    "code": "0259",
+    "name": "Edenbridge Stations",
+    "lat": 51.196259,
+    "lon": 0.065451
+  },
+  {
+    "code": "0263",
+    "name": "Enfield",
+    "lat": 51.652299,
+    "lon": -0.080712
+  },
+  {
+    "code": "0431",
+    "name": "Falkirk",
+    "lat": 56.001878,
+    "lon": -3.783913
+  },
+  {
+    "code": "0260",
+    "name": "Farnborough",
+    "lat": 51.0000,
+    "lon": 0.0000
+  },
+  {
+    "code": "0432",
+    "name": "Folkestone",
+    "lat": 51.286894,
+    "lon": -0.752615
+  },
+  {
+    "code": "0433",
+    "name": "Glasgow",
+    "lat": 55.864237,
+    "lon": -4.251806
+  },
+  {
+    "code": "0404",
+    "name": "Helensburgh",
+    "lat": 56.002318,
+    "lon": -4.734014
+  },
+  {
+    "code": "0413",
+    "name": "Hertford",
+    "lat": 51.795756,
+    "lon": -0.081157
+  },
+  {
+    "code": "0435",
+    "name": "Liverpool",
+    "lat": 53.408371,
+    "lon": -2.991573
+  },
+  {
+    "code": "3667",
+    "name": "Luton Airport",
+    "lat": 51.872404,
+    "lon": -0.390015
+  },
+  {
+    "code": "0437",
+    "name": "Maidstone",
+    "lat": 51.270363,
+    "lon": 0.522699
+  },
+  {
+    "code": "0438",
+    "name": "Manchester",
+    "lat": 53.480759,
+    "lon": -2.242631
+  },
+  {
+    "code": "0441",
+    "name": "Newark",
+    "lat": 53.070039,
+    "lon": -0.806570
+  },
+  {
+    "code": "0262",
+    "name": "Penge",
+    "lat": 51.413876,
+    "lon": -0.051703
+  },
+  {
+    "code": "0268",
+    "name": "Pontefract",
+    "lat": 53.691688,
+    "lon": -1.308648
+  },
+  {
+    "code": "0440",
+    "name": "Portsmouth",
+    "lat": 50.819767,
+    "lon": -1.087977
+  },
+  {
+    "code": "0403",
+    "name": "Reading Stations",
+    "lat": 51.454265,
+    "lon": -0.978130
+  },
+  {
+    "code": "0411",
+    "name": "Southend",
+    "lat": 51.545927,
+    "lon": 0.707712
+  },
+  {
+    "code": "0271",
+    "name": "Thorne",
+    "lat": 53.610421,
+    "lon": -0.961440
+  },
+  {
+    "code": "7468",
+    "name": "Tilbury",
+    "lat": 51.463024,
+    "lon": 0.360498
+  },
+  {
+    "code": "0443",
+    "name": "Tyndrum",
+    "lat": 56.436070,
+    "lon": -4.711762
+  },
+  {
+    "code": "0265",
+    "name": "West Hampstead",
+    "lat": 51.547358,
+    "lon": -0.190436
+  },
+  {
+    "code": "0444",
+    "name": "Wakefield",
+    "lat": 53.683298,
+    "lon": -1.505924
+  },
+  {
+    "code": "0445",
+    "name": "Warrington",
+    "lat": 53.390044,
+    "lon": -2.596950
+  },
+  {
+    "code": "0446",
+    "name": "Wigan",
+    "lat": 53.545065,
+    "lon": -2.632507
+  },
+  {
+    "code": "0447",
+    "name": "Worcester",
+    "lat": 52.193636,
+    "lon": -2.221575
+  },
+
+  { "code": "0785", "name": "London Underground Zone 1", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0786", "name": "London Underground and DLR Zones 1-6", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0790", "name": "London Underground and DLR Zones 1-2", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0791", "name": "London Underground and DLR Zones 1-3", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0792", "name": "London Underground and DLR Zones 1-4", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0793", "name": "London Underground and DLR Zone 2", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0797", "name": "London Underground and DLR Zones 2-3", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0825", "name": "London Underground and DLR Zones 2-4", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0829", "name": "London Underground and DLR Zones 2-6", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0830", "name": "London Underground and DLR Zone 3", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0835", "name": "London Underground and DLR Zones 3-4", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0839", "name": "London Underground and DLR Zones 3-6", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0841", "name": "London Underground Zone 4", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0844", "name": "London Underground and DLR Zones 4-6", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0847", "name": "London Underground Zones 5-6", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "4452", "name": "London Thameslink", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0035", "name": "London Travelcard Zones 1-6", "lat": 51.52814, "lon": -0.13392 },
+  { "code": "0034", "name": "London Travelcard Zones 1-4", "lat": 51.52814, "lon": -0.13392 },
+
+  {
     "name": "Alexandra Palace",
     "code": "AAP",
     "lat": 51.59793,
@@ -15508,246 +15744,11 @@ export const locations: Location[] = [
     "lon": 0.08969
   },
   {
-    "code": "0410",
-    "name": "Bedford Stations",
-    "lat": 52.135973,
-    "lon": -0.466655
-  },
-  {
-    "code": "0418",
-    "name": "Birmingham",
-    "lat": 52.486243,
-    "lon": -1.890401
-  },
-  {
-    "code": "1780",
-    "name": "Bootle (Merseyside)",
-    "lat": 53.443255,
-    "lon": -2.998895
-  },
-  {
-    "code": "0424",
-    "name": "Bradford (West Yorkshire)",
-    "lat": 53.795984,
-    "lon": -1.759398
-  },
-  {
-    "code": "0428",
-    "name": "Canterbury",
-    "lat": 51.280233,
-    "lon": 1.078909
-  },
-  {
-    "code": "0258",
-    "name": "Catford Stations",
-    "lat": 51.444641,
-    "lon": -0.020106
-  },
-  {
-    "code": "0254",
-    "name": "Colchester Stations",
-    "lat": 51.895927,
-    "lon": 0.891874
-  },
-  {
-    "code": "0449",
-    "name": "Croydon",
-    "lat": 51.376165,
-    "lon": -0.098234
-  },
-  {
-    "code": "0429",
-    "name": "Dorchester",
-    "lat": 50.711164,
-    "lon": -2.441181
-  },
-  {
-    "code": "0416",
-    "name": "Dorking Stations",
-    "lat": 51.232202,
-    "lon": -0.332378
-  },
-  {
-    "code": "0259",
-    "name": "Edenbridge Stations",
-    "lat": 51.196259,
-    "lon": 0.065451
-  },
-  {
-    "code": "0263",
-    "name": "Enfield",
-    "lat": 51.652299,
-    "lon": -0.080712
-  },
-  {
-    "code": "0431",
-    "name": "Falkirk",
-    "lat": 56.001878,
-    "lon": -3.783913
-  },
-  {
-    "code": "0260",
-    "name": "Farnborough",
-    "lat": 51.0000,
-    "lon": 0.0000
-  },
-  {
-    "code": "0432",
-    "name": "Folkestone",
-    "lat": 51.286894,
-    "lon": -0.752615
-  },
-  {
-    "code": "0433",
-    "name": "Glasgow",
-    "lat": 55.864237,
-    "lon": -4.251806
-  },
-  {
-    "code": "0404",
-    "name": "Helensburgh",
-    "lat": 56.002318,
-    "lon": -4.734014
-  },
-  {
-    "code": "0413",
-    "name": "Hertford",
-    "lat": 51.795756,
-    "lon": -0.081157
-  },
-  {
-    "code": "0435",
-    "name": "Liverpool",
-    "lat": 53.408371,
-    "lon": -2.991573
-  },
-  {
-    "code": "3667",
-    "name": "Luton Airport",
-    "lat": 51.872404,
-    "lon": -0.390015
-  },
-  {
-    "code": "0437",
-    "name": "Maidstone",
-    "lat": 51.270363,
-    "lon": 0.522699
-  },
-  {
-    "code": "0438",
-    "name": "Manchester",
-    "lat": 53.480759,
-    "lon": -2.242631
-  },
-  {
-    "code": "0441",
-    "name": "Newark",
-    "lat": 53.070039,
-    "lon": -0.806570
-  },
-  {
-    "code": "0262",
-    "name": "Penge",
-    "lat": 51.413876,
-    "lon": -0.051703
-  },
-  {
-    "code": "0268",
-    "name": "Pontefract",
-    "lat": 53.691688,
-    "lon": -1.308648
-  },
-  {
-    "code": "0440",
-    "name": "Portsmouth",
-    "lat": 50.819767,
-    "lon": -1.087977
-  },
-  {
-    "code": "0403",
-    "name": "Reading Stations",
-    "lat": 51.454265,
-    "lon": -0.978130
-  },
-  {
-    "code": "0411",
-    "name": "Southend",
-    "lat": 51.545927,
-    "lon": 0.707712
-  },
-  {
-    "code": "0271",
-    "name": "Thorne",
-    "lat": 53.610421,
-    "lon": -0.961440
-  },
-  {
-    "code": "7468",
-    "name": "Tilbury",
-    "lat": 51.463024,
-    "lon": 0.360498
-  },
-  {
-    "code": "0443",
-    "name": "Tyndrum",
-    "lat": 56.436070,
-    "lon": -4.711762
-  },
-  {
-    "code": "0265",
-    "name": "West Hampstead",
-    "lat": 51.547358,
-    "lon": -0.190436
-  },
-  {
-    "code": "0444",
-    "name": "Wakefield",
-    "lat": 53.683298,
-    "lon": -1.505924
-  },
-  {
-    "code": "0445",
-    "name": "Warrington",
-    "lat": 53.390044,
-    "lon": -2.596950
-  },
-  {
-    "code": "0446",
-    "name": "Wigan",
-    "lat": 53.545065,
-    "lon": -2.632507
-  },
-  {
-    "code": "0447",
-    "name": "Worcester",
-    "lat": 52.193636,
-    "lon": -2.221575
-  },
-  {
     "code": "NTB",
     "name": "Norton Bridge",
     "lat": 52.866,
     "lon": -2.19011595
   },
-  { "code": "0785", "name": "London Underground Zone 1", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0786", "name": "London Underground and DLR Zones 1-6", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0790", "name": "London Underground and DLR Zones 1-2", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0791", "name": "London Underground and DLR Zones 1-3", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0792", "name": "London Underground and DLR Zones 1-4", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0793", "name": "London Underground and DLR Zone 2", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0797", "name": "London Underground and DLR Zones 2-3", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0825", "name": "London Underground and DLR Zones 2-4", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0829", "name": "London Underground and DLR Zones 2-6", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0830", "name": "London Underground and DLR Zone 3", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0835", "name": "London Underground and DLR Zones 3-4", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0839", "name": "London Underground and DLR Zones 3-6", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0841", "name": "London Underground Zone 4", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0844", "name": "London Underground and DLR Zones 4-6", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0847", "name": "London Underground Zones 5-6", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "4452", "name": "London Thameslink", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0035", "name": "London Travelcard Zones 1-6", "lat": 51.52814, "lon": -0.13392 },
-  { "code": "0034", "name": "London Travelcard Zones 1-4", "lat": 51.52814, "lon": -0.13392 }
-
 ];
 
 export const locationByCode: LocationIndex = locations.reduce((index: LocationIndex, location: Location) => {
