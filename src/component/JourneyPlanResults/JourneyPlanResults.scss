@@ -1,5 +1,14 @@
+@import "../../variables.scss";
+
 .fares {
     margin-bottom: 100px;
+
+    &-results {
+        padding-top: 80px;
+        font-size: 34px;
+        opacity: 0.3;
+        background: transparent url($up) no-repeat center top 30px;
+    }
 }
 
 .fare-list .selected {

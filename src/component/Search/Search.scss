@@ -1,11 +1,10 @@
 @import "../../variables.scss";
-@import "../../styles/vendor/bootstrap/bootstrap-grid.scss";
 
 .search {
   background-color: $bg-grey;
   padding: 15px 0;
 
-  @include media-breakpoint-up(sm) {
+  @media ($screen-smalltablet) {
     padding: 25px 0;
     position: sticky;
     top: 0;

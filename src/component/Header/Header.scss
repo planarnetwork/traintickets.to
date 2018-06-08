@@ -1,5 +1,4 @@
 @import "../../variables.scss";
-@import "../../styles/vendor/bootstrap/bootstrap-grid.scss";
 
 .header {
   background-color: $color-primary;
@@ -12,7 +11,7 @@
     font-size: 26px;
     font-weight: 600;
 
-    @include media-breakpoint-up(sm) {
+    @media ($screen-smalltablet) {
         float: left;
     }
   }
@@ -22,7 +21,7 @@
     margin-top: 10px;
     font-weight: 500;
 
-    @include media-breakpoint-up(sm) {
+    @media ($screen-smalltablet) {
         float: right;
         font-size: 26px;
         margin-top: 0;
