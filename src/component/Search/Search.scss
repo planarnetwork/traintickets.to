@@ -12,6 +12,21 @@
   }
 }
 
+.react-datepicker {
+  &-wrapper, &__input-container {
+    width: 100%;
+  }
+
+  &__close-icon::after {
+    content: "";
+    background: transparent url($cross) no-repeat center center;
+    background-size: 14px 14px;
+    width: 14px;
+    height: 14px;
+    top: 22px;
+  }
+}
+
 .form {
   &-label {
     text-transform: uppercase;
@@ -56,8 +71,8 @@
       height: 8px;
       position: absolute;
       right: 5px;
-      top: 16px;
-      background: transparent url($chevron-down);
+      top: 17px;
+      background: transparent url($chevron-down) no-repeat center center;
       background-size: 14px 8px;
       pointer-events: none;
     }
