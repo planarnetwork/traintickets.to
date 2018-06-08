@@ -88,8 +88,8 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
             </time>
           </div>
           <div className="col-10">
-            <span className="fare-list--station">{journey.origin}</span>&nbsp;-&nbsp;
-            <span className="fare-list--station">{journey.destination}</span>
+            <span className="fare-list--station">{locationByCode[journey.origin].name}</span>&nbsp;-&nbsp;
+            <span className="fare-list--station">{locationByCode[journey.destination].name}</span>
           </div>
           <div className="col-4">
             <Price value={journeyPrice[journey.id].price} />
