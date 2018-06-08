@@ -12,7 +12,7 @@ import autobind from "autobind-decorator";
 
 export const defaultQueryState = {
   origin: "",
-  destination: "",
+  destination: "1072",
   outwardDate: moment().format(moment.HTML5_FMT.DATE),
   returnDate: null,
   railcards: "",
@@ -59,13 +59,13 @@ export class Search extends React.Component<SearchProps, SearchState> {
                 <div className="col-sm-12 col-md-24">
                   <div className="form-group">
                     <label className="form-label" htmlFor="origin">From</label>
-                    <StationInput name="origin" placeholder="Leaving from" onChange={this.set}/>
+                    <StationInput name="origin" defaultValue={"geo"} placeholder="Leaving from" onChange={this.set}/>
                   </div>
                 </div>
                 <div className="col-sm-12 col-md-24">
                   <div className="form-group">
                     <label className="form-label" htmlFor="destination">Going to</label>
-                    <StationInput name="destination" placeholder="Going to" onChange={this.set}/>
+                    <StationInput name="destination" defaultValue={this.state.destination} placeholder="Going to" onChange={this.set}/>
                   </div>
                 </div>
               </div>

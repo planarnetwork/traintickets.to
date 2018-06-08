@@ -1,6 +1,6 @@
 import * as Autosuggest from "react-autosuggest";
 import * as React from "react";
-import {locations, Location} from "../../../config/locations";
+import {locations, Location, locationByCode} from "../../../config/locations";
 import autobind from "autobind-decorator";
 import './StationInput.css';
 
@@ -17,6 +17,33 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
     lastSelected: "",
     lastCode: ""
   };
+
+  constructor(props: StationInputProps) {
+    super(props);
+
+    if (props.defaultValue === "geo") {
+      navigator.geolocation.getCurrentPosition(this.onGetLocation);
+    }
+    else {
+      this.state.code = props.defaultValue;
+      this.state.value = locationByCode[props.defaultValue].name;
+
+    }
+  }
+
+  public onGetLocation(position: Position) {
+    const tempLocations = Object.values(locationByCode);
+
+    tempLocations.sort((a, b) => {
+      const distanceA = Math.abs(position.coords.latitude - a.lat) + Math.abs(position.coords.longitude - a.lon);
+      const distanceB = Math.abs(position.coords.latitude - b.lat) + Math.abs(position.coords.longitude - b.lon);
+
+      return distanceA - distanceB;
+    });
+
+    this.setState({ code: tempLocations[0].code, value: tempLocations[0].name });
+    this.props.onChange({ [this.props.name]: tempLocations[0].code });
+  }
 
   public onChange(event: React.FormEvent<HTMLInputElement>, { newValue }: any) {
     this.setState({ value: newValue });
@@ -90,7 +117,8 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
 interface StationInputProps {
   placeholder: string;
   name: string;
-  onChange: (state: { [name: string]: string }) => any
+  onChange: (state: { [name: string]: string }) => any;
+  defaultValue: string;
 }
 
 interface StationInputState {
