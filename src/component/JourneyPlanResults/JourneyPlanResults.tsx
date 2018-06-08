@@ -7,6 +7,7 @@ import * as moment from "moment";
 import autobind from "autobind-decorator";
 import "./JourneyPlanResults.css";
 import {JourneyDetails} from "./JourneyDetails/JourneyDetails";
+import {locationByCode} from "../../config/locations";
 
 @autobind
 export class JourneyPlanResults extends React.Component<SearchResults, JourneyPlanResultsState> {
@@ -56,11 +57,15 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
   }
 
   public renderJourneys(className: string, journeys: Journey[], journeyPrice: JourneyPriceIndex, selected: keyof JourneyPlanResultsState) {
+    const [title, from, to] = selected === "outwardSelected"
+      ? ["OUTBOUND", this.props.query.origin, this.props.query.destination]
+      : ["RETURN", this.props.query.destination, this.props.query.origin];
+
     return (
       <div className={className}>
-        <h3 className="fares-title bold">OUTBOUND - London Charing Cross to Sevenoaks</h3>
+        <h3 className="fares-title bold">{ `${title} - ${locationByCode[from].name} to ${locationByCode[to].name}` }</h3>
         <ol className="fare-list clearfix">
-            { journeys.map(j => this.renderJourney(j, journeyPrice, selected)) }
+          { journeys.map(j => this.renderJourney(j, journeyPrice, selected)) }
         </ol>
       </div>
     )

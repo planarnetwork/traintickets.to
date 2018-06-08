@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {JourneyPlanResults} from "../../component/JourneyPlanResults/JourneyPlanResults";
 import {Layout} from "../Common/Layout";
-import {Search, SearchState} from "../../component/Search/Search";
+import {defaultQueryState, Search, SearchState} from "../../component/Search/Search";
 import {ErrorResponse, JourneyPlanner, SearchResults} from "../../service/JourneyPlanner/JourneyPlanner";
 import autobind from "autobind-decorator";
 import {debounce} from "typescript-debounce-decorator";
@@ -17,6 +17,7 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
 
   public state = {
     links: {},
+    query: defaultQueryState,
     response: {
       outward: [],
       inward: [],

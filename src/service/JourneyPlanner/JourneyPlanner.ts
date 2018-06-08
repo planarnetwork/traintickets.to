@@ -13,7 +13,7 @@ export class JourneyPlanner {
   public async search(params: SearchState): Promise<SearchResults | ErrorResponse> {
     try {
       const results = await this.client.get<JourneyPlannerResponse>("/jp", { params });
-      const handler = new ResponseHandler(results.data);
+      const handler = new ResponseHandler(results.data, params);
 
       return handler.getFares();
     }
@@ -27,7 +27,8 @@ export class JourneyPlanner {
 class ResponseHandler {
 
   constructor(
-    private readonly data: JourneyPlannerResponse
+    private readonly data: JourneyPlannerResponse,
+    private readonly query: SearchState
   ) { }
 
   public getFares(): SearchResults {
@@ -50,6 +51,7 @@ class ResponseHandler {
 
     return {
       links: this.data.links,
+      query: this.query,
       response: {
         outward: this.data.response.outward,
         inward: this.data.response.inward,
@@ -175,6 +177,7 @@ interface FaresIndex {
 }
 
 export interface SearchResults {
+  query: SearchState;
   response: {
     outward: Journey[];
     inward: Journey[];
