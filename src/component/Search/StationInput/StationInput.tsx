@@ -1,8 +1,6 @@
 import * as Autosuggest from "react-autosuggest";
 import * as React from "react";
 import {locations, Location} from "../../../config/locations";
-import {SearchProviderContext} from "../SearchContext";
-import {SearchContext} from "../SearchContext";
 import autobind from "autobind-decorator";
 import './StationInput.css';
 
@@ -38,15 +36,13 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
     this.setState({ suggestions: [] });
   }
 
-  public onBlur(context: SearchProviderContext) {
-    return () => {
-      if (this.state.lastCode !== this.state.code) {
-        context.setState({ [this.props.name]: this.state.code });
-      }
-
-      this.setState({ value: this.state.lastSelected, lastCode: this.state.code });
+  public onBlur() {
+    if (this.state.lastCode !== this.state.code) {
+      this.props.onChange({ [this.props.name]: this.state.code });
     }
-  };
+
+    this.setState({ value: this.state.lastSelected, lastCode: this.state.code });
+  }
 
   public renderSuggestion(location: Location, { query, isHighlighted }: any) {
     return (
@@ -71,26 +67,22 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
 
   public render() {
     return (
-      <SearchContext.Consumer>
-        {(context: SearchProviderContext) => (
-          <Autosuggest
-            highlightFirstSuggestion={true}
-            suggestions={this.state.suggestions}
-            onSuggestionHighlighted={this.onHighlight}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={this.getSuggestionValue}
-            renderSuggestion={this.renderSuggestion}
-            inputProps={{
-              placeholder: this.props.placeholder,
-              name: this.props.name,
-              onChange: this.onChange,
-              onBlur: this.onBlur(context),
-              value: this.state.value
-            }}
-          />
-        )}
-      </SearchContext.Consumer>
+      <Autosuggest
+        highlightFirstSuggestion={true}
+        suggestions={this.state.suggestions}
+        onSuggestionHighlighted={this.onHighlight}
+        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        getSuggestionValue={this.getSuggestionValue}
+        renderSuggestion={this.renderSuggestion}
+        inputProps={{
+          placeholder: this.props.placeholder,
+          name: this.props.name,
+          onChange: this.onChange,
+          onBlur: this.onBlur,
+          value: this.state.value
+        }}
+      />
     );
   }
 }
@@ -98,6 +90,7 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
 interface StationInputProps {
   placeholder: string;
   name: string;
+  onChange: (state: { [name: string]: string }) => any
 }
 
 interface StationInputState {

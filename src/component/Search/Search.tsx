@@ -1,65 +1,128 @@
 import * as React from 'react';
 import './Search.css';
 import {StationInput} from "./StationInput/StationInput";
-import {DatePicker} from "./DatePicker/DatePicker";
 import {RailcardSelect} from "./RailcardSelect/RailcardSelect";
-import {SearchProvider, SearchProviderProps, SearchContext, SearchProviderContext} from './SearchContext';
-import {ClassSelector} from "./ClassSelector/ClassSelector";
 import {NumberInput} from "../Form/NumberInput/NumberInput";
+import {RadioGroup} from "../Form/RadioGroup/RadioGroup";
+import * as moment from "moment";
+import DatePicker from "react-datepicker";
+import {Moment} from "moment";
+import autobind from "autobind-decorator";
+import "react-datepicker/dist/react-datepicker.css";
 
-export function Search(props: SearchProviderProps) {
-  return (
-    <section className="search">
-      <div className="container clearfix">
-        <SearchProvider {...props}>
+@autobind
+export class Search extends React.Component<SearchProps, SearchState> {
+
+  public state = {
+    origin: "",
+    destination: "",
+    outwardDate: moment().format("YYYY-MM-DD"),
+    returnDate: null,
+    railcards: "",
+    standardClass: true,
+    firstClass: false,
+    adults: 1,
+    children: 0
+  };
+
+  public set(values: Partial<SearchState>): void {
+    this.setState((previousState: SearchState) => {
+      const state = Object.assign(previousState, values);
+
+      if (state.origin && state.destination && state.outwardDate) {
+        this.props.onSubmit(state);
+      }
+
+      return state;
+    });
+  }
+
+  public onOutwardDateChange(date: Moment | null) {
+    if (date) {
+      this.set({ outwardDate: date.format("YYYY-MM-DD") });
+    }
+  }
+
+  public onReturnDateChange(date: Moment | null) {
+    this.set({ returnDate: date ? date.format("YYYY-MM-DD") : null });
+  }
+
+  public render() {
+    return (
+      <section className="search">
+        <div className="container clearfix">
           <form>
             <div className="search-col search-col-1 pull-left">
               <div className="form-group">
                 <label className="form-label" htmlFor="origin">Leaving from</label>
-                <StationInput name="origin" placeholder="Leaving from"/>
+                <StationInput name="origin" placeholder="Leaving from" onChange={this.set}/>
               </div>
 
               <div className="form-group">
                 <label className="form-label" htmlFor="destination">Going to</label>
-                <StationInput name="destination" placeholder="Going to"/>
+                <StationInput name="destination" placeholder="Going to" onChange={this.set}/>
               </div>
             </div>
 
             <div className="search-col search-col-2 pull-left">
               <div className="form-group">
-                <label className="form-label" htmlFor="outDate">Dates</label>
-                <DatePicker startDateId="startDate" endDateId="endDate"/>
+                <label className="form-label" htmlFor="outDate">Outward Date</label>
+                <DatePicker
+                  onChange={this.onOutwardDateChange}
+                  minDate={moment()}
+                  selected={moment(this.state.outwardDate)} dateFormat="YYYY-MM-DD"
+                  placeholderText={"Outward date"}
+                />
+                <label className="form-label" htmlFor="retDate">Return Date</label>
+                <DatePicker
+                  onChange={this.onReturnDateChange}
+                  minDate={moment(this.state.outwardDate)}
+                  selected={this.state.returnDate ? moment(this.state.returnDate!) : null}
+                  dateFormat="YYYY-MM-DD"
+                  isClearable={true}
+                  placeholderText={"Return date"}
+                />
               </div>
             </div>
 
-            <SearchContext.Consumer>
-              {(context: SearchProviderContext) => (
-                <div className="search-col search-col-3 pull-left center">
-                  <NumberInput name="adults" label="Adults" min={0} max={9} defaultValue={context.state.adults} onChange={context.setState}/>
-                  <NumberInput name="children" label="Children" min={0} max={9} defaultValue={context.state.children} onChange={context.setState}/>
-                </div>
-                )}
-            </SearchContext.Consumer>
+            <div className="search-col search-col-3 pull-left center">
+              <NumberInput name="adults" label="Adults" min={0} max={9} defaultValue={this.state.adults} onChange={this.set}/>
+              <NumberInput name="children" label="Children" min={0} max={9} defaultValue={this.state.children} onChange={this.set}/>
+            </div>
 
             <div className="search-col search-col-4 pull-left">
               <div className="form-group">
                 <label className="form-label" htmlFor="child">Railcards</label>
-                <RailcardSelect name="railcards" max={4}/>
+                <RailcardSelect name="railcards" max={4} onChange={this.set}/>
               </div>
             </div>
 
             <div className="search-col search-col-5 pull-left">
               <div className="form-group">
                 <legend className="form-label">Filters</legend>
-                <ClassSelector/>
+                <RadioGroup name="class" options={["standardClass", "firstClass"]} labels={["Standard", "First"]} onChange={this.set}/>
               </div>
             </div>
           </form>
-        </SearchProvider>
-      </div>
-    </section>
-  )
+        </div>
+      </section>
+    );
+  }
 }
 
+export interface SearchState {
+  origin: string;
+  destination: string;
+  outwardDate: string;
+  returnDate: string | null;
+  railcards: string;
+  standardClass: boolean;
+  firstClass: boolean;
+  adults: number;
+  children: number;
+}
 
+export interface SearchProps {
+  onSubmit: (query: SearchState) => any;
+}
 

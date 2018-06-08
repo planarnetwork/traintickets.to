@@ -1,5 +1,8 @@
 import * as React from 'react';
-import {Journey, SearchResults} from "../../service/JourneyPlanner/JourneyPlanner";
+import {
+  Journey,
+  SearchResults,
+} from "../../service/JourneyPlanner/JourneyPlanner";
 import * as moment from "moment";
 import autobind from "autobind-decorator";
 import "./JourneyPlanResults.css";
@@ -13,10 +16,13 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
   };
 
   public static getDerivedStateFromProps(props: SearchResults, state: JourneyPlanResultsState) {
-    return {
-      outwardSelected: state.outwardSelected || props.response.cheapestOutward,
-      inwardSelected: state.inwardSelected || props.response.cheapestInward
-    };
+    const outwardValid = props.response.fares[state.outwardSelected];
+    const outwardSelected = outwardValid ? state.outwardSelected : props.response.cheapestOutward;
+    const outwardFares = props.response.fares[outwardSelected] as any;
+    const inwardValid = outwardFares && outwardFares.with && outwardFares.with[state.inwardSelected];
+    const inwardSelected = inwardValid ? state.inwardSelected : props.response.cheapestInward;
+
+    return { outwardSelected, inwardSelected };
   }
 
   public render() {
