@@ -10,21 +10,22 @@ import DatePicker from "react-datepicker";
 import {Moment} from "moment";
 import autobind from "autobind-decorator";
 
+export const defaultQueryState = {
+  origin: "",
+  destination: "",
+  outwardDate: moment().format(moment.HTML5_FMT.DATE),
+  returnDate: null,
+  railcards: "",
+  standardClass: true,
+  firstClass: false,
+  adults: 1,
+  children: 0
+};
 
 @autobind
 export class Search extends React.Component<SearchProps, SearchState> {
 
-  public state = {
-    origin: "",
-    destination: "",
-    outwardDate: moment().format(moment.HTML5_FMT.DATE),
-    returnDate: null,
-    railcards: "",
-    standardClass: true,
-    firstClass: false,
-    adults: 1,
-    children: 0
-  };
+  public state = defaultQueryState;
 
   public set(values: Partial<SearchState>): void {
     this.setState((previousState: SearchState) => {

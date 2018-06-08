@@ -16,6 +16,12 @@ export interface Location {
 
 export const locations: Location[] = [
   {
+    "code": "1072",
+    "name": "London",
+    "lat": 51.512345,
+    "lon": -0.109863
+  },
+  {
     "name": "Alexandra Palace",
     "code": "AAP",
     "lat": 51.59793,
@@ -15616,12 +15622,6 @@ export const locations: Location[] = [
     "lon": -2.991573
   },
   {
-    "code": "1072",
-    "name": "London (Any)",
-    "lat": 51.512345,
-    "lon": -0.109863
-  },
-  {
     "code": "3667",
     "name": "Luton Airport",
     "lat": 51.872404,
@@ -15748,4 +15748,14 @@ export const locations: Location[] = [
   { "code": "0035", "name": "London Travelcard Zones 1-6", "lat": 51.52814, "lon": -0.13392 },
   { "code": "0034", "name": "London Travelcard Zones 1-4", "lat": 51.52814, "lon": -0.13392 }
 
-]
+];
+
+export const locationByCode: LocationIndex = locations.reduce((index: LocationIndex, location: Location) => {
+  index[location.code] = location;
+
+  return index;
+}, {});
+
+export interface LocationIndex {
+  [code: string]: Location;
+}
