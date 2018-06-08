@@ -7,14 +7,16 @@ import * as moment from "moment";
 export class JourneyDetails extends React.Component<JourneyDetailsProps, JourneyDetailsState> {
 
   public state = {
-    selected: 0
+    selected: -1
   };
 
   public onSelect(event: React.MouseEvent<HTMLDivElement>) {
     const index = event.currentTarget.getAttribute("data-index");
 
     if (index) {
-      this.setState({ selected: parseInt(index, 10) })
+      const intIndex = parseInt(index, 10);
+
+      this.setState({ selected: intIndex === this.state.selected ? -1 : intIndex });
     }
 
     event.stopPropagation();
