@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './Price.css';
 
 export interface PriceProps extends React.HTMLProps<HTMLSpanElement> {
     value: number;

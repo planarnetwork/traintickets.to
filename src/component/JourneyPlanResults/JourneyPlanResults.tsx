@@ -72,19 +72,23 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     return (
       <li onClick={this.onSelect(journey.id, selected)} key={journey.id} className={journey.id === this.state[selected] ? "fare-list--item is-selected" : "fare-list--item"}>
         <div className="row">
-          <div className="col-lg-10">
-            <time>{moment.unix(journey.departureTime).utc().format(moment.HTML5_FMT.TIME)}</time>
-            <span>{journey.origin}</span>
+          <div className="col-10">
+            <time className="fare-list--time">
+              {moment.unix(journey.departureTime).utc().format(moment.HTML5_FMT.TIME)}
+            </time>&nbsp;-&nbsp;
+            <time className="fare-list--time">
+              {moment.unix(journey.arrivalTime).utc().format(moment.HTML5_FMT.TIME)}
+            </time>
+            <time className="fare-list--duration">
+              {moment.unix(journey.arrivalTime - journey.departureTime).utc().format("H[hrs] m[min]")}
+            </time>
           </div>
-          <div className="col-lg-10">
-            <time>{journey.destination}</time>
-            <span>{moment.unix(journey.arrivalTime).utc().format(moment.HTML5_FMT.TIME)}</span>
+          <div className="col-10">
+            <span className="fare-list--station">{journey.origin}</span>&nbsp;-&nbsp;
+            <span className="fare-list--station">{journey.destination}</span>
           </div>
-          <div className="col-lg-4">
+          <div className="col-4">
             <Price value={journeyPrice[journey.id].price} />
-          </div>
-          <div className="col-lg-24 center">
-            <time>{moment.unix(journey.arrivalTime - journey.departureTime).utc().format("H[hrs] m[min]")}</time>
           </div>
         </div>
         {journey.id === this.state[selected] && <JourneyDetails journey={journey} />}

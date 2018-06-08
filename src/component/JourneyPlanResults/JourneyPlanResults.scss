@@ -11,11 +11,29 @@
     }
 }
 
-.fare-list--item {
-  padding: 20px;
-  margin-bottom: 15px;
+.fare-list {
+  &--item {
+    padding: 20px;
+    margin-bottom: 5px;
+    background-color: $color-white;
 
-  &.is-selected {
-    background-color: #364a68;
+    &.is-selected {
+      background-color: $color-primary;
+      color: $color-white;
+    }
+  }
+
+  &--time {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  &--duration {
+    margin-top: 10px;
+    display: block;
+  }
+
+  &--station {
+    font-size: 16px;
   }
 }

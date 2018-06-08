@@ -50,7 +50,15 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
 
   private renderCallingPoints(points: CallingPoint[]) {
     return (
-      <ol><li>derp</li></ol>
+      <ol>
+        {points.map((p, i) => (
+          <li key={i}>
+            <span>{p.station}</span>
+            <span>{p.arrive ? moment.unix(p.arrive).format(moment.HTML5_FMT.TIME) : "--:--"}</span>
+            <span>{p.depart ? moment.unix(p.depart).format(moment.HTML5_FMT.TIME) : "--:--"}</span>
+          </li>
+        ))}
+      </ol>
     );
   }
 
