@@ -75,7 +75,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
           <span>{moment.unix(journey.departureTime).utc().format(moment.HTML5_FMT.TIME)}</span>
           <span>{moment.unix(journey.arrivalTime).utc().format(moment.HTML5_FMT.TIME)}</span>
           <span>{moment.unix(journey.arrivalTime - journey.departureTime).utc().format("H[hrs] m[min]")}</span>
-          <span>{journeyPrice[journey.id].price}</span>
+          <span>{formatPrice(journeyPrice[journey.id].price)}</span>
         </div>
         {journey.id === this.state[selected] ? <JourneyDetails journey={journey} /> : ""}
       </li>
@@ -86,6 +86,14 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     return () => this.setState({ [stateField]: journeyId } as Pick<JourneyPlanResultsState, keyof JourneyPlanResultsState>);
   }
 
+}
+
+function formatPrice(price: number) {
+  const pounds = "£" + Math.floor(price / 100);
+  const pence = price % 100;
+  const spacer = (pence) < 10 ? ".0" : ".";
+
+  return pounds + spacer + pence;
 }
 
 interface JourneyPlanResultsState {
