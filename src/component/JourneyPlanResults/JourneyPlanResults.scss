@@ -11,6 +11,11 @@
     }
 }
 
-.fare-list .selected {
-  background-color: #364a68;
+.fare-list--item {
+  padding: 20px;
+  margin-bottom: 15px;
+
+  &.is-selected {
+    background-color: #364a68;
+  }
 }

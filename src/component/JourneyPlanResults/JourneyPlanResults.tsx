@@ -7,6 +7,8 @@ import * as moment from "moment";
 import autobind from "autobind-decorator";
 import "./JourneyPlanResults.css";
 import {JourneyDetails} from "./JourneyDetails/JourneyDetails";
+import {Price} from "./../Price/Price";
+
 
 @autobind
 export class JourneyPlanResults extends React.Component<SearchResults, JourneyPlanResultsState> {
@@ -68,16 +70,24 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
 
   public renderJourney(journey: Journey, journeyPrice: JourneyPriceIndex, selected: keyof JourneyPlanResultsState) {
     return (
-      <li onClick={this.onSelect(journey.id, selected)} key={journey.id} className={journey.id === this.state[selected] ? "selected" : ""}>
-        <div>
-          <span>{journey.origin}</span>
-          <span>{journey.destination}</span>
-          <span>{moment.unix(journey.departureTime).utc().format(moment.HTML5_FMT.TIME)}</span>
-          <span>{moment.unix(journey.arrivalTime).utc().format(moment.HTML5_FMT.TIME)}</span>
-          <span>{moment.unix(journey.arrivalTime - journey.departureTime).utc().format("H[hrs] m[min]")}</span>
-          <span>{journeyPrice[journey.id].price}</span>
+      <li onClick={this.onSelect(journey.id, selected)} key={journey.id} className={journey.id === this.state[selected] ? "fare-list--item is-selected" : "fare-list--item"}>
+        <div className="row">
+          <div className="col-lg-10">
+            <time>{moment.unix(journey.departureTime).utc().format(moment.HTML5_FMT.TIME)}</time>
+            <span>{journey.origin}</span>
+          </div>
+          <div className="col-lg-10">
+            <time>{journey.destination}</time>
+            <span>{moment.unix(journey.arrivalTime).utc().format(moment.HTML5_FMT.TIME)}</span>
+          </div>
+          <div className="col-lg-4">
+            <Price value={journeyPrice[journey.id].price} />
+          </div>
+          <div className="col-lg-24 center">
+            <time>{moment.unix(journey.arrivalTime - journey.departureTime).utc().format("H[hrs] m[min]")}</time>
+          </div>
         </div>
-        {journey.id === this.state[selected] ? <JourneyDetails journey={journey} /> : ""}
+        {journey.id === this.state[selected] && <JourneyDetails journey={journey} />}
       </li>
     );
   }
