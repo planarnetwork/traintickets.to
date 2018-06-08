@@ -1,4 +1,5 @@
 import * as React from 'react';
+import "react-datepicker/dist/react-datepicker.css";
 import './Search.css';
 import {StationInput} from "./StationInput/StationInput";
 import {RailcardSelect} from "./RailcardSelect/RailcardSelect";
@@ -8,7 +9,6 @@ import * as moment from "moment";
 import DatePicker from "react-datepicker";
 import {Moment} from "moment";
 import autobind from "autobind-decorator";
-import "react-datepicker/dist/react-datepicker.css";
 
 
 @autobind
@@ -70,24 +70,36 @@ export class Search extends React.Component<SearchProps, SearchState> {
               </div>
             </div>
             <div className="col-md-7 col-lg-4">
-              <div className="form-group">
-                <label className="form-label" htmlFor="outDate">Outward Date</label>
-                <DatePicker
-                  onChange={this.onOutwardDateChange}
-                  minDate={moment()}
-                  selected={moment(this.state.outwardDate)}
-                  dateFormat="YYYY-MM-DD"
-                  placeholderText={"Outward date"}
-                />
-                <label className="form-label" htmlFor="retDate">Return Date</label>
-                <DatePicker
-                  onChange={this.onReturnDateChange}
-                  minDate={moment(this.state.outwardDate)}
-                  selected={this.state.returnDate ? moment(this.state.returnDate!) : null}
-                  dateFormat="YYYY-MM-DD"
-                  isClearable={true}
-                  placeholderText={"Return date"}
-                />
+
+              <div className="row">
+                <div className="col-xs-12 col-sm-12 col-md-24">
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="outDate">Outward Date</label>
+                    <DatePicker
+                      onChange={this.onOutwardDateChange}
+                      minDate={moment()}
+                      selected={moment(this.state.outwardDate)}
+                      dateFormat="ddd, DD MMM YYYY"
+                      placeholderText={"Outward date"}
+                      className="form--input"
+                    />
+                  </div>
+                </div>
+                <div className="col-xs-12 col-sm-12 col-md-24">
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="retDate">Return Date</label>
+                    <DatePicker
+                      onChange={this.onReturnDateChange}
+                      minDate={moment(this.state.outwardDate)}
+                      selected={this.state.returnDate ? moment(this.state.returnDate!) : null}
+                      dateFormat="ddd, DD MMM YYYY"
+                      isClearable={true}
+                      placeholderText={"Return date"}
+                      className="form--input"
+                    />
+                  </div>
+                </div>
+
               </div>
             </div>
 
