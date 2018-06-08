@@ -127,14 +127,24 @@ export interface Journey {
   legs: Leg[];
 }
 
-export interface Leg {
+export type Leg = TimetableLeg | FixedLeg;
+
+export interface TimetableLeg {
+  type: "timetable";
   origin: string;
   destination: string;
   mode: string;
   operator: string;
   service: string;
-  type: "timetable" | "fixed";
   callingPoints: CallingPoint[];
+}
+
+export interface FixedLeg {
+  type: "fixed";
+  origin: string;
+  destination: string;
+  mode: string;
+  duration: number;
 }
 
 export interface CallingPoint {

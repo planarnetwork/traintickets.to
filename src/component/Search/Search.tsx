@@ -17,7 +17,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
   public state = {
     origin: "",
     destination: "",
-    outwardDate: moment().format("YYYY-MM-DD"),
+    outwardDate: moment().format(moment.HTML5_FMT.DATE),
     returnDate: null,
     railcards: "",
     standardClass: true,
@@ -40,12 +40,12 @@ export class Search extends React.Component<SearchProps, SearchState> {
 
   public onOutwardDateChange(date: Moment | null) {
     if (date) {
-      this.set({ outwardDate: date.format("YYYY-MM-DD") });
+      this.set({ outwardDate: date.format(moment.HTML5_FMT.DATE) });
     }
   }
 
   public onReturnDateChange(date: Moment | null) {
-    this.set({ returnDate: date ? date.format("YYYY-MM-DD") : null });
+    this.set({ returnDate: date ? date.format(moment.HTML5_FMT.DATE) : null });
   }
 
   public render() {
@@ -70,6 +70,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
               </div>
             </div>
             <div className="col-md-7 col-lg-4">
+
               <div className="row">
                 <div className="col-12 col-md-24">
                   <div className="form-group">
@@ -98,6 +99,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
                     />
                   </div>
                 </div>
+
               </div>
             </div>
 
