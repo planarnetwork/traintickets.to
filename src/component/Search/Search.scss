@@ -5,7 +5,7 @@
   padding: 15px 0;
 
   @media ($screen-smalltablet) {
-    padding: 25px 0;
+    padding: 25px 0 10px 0;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -30,7 +30,7 @@
 .form {
   &-label {
     text-transform: uppercase;
-    display: inline-block;
+    display: block;
     font-size: 12px;
     color: $color-label;
     margin-bottom: 5px;
@@ -59,6 +59,16 @@
     appearance: none;
     font-weight: 600;
     font-size: 14px;
+  }
+
+  &--input__passengers {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+
+    @media ($screen-smalltablet) {
+      width: 30px;
+    }
   }
 
   &--select-wrap {

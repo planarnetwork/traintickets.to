@@ -37,17 +37,21 @@ export class NumberInput extends React.Component<NumberInputProps, NumberInputSt
     return (
       <div className="form-group">
         <label className="form-label" htmlFor={this.props.name}>{this.props.label}</label>
-        <div>
-          <button onClick={this.decrement} className="pull-left" type="button">-</button>
+        <div className="number-input--container clearfix">
+          <button onClick={this.decrement} className="number-input number-input__less pull-left" type="button">
+            <span className="sr-only">Reduce passenger</span>
+          </button>
           <input
             readOnly={true}
-            className="pull-left"
+            className="form--input form--input__passengers pull-left"
             type="number"
             value={this.state.value}
             min={this.props.min}
             max={this.props.max}
           />
-          <button onClick={this.increment} className="pull-left" type="button">+</button>
+          <button onClick={this.increment} className="number-input number-input__more pull-left" type="button">
+            <span className="sr-only">Add passenger</span>
+          </button>
         </div>
       </div>
     )

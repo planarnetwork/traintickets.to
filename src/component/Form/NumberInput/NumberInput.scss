@@ -1,6 +1,28 @@
+@import "../../../variables.scss";
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
   margin: 0;
+}
+
+.number-input {
+  display: block;
+  width: 30px;
+  height: 40px;
+  background: transparent url($chevron-down) no-repeat center center;
+  background-size: 25px 15px;
+  border: none;
+
+  &--container {
+      display: inline-block;
+  }
+
+  &__more {
+      background-image: url($chevron-right);
+  }
+
+  &__less {
+      background-image: url($chevron-left);
+  }
 }

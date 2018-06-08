@@ -71,7 +71,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
             </div>
             <div className="col-md-7 col-lg-4">
               <div className="row">
-                <div className="col-xs-12 col-sm-12 col-md-24">
+                <div className="col-12 col-md-24">
                   <div className="form-group">
                     <label className="form-label" htmlFor="outDate">Outward Date</label>
                     <DatePicker
@@ -84,7 +84,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
                     />
                   </div>
                 </div>
-                <div className="col-xs-12 col-sm-12 col-md-24">
+                <div className="col-12 col-md-24">
                   <div className="form-group">
                     <label className="form-label" htmlFor="retDate">Return Date</label>
                     <DatePicker
@@ -101,12 +101,18 @@ export class Search extends React.Component<SearchProps, SearchState> {
               </div>
             </div>
 
-            <div className="col-md-4 col-lg-3 center">
-              <NumberInput name="adults" label="Adults" min={0} max={9} defaultValue={this.state.adults} onChange={this.set}/>
-              <NumberInput name="children" label="Children" min={0} max={9} defaultValue={this.state.children} onChange={this.set}/>
+            <div className="col-sm-12 col-md-4 col-lg-3 center">
+              <div className="row">
+                <div className="col-12 col-md-24">
+                  <NumberInput name="adults" label="Adults" min={0} max={9} defaultValue={this.state.adults} onChange={this.set}/>
+                </div>
+                <div className="col-12 col-md-24">
+                  <NumberInput name="children" label="Children" min={0} max={9} defaultValue={this.state.children} onChange={this.set}/>
+                </div>
+              </div>
             </div>
 
-            <div className="col-md-6 col-lg-4">
+            <div className="col-sm-12 col-md-6 col-lg-4">
               <div className="form-group">
                 <label className="form-label" htmlFor="child">Railcards</label>
                 <RailcardSelect name="railcards" max={4} onChange={this.set}/>
