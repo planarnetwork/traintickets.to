@@ -2,18 +2,31 @@
 
 .fares {
     margin-bottom: 100px;
+    margin-top: 30px;
 
-    &-results {
+    &--results {
         padding-top: 80px;
         font-size: 34px;
         opacity: 0.3;
         background: transparent url($up) no-repeat center top 30px;
     }
+
+    &--title {
+      padding: 15px;
+      background-color: darken($color-primary, 20%);
+      color: $color-white;
+      margin-bottom: 4px;
+    }
 }
 
 .fare-list {
+   @media ($screen-smalltablet) {
+    height: 50vh;
+    overflow: auto;
+   }
+
   &--item {
-    padding: 20px;
+    padding: 15px;
     margin-bottom: 5px;
     background-color: $color-white;
 
