@@ -10,22 +10,27 @@ import {NumberInput} from "../Form/NumberInput/NumberInput";
 export function Search(props: SearchProviderProps) {
   return (
     <section className="search">
-      <div className="container clearfix">
+      <div className="container">
         <SearchProvider {...props}>
-          <form>
-            <div className="search-col search-col-1 pull-left">
-              <div className="form-group">
-                <label className="form-label" htmlFor="origin">Leaving from</label>
-                <StationInput name="origin" placeholder="Leaving from"/>
-              </div>
-
-              <div className="form-group">
-                <label className="form-label" htmlFor="destination">Going to</label>
-                <StationInput name="destination" placeholder="Going to"/>
+          <form className="row">
+            <div className="col-md-7 col-lg-4">
+              <div className="row">
+                <div className="col-sm-12 col-md-24">
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="origin">Leaving from</label>
+                    <StationInput name="origin" placeholder="Leaving from"/>
+                  </div>
+                </div>
+                <div className="col-sm-12 col-md-24">
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="destination">Going to</label>
+                    <StationInput name="destination" placeholder="Going to"/>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="search-col search-col-2 pull-left">
+            <div className="col-md-7 col-lg-4">
               <div className="form-group">
                 <label className="form-label" htmlFor="outDate">Dates</label>
                 <DatePicker startDateId="startDate" endDateId="endDate"/>
@@ -34,26 +39,34 @@ export function Search(props: SearchProviderProps) {
 
             <SearchContext.Consumer>
               {(context: SearchProviderContext) => (
-                <div className="search-col search-col-3 pull-left center">
+                <div className="col-md-4 col-lg-3 center">
                   <NumberInput name="adults" label="Adults" min={0} max={9} defaultValue={context.state.adults} onChange={context.setState}/>
                   <NumberInput name="children" label="Children" min={0} max={9} defaultValue={context.state.children} onChange={context.setState}/>
                 </div>
                 )}
             </SearchContext.Consumer>
 
-            <div className="search-col search-col-4 pull-left">
+            <div className="col-md-6 col-lg-4">
               <div className="form-group">
                 <label className="form-label" htmlFor="child">Railcards</label>
                 <RailcardSelect name="railcards" max={4}/>
               </div>
             </div>
 
-            <div className="search-col search-col-5 pull-left">
-              <div className="form-group">
+            <div className="col-md-24 col-lg">
                 <legend className="form-label">Filters</legend>
-                <ClassSelector/>
+                <div className="row">
+                  <div className="col-sm">
+                    <ClassSelector/>
+                  </div>
+                  <div className="col-sm">
+                    Checkboxes
+                  </div>
+                  <div className="col-sm">
+                    Checkboxes
+                  </div>
+                </div>
               </div>
-            </div>
           </form>
         </SearchProvider>
       </div>

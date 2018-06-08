@@ -1,34 +1,14 @@
 @import "../../variables.scss";
+@import "../../styles/vendor/bootstrap/bootstrap-grid.scss";
 
 .search {
   background-color: $bg-grey;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
 
-  &-col {
-    margin: 25px 0;
-    padding: 0 25px;
-    border-right: solid 1px $color-white;
-    height: 120px;
-  }
-
-  &-col-1 {
-    width: 200px;
-    padding-left: 0;
-  }
-
-  &-col-2 {
-    width: 220px;
-  }
-
-  &-col-3 {
-    width: 100px;
-  }
-
-  &-col-4 {
-    width: 195px;
-  }
-
-  &-col-5 {
-    width: 380px;
+  @include media-breakpoint-up(sm) {
+    padding: 25px 0;
   }
 }
 
@@ -38,7 +18,11 @@
     display: inline-block;
     font-size: 12px;
     color: $color-label;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
+  }
+
+  &-group {
+    margin-bottom: 15px;
   }
 
   &-control {
@@ -49,7 +33,31 @@
     border: none;
   }
 
-  &-group {
-    margin-bottom: 10px;
+  &--select, &--input {
+    background-color: $color-white;
+    width: 100%;
+    border: none;
+    line-height: 30px;
+    padding: 5px;
+    border-radius: 0;
+    height: 40px;
+    appearance: none;
+  }
+
+  &--select-wrap {
+    position: relative;
+
+    &:after {
+      content: "";
+      display: block;
+      width: 14px;
+      height: 8px;
+      position: absolute;
+      right: 5px;
+      top: 16px;
+      background: transparent url($chevron-down);
+      background-size: 14px 8px;
+      pointer-events: none;
+    }
   }
 }

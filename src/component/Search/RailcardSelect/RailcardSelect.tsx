@@ -43,8 +43,8 @@ export class RailcardSelect extends React.Component<RailcardSelectProps, Railcar
     return (
       <SearchContext.Consumer>
         {(context: SearchProviderContext) => (
-          <div>
-            <select disabled={this.state.disabled} name={this.props.name} onChange={this.onSelectChange(context)}>
+          <div className="form--select-wrap">
+            <select className="form--select" disabled={this.state.disabled} name={this.props.name} onChange={this.onSelectChange(context)}>
               <option value="">Select Railcard</option>
               { railcards.map((railcard, i) => (
                 <option key={i} value={railcard.value}>{railcard.label}</option>

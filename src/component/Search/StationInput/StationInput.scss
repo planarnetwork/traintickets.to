@@ -1,6 +1,8 @@
+@import "../../../variables.scss";
+
 .react-autosuggest {
-  &__container .selected {
-    background-color: #364a68;
+  &__container {
+    position: relative;
   }
 
   &__input {
@@ -8,5 +10,23 @@
     border: none;
     line-height: 30px;
     padding: 5px;
+  }
+
+  &__suggestions-container {
+    position: absolute;
+    background-color: $color-white;
+    width: 100%;
+    z-index: 20;
+    max-height: 200px;
+    overflow: auto;
+  }
+
+  &__suggestion {
+    padding: 10px;
+
+    &--highlighted {
+        background-color: $color-primary;
+        color: $color-white;
+    }
   }
 }
