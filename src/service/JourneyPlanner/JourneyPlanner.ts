@@ -1,7 +1,7 @@
-import {SearchQuery} from "../../component/Search/SearchContext";
 import {AxiosInstance} from "axios";
 import autobind from "autobind-decorator";
 import {isArray} from "util";
+import {SearchState} from "../../component/Search/Search";
 
 @autobind
 export class JourneyPlanner {
@@ -10,7 +10,7 @@ export class JourneyPlanner {
     private readonly client: AxiosInstance
   ) {}
 
-  public async search(params: SearchQuery): Promise<SearchResults | ErrorResponse> {
+  public async search(params: SearchState): Promise<SearchResults | ErrorResponse> {
     try {
       const results = await this.client.get<JourneyPlannerResponse>("/jp", { params });
       const handler = new ResponseHandler(results.data);
@@ -143,11 +143,11 @@ export interface CallingPoint {
   depart: number | null;
 }
 
-interface SingleJourneyFares {
+export interface SingleJourneyFares {
   price: number;
 }
 
-interface ReturnJourneyFares extends SingleJourneyFares {
+export interface ReturnJourneyFares extends SingleJourneyFares {
   with: InwardOutwardCombination;
   cheapestInward: string;
 }
