@@ -1,6 +1,7 @@
 import * as React from "react";
 import {railcards} from "../../../config/railcards";
 import autobind from "autobind-decorator";
+import './Railcards.css';
 
 @autobind
 export class RailcardSelect extends React.Component<RailcardSelectProps, RailcardSelectState> {
@@ -42,10 +43,13 @@ export class RailcardSelect extends React.Component<RailcardSelectProps, Railcar
             <option key={i} value={railcard.value}>{railcard.label}</option>
           ))}
         </select>
-        <ul>
+        <ul className="railcards--list">
           { this.state.values.map((railcardCode, i) => (
-            <li key={i}>
-              <button value={i} type="button" onClick={this.onRemoveItem}>x</button>{railcardCode}
+            <li className="railcards--item" key={i}>
+              {railcardCode}
+              <button className="railcards--btn" value={i} type="button" onClick={this.onRemoveItem}>
+                <span className="sr-only">Remove railcard</span>
+              </button>
             </li>
           ))}
         </ul>
