@@ -92,7 +92,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     return (
       <li onClick={this.onSelect(journey.id, selected)} key={journey.id} className={journey.id === this.state[selected] ? "fare-list--item is-selected" : "fare-list--item"}>
         <div className="row">
-          <div className="col-10">
+          <div className="col-5">
             <time className="fare-list--time">
               {moment.unix(journey.departureTime).utc().format(moment.HTML5_FMT.TIME)}
             </time>&nbsp;-&nbsp;
@@ -103,9 +103,18 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
               {moment.unix(journey.arrivalTime - journey.departureTime).utc().format("H[hrs] m[min]")}
             </time>
           </div>
-          <div className="col-10">
+          <div className="col-15">
             <span className="fare-list--station">{locationByCode[journey.origin].name}</span>&nbsp;-&nbsp;
             <span className="fare-list--station">{locationByCode[journey.destination].name}</span>
+            <br/>
+            {/*<span>{*/}
+              {/*journey.legs.length === 1 ? "Direct" :*/}
+              {/*journey.legs.length === 2 ? "1 change" :*/}
+              {/*journey.legs.length + " changes"*/}
+            {/*}</span>*/}
+            <span>{
+              journey.legs.length === 1 ? "Direct" : "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ")
+            }</span>
           </div>
           <div className="col-4">
             <Price value={journeyPrice[journey.id].price} />
