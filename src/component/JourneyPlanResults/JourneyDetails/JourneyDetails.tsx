@@ -11,7 +11,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
     selected: -1
   };
 
-  public onSelect(event: React.MouseEvent<HTMLDivElement>) {
+  public onSelect(event: React.MouseEvent<HTMLButtonElement>) {
     const index = event.currentTarget.getAttribute("data-index");
 
     if (index) {
@@ -25,9 +25,9 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
 
   public render() {
     return (
-      <div>
+      <ol className="leg-list">
         {this.props.journey.legs.map(this.renderLeg)}
-      </div>
+      </ol>
     );
   }
   private renderLeg(leg: Leg, index: number) {
@@ -36,27 +36,36 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
 
   private renderTimetableLeg(leg: TimetableLeg, index: number) {
     return (
-      <div onClick={this.onSelect} data-index={index} key={index}>
-        <span>{leg.mode}</span>
-        <span>{locationByCode[leg.origin].name}</span>
-        <span>{locationByCode[leg.destination].name}</span>
-        <span>{leg.service}</span>
-        <span>{leg.operator}</span>
-        <span>{moment.unix(leg.callingPoints[0].depart!).utc().format(moment.HTML5_FMT.TIME)}</span>
-        <span>{moment.unix(leg.callingPoints[leg.callingPoints.length - 1].arrive!).utc().format(moment.HTML5_FMT.TIME)}</span>
+      <li key={index} className={'leg-mode leg-mode__' + leg.mode}>
+        {/*<span>{leg.mode}</span>*/}
+        <div className="clearfix">
+          <time className="pull-left">{moment.unix(leg.callingPoints[0].depart!).utc().format(moment.HTML5_FMT.TIME)}</time>
+          <p className="pull-right">{locationByCode[leg.origin].name}</p>
+        </div>
+        {/*<span>{leg.service}</span>*/}
+        <p>
+          {leg.operator} service <button onClick={this.onSelect} data-index={index}>Show calling points</button>
+        </p>
         {this.state.selected === index ? this.renderCallingPoints(leg.callingPoints) : ""}
-      </div>
+        <div className="clearfix">
+          <time className="pull-left">{moment.unix(leg.callingPoints[leg.callingPoints.length - 1].arrive!).utc().format(moment.HTML5_FMT.TIME)}</time>
+          <p className="pull-right">{locationByCode[leg.destination].name}</p>
+        </div>
+      </li>
     );
   }
 
   private renderCallingPoints(points: CallingPoint[]) {
     return (
-      <ol>
+      <ol className="calling-list">
         {points.map((p, i) => (
-          <li key={i}>
-            <span>{locationByCode[p.station].name}</span>
-            <span>{p.arrive ? moment.unix(p.arrive).format(moment.HTML5_FMT.TIME) : "--:--"}</span>
-            <span>{p.depart ? moment.unix(p.depart).format(moment.HTML5_FMT.TIME) : "--:--"}</span>
+          <li key={i} className="clearfix">
+            <p className="pull-right">{locationByCode[p.station].name}</p>
+              <p>
+                arr {p.arrive ? moment.unix(p.arrive).format(moment.HTML5_FMT.TIME) : "--:--"}
+                &nbsp; / &nbsp;
+                dep {p.depart ? moment.unix(p.depart).format(moment.HTML5_FMT.TIME) : "--:--"}
+              </p>
           </li>
         ))}
       </ol>
@@ -65,12 +74,12 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
 
   private renderFixedLeg(leg: FixedLeg, index: number) {
     return (
-      <div key={index}>
-        <span>{leg.mode}</span>
-        <span>{locationByCode[leg.origin].name}</span>
-        <span>{locationByCode[leg.destination].name}</span>
-        <span>{leg.duration}</span>
-      </div>
+      <li key={index} className={'leg-mode leg-mode__' + leg.mode}>
+        {/*<span>{leg.mode}</span>*/}
+        <div className="text-right">{locationByCode[leg.origin].name}</div>
+        <div>{leg.duration}</div>
+        <div className="text-right">{locationByCode[leg.destination].name}</div>
+      </li>
     );
   }
 }

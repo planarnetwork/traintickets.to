@@ -104,20 +104,19 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
             </time>
           </div>
           <div className="col-15">
-            <span className="fare-list--station">{locationByCode[journey.origin].name}</span>&nbsp;-&nbsp;
-            <span className="fare-list--station">{locationByCode[journey.destination].name}</span>
-            <br/>
+            <p className="fare-list--station">{locationByCode[journey.origin].name} to </p>
+            <p className="fare-list--station">{locationByCode[journey.destination].name}</p>
             {/*<span>{*/}
               {/*journey.legs.length === 1 ? "Direct" :*/}
               {/*journey.legs.length === 2 ? "1 change" :*/}
               {/*journey.legs.length + " changes"*/}
             {/*}</span>*/}
-            <span>{
-              journey.legs.length === 1 ? "Direct" : "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ")
-            }</span>
           </div>
           <div className="col-4">
             <Price value={journeyPrice[journey.id].price} />
+          </div>
+          <div className="col">
+              {journey.legs.length === 1 ? "Direct" : "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ")}
           </div>
         </div>
         {journey.id === this.state[selected] && <JourneyDetails journey={journey} />}
