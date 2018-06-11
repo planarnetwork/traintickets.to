@@ -22,10 +22,7 @@ export const defaultQueryState = {
   adults: 1,
   children: 0,
   singles: true,
-  returns: true,
-  advance: false,
-  offpeak: true,
-  anytime: true
+  returns: true
 };
 
 @autobind
@@ -139,11 +136,6 @@ export class Search extends React.Component<SearchProps, SearchState> {
                     <Checkbox label="Singles" name="singles" checked={this.state.singles} onChange={this.set}/>
                     <Checkbox label="Returns" name="returns" checked={this.state.returns} onChange={this.set}/>
                   </div>
-                  <div className="col">
-                    <Checkbox label="Advance" name="advance" checked={this.state.advance} onChange={this.set}/>
-                    <Checkbox label="Off Peak" name="offpeak" checked={this.state.offpeak} onChange={this.set}/>
-                    <Checkbox label="Anytime" name="anytime" checked={this.state.anytime} onChange={this.set}/>
-                  </div>
                 </div>
               </div>
             </div>
@@ -166,9 +158,6 @@ export interface SearchState {
   children: number;
   singles: boolean;
   returns: boolean;
-  advance: boolean;
-  offpeak: boolean;
-  anytime: boolean;
 }
 
 export interface SearchProps {
