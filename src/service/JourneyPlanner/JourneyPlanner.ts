@@ -168,7 +168,7 @@ interface PriceIndex {
   [inwardJourneyId: string]: number;
 }
 
-interface InwardOutwardCombination {
+export interface InwardOutwardCombination {
   [inwardJourneyId: string]: SingleJourneyFares;
 }
 

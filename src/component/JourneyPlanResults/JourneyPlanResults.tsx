@@ -9,6 +9,7 @@ import "./JourneyPlanResults.css";
 import {JourneyDetails} from "./JourneyDetails/JourneyDetails";
 import {Price} from "./../Price/Price";
 import {locationByCode} from "../../config/locations";
+import {FareGraph} from "./FareGraph/FareGraph";
 
 @autobind
 export class JourneyPlanResults extends React.Component<SearchResults, JourneyPlanResultsState> {
@@ -65,6 +66,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     return (
       <div className={className}>
         <h3 className="fares--title bold">{ `${title} - ${locationByCode[from].name} to ${locationByCode[to].name}` }</h3>
+        <FareGraph journeys={journeys} fares={journeyPrice}/>
         <ol className="fare-list clearfix">
           { journeys.map(j => this.renderJourney(j, journeyPrice, selected)) }
         </ol>
@@ -111,7 +113,7 @@ interface JourneyPlanResultsState {
   inwardSelected: string;
 }
 
-interface JourneyPriceIndex {
+export interface JourneyPriceIndex {
   [journeyId: string]: {
     price: number;
   }

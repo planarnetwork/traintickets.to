@@ -10,6 +10,7 @@
     "react-autosuggest": "^9.3.4",
     "react-datepicker": "^1.5.0",
     "react-dom": "^16.4.0",
+    "react-google-charts": "^1.6.6",
     "typescript-debounce-decorator": "0.0.17"
   },
   "scripts": {
