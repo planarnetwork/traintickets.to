@@ -7,22 +7,40 @@ input::-webkit-inner-spin-button {
 }
 
 .number-input {
-  display: block;
-  width: 30px;
-  height: 40px;
-  background: transparent url($chevron-down) no-repeat center center;
-  background-size: 25px 15px;
-  border: none;
-
   &--container {
-      display: inline-block;
+    display: inline-block;
   }
 
-  &__more {
+  &--btn {
+    display: block;
+    width: 20px;
+    height: 40px;
+    background: $color-white url($chevron-down) no-repeat center center;
+    background-size: 25px 15px;
+    border: none;
+    padding: 0;
+
+    @media ($screen-smalltablet) {
+      width: 25px;
+    }
+
+    &__more {
       background-image: url($chevron-right);
+    }
+
+    &__less {
+      background-image: url($chevron-left);
+    }
   }
 
-  &__less {
-      background-image: url($chevron-left);
+  &--passengers {
+    width: 20px;
+    height: 40px;
+    text-align: center;
+    padding: 0;
+
+    @media ($screen-smalltablet) {
+      width: 20px;
+    }
   }
 }

@@ -108,7 +108,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
               </div>
             </div>
 
-            <div className="col-sm-12 col-md-4 col-lg-3 center">
+            <div className="col-12 col-sm-12 col-md-4 col-lg-3 col-xxl-2 center">
               <div className="row">
                 <div className="col-12 col-md-24">
                   <NumberInput name="adults" label="Adults" min={0} max={9} defaultValue={this.state.adults} onChange={this.set}/>
@@ -119,7 +119,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
               </div>
             </div>
 
-            <div className="col-sm-12 col-md-6 col-lg-4">
+            <div className="col-12 col-sm-12 col-md-6 col-lg-4">
               <div className="form-group">
                 <label className="form-label" htmlFor="child">Railcards</label>
                 <RailcardSelect name="railcards" max={4} onChange={this.set}/>
