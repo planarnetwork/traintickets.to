@@ -9,6 +9,7 @@ import * as moment from "moment";
 import DatePicker from "react-datepicker";
 import {Moment} from "moment";
 import autobind from "autobind-decorator";
+import {Checkbox} from "../Form/Checkbox/Checkbox";
 
 export const defaultQueryState = {
   origin: "",
@@ -19,7 +20,9 @@ export const defaultQueryState = {
   standardClass: true,
   firstClass: false,
   adults: 1,
-  children: 0
+  children: 0,
+  singles: true,
+  returns: true
 };
 
 @autobind
@@ -129,7 +132,8 @@ export class Search extends React.Component<SearchProps, SearchState> {
                   <RadioGroup name="class" options={["standardClass", "firstClass"]} labels={["Standard", "First"]} onChange={this.set}/>
                 </div>
                 <div className="col-sm">
-                  Checkboxes
+                  <Checkbox label="Singles" name="singles" checked={this.state.singles} onChange={this.set}/>
+                  <Checkbox label="Returns" name="returns" checked={this.state.returns} onChange={this.set}/>
                 </div>
                 <div className="col-sm">
                   Checkboxes
@@ -153,6 +157,8 @@ export interface SearchState {
   firstClass: boolean;
   adults: number;
   children: number;
+  singles: boolean;
+  returns: boolean;
 }
 
 export interface SearchProps {
