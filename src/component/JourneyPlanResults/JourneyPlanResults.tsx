@@ -43,29 +43,44 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
 
   public renderResults() {
     const isReturn = this.props.response.inward.length > 0;
-    const classes = isReturn ? "col-md-12" : "col-md-16 offset-md-4 col-lg-12 offset-lg-6";
     const inwardJourneyFares = this.props.response.fares[this.state.outwardSelected] as any;
 
     return (
       <React.Fragment>
-        { this.renderJourneys(classes, this.props.response.outward, this.props.response.fares, "outwardSelected") }
-        { isReturn && this.renderJourneys(classes, this.props.response.inward, inwardJourneyFares.with, "inwardSelected") }
+        { this.renderJourneys(this.props.response.outward, this.props.response.fares, "outwardSelected") }
+        { !isReturn && this.renderEmptyReturn()}
+        { isReturn && this.renderJourneys(this.props.response.inward, inwardJourneyFares.with, "inwardSelected") }
       </React.Fragment>
     )
   }
 
-  public renderNoResults() {
-    return <div className="fares--results col-sm-24 center">Add some search criteria to see results</div>;
+  public renderEmptyReturn() {
+    return (
+      <div className="col-md-12">
+        <h3 className="fares--direction bold">No return selected</h3>
+        <div className="fares--empty-return center">
+          <p className="fares--empty-title">No return journey selected</p>
+        </div>
+      </div>
+    );
   }
 
-  public renderJourneys(className: string, journeys: Journey[], journeyPrice: JourneyPriceIndex, selected: keyof JourneyPlanResultsState) {
+  public renderNoResults() {
+    return (
+      <div className="col-sm-24 center">
+        <p className="fares--empty-title">Add some search criteria to see results</p>
+      </div>
+    );
+  }
+
+  public renderJourneys(journeys: Journey[], journeyPrice: JourneyPriceIndex, selected: keyof JourneyPlanResultsState) {
     const [title, from, to] = selected === "outwardSelected"
       ? ["Going out", this.props.query.origin, this.props.query.destination]
       : ["Coming back", this.props.query.destination, this.props.query.origin];
 
     return (
-      <div className={className}>
-        <h3 className="fares--title bold">{ `${title} - ${locationByCode[from].name} to ${locationByCode[to].name}` }</h3>
+      <div className="col-md-12">
+        <h3 className="fares--direction bold">{ `${title} - ${locationByCode[from].name} to ${locationByCode[to].name}` }</h3>
         <FareGraph journeys={journeys} fares={journeyPrice}/>
         <ol className="fare-list clearfix">
           { journeys.map(j => this.renderJourney(j, journeyPrice, selected)) }
