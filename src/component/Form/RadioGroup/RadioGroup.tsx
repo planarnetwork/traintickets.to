@@ -1,5 +1,6 @@
 import * as React from "react";
 import autobind from "autobind-decorator";
+import "./Radio.css";
 
 @autobind
 export class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
@@ -42,12 +43,10 @@ export class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState
 
   public renderRadio(value: string, index: number) {
     return (
-      <div className="form-group" key={value}>
-        <label className="form-label-radio">
-          <input type="radio" onChange={this.onChange} className="form-check-input" name={this.props.name} value={value} checked={this.state.selected[value]}/>
-          { this.props.labels[index] }
-        </label>
-      </div>
+      <label className="radio" key={value}>
+        <input type="radio" onChange={this.onChange} className="sr-only" name={this.props.name} value={value} checked={this.state.selected[value]}/>
+        <span>{ this.props.labels[index] }</span>
+      </label>
     )
   }
 

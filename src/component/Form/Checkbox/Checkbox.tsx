@@ -11,14 +11,12 @@ export class Checkbox extends React.Component<CheckboxProps> {
 
   public render() {
     return (
-      <div className="checkbox">
-        <label>
-          <input type="checkbox" className="sr-only" name={this.props.name} checked={this.props.checked} onChange={this.onChange}/>
-          <span>
-            {this.props.label}
-          </span>
-        </label>
-      </div>
+      <label className="checkbox">
+        <input type="checkbox" className="sr-only" name={this.props.name} checked={this.props.checked} onChange={this.onChange}/>
+        <span>
+          {this.props.label}
+        </span>
+      </label>
     );
   }
 }

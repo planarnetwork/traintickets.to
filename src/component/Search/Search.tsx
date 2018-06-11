@@ -60,7 +60,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
       <section className="search">
         <div className="container">
           <form className="row">
-            <div className="col-md-7 col-lg-4">
+            <div className="search--column col-md-7 col-lg-5">
               <div className="row">
                 <div className="col-sm-12 col-md-24">
                   <div className="form-group">
@@ -76,8 +76,8 @@ export class Search extends React.Component<SearchProps, SearchState> {
                 </div>
               </div>
             </div>
-            <div className="col-md-7 col-lg-4">
 
+            <div className="search--column col-md-7 col-lg-4 col-xl-3">
               <div className="row">
                 <div className="col-12 col-md-24">
                   <div className="form-group">
@@ -110,7 +110,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
               </div>
             </div>
 
-            <div className="col-12 col-sm-12 col-md-4 col-lg-3 col-xxl-2 center">
+            <div className="search--column col-12 col-sm-12 col-md-4 col-lg-2">
               <div className="row">
                 <div className="col-12 col-md-24">
                   <NumberInput name="adults" label="Adults" min={0} max={9} defaultValue={this.state.adults} onChange={this.set}/>
@@ -121,7 +121,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
               </div>
             </div>
 
-            <div className="col-12 col-sm-12 col-md-6 col-lg-4">
+            <div className="search--column col-12 col-sm-12 col-md-6 col-lg-4 col-xl-5">
               <div className="form-group">
                 <label className="form-label" htmlFor="child">Railcards</label>
                 <RailcardSelect name="railcards" max={4} onChange={this.set}/>
@@ -129,19 +129,21 @@ export class Search extends React.Component<SearchProps, SearchState> {
             </div>
 
             <div className="col-md-24 col-lg">
-              <legend className="form-label">Filters</legend>
-              <div className="row">
-                <div className="col">
-                  <RadioGroup name="class" options={["standardClass", "firstClass"]} labels={["Standard", "First"]} onChange={this.set}/>
-                </div>
-                <div className="col">
-                  <Checkbox label="Singles" name="singles" checked={this.state.singles} onChange={this.set}/>
-                  <Checkbox label="Returns" name="returns" checked={this.state.returns} onChange={this.set}/>
-                </div>
-                <div className="col">
-                  <Checkbox label="Advance" name="advance" checked={this.state.advance} onChange={this.set}/>
-                  <Checkbox label="Off Peak" name="offpeak" checked={this.state.offpeak} onChange={this.set}/>
-                  <Checkbox label="Anytime" name="anytime" checked={this.state.anytime} onChange={this.set}/>
+              <div className="search--filters">
+                <legend className="form-label">Filters</legend>
+                <div className="row">
+                  <div className="col">
+                    <RadioGroup name="class" options={["standardClass", "firstClass"]} labels={["Standard", "First"]} onChange={this.set}/>
+                  </div>
+                  <div className="col">
+                    <Checkbox label="Singles" name="singles" checked={this.state.singles} onChange={this.set}/>
+                    <Checkbox label="Returns" name="returns" checked={this.state.returns} onChange={this.set}/>
+                  </div>
+                  <div className="col">
+                    <Checkbox label="Advance" name="advance" checked={this.state.advance} onChange={this.set}/>
+                    <Checkbox label="Off Peak" name="offpeak" checked={this.state.offpeak} onChange={this.set}/>
+                    <Checkbox label="Anytime" name="anytime" checked={this.state.anytime} onChange={this.set}/>
+                  </div>
                 </div>
               </div>
             </div>

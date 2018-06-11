@@ -2,10 +2,30 @@
 
 .search {
   background-color: $bg-grey;
-  padding: 15px 0;
+  padding: 20px 0 0 0;
 
-  @media ($screen-smalltablet) {
-    padding: 25px 0 10px 0;
+  @media ($screen-laptop) {
+    padding: 0;
+  }
+
+  &--column {
+    @media ($screen-laptop) {
+      padding-top: 20px;
+      padding-bottom: 10px;
+    }    
+  }
+
+  &--filters {
+    padding: 15px 0;
+    margin-top: 5px;
+    border-top: solid 3px $color-white;
+
+    @media ($screen-laptop) {
+      background-color: darken($bg-grey, 4%);
+      padding: 20px 0 15px 20px;
+      margin: 0;
+      border: none;
+    }
   }
 }
 
@@ -50,23 +70,19 @@
     width: 100%;
     border: none;
     line-height: 30px;
-    padding: 5px;
+    padding: 5px 25px 5px 10px;
     border-radius: 0;
     height: 40px;
     appearance: none;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   &--input__passengers {
-    width: 20px;
+    width: 30%;
     height: 40px;
     text-align: center;
     padding: 0;
-
-    @media ($screen-smalltablet) {
-      width: 20px;
-    }
   }
 
   &--select-wrap {

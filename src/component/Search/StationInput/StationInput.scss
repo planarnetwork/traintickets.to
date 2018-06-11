@@ -9,22 +9,29 @@
     width: 100%;
     border: none;
     line-height: 30px;
-    padding: 5px;
+    padding: 5px 0 5px 10px;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   &__suggestions-container {
     position: absolute;
     background-color: $color-white;
-    width: 100%;
+    width: calc(100vw - 45px);
     z-index: 20;
     max-height: 200px;
     overflow: auto;
+    box-shadow: 2px 2px 2px darken($bg-grey, 10%);
+
+    @media ($screen-smalltablet) {
+      width: 320px;
+    }
   }
 
   &__suggestion {
     padding: 10px;
+    font-size: 12px;
+    line-height: 16px;
 
     &--highlighted {
         background-color: $color-primary;

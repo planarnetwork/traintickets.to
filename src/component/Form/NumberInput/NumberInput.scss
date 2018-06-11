@@ -8,21 +8,18 @@ input::-webkit-inner-spin-button {
 
 .number-input {
   &--container {
-    display: inline-block;
+    display: block;
+    background-color: $color-white;
   }
 
   &--btn {
     display: block;
-    width: 20px;
+    width: 35%;
     height: 40px;
     background: $color-white url($chevron-down) no-repeat center center;
     background-size: 25px 15px;
     border: none;
     padding: 0;
-
-    @media ($screen-smalltablet) {
-      width: 25px;
-    }
 
     &__more {
       background-image: url($chevron-right);
@@ -30,17 +27,6 @@ input::-webkit-inner-spin-button {
 
     &__less {
       background-image: url($chevron-left);
-    }
-  }
-
-  &--passengers {
-    width: 20px;
-    height: 40px;
-    text-align: center;
-    padding: 0;
-
-    @media ($screen-smalltablet) {
-      width: 20px;
     }
   }
 }
