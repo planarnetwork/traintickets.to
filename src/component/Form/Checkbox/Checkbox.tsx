@@ -1,5 +1,6 @@
 import * as React from "react";
 import autobind from "autobind-decorator";
+import "./Checkbox.css";
 
 @autobind
 export class Checkbox extends React.Component<CheckboxProps> {
@@ -10,9 +11,13 @@ export class Checkbox extends React.Component<CheckboxProps> {
 
   public render() {
     return (
-      <div className="form-group">
-        <label htmlFor={this.props.name}>{this.props.label}</label>
-        <input type="checkbox" name={this.props.name} checked={this.props.checked} onChange={this.onChange}/>
+      <div className="checkbox">
+        <label>
+          <input type="checkbox" className="sr-only" name={this.props.name} checked={this.props.checked} onChange={this.onChange}/>
+          <span>
+            {this.props.label}
+          </span>
+        </label>
       </div>
     );
   }

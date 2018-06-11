@@ -23,7 +23,9 @@ export const defaultQueryState = {
   children: 0,
   singles: true,
   returns: true,
-  advance: false
+  advance: false,
+  offpeak: true,
+  anytime: true
 };
 
 @autobind
@@ -129,13 +131,17 @@ export class Search extends React.Component<SearchProps, SearchState> {
             <div className="col-md-24 col-lg">
               <legend className="form-label">Filters</legend>
               <div className="row">
-                <div className="col-sm">
+                <div className="col">
                   <RadioGroup name="class" options={["standardClass", "firstClass"]} labels={["Standard", "First"]} onChange={this.set}/>
                 </div>
-                <div className="col-sm">
+                <div className="col">
                   <Checkbox label="Singles" name="singles" checked={this.state.singles} onChange={this.set}/>
                   <Checkbox label="Returns" name="returns" checked={this.state.returns} onChange={this.set}/>
+                </div>
+                <div className="col">
                   <Checkbox label="Advance" name="advance" checked={this.state.advance} onChange={this.set}/>
+                  <Checkbox label="Off Peak" name="offpeak" checked={this.state.offpeak} onChange={this.set}/>
+                  <Checkbox label="Anytime" name="anytime" checked={this.state.anytime} onChange={this.set}/>
                 </div>
               </div>
             </div>
@@ -159,6 +165,8 @@ export interface SearchState {
   singles: boolean;
   returns: boolean;
   advance: boolean;
+  offpeak: boolean;
+  anytime: boolean;
 }
 
 export interface SearchProps {

@@ -1,0 +1,52 @@
+@import "../../../variables.scss";
+
+.checkbox {
+  position: relative;
+
+  > label {
+    > span {
+      display: inline-block;
+      cursor: pointer;
+      position: relative;
+      color: black;
+      font-size: 14px;
+      line-height: 23px;
+      padding: 0 0 5px 34px;
+      margin: 4px 0;
+
+      @media ($screen-laptop) {
+          margin: 8px 0;
+        }
+
+      &:before {
+        content: "";
+        display: inline-block;
+        width: 23px;
+        height: 23px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: background-color .6s ease;
+        background-color: $color-white;
+      }
+    }
+
+    > input[type="checkbox"] {
+      &:checked + span:before {
+        background: $color-primary url($tick) no-repeat center center;
+        background-size: 12px;
+      }
+
+      &:hover, &:focus, &:active {
+        + span {
+          color: $color-primary;
+
+          &:before {
+            color: $color-primary;
+            border: solid 1px $color-primary;
+          }
+        }
+      }
+    }
+  }
+}
