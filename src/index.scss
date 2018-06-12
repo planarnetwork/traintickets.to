@@ -55,6 +55,7 @@ table {
 body {
   font-family: $font;
   background-color: $bg-body;
+  color: $color-black;
 }
 
 .max {
@@ -126,6 +127,7 @@ button {
 
 input, select {
   border: solid 1px $color-white;
+  color: $color-black;
 
   &:focus, &:active {
     outline: none;
