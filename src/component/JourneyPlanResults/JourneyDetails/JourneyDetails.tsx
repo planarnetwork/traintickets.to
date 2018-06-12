@@ -42,9 +42,8 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
           <time className="pull-left">{moment.unix(leg.callingPoints[0].depart!).utc().format(moment.HTML5_FMT.TIME)}</time>
           <p className="pull-right">{locationByCode[leg.origin].name}</p>
         </div>
-        {/*<span>{leg.service}</span>*/}
         <p>
-          {leg.operator} service <button onClick={this.onSelect} data-index={index}>Show calling points</button>
+          {leg.operator} service ({leg.service}){ leg.callingPoints.length > 2 && (<button onClick={this.onSelect} data-index={index}>Show calling points</button>)}
         </p>
         {this.state.selected === index ? this.renderCallingPoints(leg.callingPoints) : ""}
         <div className="clearfix">
