@@ -34,11 +34,11 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     return {
       outward: {
         selected: outwardSelected,
-        open: false,
+        open: state.outward.open,
       },
       inward: {
         selected: inwardSelected,
-        open: false
+        open: state.outward.open
       }
     };
   }
