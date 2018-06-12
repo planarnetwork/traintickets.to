@@ -1,7 +1,10 @@
 @import "../../../variables.scss";
 
 .radio {
-  display: block;
+  display: inline-block;
+  // margin-right: 50px;
+  margin-bottom: 15px;
+  width: 50%;
 
   > span {
     display: inline-block;
@@ -11,11 +14,6 @@
     font-size: 14px;
     line-height: 20px;
     padding: 0 0 5px 30px;
-    margin: 4px 0;
-
-    @media ($screen-laptop) {
-      margin: 8px 0;
-    }
 
     &:before {
       content: "";

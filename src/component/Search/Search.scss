@@ -2,7 +2,7 @@
 
 .search {
   background-color: $bg-grey;
-  padding: 20px 0 0 0;
+  padding: 15px 0 0 0;
 
   @media ($screen-laptop) {
     padding: 0;
@@ -10,19 +10,15 @@
 
   &--column {
     @media ($screen-laptop) {
-      padding-top: 20px;
-      padding-bottom: 10px;
+      padding-top: 15px;
     }    
   }
 
   &--filters {
-    padding: 15px 0;
-    margin-top: 5px;
-    border-top: solid 3px $color-white;
+    padding-top: 15px;
+    background-color: darken($bg-grey, 4%);
 
     @media ($screen-laptop) {
-      background-color: darken($bg-grey, 4%);
-      padding: 20px 0 55px 20px;
       margin: 0;
       border: none;
     }
