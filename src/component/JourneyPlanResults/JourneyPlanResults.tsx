@@ -137,17 +137,19 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
                 </time>
               </div>
               <div className="col-18">
-                <p className="fare-list--station">{locationByCode[journey.destination].name}</p>
+                <p className="fare-list--station">
+                {locationByCode[journey.destination].name}&nbsp;
+                <button type="button" className="fare-list--btn-legs" onClick={this.onOpen(journey.id, direction)}>
+                  <span className="sr-only">show more journey information</span>
+                  {journey.id === this.state[direction].open ? ' - ' : ' + '}
+                </button>
+                </p>
               </div>
             </div>
           </div>
           <div className="col-6 text-right">
             <Price value={journeyPrice[journey.id].price} />
           </div>
-          <button type="button" className="fare-list--btn-legs" onClick={this.onOpen(journey.id, direction)}>
-            <span className="sr-only">show more journey information</span>
-            {journey.id === this.state[direction].open ? ' - ' : ' + '}
-          </button>
         </div>
         <div className="row">
           <div className="col-24">

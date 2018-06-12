@@ -26,6 +26,10 @@
 }
 
 .react-datepicker {
+  &-popper {
+    z-index: 2;
+  }
+
   &-wrapper, &__input-container {
     width: 100%;
   }

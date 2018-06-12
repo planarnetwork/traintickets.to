@@ -52,6 +52,7 @@
     background-color: $color-white;
     cursor: pointer;
     transition: background-color 0.2s linear;
+    position: relative;
 
     &:hover {
       background: rgba($color-primary, 0.1) url($fare-hover) no-repeat right 15px top 50px;
@@ -76,14 +77,6 @@
       .fare-list--time {
         &:before {
           border-color: rgba($color-white, 0.2);
-        }
-      }
-
-      .fare-list--btn-legs {
-        color: rgba($color-white, 0.7);
-
-        &:hover, &:active, &:focus {
-          color: $color-secondary;
         }
       }
     }
@@ -138,7 +131,7 @@
   }
 
   &--duration {
-    margin: 8px 0;
+    margin: 6px 0;
     font-size: 12px;
     line-height: 12px;
     color: lighten($color-black, 35%);
@@ -147,27 +140,25 @@
   &--btn-legs {
     border: none;
     padding: 0;
-    font-size: 10px;
-    line-height: 10px;
-    border-radius: 50px;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: bold;
     color: $color-secondary;
-    background: $color-white;
-    postion: absolute;
-    left: 50%;
-    bottom: -3px;
-    width: 10px;
-    height: 10px;
+    background: transparent;
 
     &:hover, &:active, &:focus {
       color: $color-primary;
       border: none;
+      background: transparent;
     }
   }
 
   &--station {
     font-size: 16px;
+    line-height: 20px;
     padding: 0;
     font-weight: bold;
+    margin-top: -2px;
   }
 
   &--line {
