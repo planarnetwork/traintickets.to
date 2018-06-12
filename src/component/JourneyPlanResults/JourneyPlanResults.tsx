@@ -16,11 +16,11 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
   public state = {
     outward: {
       selected: "",
-      open: false
+      open: ""
     },
     inward: {
       selected: "",
-      open: false
+      open: ""
     }
   };
 
@@ -125,7 +125,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
           <div className="col-4">
             <Price value={journeyPrice[journey.id].price} />
             <button type="button" onClick={this.onOpen(journey.id, direction)}>{
-              journey.id === this.state[direction].selected && this.state[direction].open ? "Less" : "More"
+              journey.id === this.state[direction].open ? "Less" : "More"
             }</button>
           </div>
           <div className="col"> {
@@ -134,7 +134,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
             journey.legs.length + " changes"
           }</div>
         </div>
-        {journey.id === this.state[direction].selected && this.state[direction].open && <JourneyDetails journey={journey} />}
+        {journey.id === this.state[direction].open && <JourneyDetails journey={journey} />}
       </li>
     );
   }
@@ -152,8 +152,8 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     return (event: React.FormEvent<HTMLButtonElement>) => {
       this.setState({
         [direction]: {
-          selected: journeyId,
-          open: !this.state[direction].open
+          selected: this.state[direction].selected,
+          open: this.state[direction].open === journeyId ? "" : journeyId
         }
       } as any);
 
@@ -166,11 +166,11 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
 interface JourneyPlanResultsState {
   outward: {
     selected: string;
-    open: boolean;
+    open: string;
   };
   inward: {
     selected: string;
-    open: boolean;
+    open: string;
   };
 }
 
