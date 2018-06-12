@@ -143,7 +143,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     return () => this.setState({
       [direction]: {
         selected: journeyId,
-        open: false
+        open: this.state[direction].open
       }
     } as any);
   }
