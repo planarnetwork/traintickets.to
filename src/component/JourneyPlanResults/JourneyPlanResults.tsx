@@ -120,16 +120,14 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
             </div>
             <div className="row fare-list--line">
               <div className="offset-6 col-18">
-                <button type="button" className="fare-list--btn-legs" onClick={this.onOpen(journey.id, direction)}>
+                <p className="fare-list--duration">
                   {moment.unix(journey.arrivalTime - journey.departureTime).utc().format("H[hrs] m[min]") + ", "}
                   {
                     journey.legs.length === 1 ? "Direct" :
                     journey.legs.length < 4 ? "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ") :
                     journey.legs.length + " changes"
                   }
-                  <span className="sr-only">show more journey information</span>
-                  {journey.id === this.state[direction].open ? ' - ' : ' + '}
-                </button>
+                </p>
               </div>
             </div>
             <div className="row">
@@ -146,6 +144,10 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
           <div className="col-6 text-right">
             <Price value={journeyPrice[journey.id].price} />
           </div>
+          <button type="button" className="fare-list--btn-legs" onClick={this.onOpen(journey.id, direction)}>
+            <span className="sr-only">show more journey information</span>
+            {journey.id === this.state[direction].open ? ' - ' : ' + '}
+          </button>
         </div>
         <div className="row">
           <div className="col-24">

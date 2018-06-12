@@ -54,7 +54,7 @@
     transition: background-color 0.2s linear;
 
     &:hover {
-      background: rgba($color-primary, 0.1) url($fare-selected) no-repeat right 15px top 50px;
+      background: rgba($color-primary, 0.1) url($fare-hover) no-repeat right 15px top 50px;
       background-size: 25px 25px;
     }
 
@@ -137,19 +137,29 @@
     }
   }
 
-  &--btn-legs {
+  &--duration {
     margin: 8px 0;
     font-size: 12px;
     line-height: 12px;
-    text-align: left;
+    color: lighten($color-black, 35%);
+  }
+
+  &--btn-legs {
     border: none;
     padding: 0;
-    color: lighten($color-black, 35%);
-    background: transparent;
+    font-size: 10px;
+    line-height: 10px;
+    border-radius: 50px;
+    color: $color-secondary;
+    background: $color-white;
+    postion: absolute;
+    left: 50%;
+    bottom: -3px;
+    width: 10px;
+    height: 10px;
 
     &:hover, &:active, &:focus {
       color: $color-primary;
-      text-decoration: underline;
       border: none;
     }
   }
