@@ -54,12 +54,12 @@
     transition: background-color 0.2s linear;
 
     &:hover {
-      background: rgba($color-primary, 0.1) url($fare-selected) no-repeat right 15px bottom 15px;
+      background: rgba($color-primary, 0.1) url($fare-selected) no-repeat right 15px top 50px;
       background-size: 25px 25px;
     }
 
     &.is-selected {
-      background: $color-primary url($fare-selected) no-repeat right 15px bottom 15px;
+      background: $color-primary url($fare-selected) no-repeat right 15px top 50px;
       background-size: 25px 25px;
       color: $color-white;
 
