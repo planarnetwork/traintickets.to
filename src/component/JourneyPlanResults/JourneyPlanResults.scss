@@ -54,11 +54,13 @@
     transition: background-color 0.2s linear;
 
     &:hover {
-      background-color: rgba($color-primary, 0.1);
+      background: rgba($color-primary, 0.1) url($fare-selected) no-repeat right 15px bottom 15px;
+      background-size: 25px 25px;
     }
 
     &.is-selected {
-      background-color: $color-primary;
+      background: $color-primary url($fare-selected) no-repeat right 15px bottom 15px;
+      background-size: 25px 25px;
       color: $color-white;
 
       .fare-list--duration, .fare-list--changes {
@@ -139,6 +141,7 @@
     margin: 8px 0;
     font-size: 12px;
     line-height: 12px;
+    text-align: left;
     border: none;
     padding: 0;
     color: lighten($color-black, 35%);
