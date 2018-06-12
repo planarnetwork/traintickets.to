@@ -4,11 +4,15 @@ $bg-grey:           #ebebeb;
 
 $color-white:       #fff;
 $color-black:       #000;
-$color-primary:     #1561d4;
+// $color-primary:     #1561d4; old primary
+$color-primary:     #563d7c;
 $color-secondary:   #fa9116;
-$color-duration:    #6d6d6d;
 $color-label:       #6e6e6e;
 
+$fare-list-height:  52vh;
+
+$arrow-down:        '/img/arrow-down.svg'; // arrow down
+$arrow-down-white:  '/img/arrow-down-white.svg'; // arrow down white
 $chevron-down:      '/img/chevron-down.svg'; // down chevron
 $chevron-left:      '/img/chevron-left.svg'; // left chevron
 $chevron-right:     '/img/chevron-right.svg'; // right chevron
@@ -19,11 +23,11 @@ $up:                '/img/up.svg'; // search results up
 
 // Media queries
 $min-phone: 480px;
-$min-smalltablet: 600px;
+$min-smalltablet: 576px;
 $min-tablet: 768px;
 $min-laptop: 992px;
 $min-desktop: 1200px;
-$min-hd: 1480px;
+$min-hd: 1400px;
 
 $screen-phone: unquote("min-width: #{$min-phone}");
 $screen-smalltablet: unquote("min-width: #{$min-smalltablet}");

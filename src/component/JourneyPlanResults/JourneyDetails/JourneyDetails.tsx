@@ -43,7 +43,11 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
           <p className="pull-right">{locationByCode[leg.origin].name}</p>
         </div>
         <p>
-          {leg.operator} service ({leg.service}){ leg.callingPoints.length > 2 && (<button onClick={this.onSelect} data-index={index}>Show calling points</button>)}
+          {leg.operator} service ({leg.service}){ leg.callingPoints.length > 2 && (
+            <button onClick={this.onSelect} data-index={index}>
+              {this.state.selected === index ? "Hide" : "Show"} calling points
+            </button>
+          )}
         </p>
         {this.state.selected === index ? this.renderCallingPoints(leg.callingPoints) : ""}
         <div className="clearfix">

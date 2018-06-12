@@ -6,7 +6,7 @@
 
     &--direction {
       padding: 15px;
-      background-color: darken($color-primary, 20%);
+      background-color: darken($color-primary, 10%);
       color: $color-white;
       margin-bottom: 4px;
     }
@@ -20,6 +20,10 @@
 
     &--empty-return {
       background-color: $color-white;
+
+      @media ($screen-tablet) {
+        height: $fare-list-height;
+      }
 
       .fares--empty-title {
         background: none;
@@ -36,7 +40,7 @@
   margin-bottom: 30px;
 
   @media ($screen-smalltablet) {
-    height: 50vh;
+    height: $fare-list-height;
     overflow: auto;
   }
 
@@ -54,24 +58,153 @@
     &.is-selected {
       background-color: $color-primary;
       color: $color-white;
+
+      .fare-list--duration, .fare-list--changes {
+        color: darken($color-white, 10%);
+      }
+
+      .fare-list--line {
+        &:before {
+          background-color: rgba($color-white, 0.2);
+        }
+      }
+
+      .fare-list--time {
+        &:before {
+          border-color: rgba($color-white, 0.2);
+        }
+      }
+
+      .fare-list--btn-legs {
+        color: rgba($color-white, 0.7);
+
+        &:hover, &:active, &:focus {
+          color: $color-white;
+        }
+      }
     }
   }
 
   &--time {
     font-weight: bold;
     font-size: 18px;
+    line-height: 18px;
+    position: relative;
+    z-index: 1;
+
+    &:before {
+      @media ($screen-phone) {
+        content: "";
+        width: 21px;
+        height: 21px;
+        display: block;
+        border-radius: 50%;
+        border: solid 3px rgba($color-primary, 0.1);
+        position: absolute;
+        left: 53px;
+        top: 0;
+        z-index: 0;
+      }
+
+      @media ($screen-smalltablet) {
+        left: 59px;
+      }
+
+      @media ($screen-tablet) {
+        display: none;
+      }
+
+      @media ($screen-tablet) {
+        display: none;
+      }
+
+      @media ($screen-laptop) {
+        display: block;
+        left: 54px;
+      }
+
+      @media ($screen-desktop) {
+        left: 61px;
+      }
+
+      @media ($screen-desktop-lg) {
+        left: 68px;
+      }
+    }
   }
 
   &--duration {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 8px;
+    margin-bottom: 3px;
     display: block;
+    font-size: 12px;
+    color: lighten($color-black, 40%);
+  }
+
+  &--changes {
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: lighten($color-black, 40%);
   }
 
   &--station {
     font-size: 16px;
     padding: 0;
-    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  &--line {
+    position: relative;
+
+    &:before {
+      content: "";
+      width: 3px;
+      height: calc(100% - 3px);
+      background-color: rgba($color-primary, 0.1);
+      position: absolute;
+      left: 32px;
+      top: 2px;
+
+      @media ($screen-phone) {
+        width: 3px;
+        height: calc(100% - 3px);
+        left: 72px;
+        top: 2px;
+      }
+
+      @media ($screen-smalltablet) {
+        left: 78px;
+      }
+
+      @media ($screen-tablet) {
+        left: 31px;
+      }
+
+      @media ($screen-laptop) {
+        left: 73px;
+      }
+
+      @media ($screen-desktop) {
+        left: 80px;
+      }
+
+      @media ($screen-desktop-lg) {
+        left: 87px;
+      }
+    } 
+  }
+
+  &--btn-legs {
+    border: none;
+    padding: 0;
+    text-decoration: underline;
+    color: $color-secondary;
+    background: transparent;
+    margin-left: 10px;
+
+    &:hover, &:active, &:focus {
+      color: darken($color-secondary, 15%);
+    }
   }
 }
 

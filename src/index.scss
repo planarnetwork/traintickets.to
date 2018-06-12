@@ -110,3 +110,25 @@ body {
 .bold {
   font-weight: bold;
 }
+
+button {
+  border: solid 1px $color-white;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:focus, &:active {
+    outline: none;
+    border: solid 1px lighten($color-primary, 30%);
+  }
+}
+
+input, select {
+  border: solid 1px $color-white;
+
+  &:focus, &:active {
+    outline: none;
+    border: solid 1px lighten($color-primary, 30%);
+  }
+}

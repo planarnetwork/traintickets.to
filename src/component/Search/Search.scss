@@ -16,7 +16,7 @@
 
   &--filters {
     padding-top: 15px;
-    background-color: darken($bg-grey, 4%);
+    background-color: $bg-grey;
 
     @media ($screen-laptop) {
       margin: 0;
@@ -64,7 +64,6 @@
   &--select, &--input {
     background-color: $color-white;
     width: 100%;
-    border: none;
     line-height: 30px;
     padding: 5px 25px 5px 10px;
     border-radius: 0;
