@@ -31,7 +31,16 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     const inwardValid = outwardFares && outwardFares.with && outwardFares.with[state.inward.selected];
     const inwardSelected = inwardValid ? state.inward.selected : props.response.cheapestInward;
 
-    return { outwardSelected, inwardSelected };
+    return {
+      outward: {
+        selected: outwardSelected,
+        open: false,
+      },
+      inward: {
+        selected: inwardSelected,
+        open: false
+      }
+    };
   }
 
   public render() {
