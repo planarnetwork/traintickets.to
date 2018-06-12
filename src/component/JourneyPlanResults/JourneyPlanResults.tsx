@@ -38,7 +38,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
       },
       inward: {
         selected: inwardSelected,
-        open: state.outward.open
+        open: state.inward.open
       }
     };
   }
