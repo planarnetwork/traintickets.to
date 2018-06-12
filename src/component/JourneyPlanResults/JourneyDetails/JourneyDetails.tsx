@@ -62,9 +62,9 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
           <li key={i} className="clearfix">
             <p className="pull-right">{locationByCode[p.station].name}</p>
               <p>
-                arr {p.arrive ? moment.unix(p.arrive).format(moment.HTML5_FMT.TIME) : "--:--"}
+                arr {p.arrive ? moment.unix(p.arrive).utc().format(moment.HTML5_FMT.TIME) : "--:--"}
                 &nbsp; / &nbsp;
-                dep {p.depart ? moment.unix(p.depart).format(moment.HTML5_FMT.TIME) : "--:--"}
+                dep {p.depart ? moment.unix(p.depart).utc().format(moment.HTML5_FMT.TIME) : "--:--"}
               </p>
           </li>
         ))}

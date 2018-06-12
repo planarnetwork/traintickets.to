@@ -14,16 +14,22 @@ import {locationByCode} from "../../config/locations";
 export class JourneyPlanResults extends React.Component<SearchResults, JourneyPlanResultsState> {
 
   public state = {
-    outwardSelected: "",
-    inwardSelected: ""
+    outward: {
+      selected: "",
+      open: false
+    },
+    inward: {
+      selected: "",
+      open: false
+    }
   };
 
   public static getDerivedStateFromProps(props: SearchResults, state: JourneyPlanResultsState) {
-    const outwardValid = props.response.fares[state.outwardSelected];
-    const outwardSelected = outwardValid ? state.outwardSelected : props.response.cheapestOutward;
+    const outwardValid = props.response.fares[state.outward.selected];
+    const outwardSelected = outwardValid ? state.outward.selected : props.response.cheapestOutward;
     const outwardFares = props.response.fares[outwardSelected] as any;
-    const inwardValid = outwardFares && outwardFares.with && outwardFares.with[state.inwardSelected];
-    const inwardSelected = inwardValid ? state.inwardSelected : props.response.cheapestInward;
+    const inwardValid = outwardFares && outwardFares.with && outwardFares.with[state.inward.selected];
+    const inwardSelected = inwardValid ? state.inward.selected : props.response.cheapestInward;
 
     return { outwardSelected, inwardSelected };
   }
@@ -42,13 +48,13 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
 
   public renderResults() {
     const isReturn = this.props.response.inward.length > 0;
-    const inwardJourneyFares = this.props.response.fares[this.state.outwardSelected] as any;
+    const inwardJourneyFares = this.props.response.fares[this.state.outward.selected] as any;
 
     return (
       <React.Fragment>
-        { this.renderJourneys(this.props.response.outward, this.props.response.fares, "outwardSelected") }
+        { this.renderJourneys(this.props.response.outward, this.props.response.fares, "outward") }
         { !isReturn && this.renderEmptyReturn()}
-        { isReturn && this.renderJourneys(this.props.response.inward, inwardJourneyFares.with, "inwardSelected") }
+        { isReturn && this.renderJourneys(this.props.response.inward, inwardJourneyFares.with, "inward") }
       </React.Fragment>
     )
   }
@@ -72,8 +78,8 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     );
   }
 
-  public renderJourneys(journeys: Journey[], journeyPrice: JourneyPriceIndex, selected: keyof JourneyPlanResultsState) {
-    const [title, from, to] = selected === "outwardSelected"
+  public renderJourneys(journeys: Journey[], journeyPrice: JourneyPriceIndex, direction: keyof JourneyPlanResultsState) {
+    const [title, from, to] = direction === "outward"
       ? ["Going out", this.props.query.origin, this.props.query.destination]
       : ["Coming back", this.props.query.destination, this.props.query.origin];
 
@@ -82,15 +88,15 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
         <h3 className="fares--direction bold">{ `${title} - ${locationByCode[from].name} to ${locationByCode[to].name}` }</h3>
         {/*<FareGraph journeys={journeys} fares={journeyPrice}/>*/}
         <ol className="fare-list clearfix">
-          { journeys.map(j => this.renderJourney(j, journeyPrice, selected)) }
+          { journeys.map(j => this.renderJourney(j, journeyPrice, direction)) }
         </ol>
       </div>
     )
   }
 
-  public renderJourney(journey: Journey, journeyPrice: JourneyPriceIndex, selected: keyof JourneyPlanResultsState) {
+  public renderJourney(journey: Journey, journeyPrice: JourneyPriceIndex, direction: keyof JourneyPlanResultsState) {
     return (
-      <li onClick={this.onSelect(journey.id, selected)} key={journey.id} className={journey.id === this.state[selected] ? "fare-list--item is-selected" : "fare-list--item"}>
+      <li onClick={this.onSelect(journey.id, direction)} key={journey.id} className={journey.id === this.state[direction].selected ? "fare-list--item is-selected" : "fare-list--item"}>
         <div className="row">
           <div className="col-5">
             <time className="fare-list--time">
@@ -106,33 +112,57 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
           <div className="col-15">
             <p className="fare-list--station">{locationByCode[journey.origin].name} to </p>
             <p className="fare-list--station">{locationByCode[journey.destination].name}</p>
-            {/*<span>{*/}
-              {/*journey.legs.length === 1 ? "Direct" :*/}
-              {/*journey.legs.length === 2 ? "1 change" :*/}
-              {/*journey.legs.length + " changes"*/}
-            {/*}</span>*/}
           </div>
           <div className="col-4">
             <Price value={journeyPrice[journey.id].price} />
+            <button type="button" onClick={this.onOpen(journey.id, direction)}>{
+              journey.id === this.state[direction].selected && this.state[direction].open ? "Less" : "More"
+            }</button>
           </div>
-          <div className="col">
-              {journey.legs.length === 1 ? "Direct" : "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ")}
-          </div>
+          <div className="col"> {
+            journey.legs.length === 1 ? "Direct" :
+            journey.legs.length < 4 ? "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ") :
+            journey.legs.length + " changes"
+          }</div>
         </div>
-        {journey.id === this.state[selected] && <JourneyDetails journey={journey} />}
+        {journey.id === this.state[direction].selected && this.state[direction].open && <JourneyDetails journey={journey} />}
       </li>
     );
   }
 
-  public onSelect(journeyId: string, stateField: keyof JourneyPlanResultsState) {
-    return () => this.setState({ [stateField]: journeyId } as Pick<JourneyPlanResultsState, keyof JourneyPlanResultsState>);
+  public onSelect(journeyId: string, direction: keyof JourneyPlanResultsState) {
+    return () => this.setState({
+      [direction]: {
+        selected: journeyId,
+        open: false
+      }
+    } as any);
+  }
+
+  public onOpen(journeyId: string, direction: keyof JourneyPlanResultsState) {
+    return (event: React.FormEvent<HTMLButtonElement>) => {
+      this.setState({
+        [direction]: {
+          selected: journeyId,
+          open: !this.state[direction].open
+        }
+      } as any);
+
+      event.stopPropagation();
+    }
   }
 
 }
 
 interface JourneyPlanResultsState {
-  outwardSelected: string;
-  inwardSelected: string;
+  outward: {
+    selected: string;
+    open: boolean;
+  };
+  inward: {
+    selected: string;
+    open: boolean;
+  };
 }
 
 export interface JourneyPriceIndex {
