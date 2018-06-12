@@ -120,18 +120,13 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
             </div>
             <div className="row fare-list--line">
               <div className="offset-6 col-18">
-                <time className="fare-list--duration">
-                  {moment.unix(journey.arrivalTime - journey.departureTime).utc().format("H[hrs] m[min]")}
-                </time>
-                <p className="fare-list--changes">
+                <p className="fare-list--changes" onClick={this.onOpen(journey.id, direction)}>
+                  {moment.unix(journey.arrivalTime - journey.departureTime).utc().format("H[hrs] m[min]") + ", "}
                   {
-                    journey.legs.length === 1 ? "Direct" :
-                    journey.legs.length < 4 ? "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ") :
+                    journey.legs.length === 1 ? "direct" :
+                    journey.legs.length < 4 ? "change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ") :
                     journey.legs.length + " changes"
                   }
-                  <button className="fare-list--btn-legs" type="button" onClick={this.onOpen(journey.id, direction)}>
-                    {journey.id === this.state[direction].open ? "Hide" : "Show"} leg info
-                  </button>
                 </p>
               </div>
             </div>
@@ -169,7 +164,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
   }
 
   public onOpen(journeyId: string, direction: keyof JourneyPlanResultsState) {
-    return (event: React.FormEvent<HTMLButtonElement>) => {
+    return (event: React.FormEvent<HTMLParagraphElement>) => {
       this.setState({
         [direction]: {
           selected: this.state[direction].selected,
