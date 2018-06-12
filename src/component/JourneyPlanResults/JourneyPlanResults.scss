@@ -79,6 +79,12 @@
           border-color: rgba($color-white, 0.2);
         }
       }
+
+      .fare-list--btn-legs {
+        &:hover, &:active, &:focus {
+          color: $color-white;
+        }
+      }
     }
   }
 
@@ -200,19 +206,5 @@
         left: 87px;
       }
     } 
-  }
-}
-
-.leg-list {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: solid 1px $color-white;
-}
-
-.leg-mode {
-  margin-top: 15px;
-
-  &:first-child {
-    margin-top: 0;
   }
 }

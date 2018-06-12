@@ -152,7 +152,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
           </div>
         </div>
         <div className="row">
-          <div className="col-24">
+          <div className="col-18">
             {journey.id === this.state[direction].open && <JourneyDetails journey={journey} />}
           </div>
         </div>

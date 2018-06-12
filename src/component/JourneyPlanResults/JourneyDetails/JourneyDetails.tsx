@@ -3,6 +3,7 @@ import {CallingPoint, FixedLeg, Journey, Leg, TimetableLeg} from "../../../servi
 import * as React from "react";
 import * as moment from "moment";
 import {locationByCode} from "../../../config/locations";
+import "./Leg.css";
 
 @autobind
 export class JourneyDetails extends React.Component<JourneyDetailsProps, JourneyDetailsState> {
@@ -38,21 +39,36 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
     return (
       <li key={index} className={'leg-mode leg-mode__' + leg.mode}>
         {/*<span>{leg.mode}</span>*/}
-        <div className="clearfix">
-          <time className="pull-left">{moment.unix(leg.callingPoints[0].depart!).utc().format(moment.HTML5_FMT.TIME)}</time>
-          <p className="pull-right">{locationByCode[leg.origin].name}</p>
+        <div className="row">
+          <div className="col-6">
+            <time>{moment.unix(leg.callingPoints[0].depart!).utc().format(moment.HTML5_FMT.TIME)}</time>
+          </div>
+          <div className="col-18">
+            <p>{locationByCode[leg.origin].name}</p>
+          </div>
         </div>
-        <p>
-          {leg.operator} service ({leg.service}){ leg.callingPoints.length > 2 && (
-            <button onClick={this.onSelect} data-index={index}>
-              {this.state.selected === index ? "Hide" : "Show"} calling points
-            </button>
-          )}
-        </p>
+        <div className="row">
+          <div className="offset-6 col-18">
+            <p className="fare-list--duration">
+              {leg.operator} service ({leg.service})
+              {leg.callingPoints.length > 2 && (
+                <button onClick={this.onSelect} data-index={index}>
+                  {this.state.selected === index ? "Hide" : "Show"} calling points
+                </button>
+              )}
+            </p>
+          </div>
+        </div>
         {this.state.selected === index ? this.renderCallingPoints(leg.callingPoints) : ""}
-        <div className="clearfix">
-          <time className="pull-left">{moment.unix(leg.callingPoints[leg.callingPoints.length - 1].arrive!).utc().format(moment.HTML5_FMT.TIME)}</time>
-          <p className="pull-right">{locationByCode[leg.destination].name}</p>
+        <div className="row">
+          <div className="col-6">
+            <time>
+              {moment.unix(leg.callingPoints[leg.callingPoints.length - 1].arrive!).utc().format(moment.HTML5_FMT.TIME)}
+            </time>
+          </div>
+          <div className="col-18">
+            <p>{locationByCode[leg.destination].name}</p>
+          </div>
         </div>
       </li>
     );
@@ -79,9 +95,13 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
     return (
       <li key={index} className={'leg-mode leg-mode__' + leg.mode}>
         {/*<span>{leg.mode}</span>*/}
-        <div className="text-right">{locationByCode[leg.origin].name}</div>
-        <div>{leg.duration}</div>
-        <div className="text-right">{locationByCode[leg.destination].name}</div>
+          <div className="row">
+            <div className="col-18 offset-6">
+              <p>{locationByCode[leg.origin].name}</p>
+              <p>{leg.duration}</p>
+              <p>{locationByCode[leg.destination].name}</p>
+            </div>
+          </div>
       </li>
     );
   }
