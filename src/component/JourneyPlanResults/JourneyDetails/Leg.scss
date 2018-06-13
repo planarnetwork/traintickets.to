@@ -2,9 +2,8 @@
 
 .leg {
   &-container {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: solid 1px rgba($color-white, 30%); 
+    padding: 15px;
+    background-color: darken($color-white, 5%);
   }
 
   &-mode {

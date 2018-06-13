@@ -109,49 +109,51 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
 
     return (
       <li onClick={this.onSelect(journey.id, direction)} key={journey.id} className={journey.id === this.state[direction].selected ? "fare-list--item is-selected" : "fare-list--item"}>
-        <div className="row">
-          <div className="col-18">
-            <div className="row">
-              <div className="col-6">
-                <time className="fare-list--time">
-                  {moment.unix(journey.departureTime).utc().format(moment.HTML5_FMT.TIME)}
-                </time>
+        <div className="fare-list--item-container">
+          <div className="row">
+            <div className="col-18">
+              <div className="row">
+                <div className="col-6">
+                  <time className="fare-list--time">
+                    {moment.unix(journey.departureTime).utc().format(moment.HTML5_FMT.TIME)}
+                  </time>
+                </div>
+                <div className="col-18"> 
+                  <p className="fare-list--station">{locationByCode[journey.origin].name}</p>
+                </div>
               </div>
-              <div className="col-18"> 
-                <p className="fare-list--station">{locationByCode[journey.origin].name}</p>
+              <div className="row fare-list--line">
+                <div className="offset-6 col-18">
+                  <p className="fare-list--duration">
+                    {moment.unix(duration).utc().format(durationFormat)}
+                    {
+                      journey.legs.length === 1 ? "direct" :
+                      journey.legs.length < 4 ? "change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ") :
+                      journey.legs.length + " changes"
+                    }
+                  </p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-6">
+                  <time className="fare-list--time">
+                    {moment.unix(journey.arrivalTime).utc().format(moment.HTML5_FMT.TIME)}
+                  </time>
+                </div>
+                <div className="col-18">
+                  <p className="fare-list--station">
+                  {locationByCode[journey.destination].name}&nbsp;
+                  <button type="button" className="fare-list--btn-legs" onClick={this.onOpen(journey.id, direction)}>
+                    <span className="sr-only">show more journey information</span>
+                    {journey.id === this.state[direction].open ? ' - ' : ' + '}
+                  </button>
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="row fare-list--line">
-              <div className="offset-6 col-18">
-                <p className="fare-list--duration">
-                  {moment.unix(duration).utc().format(durationFormat)}
-                  {
-                    journey.legs.length === 1 ? "direct" :
-                    journey.legs.length < 4 ? "change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ") :
-                    journey.legs.length + " changes"
-                  }
-                </p>
-              </div>
+            <div className="col-6 text-right">
+              <Price value={journeyPrice[journey.id].price} />
             </div>
-            <div className="row">
-              <div className="col-6">
-                <time className="fare-list--time">
-                  {moment.unix(journey.arrivalTime).utc().format(moment.HTML5_FMT.TIME)}
-                </time>
-              </div>
-              <div className="col-18">
-                <p className="fare-list--station">
-                {locationByCode[journey.destination].name}&nbsp;
-                <button type="button" className="fare-list--btn-legs" onClick={this.onOpen(journey.id, direction)}>
-                  <span className="sr-only">show more journey information</span>
-                  {journey.id === this.state[direction].open ? ' - ' : ' + '}
-                </button>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-6 text-right">
-            <Price value={journeyPrice[journey.id].price} />
           </div>
         </div>
         {journey.id === this.state[direction].open && <JourneyDetails journey={journey} />}

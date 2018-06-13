@@ -1,8 +1,12 @@
 @import "../../variables.scss";
 
 .fares {
-    margin-bottom: 100px;
     margin-top: 30px;
+    margin-bottom: 90px;
+
+    @media ($screen-tablet) {
+      margin-bottom: 0;
+    }
 
     &--direction {
       padding: 15px;
@@ -22,8 +26,16 @@
       background-color: $color-white;
       box-shadow: 0px 4px 6px $bg-grey;
 
+      @media ($screen-smalltablet) {
+        height: $fare-list-height-tab-sm;
+      }
+
       @media ($screen-tablet) {
-        height: $fare-list-height;
+        height: $fare-list-height-tab;
+      }
+
+      @media ($screen-laptop) {
+        height: $fare-list-height-laptop;
       }
 
       .fares--empty-title {
@@ -42,27 +54,42 @@
   box-shadow: 0px 4px 6px $bg-grey;
 
   @media ($screen-smalltablet) {
-    height: $fare-list-height;
+    height: $fare-list-height-tab-sm;
     overflow: auto;
   }
 
+  @media ($screen-tablet) {
+    height: $fare-list-height-tab;
+  }
+
+  @media ($screen-laptop) {
+    height: $fare-list-height-laptop;
+  }
+
   &--item {
-    padding: 15px;
     margin-bottom: 5px;
-    background-color: $color-white;
     cursor: pointer;
-    transition: background-color 0.2s linear;
     position: relative;
 
+    &-container {
+      padding: 15px;
+      background-color: $color-white;
+      transition: background-color 0.2s linear;
+    }
+
     &:hover {
-      background: rgba($color-primary, 0.1) url($fare-hover) no-repeat right 15px top 50px;
-      background-size: 25px 25px;
+      .fare-list--item-container {
+        background: rgba($color-primary, 0.1) url($fare-hover) no-repeat right 15px top 50px;
+        background-size: 25px 25px;
+      }
     }
 
     &.is-selected {
-      background: $color-primary url($fare-selected) no-repeat right 15px top 50px;
-      background-size: 25px 25px;
-      color: $color-white;
+      .fare-list--item-container {
+        background: $color-primary url($fare-selected) no-repeat right 15px top 50px;
+        background-size: 25px 25px;
+        color: $color-white;
+      }
 
       .fare-list--duration, .fare-list--changes {
         color: darken($color-white, 10%);
