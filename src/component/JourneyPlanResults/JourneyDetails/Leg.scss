@@ -1,9 +1,10 @@
 @import "../../../variables.scss";
 
 .leg {
-  &-list {
+  &-container {
     margin-top: 10px;
     padding-top: 10px;
+    border-top: solid 1px rgba($color-white, 30%); 
   }
 
   &-mode {

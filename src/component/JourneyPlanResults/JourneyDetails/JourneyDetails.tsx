@@ -26,9 +26,15 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
 
   public render() {
     return (
-      <ol className="leg-list">
-        {this.props.journey.legs.map(this.renderLeg)}
-      </ol>
+      <div className="leg-container">
+        <div className="row">
+          <div className="col-18">
+            <ol className="leg-list">
+              {this.props.journey.legs.map(this.renderLeg)}
+            </ol>
+          </div>
+        </div>
+      </div>
     );
   }
   private renderLeg(leg: Leg, index: number) {
@@ -98,7 +104,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
           <div className="row">
             <div className="col-18 offset-6">
               <p>{locationByCode[leg.origin].name}</p>
-              <p>{leg.duration}</p>
+              <p className="fare-list--duration">{leg.duration}</p>
               <p>{locationByCode[leg.destination].name}</p>
             </div>
           </div>

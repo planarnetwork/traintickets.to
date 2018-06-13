@@ -104,6 +104,9 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
   }
 
   public renderJourney(journey: Journey, journeyPrice: JourneyPriceIndex, direction: keyof JourneyPlanResultsState) {
+    const duration = journey.arrivalTime - journey.departureTime;
+    const durationFormat = duration < 3600 ? "m[min, ]" : "H[hrs] m[min, ]";
+
     return (
       <li onClick={this.onSelect(journey.id, direction)} key={journey.id} className={journey.id === this.state[direction].selected ? "fare-list--item is-selected" : "fare-list--item"}>
         <div className="row">
@@ -121,10 +124,10 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
             <div className="row fare-list--line">
               <div className="offset-6 col-18">
                 <p className="fare-list--duration">
-                  {moment.unix(journey.arrivalTime - journey.departureTime).utc().format("H[hrs] m[min]") + ", "}
+                  {moment.unix(duration).utc().format(durationFormat)}
                   {
-                    journey.legs.length === 1 ? "Direct" :
-                    journey.legs.length < 4 ? "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ") :
+                    journey.legs.length === 1 ? "direct" :
+                    journey.legs.length < 4 ? "change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ") :
                     journey.legs.length + " changes"
                   }
                 </p>
@@ -151,11 +154,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
             <Price value={journeyPrice[journey.id].price} />
           </div>
         </div>
-        <div className="row">
-          <div className="col-18">
-            {journey.id === this.state[direction].open && <JourneyDetails journey={journey} />}
-          </div>
-        </div>
+        {journey.id === this.state[direction].open && <JourneyDetails journey={journey} />}
       </li>
     );
   }
