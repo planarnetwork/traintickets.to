@@ -99,13 +99,15 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
   }
 
   private renderFixedLeg(leg: FixedLeg, index: number) {
+    const durationFormat = leg.duration < 3600 ? "m[min]" : "H[hrs] m[min]";
+
     return (
-      <li key={index} className={'leg-mode leg-mode__' + leg.mode}>
+      <li key={index} className={'leg-fixed leg-mode leg-mode__' + leg.mode}>
         {/*<span>{leg.mode}</span>*/}
           <div className="row leg-list--line">
             <div className="col-18 offset-6">
               <p className="leg-list--station">{locationByCode[leg.origin].name}</p>
-              <p className="leg-list--duration">{leg.duration}</p>
+              <p className="leg-list--duration">{moment.unix(leg.duration).utc().format(durationFormat)}</p>
               <p className="leg-list--station">{locationByCode[leg.destination].name}</p>
             </div>
           </div>

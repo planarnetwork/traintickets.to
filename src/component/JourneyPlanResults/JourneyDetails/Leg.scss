@@ -70,10 +70,6 @@
       padding: 5px 0;
       line-height: 11px;
       color: lighten($color-black, 20%);
-
-      @media ($screen-phone) {
-        padding: 10px 0;
-      }
     }
 
     &--btn-calling {
@@ -137,15 +133,25 @@
     }
   }
 
+  &-fixed .leg-list--duration {
+    margin-top: 4px;
+  }
+
   &-mode {
-    margin-top: 15px;
+    margin-top: 25px;
 
     &:first-child {
       margin-top: 0;
     }
 
-    &__tube {
+    &__train {
+      background: transparent url($mode-train) no-repeat left 11px top 24px;
+      background-size: 20px 16px;
+    }
 
+    &__tube {
+      background: transparent url($mode-tube) no-repeat left 11px top 24px;
+      background-size: 20px 16px;
     }
   }
 }
