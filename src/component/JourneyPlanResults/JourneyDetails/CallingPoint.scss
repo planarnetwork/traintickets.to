@@ -1,0 +1,103 @@
+@import "../../../variables.scss";
+
+.calling {
+  &-list {
+    position: relative;
+    padding-bottom: 5px;
+
+    &:before {
+      @media ($screen-phone) {
+        content: "";
+        width: 2px;
+        background-color: rgba($color-primary, 0.1);
+        position: absolute;
+        left: 62px;
+        top: 0;
+        height: 100%;
+      }
+
+      @media ($screen-smalltablet) {
+        left: 68px;
+      }
+
+      @media ($screen-tablet) {
+        display: none;
+      }
+
+      @media ($screen-laptop) {
+        display: block;
+        left: 63px;
+        top: 0;
+        height: 100%;
+      }
+
+      @media ($screen-desktop) {
+        left: 70px;
+      }
+
+      @media ($screen-desktop-lg) {
+        left: 77px;
+      }
+    }
+
+    &--item {
+      padding: 5px 0;
+
+      &:last-child {
+        display: none;
+      }
+    }
+
+    &--time {
+      font-size: 13px;
+      line-height: 13px;
+      padding-left: 6px;
+      opacity: 0.8;
+      position: relative;
+      z-index: 1;
+
+      &:before {
+        @media ($screen-phone) {
+          content: "";
+          width: 8px;
+          height: 8px;
+          display: block;
+          border-radius: 50%;
+          background-color: lighten($color-primary, 25%);
+          position: absolute;
+          left: 59px;
+          top: 0;
+          z-index: 0;
+        }
+
+        @media ($screen-smalltablet) {
+          left: 65px;
+        }
+
+        @media ($screen-tablet) {
+          display: none;
+        }
+
+        @media ($screen-laptop) {
+          display: block;
+          left: 60px;
+        }
+
+        @media ($screen-desktop) {
+          left: 67px;
+        }
+
+        @media ($screen-desktop-lg) {
+          left: 74px;
+        }
+      }
+    }
+
+    &--station {
+      font-size: 13px;
+      line-height: 13px;
+      opacity: 0.8;
+      color: darken($color-primary, 10%);
+    }
+  }
+}

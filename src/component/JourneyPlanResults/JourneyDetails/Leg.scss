@@ -60,15 +60,15 @@
     &--station {
       font-size: 14px;
       line-height: 18px;
-      padding: 0;
       margin-top: -2px;
+      color: darken($color-primary, 10%);
     }
 
     &--duration {
       margin: 2px 0 4px 0;
       font-size: 11px;
-      padding: 5px 0;
-      line-height: 11px;
+      padding: 3px 0;
+      line-height: 16px;
       color: lighten($color-black, 20%);
     }
 
@@ -92,15 +92,12 @@
       position: relative;
 
       &:before {
-        content: "";
-        width: 2px;
-        height: calc(100% - 2px);
-        background-color: rgba($color-primary, 0.1);
-        position: absolute;
-        left: 32px;
-        top: 2px;
-
         @media ($screen-phone) {
+          content: "";
+          width: 2px;
+          height: calc(100% - 2px);
+          background-color: rgba($color-primary, 0.1);
+          position: absolute;
           left: 72px;
           top: -2px;
           height: calc(100% + 2px);
@@ -111,12 +108,11 @@
         }
 
         @media ($screen-tablet) {
-          top: 2px;
-          left: 31px;
-          height: calc(100% - 2px);
+          display: none;
         }
 
         @media ($screen-laptop) {
+          display: block;
           left: 73px;
           top: -2px;
           height: calc(100% + 2px);
@@ -133,25 +129,71 @@
     }
   }
 
-  &-fixed .leg-list--duration {
-    margin-top: 4px;
-  }
-
-  &-mode {
-    margin-top: 25px;
-
-    &:first-child {
+  &-fixed {
+    .leg-list--duration {
+      margin-bottom: 0;
+      padding-bottom: 0;
       margin-top: 0;
     }
 
+    .leg-list--station {
+      text-transform: capitalise;
+    }
+
+    .leg-list--line:before {
+      display: none;
+    }
+  }
+
+  &-mode {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: solid 2px rgba($color-primary, 0.1);
+    background-color: transparent;
+    background-repeat: no-repeat;
+
+    &:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
     &__train {
-      background: transparent url($mode-train) no-repeat left 11px top 24px;
+      background-image: url($mode-train);
+      background-position: left 9px top 24px;
+      background-size: 24px 16px;
+    }
+
+    &__tube, &__metro {
+      background-image: url($mode-tube);
+      background-position: left 11px top 9px;
       background-size: 20px 16px;
     }
 
-    &__tube {
-      background: transparent url($mode-tube) no-repeat left 11px top 24px;
-      background-size: 20px 16px;
+    &__walk {
+      background-image: url($mode-walk);
+      background-position: left 11px top 24px;
+      background-size: 10px 16px;
+    }
+
+    &__bus {
+
+    }
+
+    &__replacementbus {
+
+    }
+
+    &__tram {
+
+    }
+
+    &__ferry {
+
+    }
+
+    &__transfer {
+
     }
   }
 }

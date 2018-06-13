@@ -112,6 +112,10 @@ body {
   font-weight: bold;
 }
 
+.capital {
+  text-transform: capitalize;
+}
+
 button {
   border: solid 1px $color-white;
 
