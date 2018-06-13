@@ -11,6 +11,8 @@ import {Moment} from "moment";
 import autobind from "autobind-decorator";
 import {Checkbox} from "../Form/Checkbox/Checkbox";
 
+require("moment/locale/en-gb");
+
 export const defaultQueryState = localStorage.getItem("searchState") ? JSON.parse(localStorage.getItem("searchState")!) : {
   origin: "",
   destination: "1072",
@@ -54,7 +56,10 @@ export class Search extends React.Component<SearchProps, SearchState> {
 
   public onOutwardDateChange(date: Moment | null) {
     if (date) {
-      this.set({ outwardDate: date.format(moment.HTML5_FMT.DATE) });
+      const outwardDate = date.format(moment.HTML5_FMT.DATE);
+      const returnDate = date.isAfter(this.state.returnDate) ? outwardDate : this.state.returnDate.format(moment.HTML5_FMT.DATE);
+
+      this.set({ outwardDate, returnDate });
     }
   }
 
@@ -95,8 +100,9 @@ export class Search extends React.Component<SearchProps, SearchState> {
                         minDate={moment()}
                         selected={moment(this.state.outwardDate)}
                         dateFormat="ddd, DD MMM YYYY"
-                        placeholderText={"Outward date"}
+                        placeholderText="Outward date"
                         className="form--input"
+                        locale="en-gb"
                       />
                     </div>
                   </div>
@@ -109,8 +115,9 @@ export class Search extends React.Component<SearchProps, SearchState> {
                         selected={this.state.returnDate ? moment(this.state.returnDate!) : null}
                         dateFormat="ddd, DD MMM YYYY"
                         isClearable={true}
-                        placeholderText={"Return date"}
+                        placeholderText="Return date"
                         className="form--input"
+                        locale="en-gb"
                       />
                     </div>
                   </div>
