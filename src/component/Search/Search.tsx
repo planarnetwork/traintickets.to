@@ -11,7 +11,9 @@ import {Moment} from "moment";
 import autobind from "autobind-decorator";
 import {Checkbox} from "../Form/Checkbox/Checkbox";
 
-export const defaultQueryState = {
+require("moment/locale/en-gb");
+
+export const defaultQueryState = localStorage.getItem("searchState") ? JSON.parse(localStorage.getItem("searchState")!) : {
   origin: "",
   destination: "1072",
   outwardDate: moment().format(moment.HTML5_FMT.DATE),
@@ -30,6 +32,14 @@ export class Search extends React.Component<SearchProps, SearchState> {
 
   public state = defaultQueryState;
 
+  constructor(props: SearchProps) {
+    super(props);
+
+    if (this.state.origin && this.state.destination && this.state.outwardDate && this.state.adults + this.state.children > 0) {
+      this.props.onSubmit(this.state);
+    }
+  }
+
   public set(values: Partial<SearchState>): void {
     this.setState((previousState: SearchState) => {
       const state = Object.assign(previousState, values);
@@ -38,13 +48,18 @@ export class Search extends React.Component<SearchProps, SearchState> {
         this.props.onSubmit(state);
       }
 
+      localStorage.setItem("searchState", JSON.stringify(state));
+
       return state;
     });
   }
 
   public onOutwardDateChange(date: Moment | null) {
     if (date) {
-      this.set({ outwardDate: date.format(moment.HTML5_FMT.DATE) });
+      const outwardDate = date.format(moment.HTML5_FMT.DATE);
+      const returnDate = date.isAfter(this.state.returnDate) ? outwardDate : this.state.returnDate.format(moment.HTML5_FMT.DATE);
+
+      this.set({ outwardDate, returnDate });
     }
   }
 
@@ -63,7 +78,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
                   <div className="col-sm-12">
                     <div className="form-group">
                       <label className="form-label" htmlFor="origin">From</label>
-                      <StationInput name="origin" defaultValue={"geo"} placeholder="Leaving from" onChange={this.set}/>
+                      <StationInput name="origin" defaultValue={this.state.origin || "geo"} placeholder="Leaving from" onChange={this.set}/>
                     </div>
                   </div>
                   <div className="col-sm-12">
@@ -85,8 +100,9 @@ export class Search extends React.Component<SearchProps, SearchState> {
                         minDate={moment()}
                         selected={moment(this.state.outwardDate)}
                         dateFormat="ddd, DD MMM YYYY"
-                        placeholderText={"Outward date"}
+                        placeholderText="Outward date"
                         className="form--input"
+                        locale="en-gb"
                       />
                     </div>
                   </div>
@@ -99,8 +115,9 @@ export class Search extends React.Component<SearchProps, SearchState> {
                         selected={this.state.returnDate ? moment(this.state.returnDate!) : null}
                         dateFormat="ddd, DD MMM YYYY"
                         isClearable={true}
-                        placeholderText={"Return date"}
+                        placeholderText="Return date"
                         className="form--input"
+                        locale="en-gb"
                       />
                     </div>
                   </div>
