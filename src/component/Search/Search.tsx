@@ -57,7 +57,8 @@ export class Search extends React.Component<SearchProps, SearchState> {
   public onOutwardDateChange(date: Moment | null) {
     if (date) {
       const outwardDate = date.format(moment.HTML5_FMT.DATE);
-      const returnDate = date.isAfter(this.state.returnDate) ? outwardDate : this.state.returnDate.format(moment.HTML5_FMT.DATE);
+      const retDate = this.state.returnDate && date.isAfter(this.state.returnDate) ? date : moment(this.state.returnDate);
+      const returnDate = retDate ? retDate.format(moment.HTML5_FMT.DATE) : null;
 
       this.set({ outwardDate, returnDate });
     }
