@@ -3,18 +3,155 @@
 .leg {
   &-container {
     padding: 15px;
-    background-color: darken($color-white, 5%);
+    background-color: darken($color-white, 2%);
+    transition: background-color 0.2s linear;
+  }
+
+  &-list {
+    &--time {
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 14px;
+      position: relative;
+      z-index: 1;
+      padding-left: 4px;
+
+      &:before {
+        @media ($screen-phone) {
+          content: "";
+          width: 14px;
+          height: 14px;
+          display: block;
+          border-radius: 50%;
+          background-color: rgba($color-primary, 0.1);
+          position: absolute;
+          left: 56px;
+          top: 0;
+          z-index: 0;
+        }
+
+        @media ($screen-smalltablet) {
+          left: 62px;
+        }
+
+        @media ($screen-tablet) {
+          display: none;
+        }
+
+        @media ($screen-tablet) {
+          display: none;
+        }
+
+        @media ($screen-laptop) {
+          display: block;
+          left: 57px;
+        }
+
+        @media ($screen-desktop) {
+          left: 64px;
+        }
+
+        @media ($screen-desktop-lg) {
+          left: 71px;
+        }
+      }
+    }
+
+    &--station {
+      font-size: 14px;
+      line-height: 18px;
+      padding: 0;
+      margin-top: -2px;
+    }
+
+    &--duration {
+      margin: 2px 0 4px 0;
+      font-size: 11px;
+      padding: 5px 0;
+      line-height: 11px;
+      color: lighten($color-black, 20%);
+    }
+
+    &--btn-calling {
+      border: none;
+      padding: 0 10px 0 5px;
+      font-size: 16px;
+      line-height: 16px;
+      font-weight: bold;
+      color: $color-secondary;
+      background: transparent;
+
+      &:hover, &:active, &:focus {
+        color: $color-primary;
+        border: none;
+        background: transparent;
+      }
+    }
+
+    &--line {
+      position: relative;
+
+      &:before {
+        content: "";
+        width: 2px;
+        height: calc(100% - 2px);
+        background-color: rgba($color-primary, 0.1);
+        position: absolute;
+        left: 32px;
+        top: 2px;
+
+        @media ($screen-phone) {
+          left: 72px;
+          top: -2px;
+          height: calc(100% + 2px);
+        }
+
+        @media ($screen-smalltablet) {
+          left: 78px;
+        }
+
+        @media ($screen-tablet) {
+          top: 2px;
+          left: 31px;
+          height: calc(100% - 2px);
+        }
+
+        @media ($screen-laptop) {
+          left: 73px;
+          top: -2px;
+          height: calc(100% + 2px);
+        }
+
+        @media ($screen-desktop) {
+          left: 80px;
+        }
+
+        @media ($screen-desktop-lg) {
+          left: 87px;
+        }
+      }
+    }
+  }
+
+  &-fixed .leg-list--duration {
+    margin-top: 4px;
   }
 
   &-mode {
-    margin-top: 15px;
+    margin-top: 25px;
 
     &:first-child {
       margin-top: 0;
     }
 
-    &__tube {
+    &__train {
+      background: transparent url($mode-train) no-repeat left 11px top 24px;
+      background-size: 20px 16px;
+    }
 
+    &__tube {
+      background: transparent url($mode-tube) no-repeat left 11px top 24px;
+      background-size: 20px 16px;
     }
   }
 }

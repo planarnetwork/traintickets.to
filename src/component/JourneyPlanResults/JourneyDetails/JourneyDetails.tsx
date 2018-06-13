@@ -47,19 +47,20 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
         {/*<span>{leg.mode}</span>*/}
         <div className="row">
           <div className="col-6">
-            <time>{moment.unix(leg.callingPoints[0].depart!).utc().format(moment.HTML5_FMT.TIME)}</time>
+            <time className="leg-list--time">{moment.unix(leg.callingPoints[0].depart!).utc().format(moment.HTML5_FMT.TIME)}</time>
           </div>
           <div className="col-18">
-            <p>{locationByCode[leg.origin].name}</p>
+            <p className="leg-list--station">{locationByCode[leg.origin].name}</p>
           </div>
         </div>
-        <div className="row">
+        <div className="row leg-list--line">
           <div className="offset-6 col-18">
-            <p className="fare-list--duration">
+            <p className="leg-list--duration">
               {leg.operator} service ({leg.service})
               {leg.callingPoints.length > 2 && (
-                <button onClick={this.onSelect} data-index={index}>
-                  {this.state.selected === index ? "Hide" : "Show"} calling points
+                <button className="leg-list--btn-calling" onClick={this.onSelect} data-index={index}>
+                  <span className="sr-only">show calling points</span>
+                  {this.state.selected === index ? "-" : "+"}
                 </button>
               )}
             </p>
@@ -68,12 +69,12 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
         {this.state.selected === index ? this.renderCallingPoints(leg.callingPoints) : ""}
         <div className="row">
           <div className="col-6">
-            <time>
+            <time className="leg-list--time">
               {moment.unix(leg.callingPoints[leg.callingPoints.length - 1].arrive!).utc().format(moment.HTML5_FMT.TIME)}
             </time>
           </div>
           <div className="col-18">
-            <p>{locationByCode[leg.destination].name}</p>
+            <p className="leg-list--station">{locationByCode[leg.destination].name}</p>
           </div>
         </div>
       </li>
@@ -98,14 +99,16 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
   }
 
   private renderFixedLeg(leg: FixedLeg, index: number) {
+    const durationFormat = leg.duration < 3600 ? "m[min]" : "H[hrs] m[min]";
+
     return (
-      <li key={index} className={'leg-mode leg-mode__' + leg.mode}>
+      <li key={index} className={'leg-fixed leg-mode leg-mode__' + leg.mode}>
         {/*<span>{leg.mode}</span>*/}
-          <div className="row">
+          <div className="row leg-list--line">
             <div className="col-18 offset-6">
-              <p>{locationByCode[leg.origin].name}</p>
-              <p className="fare-list--duration">{leg.duration}</p>
-              <p>{locationByCode[leg.destination].name}</p>
+              <p className="leg-list--station">{locationByCode[leg.origin].name}</p>
+              <p className="leg-list--duration">{moment.unix(leg.duration).utc().format(durationFormat)}</p>
+              <p className="leg-list--station">{locationByCode[leg.destination].name}</p>
             </div>
           </div>
       </li>

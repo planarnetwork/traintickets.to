@@ -127,9 +127,9 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
                   <p className="fare-list--duration">
                     {moment.unix(duration).utc().format(durationFormat)}
                     {
-                      journey.legs.length === 1 ? "direct" :
-                      journey.legs.length < 4 ? "change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ") :
-                      journey.legs.length + " changes"
+                      journey.legs.length === 1 ? "Direct" :
+                      journey.legs.length < 4 ? "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ") :
+                      journey.legs.length + " Changes"
                     }
                   </p>
                 </div>

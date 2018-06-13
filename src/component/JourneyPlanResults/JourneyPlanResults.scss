@@ -82,11 +82,15 @@
         background: rgba($color-primary, 0.1) url($fare-hover) no-repeat right 15px top 50px;
         background-size: 25px 25px;
       }
+
+      .leg-container {
+        background-color: rgba($color-primary, 0.05);
+      }
     }
 
     &.is-selected {
       .fare-list--item-container {
-        background: $color-primary url($fare-selected) no-repeat right 15px top 50px;
+        background: lighten($color-primary, 6%) url($fare-selected) no-repeat right 15px top 50px;
         background-size: 25px 25px;
         color: $color-white;
       }
@@ -111,6 +115,10 @@
         &:hover, &:active, &:focus {
           color: $color-white;
         }
+      }
+
+      .leg-container {
+        background-color: rgba($color-primary, 0.1);
       }
     }
   }
@@ -207,10 +215,8 @@
       top: 2px;
 
       @media ($screen-phone) {
-        width: 3px;
         height: calc(100% - 3px);
         left: 72px;
-        top: 2px;
       }
 
       @media ($screen-smalltablet) {

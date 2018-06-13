@@ -15,7 +15,7 @@
   }
 
   &--filters {
-    padding-top: 15px;
+    padding-top: 10px;
     background-color: $bg-grey;
 
     @media ($screen-laptop) {
@@ -26,6 +26,27 @@
 }
 
 .react-datepicker {
+  border-radius: 0;
+
+  &__day--selected, &__day--in-selecting-range, &__day--in-range {
+    background-color: $color-primary;
+    border-radius: 0;
+  }
+
+  &__day:hover {
+    border-radius: 0;
+  }
+
+  &__navigation--previous {
+    border-right-color: lighten($color-primary, 10%);
+    border-left-color: transparent;
+  }
+
+  &__navigation--next {
+    border-left-color: lighten($color-primary, 10%);
+    border-right-color: transparent;
+  }
+
   &-popper {
     z-index: 2;
   }
