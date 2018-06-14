@@ -152,7 +152,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
               </div>
             </div>
             <div className="col-6 text-right">
-              <Price value={journeyPrice[journey.id].price} />
+              <Price direction={direction} value={journeyPrice[journey.id].price} />
             </div>
           </div>
         </div>

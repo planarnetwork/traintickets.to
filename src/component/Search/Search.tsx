@@ -25,7 +25,8 @@ const emptyState = {
   children: 0,
   singles: true,
   returns: true,
-  advance: false
+  advance: false,
+  advancedSearch: false
 };
 
 export const defaultQueryState = localStorage.getItem("searchState")
@@ -73,7 +74,17 @@ export class Search extends React.Component<SearchProps, SearchState> {
     this.set({ returnDate: date ? date.format(moment.HTML5_FMT.DATE) : null });
   }
 
+  public toggle(event: React.MouseEvent<HTMLButtonElement>) {
+      this.setState({
+          advancedSearch: !this.state.advancedSearch
+      } as any);
+      event.stopPropagation();
+  }
+
   public render() {
+    const advancedClasses = this.state.advancedSearch ? "search--advanced" : "search--advanced is-hidden";
+    const btnClasses = this.state.advancedSearch ? "search--advanced-btn is-active" : "search--advanced-btn";
+
     return (
       <form>
         <div className="search">
@@ -142,29 +153,32 @@ export class Search extends React.Component<SearchProps, SearchState> {
               </div>
             </div>
           </div>
-        </div>
-        <div className="search--advanced">
-          <div className="container">
-            <div className="row">
-              <div className="col-sm-12 col-md-8 col-lg-5">
-                <legend className="form-label">Class</legend>
-                <RadioGroup name="class" options={["standardClass", "firstClass"]} labels={["Standard", "First"]} onChange={this.set}/>
-              </div>
-              { this.state.returnDate && (
+          <div className={advancedClasses}>
+            <div className="container">
+              <div className="row">
                 <div className="col-sm-12 col-md-8 col-lg-5">
-                  <legend className="form-label">Ticket type</legend>
-                  <Checkbox label="Singles" name="singles" checked={this.state.singles} onChange={this.set}/>
-                  <Checkbox label="Returns" name="returns" checked={this.state.returns} onChange={this.set}/>
+                  <legend className="form-label">Class</legend>
+                  <RadioGroup name="class" options={["standardClass", "firstClass"]} labels={["Standard", "First"]} onChange={this.set}/>
                 </div>
-              )}
-              <div className="col-sm-24 col-md-8 col-lg-14">
-                <div className="form-group">
-                  <label className="form-label" htmlFor="child">Railcards</label>
-                  <RailcardSelect name="railcards" max={4} onChange={this.set}/>
+                { this.state.returnDate && (
+                  <div className="col-sm-12 col-md-8 col-lg-5">
+                    <legend className="form-label">Ticket type</legend>
+                    <Checkbox label="Singles" name="singles" checked={this.state.singles} onChange={this.set}/>
+                    <Checkbox label="Returns" name="returns" checked={this.state.returns} onChange={this.set}/>
+                  </div>
+                )}
+                <div className="col-sm-24 col-md-8 col-lg-14">
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="child">Railcards</label>
+                    <RailcardSelect name="railcards" max={4} onChange={this.set}/>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <button className={btnClasses} type="button" onClick={this.toggle}>
+            <span className="sr-only">Show more search options</span>
+          </button>
         </div>
       </form>
     );
@@ -184,6 +198,7 @@ export interface SearchState {
   singles: boolean;
   returns: boolean;
   advance: boolean;
+  advancedSearch: boolean;
 }
 
 export interface SearchProps {
