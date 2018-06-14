@@ -13,7 +13,7 @@ import {Checkbox} from "../Form/Checkbox/Checkbox";
 
 require("moment/locale/en-gb");
 
-export const defaultQueryState = localStorage.getItem("searchState") ? JSON.parse(localStorage.getItem("searchState")!) : {
+const emptyState = {
   origin: "",
   destination: "1072",
   outwardDate: moment().format(moment.HTML5_FMT.DATE),
@@ -24,8 +24,13 @@ export const defaultQueryState = localStorage.getItem("searchState") ? JSON.pars
   adults: 1,
   children: 0,
   singles: true,
-  returns: true
+  returns: true,
+  advance: false
 };
+
+export const defaultQueryState = localStorage.getItem("searchState")
+  ? Object.assign(emptyState, JSON.parse(localStorage.getItem("searchState")!))
+  : emptyState;
 
 @autobind
 export class Search extends React.Component<SearchProps, SearchState> {
@@ -177,6 +182,7 @@ export interface SearchState {
   children: number;
   singles: boolean;
   returns: boolean;
+  advance: boolean;
 }
 
 export interface SearchProps {
