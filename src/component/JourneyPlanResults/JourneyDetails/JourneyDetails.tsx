@@ -85,7 +85,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
   private renderCallingPoints(points: CallingPoint[]) {
     return (
       <ol className="calling-list">
-        {points.map((p, i) => (
+        {points.slice(0, -1).map((p, i) => (
           p.arrive && (
             <li key={i} className="calling-list--item">
               <div className="row">
