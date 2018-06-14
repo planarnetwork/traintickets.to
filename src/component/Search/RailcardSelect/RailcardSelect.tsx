@@ -36,23 +36,29 @@ export class RailcardSelect extends React.Component<RailcardSelectProps, Railcar
 
   public render() {
     return (
-      <div className="form--select-wrap">
-        <select className="form--select" disabled={this.state.disabled} name={this.props.name} onChange={this.onSelectChange}>
-          <option value="">Select Railcard</option>
-          { railcards.map((railcard, i) => (
-            <option key={i} value={railcard.value}>{railcard.label}</option>
-          ))}
-        </select>
-        <ul className="railcards--list">
-          { this.state.values.map((railcardCode, i) => (
-            <li className="railcards--item" key={i}>
-              {railcardCode}
-              <button className="railcards--btn" value={i} type="button" onClick={this.onRemoveItem}>
-                <span className="sr-only">Remove railcard</span>
-              </button>
-            </li>
-          ))}
-        </ul>
+      <div className="row">
+        <div className="col-sm-12 col-md-24 col-lg-10">
+          <div className="form--select-wrap">
+            <select className="form--select" disabled={this.state.disabled} name={this.props.name} onChange={this.onSelectChange}>
+              <option value="">{this.state.disabled ? "Max cards reached" : "Select Railcard"}</option>
+              { railcards.map((railcard, i) => (
+                <option key={i} value={railcard.value}>{railcard.label}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="col-sm-12 col-md-24 col-lg-14">
+          <ul className="railcards--list">
+            { this.state.values.map((railcardCode, i) => (
+              <li className="railcards--item" key={i}>
+                {railcardCode}
+                <button className="railcards--btn" value={i} type="button" onClick={this.onRemoveItem}>
+                  <span className="sr-only">Remove railcard</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     );
   }

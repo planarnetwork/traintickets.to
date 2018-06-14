@@ -23,7 +23,7 @@
           height: 14px;
           display: block;
           border-radius: 50%;
-          background-color: rgba($color-primary, 0.1);
+          background-color: rgba($color-primary, 0.3);
           position: absolute;
           left: 56px;
           top: 0;
@@ -158,42 +158,52 @@
       border-bottom: 0;
     }
 
-    &__train {
-      background-image: url($mode-train);
-      background-position: left 9px top 24px;
-      background-size: 24px 16px;
-    }
-
     &__tube, &__metro {
       background-image: url($mode-tube);
-      background-position: left 11px top 9px;
-      background-size: 20px 16px;
+      background-position: left 9px top 9px;
+      background-size: 24px 19px;
     }
 
     &__walk {
       background-image: url($mode-walk);
-      background-position: left 11px top 24px;
-      background-size: 10px 16px;
+      background-position: left 12px top 2px;
+      background-size: 20px 32px;
     }
 
     &__bus {
-
-    }
-
-    &__replacementbus {
-
-    }
-
-    &__tram {
-
+      background-image: url($mode-bus);
+      background-position: left 10px top 19px;
+      background-size: 24px 22px;
     }
 
     &__ferry {
+      background-image: url($mode-ferry);
+      background-position: left 10px top 19px;
+      background-size: 24px 22px;
+    }
 
+    &__replacementbus {
+      background-image: url($mode-bus);
+      background-position: left 12px top 4px;
+      background-size: 20px 20px;
+    }
+
+    &__train {
+      background-image: url($mode-train);
+      background-position: left 9px top 22px;
+      background-size: 24px 16px;
+    }
+
+    &__tram {
+      background-image: url($mode-tram);
+      background-position: left 14px top 17px;
+      background-size: 16px 26px;
     }
 
     &__transfer {
-
+      background-image: url($mode-transfer);
+      background-position: left 11px top 4px;
+      background-size: 22px 28px;
     }
   }
 }

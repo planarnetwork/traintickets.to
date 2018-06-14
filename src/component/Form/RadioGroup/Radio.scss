@@ -2,9 +2,12 @@
 
 .radio {
   display: inline-block;
-  // margin-right: 50px;
   margin-bottom: 15px;
   width: 50%;
+
+  @media ($screen-tablet) {
+    margin-top: 10px;
+  }
 
   > span {
     display: inline-block;

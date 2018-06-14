@@ -74,7 +74,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
         <div className="search">
           <div className="container">
             <div className="row">
-              <div className="search--column col-md-12 col-lg-8">
+              <div className="search--column col-md-10 col-lg-10">
                 <div className="row">
                   <div className="col-sm-12">
                     <div className="form-group">
@@ -91,7 +91,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
                 </div>
               </div>
 
-              <div className="search--column col-md-12 col-lg-7">
+              <div className="search--column col-md-8 col-lg-9">
                 <div className="row">
                   <div className="col-12">
                     <div className="form-group">
@@ -125,7 +125,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
                 </div>
               </div>
 
-              <div className="search--column col-12 col-md-6 col-lg-4">
+              <div className="search--column col-12 col-md-6 col-lg-5">
                 <div className="row">
                   <div className="col-12">
                     <NumberInput name="adults" label="Adults" min={0} max={9} defaultValue={this.state.adults} onChange={this.set}/>
@@ -135,27 +135,28 @@ export class Search extends React.Component<SearchProps, SearchState> {
                   </div>
                 </div>
               </div>
-
-              <div className="search--column col-12 col-md-8 col-lg-5">
+            </div>
+          </div>
+        </div>
+        <div className="search--advanced">
+          <div className="container">
+            <div className="row">
+              <div className="col-sm-12 col-md-8 col-lg-5">
+                <legend className="form-label">Class</legend>
+                <RadioGroup name="class" options={["standardClass", "firstClass"]} labels={["Standard", "First"]} onChange={this.set}/>
+              </div>
+              { this.state.returnDate && (
+                <div className="col-sm-12 col-md-8 col-lg-5">
+                  <legend className="form-label">Ticket type</legend>
+                  <Checkbox label="Singles" name="singles" checked={this.state.singles} onChange={this.set}/>
+                  <Checkbox label="Returns" name="returns" checked={this.state.returns} onChange={this.set}/>
+                </div>
+              )}
+              <div className="col-sm-24 col-md-8 col-lg-14">
                 <div className="form-group">
                   <label className="form-label" htmlFor="child">Railcards</label>
                   <RailcardSelect name="railcards" max={4} onChange={this.set}/>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="search--filters">
-          <div className="container">
-            <div className="row">
-              <div className="col-sm-12 col-md-8 col-lg-6 col-xl-5">
-                <legend className="form-label">Class</legend>
-                <RadioGroup name="class" options={["standardClass", "firstClass"]} labels={["Standard", "First"]} onChange={this.set}/>
-              </div>
-              <div className="col-sm-12 col-md-8 col-lg-6 col-xl-5">
-                <legend className="form-label">Ticket type</legend>
-                <Checkbox label="Singles" name="singles" checked={this.state.singles} onChange={this.set}/>
-                <Checkbox label="Returns" name="returns" checked={this.state.returns} onChange={this.set}/>
               </div>
             </div>
           </div>
