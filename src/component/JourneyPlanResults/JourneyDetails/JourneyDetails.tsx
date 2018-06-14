@@ -58,13 +58,16 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
         <div className="row leg-list--line">
           <div className="offset-6 col-18">
             <p className="leg-list--duration">
-              {operators[leg.operator]} service ({leg.service})
-              {leg.callingPoints.length > 2 && (
-                <button className="leg-list--btn-calling" onClick={this.onSelect} data-index={index}>
+              {leg.callingPoints.length > 2 ? (
+                <button title={leg.service} className="leg-list--btn-calling" onClick={this.onSelect} data-index={index}>
                   <span className="sr-only">show calling points</span>
-                  {this.state.selected === index ? "-" : "+"}
+                  {operators[leg.operator]} service&nbsp;{this.state.selected === index ? "-" : "+"}
                 </button>
-              )}
+                )
+              : (
+                <span title={leg.service}>{operators[leg.operator]} service</span>
+                )
+              }
             </p>
           </div>
         </div>

@@ -74,15 +74,14 @@
 
     &--btn-calling {
       border: none;
-      padding: 0 10px 0 5px;
-      font-size: 16px;
-      line-height: 16px;
-      font-weight: bold;
-      color: $color-secondary;
+      padding: 0;
+      font-size: 12px;
+      line-height: 12px;
+      color: lighten($color-black, 20%);
       background: transparent;
 
       &:hover, &:active, &:focus {
-        color: $color-primary;
+        color: $color-secondary;
         border: none;
         background: transparent;
       }
