@@ -5,6 +5,7 @@ import * as moment from "moment";
 import {locationByCode} from "../../../config/locations";
 import "./Leg.css";
 import "./CallingPoint.css";
+import {operators} from "../../../config/operators";
 
 @autobind
 export class JourneyDetails extends React.Component<JourneyDetailsProps, JourneyDetailsState> {
@@ -57,7 +58,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
         <div className="row leg-list--line">
           <div className="offset-6 col-18">
             <p className="leg-list--duration">
-              {leg.operator} service ({leg.service})
+              {operators[leg.operator]} service ({leg.service})
               {leg.callingPoints.length > 2 && (
                 <button className="leg-list--btn-calling" onClick={this.onSelect} data-index={index}>
                   <span className="sr-only">show calling points</span>
