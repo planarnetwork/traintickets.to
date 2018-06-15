@@ -74,16 +74,15 @@ export class Search extends React.Component<SearchProps, SearchState> {
   }
 
   public toggle(event: React.MouseEvent<HTMLButtonElement>) {
-    this.setState({
-      advancedSearch: !this.state.advancedSearch
-    } as any);
+    this.props.onOpen(!this.state.advancedSearch);
+    this.set({ advancedSearch: !this.state.advancedSearch });
+
     event.stopPropagation();
   }
 
   public render() {
     const advancedClasses = this.state.advancedSearch ? "search--advanced is-open" : "search--advanced";
     const btnClasses = this.state.advancedSearch ? "search--advanced-btn is-active" : "search--advanced-btn";
-    console.log(this.state.advancedSearch);
 
     return (
       <form>
@@ -203,5 +202,6 @@ export interface SearchState {
 
 export interface SearchProps {
   onSubmit: (query: SearchState) => any;
+  onOpen: (state: boolean) => any;
 }
 

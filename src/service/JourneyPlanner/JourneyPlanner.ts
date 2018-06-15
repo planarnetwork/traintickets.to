@@ -10,12 +10,13 @@ export class JourneyPlanner {
     private readonly client: AxiosInstance
   ) {}
 
-  public async search(params: SearchState): Promise<SearchResults | ErrorResponse> {
+  public async search(params: SearchState): Promise<SearchResponse> {
     try {
-      const results = await this.client.get<JourneyPlannerResponse>("/jp", { params });
-      const handler = new ResponseHandler(results.data, params);
+      const response = await this.client.get<JourneyPlannerResponse>("/jp", { params });
+      const handler = new ResponseHandler(response.data, params);
+      const results = handler.getFares();
 
-      return handler.getFares();
+      return { results };
     }
     catch (error) {
       return { error };
@@ -188,6 +189,7 @@ export interface SearchResults {
   links: any;
 }
 
-export interface ErrorResponse {
-  error: any;
+export interface SearchResponse {
+  error?: Error;
+  results?: SearchResults;
 }

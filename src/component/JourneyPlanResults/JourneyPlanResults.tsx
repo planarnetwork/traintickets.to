@@ -13,7 +13,7 @@ import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 
 @autobind
-export class JourneyPlanResults extends React.Component<SearchResults, JourneyPlanResultsState> {
+export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps, JourneyPlanResultsState> {
 
   public state = {
     outward: {
@@ -45,25 +45,27 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     };
   }
 
-  public componentDidUpdate() {
-    const outEl = document.querySelector(".fares-outward .is-selected");
-
-    if (outEl) {
-      scrollIntoViewIfNeeded(outEl, { behavior: "instant", scrollMode: "if-needed" });
+  public componentDidUpdate(prevProps: JourneyPlanResultsProps) {
+    if (this.props.response.cheapestOutward !== prevProps.response.cheapestOutward) {
+      this.scroll("outward");
     }
+    if (this.props.response.cheapestInward !== prevProps.response.cheapestInward) {
+      this.scroll("inward");
+    }
+  }
 
-    const inwEl = document.querySelector(".fares-inward .is-selected");
+  private scroll(direction: keyof JourneyPlanResultsState) {
+    const el = document.querySelector(`.fares-${direction} .is-selected`);
 
-    if (inwEl) {
-      scrollIntoViewIfNeeded(inwEl, { behavior: "instant", scrollMode: "if-needed" });
+    if (el) {
+      scrollIntoViewIfNeeded(el, { behavior: "instant", scrollMode: "if-needed" });
     }
   }
 
   public render() {
     return (
       <section className="fares">
-        {/* LINUS : TO DO : I needs a class on the section above which is "fares--short" if the advanced search options are open*/}
-        <div className="container">
+        <div className={this.props.lessHeight ? "container fares--short" : "container"}>
           <div className="row">
           { this.props.response.outward.length === 0  ? this.renderNoResults() : this.renderResults() }
           </div>
@@ -198,6 +200,10 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     }
   }
 
+}
+
+interface JourneyPlanResultsProps extends SearchResults {
+  lessHeight: boolean;
 }
 
 interface JourneyPlanResultsState {
