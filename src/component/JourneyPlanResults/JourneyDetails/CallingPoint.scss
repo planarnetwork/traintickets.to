@@ -11,13 +11,13 @@
         width: 2px;
         background-color: rgba($color-primary, 0.1);
         position: absolute;
-        left: 62px;
+        left: 44px;
         top: 0;
         height: 100%;
       }
 
       @media ($screen-smalltablet) {
-        left: 68px;
+        left: 48px;
       }
 
       @media ($screen-tablet) {
@@ -26,17 +26,17 @@
 
       @media ($screen-laptop) {
         display: block;
-        left: 63px;
+        left: 44px;
         top: 0;
         height: 100%;
       }
 
       @media ($screen-desktop) {
-        left: 70px;
+        left: 49px;
       }
 
       @media ($screen-desktop-lg) {
-        left: 77px;
+        left: 55px;
       }
     }
 
@@ -47,7 +47,7 @@
     &--time {
       font-size: 13px;
       line-height: 13px;
-      padding-left: 6px;
+      padding-left: 2px;
       opacity: 0.8;
       position: relative;
       z-index: 1;
@@ -61,13 +61,13 @@
           border-radius: 50%;
           background-color: lighten($color-primary, 45%);
           position: absolute;
-          left: 59px;
-          top: 0;
+          left: 41px;
+          top: 3px;
           z-index: 0;
         }
 
         @media ($screen-smalltablet) {
-          left: 65px;
+          left: 45px;
         }
 
         @media ($screen-tablet) {
@@ -76,15 +76,15 @@
 
         @media ($screen-laptop) {
           display: block;
-          left: 60px;
+          left: 41px;
         }
 
         @media ($screen-desktop) {
-          left: 67px;
+          left: 46px;
         }
 
         @media ($screen-desktop-lg) {
-          left: 74px;
+          left: 52px;
         }
       }
     }
@@ -94,6 +94,7 @@
       line-height: 13px;
       opacity: 0.8;
       color: darken($color-primary, 10%);
+      margin-top: 2px;
     }
   }
 }

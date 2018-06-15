@@ -2,9 +2,7 @@
 
 .leg {
   &-container {
-    padding: 15px;
-    background-color: darken($color-white, 2%);
-    transition: background-color 0.2s linear;
+    padding: 15px 0;
   }
 
   &-list {
@@ -14,7 +12,6 @@
       line-height: 14px;
       position: relative;
       z-index: 1;
-      padding-left: 4px;
 
       &:before {
         @media ($screen-phone) {
@@ -25,13 +22,13 @@
           border-radius: 50%;
           background-color: rgba($color-primary, 0.3);
           position: absolute;
-          left: 56px;
+          left: 38px;
           top: 0;
           z-index: 0;
         }
 
         @media ($screen-smalltablet) {
-          left: 62px;
+          left: 42px;
         }
 
         @media ($screen-tablet) {
@@ -44,15 +41,15 @@
 
         @media ($screen-laptop) {
           display: block;
-          left: 57px;
+          left: 38px;
         }
 
         @media ($screen-desktop) {
-          left: 64px;
+          left: 43px;
         }
 
         @media ($screen-desktop-lg) {
-          left: 71px;
+          left: 49px;
         }
       }
     }
@@ -66,7 +63,7 @@
 
     &--duration {
       margin: 2px 0 4px 0;
-      font-size: 11px;
+      font-size: 12px;
       padding: 3px 0;
       line-height: 16px;
       color: lighten($color-black, 20%);
@@ -77,11 +74,11 @@
       padding: 0;
       font-size: 12px;
       line-height: 12px;
-      color: lighten($color-black, 20%);
+      color: $color-secondary;
       background: transparent;
 
       &:hover, &:active, &:focus {
-        color: $color-secondary;
+        text-decoration: underline;
         border: none;
         background: transparent;
       }
@@ -97,13 +94,13 @@
           height: calc(100% - 2px);
           background-color: rgba($color-primary, 0.1);
           position: absolute;
-          left: 72px;
+          left: 54px;
           top: -2px;
           height: calc(100% + 2px);
         }
 
         @media ($screen-smalltablet) {
-          left: 78px;
+          left: 58px;
         }
 
         @media ($screen-tablet) {
@@ -112,17 +109,17 @@
 
         @media ($screen-laptop) {
           display: block;
-          left: 73px;
+          left: 54px;
           top: -2px;
           height: calc(100% + 2px);
         }
 
         @media ($screen-desktop) {
-          left: 80px;
+          left: 59px;
         }
 
         @media ($screen-desktop-lg) {
-          left: 87px;
+          left: 65px;
         }
       }
     }
@@ -133,10 +130,6 @@
       margin-bottom: 0;
       padding-bottom: 0;
       margin-top: 0;
-    }
-
-    .leg-list--station {
-      text-transform: capitalise;
     }
 
     .leg-list--line:before {
@@ -157,52 +150,87 @@
       border-bottom: 0;
     }
 
-    &__tube, &__metro {
-      background-image: url($mode-tube);
-      background-position: left 9px top 9px;
-      background-size: 24px 19px;
-    }
-
-    &__walk {
-      background-image: url($mode-walk);
-      background-position: left 12px top 2px;
-      background-size: 20px 32px;
-    }
-
     &__bus {
       background-image: url($mode-bus);
-      background-position: left 10px top 19px;
+      background-position: left 0 top 19px;
       background-size: 24px 22px;
+
+      @media ($screen-desktop) {
+        background-position: left 10px top 19px;
+      }
     }
 
     &__ferry {
       background-image: url($mode-ferry);
-      background-position: left 10px top 19px;
+      background-position: left 0 top 19px;
       background-size: 24px 22px;
+
+      @media ($screen-desktop) {
+        background-position: left 10px top 19px;
+      }
     }
 
     &__replacementbus {
       background-image: url($mode-bus);
-      background-position: left 12px top 4px;
+      background-position: left 0 top 4px;
       background-size: 20px 20px;
+
+      @media ($screen-desktop) {
+        background-position: left 12px top 4px;
+      }
     }
 
     &__train {
       background-image: url($mode-train);
-      background-position: left 9px top 22px;
+      background-position: left 0 top 22px;
       background-size: 24px 16px;
+
+      @media ($screen-desktop) {
+        background-position: left 9px top 22px;
+      }
     }
 
     &__tram {
       background-image: url($mode-tram);
-      background-position: left 14px top 17px;
+      background-position: left 0 top 17px;
       background-size: 16px 26px;
+
+      @media ($screen-desktop) {
+        background-position: left 14px top 17px;
+      }
     }
 
+    // fixed
     &__transfer {
       background-image: url($mode-transfer);
-      background-position: left 11px top 4px;
+      background-position: left 0 top 4px;
       background-size: 22px 28px;
+
+      @media ($screen-desktop) {
+        background-position: left 11px top 4px;
+      }
+    }
+
+    // fixed
+    &__tube, &__metro {
+      background-image: url($mode-tube);
+      background-position: left 0 top 6px;
+      background-size: 24px 19px;
+
+      @media ($screen-desktop) {
+        background-position: left 6px top 6px;
+      }
+    }
+
+    // fixed
+    &__walk {
+      background-image: url($mode-walk);
+      background-position: left 0 top 2px;
+      background-size: 20px 32px;
+
+      @media ($screen-desktop) {
+        background-position: left 6px top 2px;
+      }
     }
   }
 }

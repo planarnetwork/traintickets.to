@@ -132,40 +132,39 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
           <div className="row">
             <div className="col-18">
               <div className="row">
-                <div className="col-6">
+                <div className="col-5">
                   <time className="fare-list--time">
                     {moment.unix(journey.departureTime).utc().format(moment.HTML5_FMT.TIME)}
                   </time>
                 </div>
-                <div className="col-18"> 
+                <div className="col-19"> 
                   <p className="fare-list--station">{locationByCode[journey.origin].name}</p>
                 </div>
               </div>
               <div className="row fare-list--line">
-                <div className="offset-6 col-18">
-                  <p className="fare-list--duration">
+                <div className="offset-5 col-19">
+                  <button type="button" className="fare-list--btn-legs" onClick={this.onOpen(journey.id, direction)}>
                     {moment.unix(duration).utc().format(durationFormat)}
                     {
                       journey.legs.length === 1 ? "Direct" :
                       journey.legs.length < 4 ? "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ") :
                       journey.legs.length + " Changes"
                     }
-                  </p>
+                    {journey.id === this.state[direction].open ? ' - ' : ' + '}
+                    <span className="sr-only">show more journey information</span>
+                  </button>
+                  {journey.id === this.state[direction].open && <JourneyDetails journey={journey} />}
                 </div>
               </div>
               <div className="row">
-                <div className="col-6">
+                <div className="col-5">
                   <time className="fare-list--time">
                     {moment.unix(journey.arrivalTime).utc().format(moment.HTML5_FMT.TIME)}
                   </time>
                 </div>
-                <div className="col-18">
+                <div className="col-19">
                   <p className="fare-list--station">
                   {locationByCode[journey.destination].name}&nbsp;
-                  <button type="button" className="fare-list--btn-legs" onClick={this.onOpen(journey.id, direction)}>
-                    <span className="sr-only">show more journey information</span>
-                    {journey.id === this.state[direction].open ? ' - ' : ' + '}
-                  </button>
                   </p>
                 </div>
               </div>
@@ -175,7 +174,6 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
             </div>
           </div>
         </div>
-        {journey.id === this.state[direction].open && <JourneyDetails journey={journey} />}
       </li>
     );
   }
