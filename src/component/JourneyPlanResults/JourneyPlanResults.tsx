@@ -13,7 +13,7 @@ import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 
 @autobind
-export class JourneyPlanResults extends React.Component<SearchResults, JourneyPlanResultsState> {
+export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps, JourneyPlanResultsState> {
 
   public state = {
     outward: {
@@ -62,8 +62,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
   public render() {
     return (
       <section className="fares">
-        {/* LINUS : TO DO : I needs a class on the section above which is "fares--short" if the advanced search options are open*/}
-        <div className="container">
+        <div className={this.props.lessHeight ? "container fares--short" : "container"}>
           <div className="row">
           { this.props.response.outward.length === 0  ? this.renderNoResults() : this.renderResults() }
           </div>
@@ -200,6 +199,10 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     }
   }
 
+}
+
+interface JourneyPlanResultsProps extends SearchResults {
+  lessHeight: boolean;
 }
 
 interface JourneyPlanResultsState {
