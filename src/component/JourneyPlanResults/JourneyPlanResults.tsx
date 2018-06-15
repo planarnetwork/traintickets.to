@@ -9,6 +9,8 @@ import "./JourneyPlanResults.css";
 import {JourneyDetails} from "./JourneyDetails/JourneyDetails";
 import {Price} from "./../Price/Price";
 import {locationByCode} from "../../config/locations";
+import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
+
 
 @autobind
 export class JourneyPlanResults extends React.Component<SearchResults, JourneyPlanResultsState> {
@@ -41,6 +43,20 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
         open: state.inward.open
       }
     };
+  }
+
+  public componentDidUpdate() {
+    const outEl = document.querySelector(".fares-outward .is-selected");
+
+    if (outEl) {
+      scrollIntoViewIfNeeded(outEl, { behavior: "instant", scrollMode: "if-needed" });
+    }
+
+    const inwEl = document.querySelector(".fares-inward .is-selected");
+
+    if (inwEl) {
+      scrollIntoViewIfNeeded(inwEl, { behavior: "instant", scrollMode: "if-needed" });
+    }
   }
 
   public render() {
@@ -97,7 +113,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
       <div className="col-md-12">
         <h3 className="fares--direction bold">{ `${title} - ${locationByCode[from].name} to ${locationByCode[to].name}` }</h3>
         {/*<FareGraph journeys={journeys} fares={journeyPrice}/>*/}
-        <ol className="fare-list clearfix">
+        <ol className={"fare-list clearfix fares-" + direction}>
           { journeys.map(j => this.renderJourney(j, journeyPrice, direction)) }
         </ol>
       </div>
