@@ -124,6 +124,11 @@
     appearance: none;
     font-weight: 600;
     font-size: 12px;
+    transform: background-color 0.5s linear;
+
+    &:hover {
+      background-color: darken($color-white, 3%);
+    }
   }
 
   &--input__passengers {

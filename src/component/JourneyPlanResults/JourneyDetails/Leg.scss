@@ -237,3 +237,40 @@
     }
   }
 }
+
+.is-selected .leg-mode {
+  &__bus {
+    background-image: url($mode-bus-white);
+  }
+
+  &__ferry {
+    background-image: url($mode-ferry-white);
+  }
+
+  &__replacementbus {
+    background-image: url($mode-bus-white);
+  }
+
+  &__train {
+    background-image: url($mode-train-white);
+  }
+
+  &__tram {
+    background-image: url($mode-tram-white);
+  }
+
+  // fixed
+  &__transfer {
+    background-image: url($mode-transfer-white);
+  }
+
+  // fixed
+  &__tube, &__metro {
+    background-image: url($mode-tube-white);
+  }
+
+  // fixed
+  &__walk {
+    background-image: url($mode-walk-white);
+  }
+}
