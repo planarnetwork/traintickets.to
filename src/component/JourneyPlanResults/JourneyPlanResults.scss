@@ -82,10 +82,6 @@
         background: rgba($color-primary, 0.1) url($fare-hover) no-repeat right 15px top 50px;
         background-size: 25px 25px;
       }
-
-      .leg-container {
-        background-color: rgba($color-primary, 0.05);
-      }
     }
 
     &.is-selected {
@@ -93,10 +89,6 @@
         background: lighten($color-primary, 6%) url($fare-selected) no-repeat right 15px top 50px;
         background-size: 25px 25px;
         color: $color-white;
-      }
-
-      .fare-list--duration, .fare-list--changes {
-        color: darken($color-white, 10%);
       }
 
       .fare-list--line {
@@ -111,26 +103,48 @@
         }
       }
 
-      .fare-list--btn-legs {
-        &:hover, &:active, &:focus {
-          color: $color-white;
-        }
-      }
-
-      .fare-list--station {
+      .fare-list--station, .leg-list--station, .leg-list--duration, .calling-list--station {
         color: $color-white;
       }
 
-      .leg-container {
-        background-color: rgba($color-primary, 0.1);
+      .leg-list--line {
+        &:before {
+          background-color: rgba($color-white, 0.3);
+        }
+      }
+
+      .leg-list--time {
+        &:before {
+          background-color: rgba($color-white, 0.5);
+        }
+      }
+
+      .leg-mode {
+        border-bottom: solid 2px rgba($color-white, 0.1);
+
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+
+      .calling-list {
+        &:before {
+          background-color: rgba($color-white, 0.3);
+        }
+      }
+
+      .calling-list--time {
+        &:before {
+          background-color: lighten($color-primary, 30%);
+        }
       }
     }
   }
 
   &--time {
     font-weight: bold;
-    font-size: 18px;
-    line-height: 18px;
+    font-size: 16px;
+    line-height: 20px;
     position: relative;
     z-index: 1;
 
@@ -143,17 +157,13 @@
         border-radius: 50%;
         border: solid 3px rgba($color-primary, 0.1);
         position: absolute;
-        left: 53px;
-        top: 0;
+        left: 46px;
+        top: -2px;
         z-index: 0;
       }
 
       @media ($screen-smalltablet) {
-        left: 59px;
-      }
-
-      @media ($screen-tablet) {
-        display: none;
+        left: 49px;
       }
 
       @media ($screen-tablet) {
@@ -162,37 +172,31 @@
 
       @media ($screen-laptop) {
         display: block;
-        left: 54px;
+        left: 44px;
       }
 
       @media ($screen-desktop) {
-        left: 61px;
+        left: 51px;
       }
 
       @media ($screen-desktop-lg) {
-        left: 68px;
+        left: 61px;
       }
     }
-  }
-
-  &--duration {
-    margin: 6px 0;
-    font-size: 12px;
-    line-height: 12px;
-    color: lighten($color-black, 35%);
   }
 
   &--btn-legs {
     border: none;
     padding: 0;
-    font-size: 20px;
-    line-height: 20px;
-    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
     color: $color-secondary;
     background: transparent;
+    padding: 6px 0;
+    text-align: left;
 
     &:hover, &:active, &:focus {
-      color: $color-primary;
+      text-decoration: underline;
       border: none;
       background: transparent;
     }
@@ -201,9 +205,7 @@
   &--station {
     font-size: 16px;
     line-height: 20px;
-    padding: 0;
     font-weight: bold;
-    margin-top: -2px;
     color: darken($color-primary, 10%);
   }
 
@@ -213,19 +215,18 @@
     &:before {
       content: "";
       width: 3px;
-      height: calc(100% - 3px);
+      height: calc(100% - 1px);
       background-color: rgba($color-primary, 0.1);
       position: absolute;
-      left: 32px;
-      top: 2px;
+      left: 29px;
+      top: 0;
 
       @media ($screen-phone) {
-        height: calc(100% - 3px);
-        left: 72px;
+        left: 65px;
       }
 
       @media ($screen-smalltablet) {
-        left: 78px;
+        left: 68px;
       }
 
       @media ($screen-tablet) {
@@ -233,15 +234,15 @@
       }
 
       @media ($screen-laptop) {
-        left: 73px;
+        left: 63px;
       }
 
       @media ($screen-desktop) {
-        left: 80px;
+        left: 70px;
       }
 
       @media ($screen-desktop-lg) {
-        left: 87px;
+        left: 80px;
       }
     } 
   }
