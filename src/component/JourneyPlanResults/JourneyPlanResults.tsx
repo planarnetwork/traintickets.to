@@ -46,6 +46,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
   public render() {
     return (
       <section className="fares">
+        {/* LINUS : TO DO : I needs a class on the section above which is "fares--short" if the advanced search options are open*/}
         <div className="container">
           <div className="row">
           { this.props.response.outward.length === 0  ? this.renderNoResults() : this.renderResults() }
