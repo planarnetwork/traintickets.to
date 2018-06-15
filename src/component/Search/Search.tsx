@@ -81,8 +81,9 @@ export class Search extends React.Component<SearchProps, SearchState> {
   }
 
   public render() {
-    const advancedClasses = this.state.advancedSearch ? "search--advanced" : "search--advanced is-hidden";
+    const advancedClasses = this.state.advancedSearch ? "search--advanced is-open" : "search--advanced";
     const btnClasses = this.state.advancedSearch ? "search--advanced-btn is-active" : "search--advanced-btn";
+    console.log(this.state.advancedSearch);
 
     return (
       <form>

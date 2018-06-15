@@ -17,9 +17,10 @@
 
   &--advanced {
     padding-top: 5px;
+    display: none;
 
-    &.is-hidden {
-      display: none;
+    &.is-open {
+      display: block;
     }
 
     @media ($screen-laptop) {
