@@ -2,7 +2,7 @@
 
 .leg {
   &-container {
-    padding: 15px 0;
+    padding: 5px 0 15px 0;
   }
 
   &-list {
@@ -71,16 +71,20 @@
 
     &--btn-calling {
       border: none;
-      padding: 0;
+      padding: 5px 0 5px 15px;
       font-size: 12px;
       line-height: 12px;
-      color: $color-secondary;
-      background: transparent;
+      color: lighten($color-black, 20%);
+      background: transparent url($more) no-repeat left center;
+      background-size: 10px 10px;
+
+      &.is-active {
+        background-image: url($less);
+      }
 
       &:hover, &:active, &:focus {
         text-decoration: underline;
         border: none;
-        background: transparent;
       }
     }
 
@@ -138,8 +142,8 @@
   }
 
   &-mode {
-    margin-bottom: 12px;
-    padding-bottom: 12px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
     border-bottom: solid 2px rgba($color-primary, 0.1);
     background-color: transparent;
     background-repeat: no-repeat;
@@ -152,51 +156,51 @@
 
     &__bus {
       background-image: url($mode-bus);
-      background-position: left 0 top 19px;
+      background-position: left 0 top 22px;
       background-size: 24px 22px;
 
       @media ($screen-desktop) {
-        background-position: left 10px top 19px;
+        background-position: left 10px top 22px;
       }
     }
 
     &__ferry {
       background-image: url($mode-ferry);
-      background-position: left 0 top 19px;
+      background-position: left 0 top 22px;
       background-size: 24px 22px;
 
       @media ($screen-desktop) {
-        background-position: left 10px top 19px;
+        background-position: left 10px top 22px;
       }
     }
 
     &__replacementbus {
       background-image: url($mode-bus);
-      background-position: left 0 top 4px;
+      background-position: left 0 top 7px;
       background-size: 20px 20px;
 
       @media ($screen-desktop) {
-        background-position: left 12px top 4px;
+        background-position: left 12px top 7px;
       }
     }
 
     &__train {
       background-image: url($mode-train);
-      background-position: left 0 top 22px;
+      background-position: left 0 top 25px;
       background-size: 24px 16px;
 
       @media ($screen-desktop) {
-        background-position: left 9px top 22px;
+        background-position: left 9px top 25px;
       }
     }
 
     &__tram {
       background-image: url($mode-tram);
-      background-position: left 0 top 17px;
+      background-position: left 0 top 20px;
       background-size: 16px 26px;
 
       @media ($screen-desktop) {
-        background-position: left 14px top 17px;
+        background-position: left 14px top 20px;
       }
     }
 

@@ -143,14 +143,13 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
               </div>
               <div className="row fare-list--line">
                 <div className="offset-5 col-19">
-                  <button type="button" className="fare-list--btn-legs" onClick={this.onOpen(journey.id, direction)}>
+                  <button type="button" className={journey.id === this.state[direction].open ? "fare-list--btn-legs is-active" : "fare-list--btn-legs"} onClick={this.onOpen(journey.id, direction)}>
                     {moment.unix(duration).utc().format(durationFormat)}
                     {
                       journey.legs.length === 1 ? "Direct" :
                       journey.legs.length < 4 ? "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ") :
                       journey.legs.length + " Changes"
                     }
-                    {journey.id === this.state[direction].open ? ' - ' : ' + '}
                     <span className="sr-only">show more journey information</span>
                   </button>
                   {journey.id === this.state[direction].open && <JourneyDetails journey={journey} />}
