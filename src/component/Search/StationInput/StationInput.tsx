@@ -84,7 +84,7 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
     const inputLength = inputValue.length;
 
     return inputLength < 3 ? [] : locations.filter(l =>
-      (inputLength === 3 && inputValue === l.code) || l.name.toUpperCase().slice(0, inputLength) === inputValue
+      (inputLength <= 4 && inputValue === l.code) || l.name.toUpperCase().startsWith(inputValue)
     );
   };
 
