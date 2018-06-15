@@ -21,6 +21,10 @@ input::-webkit-inner-spin-button {
     border: none;
     padding: 0;
 
+    &:focus, &:active {
+      border: solid 1px lighten($color-primary, 30%);
+    }
+
     &__more {
       background-image: url($chevron-right);
     }

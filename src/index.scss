@@ -125,7 +125,6 @@ button {
 
   &:focus, &:active {
     outline: none;
-    border: solid 1px lighten($color-primary, 30%);
   }
 }
 
