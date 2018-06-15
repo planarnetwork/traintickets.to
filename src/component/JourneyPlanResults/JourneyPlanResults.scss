@@ -27,15 +27,21 @@
       box-shadow: 0px 4px 6px $bg-grey;
 
       @media ($screen-smalltablet) {
-        height: $fare-list-height-tab-sm;
+        height: $fares-height-tab-sm;
       }
 
       @media ($screen-tablet) {
-        height: $fare-list-height-tab;
+        height: $fares-height-tab;
       }
 
-      @media ($screen-laptop) {
-        height: $fare-list-height-laptop;
+      &__short {
+        @media ($screen-smalltablet) {
+          height: $fares-height-tab-sm-short;
+        }
+
+        @media ($screen-tablet) {
+          height: $fares-height-tab-short;
+        }
       }
 
       .fares--empty-title {
@@ -54,16 +60,22 @@
   box-shadow: 0px 4px 6px $bg-grey;
 
   @media ($screen-smalltablet) {
-    height: $fare-list-height-tab-sm;
+    height: $fares-height-tab-sm;
     overflow: auto;
   }
 
   @media ($screen-tablet) {
-    height: $fare-list-height-tab;
+    height: $fares-height-tab;
   }
 
-  @media ($screen-laptop) {
-    height: $fare-list-height-laptop;
+  &__short {
+    @media ($screen-smalltablet) {
+      height: $fares-height-tab-sm-short;
+    }
+
+    @media ($screen-tablet) {
+      height: $fares-height-tab-short;
+    }
   }
 
   &--item {

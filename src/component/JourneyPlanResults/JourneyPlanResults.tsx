@@ -65,7 +65,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
   public render() {
     return (
       <section className="fares">
-        <div className={this.props.lessHeight ? "container fares--short" : "container"}>
+        <div className="container">
           <div className="row">
           { this.props.response.outward.length === 0  ? this.renderNoResults() : this.renderResults() }
           </div>
@@ -91,7 +91,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
     return (
       <div className="col-md-12">
         <h3 className="fares--direction bold">No return selected</h3>
-        <div className="fares--empty-return center">
+        <div className={this.props.lessHeight ? "fares--empty-return fares--empty-return__short center" : "fares--empty-return center"}>
           <p className="fares--empty-title">No return journey selected</p>
         </div>
       </div>
@@ -115,7 +115,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
       <div className="col-md-12">
         <h3 className="fares--direction bold">{ `${title} - ${locationByCode[from].name} to ${locationByCode[to].name}` }</h3>
         {/*<FareGraph journeys={journeys} fares={journeyPrice}/>*/}
-        <ol className={"fare-list clearfix fares-" + direction}>
+        <ol className={this.props.lessHeight ? "fare-list fare-list__short clearfix fares-" + direction : "fare-list clearfix fares-" + direction}>
           { journeys.map(j => this.renderJourney(j, journeyPrice, direction)) }
         </ol>
       </div>

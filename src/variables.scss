@@ -9,9 +9,10 @@ $color-primary:     #563d7c;
 $color-secondary:   #fa9116;
 $color-label:       #6e6e6e;
 
-$fare-list-height-tab-sm:  calc(100vh - 550px);
-$fare-list-height-tab:     calc(100vh - 470px);
-$fare-list-height-laptop:  calc(100vh - 390px);
+$fares-height-tab-sm:       calc(100vh - 455px);
+$fares-height-tab-sm-short: calc(100vh - 585px);
+$fares-height-tab:          calc(100vh - 320px);
+$fares-height-tab-short:    calc(100vh - 400px);
 
 $arrow-down:        '/img/arrow-down.svg'; // arrow down
 $arrow-down-white:  '/img/arrow-down-white.svg'; // arrow down white
