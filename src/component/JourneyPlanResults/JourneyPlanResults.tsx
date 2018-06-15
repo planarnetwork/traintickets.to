@@ -45,17 +45,20 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
     };
   }
 
-  public componentDidUpdate() {
-    const outEl = document.querySelector(".fares-outward .is-selected");
-
-    if (outEl) {
-      scrollIntoViewIfNeeded(outEl, { behavior: "instant", scrollMode: "if-needed" });
+  public componentDidUpdate(prevProps: JourneyPlanResultsProps) {
+    if (this.props.response.cheapestOutward !== prevProps.response.cheapestOutward) {
+      this.scroll("outward");
     }
+    if (this.props.response.cheapestInward !== prevProps.response.cheapestInward) {
+      this.scroll("inward");
+    }
+  }
 
-    const inwEl = document.querySelector(".fares-inward .is-selected");
+  private scroll(direction: keyof JourneyPlanResultsState) {
+    const el = document.querySelector(`.fares-${direction} .is-selected`);
 
-    if (inwEl) {
-      scrollIntoViewIfNeeded(inwEl, { behavior: "instant", scrollMode: "if-needed" });
+    if (el) {
+      scrollIntoViewIfNeeded(el, { behavior: "instant", scrollMode: "if-needed" });
     }
   }
 
