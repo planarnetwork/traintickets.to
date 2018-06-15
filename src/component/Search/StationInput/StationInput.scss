@@ -11,7 +11,7 @@
     padding: 5px 0 5px 10px;
     font-weight: 600;
     font-size: 12px;
-    transform: background-color 0.5s linear;
+    transition: background-color 0.3s linear;
 
     &:hover {
       background-color: darken($color-white, 3%);

@@ -18,6 +18,7 @@
     font-weight: 600;
     line-height: 20px;
     padding: 0 0 5px 30px;
+    transition: color 0.3s linear;
 
     &:before {
       content: "";
@@ -28,7 +29,6 @@
       border-radius: 50%;
       top: 0;
       left: 0;
-      transition: background-color .6s ease;
       background-color: $color-white;
     }
   }

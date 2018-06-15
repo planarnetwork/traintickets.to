@@ -224,6 +224,7 @@
     width: 100%;
     background: transparent url($more) no-repeat left center;
     background-size: 12px 12px;
+    transition: color 0.2s linear;
 
     &:hover {
       color: $color-secondary;
