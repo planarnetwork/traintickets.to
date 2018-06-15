@@ -9,6 +9,8 @@ import "./JourneyPlanResults.css";
 import {JourneyDetails} from "./JourneyDetails/JourneyDetails";
 import {Price} from "./../Price/Price";
 import {locationByCode} from "../../config/locations";
+import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
+
 
 @autobind
 export class JourneyPlanResults extends React.Component<SearchResults, JourneyPlanResultsState> {
@@ -47,13 +49,13 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     const outEl = document.querySelector(".fares-outward .is-selected");
 
     if (outEl) {
-      (outEl as any).scrollIntoViewIfNeeded();
+      scrollIntoViewIfNeeded(outEl, { behavior: "instant", scrollMode: "if-needed" });
     }
 
     const inwEl = document.querySelector(".fares-inward .is-selected");
 
     if (inwEl) {
-      (inwEl as any).scrollIntoViewIfNeeded();
+      scrollIntoViewIfNeeded(inwEl, { behavior: "instant", scrollMode: "if-needed" });
     }
   }
 
