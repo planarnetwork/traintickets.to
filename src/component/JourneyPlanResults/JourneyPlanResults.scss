@@ -118,13 +118,24 @@
       .fare-list--station,
       .leg-list--station,
       .leg-list--duration,
-      .calling-list--station,
+      .calling-list--station {
+        color: $color-white;
+      }
+
       .fare-list--btn-legs {
         color: $color-white;
+
+        &:hover, &:active, &:focus {
+          color: $color-secondary;
+        }
       }
 
       .leg-list--btn-calling {
         color: rgba($color-white, 0.7);
+
+        &:hover, &:active, &:focus {
+          color: $color-secondary;
+        }
       }
 
       .leg-list--line, .calling-list {
@@ -165,19 +176,19 @@
     &:before {
       @media ($screen-phone) {
         content: "";
-        width: 21px;
-        height: 21px;
+        width: 19px;
+        height: 19px;
         display: block;
         border-radius: 50%;
         border: solid 3px rgba($color-primary, 0.1);
         position: absolute;
-        left: 46px;
-        top: -2px;
+        left: 47px;
+        top: -1px;
         z-index: 0;
       }
 
       @media ($screen-smalltablet) {
-        left: 49px;
+        left: 50px;
       }
 
       @media ($screen-tablet) {
@@ -186,15 +197,15 @@
 
       @media ($screen-laptop) {
         display: block;
-        left: 44px;
+        left: 45px;
       }
 
       @media ($screen-desktop) {
-        left: 51px;
+        left: 52px;
       }
 
       @media ($screen-desktop-lg) {
-        left: 61px;
+        left: 62px;
       }
     }
   }
@@ -214,13 +225,12 @@
     background: transparent url($more) no-repeat left center;
     background-size: 12px 12px;
 
-    &.is-active {
-      background-image: url($less);
+    &:hover {
+      color: $color-secondary;
     }
 
-    &:hover, &:active, &:focus {
-      text-decoration: underline;
-      border: none;
+    &.is-active {
+      background-image: url($less);
     }
   }
 
@@ -237,7 +247,7 @@
     &:before {
       content: "";
       width: 3px;
-      height: calc(100% - 1px);
+      height: calc(100% + 1px);
       background-color: rgba($color-primary, 0.1);
       position: absolute;
       left: 29px;
@@ -245,6 +255,7 @@
 
       @media ($screen-phone) {
         left: 65px;
+        top: -1px;
       }
 
       @media ($screen-smalltablet) {

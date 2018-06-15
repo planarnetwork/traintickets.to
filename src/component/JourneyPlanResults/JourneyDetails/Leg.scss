@@ -62,7 +62,7 @@
     }
 
     &--duration {
-      margin: 2px 0 4px 0;
+      margin: 7px 0;
       font-size: 12px;
       padding: 3px 0;
       line-height: 16px;
@@ -71,20 +71,19 @@
 
     &--btn-calling {
       border: none;
-      padding: 5px 0 5px 15px;
+      padding: 0 0 0 15px;
       font-size: 12px;
       line-height: 12px;
       color: lighten($color-black, 20%);
       background: transparent url($more) no-repeat left center;
       background-size: 10px 10px;
 
-      &.is-active {
-        background-image: url($less);
+      &:hover, &:active, &:focus {
+        color: $color-secondary;
       }
 
-      &:hover, &:active, &:focus {
-        text-decoration: underline;
-        border: none;
+      &.is-active {
+        background-image: url($less);
       }
     }
 

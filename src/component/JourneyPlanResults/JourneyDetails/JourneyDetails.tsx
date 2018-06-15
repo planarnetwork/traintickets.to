@@ -113,9 +113,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
             <p className="leg-list--station">
               <span className="capital">{leg.mode}</span> from {locationByCode[leg.origin].name} to {locationByCode[leg.destination].name}
             </p>
-            {/*<p className="leg-list--station">{locationByCode[leg.origin].name}</p>*/}
-            <p className="leg-list--duration leg-list--duration">{moment.unix(leg.duration).utc().format(durationFormat)}</p>
-            {/*<p className="leg-list--station">{locationByCode[leg.destination].name}</p>*/}
+            <p className="leg-list--duration">{moment.unix(leg.duration).utc().format(durationFormat)}</p>
           </div>
         </div>
       </li>
