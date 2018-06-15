@@ -43,6 +43,20 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
     };
   }
 
+  public componentDidUpdate() {
+    const outEl = document.querySelector(".fares-outward .is-selected");
+
+    if (outEl) {
+      (outEl as any).scrollIntoViewIfNeeded();
+    }
+
+    const inwEl = document.querySelector(".fares-inward .is-selected");
+
+    if (inwEl) {
+      (inwEl as any).scrollIntoViewIfNeeded();
+    }
+  }
+
   public render() {
     return (
       <section className="fares">
@@ -96,7 +110,7 @@ export class JourneyPlanResults extends React.Component<SearchResults, JourneyPl
       <div className="col-md-12">
         <h3 className="fares--direction bold">{ `${title} - ${locationByCode[from].name} to ${locationByCode[to].name}` }</h3>
         {/*<FareGraph journeys={journeys} fares={journeyPrice}/>*/}
-        <ol className="fare-list clearfix">
+        <ol className={"fare-list clearfix fares-" + direction}>
           { journeys.map(j => this.renderJourney(j, journeyPrice, direction)) }
         </ol>
       </div>

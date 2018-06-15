@@ -63,8 +63,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
   public onOutwardDateChange(date: Moment | null) {
     if (date) {
       const outwardDate = date.format(moment.HTML5_FMT.DATE);
-      const retDate = this.state.returnDate && date.isAfter(this.state.returnDate) ? date : moment(this.state.returnDate);
-      const returnDate = retDate ? retDate.format(moment.HTML5_FMT.DATE) : null;
+      const returnDate = this.state.returnDate && date.isAfter(this.state.returnDate) ? outwardDate : this.state.returnDate;
 
       this.set({ outwardDate, returnDate });
     }
@@ -75,10 +74,10 @@ export class Search extends React.Component<SearchProps, SearchState> {
   }
 
   public toggle(event: React.MouseEvent<HTMLButtonElement>) {
-      this.setState({
-          advancedSearch: !this.state.advancedSearch
-      } as any);
-      event.stopPropagation();
+    this.setState({
+      advancedSearch: !this.state.advancedSearch
+    } as any);
+    event.stopPropagation();
   }
 
   public render() {
@@ -129,7 +128,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
                       <DatePicker
                         onChange={this.onReturnDateChange}
                         minDate={moment(this.state.outwardDate)}
-                        selected={this.state.returnDate ? moment(this.state.returnDate!) : null}
+                        selected={this.state.returnDate ? moment(this.state.returnDate) : null}
                         dateFormat="ddd, DD MMM YYYY"
                         isClearable={true}
                         placeholderText="Return date"
