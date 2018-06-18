@@ -45,12 +45,21 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
     };
   }
 
-  public componentDidUpdate(prevProps: JourneyPlanResultsProps) {
+  public componentDidUpdate(prevProps: JourneyPlanResultsProps, prevState: JourneyPlanResultsState) {
     if (this.props.response.cheapestOutward !== prevProps.response.cheapestOutward) {
       this.scroll("outward");
     }
+
     if (this.props.response.cheapestInward !== prevProps.response.cheapestInward) {
       this.scroll("inward");
+    }
+
+    if (this.state.outward.selected !== prevState.outward.selected || this.state.inward.selected !== prevState.inward.selected) {
+      const outwardFares = this.props.response.fares[this.state.outward.selected] as any;
+      const outwardPrice = outwardFares.price;
+      const inwardPrice = this.props.response.inward.length === 0 ? 0 : outwardFares.with[this.state.inward.selected].price;
+
+      this.props.onPriceChange(outwardPrice + inwardPrice);
     }
   }
 
@@ -124,7 +133,10 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
 
   public renderJourney(journey: Journey, journeyPrice: JourneyPriceIndex, direction: keyof JourneyPlanResultsState) {
     const duration = journey.arrivalTime - journey.departureTime;
-    const durationFormat = duration < 3600 ? "m[min, ]" : "H[hrs] m[min, ]";
+    const durationFormat = duration < 3600 ? "m[min. ]" : "H[hrs] m[min. ]";
+    const changeDescription = journey.legs.length === 1
+      ? "Direct"
+      : "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ");
 
     return (
       <li onClick={this.onSelect(journey.id, direction)} key={journey.id} className={journey.id === this.state[direction].selected ? "fare-list--item is-selected" : "fare-list--item"}>
@@ -143,13 +155,9 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
               </div>
               <div className="row fare-list--line">
                 <div className="offset-5 col-19">
-                  <button type="button" className={journey.id === this.state[direction].open ? "fare-list--btn-legs is-active" : "fare-list--btn-legs"} onClick={this.onOpen(journey.id, direction)}>
+                  <button title={changeDescription} type="button" className={journey.id === this.state[direction].open ? "fare-list--btn-legs is-active" : "fare-list--btn-legs"} onClick={this.onOpen(journey.id, direction)}>
                     {moment.unix(duration).utc().format(durationFormat)}
-                    {
-                      journey.legs.length === 1 ? "Direct" :
-                      journey.legs.length < 4 ? "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ") :
-                      journey.legs.length + " Changes"
-                    }
+                    {changeDescription}
                     <span className="sr-only">show more journey information</span>
                   </button>
                   {journey.id === this.state[direction].open && <JourneyDetails journey={journey} />}
@@ -203,6 +211,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
 
 interface JourneyPlanResultsProps extends SearchResults {
   lessHeight: boolean;
+  onPriceChange: (price: number) => any;
 }
 
 interface JourneyPlanResultsState {

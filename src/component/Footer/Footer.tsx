@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Price} from "./../Price/Price";
 import './Footer.css';
 
-export function Footer() {
+export function Footer(props: FooterProps) {
   return (
     <footer className="footer">
       <div className="row">
@@ -14,7 +14,7 @@ export function Footer() {
         <div className="col text-right">
           <div className="footer--total">
             <span className="footer--price">
-              Total <Price value={20100} />
+              Total <Price value={props.price} />
             </span>
             <p className="footer--pax">all passengers</p>
           </div>
@@ -33,4 +33,8 @@ export function Footer() {
       </div>
     </footer>
   )
+}
+
+export interface FooterProps {
+  price: number;
 }

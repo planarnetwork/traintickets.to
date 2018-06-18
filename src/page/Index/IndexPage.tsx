@@ -28,7 +28,8 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
       }
     },
     error: undefined,
-    isAdvanceOpen: defaultQueryState.advancedSearch
+    isAdvanceOpen: defaultQueryState.advancedSearch,
+    priceOfSelected: 0
   };
 
   @debounce(200, { leading: false })
@@ -42,11 +43,21 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
     this.setState({ isAdvanceOpen });
   }
 
+  public onPriceChange(priceOfSelected: number) {
+    this.setState({ priceOfSelected });
+  }
+
   public render() {
     return (
-      <Layout>
+      <Layout footerPrice={this.state.priceOfSelected}>
         <Search onSubmit={this.onSearch} onOpen={this.onOpenAdvanceControls}/>
-        { this.state.error ? <div>Error</div> : <JourneyPlanResults lessHeight={this.state.isAdvanceOpen} {...this.state.results!}/> }
+        { this.state.error && <div>Error</div> }
+        { this.state.results && <JourneyPlanResults
+            onPriceChange={this.onPriceChange}
+            lessHeight={this.state.isAdvanceOpen}
+            {...this.state.results!}
+          />
+        }
       </Layout>
     );
   }
@@ -56,4 +67,5 @@ interface IndexPageState {
   results?: SearchResults,
   error?: Error,
   isAdvanceOpen: boolean;
+  priceOfSelected: number;
 }
