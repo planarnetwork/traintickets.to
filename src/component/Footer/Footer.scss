@@ -61,7 +61,8 @@
       top: -12px;
       right: -12px;
       border-radius: 50%;
-      background-color: $color-primary;
+      background: $color-primary url($cross-white) no-repeat center center;
+      background-size: 10px 10px;
       color: $color-white;
       font-size: 14px;
       line-height: 14px;

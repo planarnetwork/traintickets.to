@@ -28,7 +28,7 @@ export function Footer() {
           The total of your selected tickets for <span className="bold">ALL</span> passengers is shown below. 
         </p>
         <button type="button" className="footer-pop--close">
-          x<span className="sr-only">close</span>
+          <span className="sr-only">close</span>
         </button>
       </div>
     </footer>
