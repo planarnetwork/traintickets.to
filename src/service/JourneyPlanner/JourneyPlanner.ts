@@ -11,16 +11,20 @@ export class JourneyPlanner {
   ) {}
 
   public async search(params: SearchState): Promise<SearchResponse> {
+    let results;
+    let error;
+
     try {
       const response = await this.client.get<JourneyPlannerResponse>("/jp", { params });
       const handler = new ResponseHandler(response.data, params);
-      const results = handler.getFares();
 
-      return { results };
+      results = handler.getFares();
     }
-    catch (error) {
-      return { error };
+    catch (err) {
+      error = err;
     }
+
+    return { results, error };
   };
 
 }
