@@ -176,7 +176,8 @@ export class Search extends React.Component<SearchProps, SearchState> {
             </div>
           </div>
           <button className={btnClasses} type="button" onClick={this.toggle}>
-            <span className="sr-only">Show more search options</span>
+            <span className="sr-only">Show or hide more search options</span>
+            {this.state.advancedSearch ? "Less" : "More" }
           </button>
         </div>
       </form>
