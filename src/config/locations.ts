@@ -136,12 +136,6 @@ export const locations: Location[] = [
     "lon": -2.991573
   },
   {
-    "code": "3667",
-    "name": "Luton Airport",
-    "lat": 51.872404,
-    "lon": -0.390015
-  },
-  {
     "code": "0437",
     "name": "Maidstone",
     "lat": 51.270363,
@@ -9052,6 +9046,12 @@ export const locations: Location[] = [
     "code": "LUT",
     "lat": 51.88231,
     "lon": -0.41404
+  },
+  {
+    "code": "LUA",
+    "name": "Luton Airport",
+    "lat": 51.872404,
+    "lon": -0.390015
   },
   {
     "name": "Luxulyan",

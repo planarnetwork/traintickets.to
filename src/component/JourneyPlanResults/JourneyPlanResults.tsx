@@ -46,6 +46,10 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
   }
 
   public componentDidUpdate(prevProps: JourneyPlanResultsProps, prevState: JourneyPlanResultsState) {
+    if (this.props.response.outward.length === 0) {
+      return;
+    }
+
     if (this.props.response.cheapestOutward !== prevProps.response.cheapestOutward) {
       this.scroll("outward");
     }
