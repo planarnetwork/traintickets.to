@@ -61,7 +61,8 @@
 
   @media ($screen-smalltablet) {
     height: $fares-height-tab-sm;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   @media ($screen-tablet) {
@@ -86,13 +87,14 @@
     &-container {
       padding: 15px;
       background-color: $color-white;
-      transition: background-color 0.2s linear;
+      transition: background-color 0.2s linear, transform 0.2s linear;
     }
 
     &:hover {
       .fare-list--item-container {
         background: rgba($color-primary, 0.1) url($fare-hover) no-repeat right 15px top 50px;
         background-size: 25px 25px;
+        transform: scale(1.01, 1.01);
       }
     }
 
