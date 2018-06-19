@@ -107,7 +107,8 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
           name: this.props.name,
           onChange: this.onChange,
           onBlur: this.onBlur,
-          value: this.state.value
+          value: this.state.value,
+          id: this.props.name
         }}
       />
     );
@@ -119,6 +120,7 @@ interface StationInputProps {
   name: string;
   onChange: (state: { [name: string]: string }) => any;
   defaultValue: string;
+  id: string;
 }
 
 interface StationInputState {

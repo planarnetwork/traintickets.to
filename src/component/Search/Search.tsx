@@ -105,13 +105,13 @@ export class Search extends React.Component<SearchProps, SearchState> {
                   <div className="col-sm-12">
                     <div className="form-group">
                       <label className="form-label" htmlFor="origin">From</label>
-                      <StationInput name="origin" defaultValue={this.state.origin || "geo"} placeholder="Leaving from" onChange={this.set}/>
+                      <StationInput id="origin" name="origin" defaultValue={this.state.origin || "geo"} placeholder="Leaving from" onChange={this.set}/>
                     </div>
                   </div>
                   <div className="col-sm-12">
                     <div className="form-group">
                       <label className="form-label" htmlFor="destination">Going to</label>
-                      <StationInput name="destination" defaultValue={this.state.destination} placeholder="Going to" onChange={this.set}/>
+                      <StationInput id="destination" name="destination" defaultValue={this.state.destination} placeholder="Going to" onChange={this.set}/>
                     </div>
                   </div>
                 </div>
@@ -130,6 +130,8 @@ export class Search extends React.Component<SearchProps, SearchState> {
                         placeholderText="Outward date"
                         className="form--input"
                         locale="en-gb"
+                        id="outDate"
+                        name="outDate"
                       />
                     </div>
                   </div>
@@ -145,6 +147,8 @@ export class Search extends React.Component<SearchProps, SearchState> {
                         placeholderText="Return date"
                         className="form--input"
                         locale="en-gb"
+                        id="retDate"
+                        name="retDate"
                       />
                     </div>
                   </div>
@@ -154,10 +158,10 @@ export class Search extends React.Component<SearchProps, SearchState> {
               <div className="search--column col-12 col-md-6 col-lg-5">
                 <div className="row">
                   <div className="col-12">
-                    <NumberInput name="adults" label="Adults" min={0} max={9} defaultValue={this.state.adults} onChange={this.set}/>
+                    <NumberInput id="adults" name="adults" label="Adults" min={0} max={9} defaultValue={this.state.adults} onChange={this.set}/>
                   </div>
                   <div className="col-12">
-                    <NumberInput name="children" label="Children" min={0} max={9} defaultValue={this.state.children} onChange={this.set}/>
+                    <NumberInput id="children" name="children" label="Children" min={0} max={9} defaultValue={this.state.children} onChange={this.set}/>
                   </div>
                 </div>
               </div>
@@ -167,8 +171,10 @@ export class Search extends React.Component<SearchProps, SearchState> {
             <div className="container">
               <div className="row">
                 <div className="col-sm-12 col-md-8 col-lg-5">
-                  <legend className="form-label">Class</legend>
-                  <RadioGroup name="class" options={["standardClass", "firstClass"]} labels={["Standard", "First"]} onChange={this.set}/>
+                  <fieldset>
+                    <legend className="form-label">Class</legend>
+                    <RadioGroup name="class" options={["standardClass", "firstClass"]} labels={["Standard", "First"]} onChange={this.set}/>
+                  </fieldset>
                 </div>
                 { this.state.returnDate && (
                   <div className="col-sm-12 col-md-8 col-lg-5">
@@ -179,7 +185,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
                 )}
                 <div className="col-sm-24 col-md-8 col-lg-14">
                   <div className="form-group">
-                    <label className="form-label" htmlFor="child">Railcards</label>
+                    <label className="form-label" htmlFor="railcards">Railcards</label>
                     <RailcardSelect name="railcards" max={4} onChange={this.set}/>
                   </div>
                 </div>

@@ -48,6 +48,8 @@ export class NumberInput extends React.Component<NumberInputProps, NumberInputSt
             value={this.state.value}
             min={this.props.min}
             max={this.props.max}
+            id={this.props.id}
+            name={this.props.name}
           />
           <button onClick={this.increment} className="number-input--btn number-input--btn__more pull-left" type="button">
             <span className="sr-only">More passengers</span>
@@ -64,6 +66,7 @@ export interface NumberInputProps {
   defaultValue?: number;
   min: number;
   max: number;
+  id: string;
   onChange: (state: { [name: string]: number }) => void;
 }
 
