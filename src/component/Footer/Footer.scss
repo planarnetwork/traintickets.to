@@ -12,6 +12,7 @@
     background-color: $color-primary;
     box-shadow: 0 0 4px darken($color-primary, 10%);
     padding: 0 25px;
+    position: relative;
   }
 
   &--copyright {
