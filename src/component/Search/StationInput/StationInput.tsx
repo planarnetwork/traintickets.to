@@ -1,6 +1,6 @@
 import * as Autosuggest from "react-autosuggest";
 import * as React from "react";
-import {locations, Location, locationByCode} from "../../../config/locations";
+import {locations, Location, getLocation, locationByCode} from "../../../config/locations";
 import autobind from "autobind-decorator";
 import './StationInput.css';
 
@@ -26,7 +26,7 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
     }
     else {
       this.state.code = props.defaultValue;
-      this.state.value = locationByCode[props.defaultValue].name;
+      this.state.value = getLocation(props.defaultValue).name;
 
     }
   }

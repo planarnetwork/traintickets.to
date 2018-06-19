@@ -2,7 +2,7 @@ import autobind from "autobind-decorator";
 import {CallingPoint, FixedLeg, Journey, Leg, TimetableLeg} from "../../../service/JourneyPlanner/JourneyPlanner";
 import * as React from "react";
 import * as moment from "moment";
-import {locationByCode} from "../../../config/locations";
+import {getLocation} from "../../../config/locations";
 import "./Leg.css";
 import "./CallingPoint.css";
 import {operators} from "../../../config/operators";
@@ -48,7 +48,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
             <time className="leg-list--time">{moment.unix(leg.callingPoints[0].depart!).utc().format(moment.HTML5_FMT.TIME)}</time>
           </div>
           <div className="col-19">
-            <p className="leg-list--station">{locationByCode[leg.origin].name}</p>
+            <p className="leg-list--station">{getLocation(leg.origin).name}</p>
           </div>
         </div>
         <div className="row leg-list--line">
@@ -75,7 +75,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
             </time>
           </div>
           <div className="col-19">
-            <p className="leg-list--station">{locationByCode[leg.destination].name}</p>
+            <p className="leg-list--station">{getLocation(leg.destination).name}</p>
           </div>
         </div>
       </li>
@@ -93,7 +93,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
                   <time className="calling-list--time">{moment.unix(p.arrive).utc().format(moment.HTML5_FMT.TIME)}</time>
                 </div>
                 <div className="col-19">
-                  <p className="calling-list--station">{locationByCode[p.station].name}</p>
+                  <p className="calling-list--station">{getLocation(p.station).name}</p>
                 </div>
               </div>
             </li>
@@ -111,7 +111,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
         <div className="row leg-list--line">
           <div className="col-19 offset-5 col-sm-21 offset-sm-3 col-md-19 offset-md-5 col-lg-20 offset-lg-4 col-xl-21 offset-xl-3">
             <p className="leg-list--station">
-              <span className="capital">{leg.mode}</span> from {locationByCode[leg.origin].name} to {locationByCode[leg.destination].name}
+              <span className="capital">{leg.mode}</span> from {getLocation(leg.origin).name} to {getLocation(leg.destination).name}
             </p>
             <p className="leg-list--duration">{moment.unix(leg.duration).utc().format(durationFormat)}</p>
           </div>
