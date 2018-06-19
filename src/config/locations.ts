@@ -15749,6 +15749,18 @@ export const locations: Location[] = [
     "lat": 52.866,
     "lon": -2.19011595
   },
+  {
+    "code": "TBR",
+    "name": "Tilbury Riverside",
+    "lat": 51.46236000,
+    "lon": 0.35404000
+  },
+  {
+    "code": "GFY",
+    "name": "Gravesend Piers",
+    "lat": 51.44135000,
+    "lon": 0.36664000
+  }
 ];
 
 export const locationByCode: LocationIndex = locations.reduce((index: LocationIndex, location: Location) => {
@@ -15756,6 +15768,12 @@ export const locationByCode: LocationIndex = locations.reduce((index: LocationIn
 
   return index;
 }, {});
+
+export function getLocation(code: string) {
+  // if (!locationByCode[code]) { console.error(code); }
+
+  return locationByCode[code];
+}
 
 export interface LocationIndex {
   [code: string]: Location;

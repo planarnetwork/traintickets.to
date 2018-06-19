@@ -8,7 +8,7 @@ import autobind from "autobind-decorator";
 import "./JourneyPlanResults.css";
 import {JourneyDetails} from "./JourneyDetails/JourneyDetails";
 import {Price} from "./../Price/Price";
-import {locationByCode} from "../../config/locations";
+import {getLocation} from "../../config/locations";
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 
@@ -126,7 +126,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
 
     return (
       <div className="col-md-12">
-        <h3 className="fares--direction bold">{ `${title} - ${locationByCode[from].name} to ${locationByCode[to].name}` }</h3>
+        <h3 className="fares--direction bold">{ `${title} - ${getLocation(from).name} to ${getLocation(to).name}` }</h3>
         {/*<FareGraph journeys={journeys} fares={journeyPrice}/>*/}
         <ol className={this.props.lessHeight ? "fare-list fare-list__short clearfix fares-" + direction : "fare-list clearfix fares-" + direction}>
           { journeys.map(j => this.renderJourney(j, journeyPrice, direction)) }
@@ -140,7 +140,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
     const durationFormat = duration < 3600 ? "m[min. ]" : "H[hrs] m[min. ]";
     const changeDescription = journey.legs.length === 1
       ? "Direct"
-      : "Change at " + journey.legs.slice(0, -1).map(l => locationByCode[l.destination].name).join(", ");
+      : "Change at " + journey.legs.slice(0, -1).map(l => getLocation(l.destination).name).join(", ");
 
     return (
       <li onClick={this.onSelect(journey.id, direction)} key={journey.id} className={journey.id === this.state[direction].selected ? "fare-list--item is-selected" : "fare-list--item"}>
@@ -154,7 +154,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
                   </time>
                 </div>
                 <div className="col-19"> 
-                  <p className="fare-list--station">{locationByCode[journey.origin].name}</p>
+                  <p className="fare-list--station">{getLocation(journey.origin).name}</p>
                 </div>
               </div>
               <div className="row fare-list--line">
@@ -175,7 +175,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
                 </div>
                 <div className="col-19">
                   <p className="fare-list--station">
-                  {locationByCode[journey.destination].name}&nbsp;
+                  {getLocation(journey.destination).name}&nbsp;
                   </p>
                 </div>
               </div>
