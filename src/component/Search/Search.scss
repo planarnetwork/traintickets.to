@@ -2,11 +2,11 @@
 
 .search {
   background-color: $bg-grey;
-  padding: 15px 0 0 0;
+  padding: 15px 0 10px 0;
   position: relative;
 
   @media ($screen-laptop) {
-    padding: 0 0 5px 0;
+    padding: 0 0 15px 0;
   }
 
   &--column {

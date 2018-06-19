@@ -1,15 +1,18 @@
 @import "../../variables.scss";
 
 .footer {
-  background-color: $color-primary;
   color: $color-white;
-  padding: 0 25px;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 10;
-  box-shadow: 0px 0 4px darken($color-primary, 20%);
+
+  &-bg {
+    background-color: $color-primary;
+    box-shadow: 0 0 4px darken($color-primary, 10%);
+    padding: 0 25px;
+  }
 
   &--copyright {
     padding-top: 26px;

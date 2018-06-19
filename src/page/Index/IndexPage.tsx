@@ -7,6 +7,7 @@ import autobind from "autobind-decorator";
 import {debounce} from "typescript-debounce-decorator";
 import {config} from "../../config/config";
 import axios from 'axios';
+import {Footer} from "../../component/Footer/Footer";
 
 @autobind
 export class IndexPage extends React.Component<{}, IndexPageState> {
@@ -49,7 +50,7 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
 
   public render() {
     return (
-      <Layout footerPrice={this.state.priceOfSelected}>
+      <Layout>
         <Search onSubmit={this.onSearch} onOpen={this.onOpenAdvanceControls}/>
         { this.state.error && <div>Error</div> }
         { this.state.results && <JourneyPlanResults
@@ -58,6 +59,7 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
             {...this.state.results!}
           />
         }
+        <Footer price={this.state.priceOfSelected}/>
       </Layout>
     );
   }
