@@ -13,6 +13,13 @@
       background-color: darken($color-primary, 10%);
       color: $color-white;
       margin-bottom: 4px;
+      position: sticky;
+      top: 58px;
+      z-index: 5;
+
+      @media ($screen-smalltablet) {
+        position: static;
+      }
     }
 
     &--empty-title {
