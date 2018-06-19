@@ -30,8 +30,19 @@ const emptyState = {
 };
 
 export const defaultQueryState = localStorage.getItem("searchState")
-  ? Object.assign(emptyState, JSON.parse(localStorage.getItem("searchState")!))
+  ? loadStateFromStorage(JSON.parse(localStorage.getItem("searchState")!))
   : emptyState;
+
+function loadStateFromStorage(state: Partial<SearchState>): SearchState {
+  if (moment(state.outwardDate).isBefore(moment())) {
+    state.outwardDate = moment().format(moment.HTML5_FMT.DATE);
+  }
+  if (state.returnDate && moment(state.returnDate).isBefore(moment())) {
+    state.returnDate = moment().format(moment.HTML5_FMT.DATE);
+  }
+
+  return Object.assign(emptyState, state);
+}
 
 @autobind
 export class Search extends React.Component<SearchProps, SearchState> {
