@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="18px" viewBox="0 0 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>tick</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="tick" fill="#FFFFFF" fill-rule="nonzero" stroke="#FFFFFF" stroke-width="0.5">
+            <path d="M8.62391472,17.5155792 C8.39177229,17.5156156 8.16599126,17.4397077 7.98102017,17.2994372 L0.714737444,11.785691 C0.259869704,11.4266808 0.176061103,10.7696286 0.526245715,10.307932 C0.876430326,9.84623548 1.53174691,9.74979011 2.00010108,10.0910193 L8.36565066,14.9201743 L17.7614418,0.827976706 C18.0873646,0.338857483 18.7480868,0.206560672 19.237206,0.532483504 C19.7263252,0.858406336 19.8586221,1.51912847 19.5326993,2.00824771 L9.50890524,17.0420241 C9.31161323,17.3378852 8.97952396,17.5155849 8.62391472,17.5155792 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

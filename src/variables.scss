@@ -1,0 +1,58 @@
+$font:              Arial, "Helvetica Neue", Helvetica, "Nimbus Sans L", "Liberation Sans", FreeSans, sans-serif;
+$bg-body:           #f6f6f6;
+$bg-grey:           #ebebeb;
+
+$color-white:       #fff;
+$color-black:       #3e3e3e;
+// $color-primary:     #1561d4; old primary
+$color-primary:     #563d7c;
+$color-secondary:   #fa9116;
+$color-label:       #6a6a6a;
+
+$fares-height-tab-sm:       calc(100vh - 455px);
+$fares-height-tab-sm-short: calc(100vh - 585px);
+$fares-height-tab:          calc(100vh - 320px);
+$fares-height-tab-short:    calc(100vh - 400px);
+
+$arrow-down:        '/img/arrow-down.svg'; // arrow down
+$arrow-down-white:  '/img/arrow-down-white.svg'; // arrow down white
+$chevron-down:      '/img/chevron-down.svg'; // down chevron
+$chevron-left:      '/img/chevron-left.svg'; // left chevron
+$chevron-right:     '/img/chevron-right.svg'; // right chevron
+$cross:             '/img/cross.svg'; // clear, close
+$cross-white:       '/img/cross-white.svg'; // clear, close - white
+$fare-selected:     '/img/fare-selected.svg'; // fare selected
+$fare-hover:        '/img/fare-hover.svg'; // fare hover
+$less:              '/img/less.svg'; // less
+$mode-bus:          '/img/mode-bus.svg'; // mode bus
+$mode-ferry:        '/img/mode-ferry.svg'; // mode ferry
+$mode-train:        '/img/mode-train.svg'; // mode train
+$mode-tram:         '/img/mode-tram.svg'; // mode tram
+$mode-transfer:     '/img/mode-transfer.svg'; // mode transfer
+$mode-tube:         '/img/mode-tube.svg'; // mode tube
+$mode-walk:         '/img/mode-walk.svg'; // mode walk
+$mode-bus-white:    '/img/mode-bus-white.svg'; // mode bus white
+$mode-ferry-white:  '/img/mode-ferry-white.svg'; // mode ferry white
+$mode-train-white:  '/img/mode-train-white.svg'; // mode train white
+$mode-tram-white:   '/img/mode-tram-white.svg'; // mode tram white
+$mode-transfer-white:'/img/mode-transfer-white.svg'; // mode transfer white
+$mode-tube-white:   '/img/mode-tube-white.svg'; // mode tube white
+$mode-walk-white:   '/img/mode-walk-white.svg'; // mode walk white
+$more:              '/img/more.svg'; // more
+$tick:              '/img/tick.svg'; // tick
+$up:                '/img/up.svg'; // search results up
+
+// Media queries
+$min-phone: 480px;
+$min-smalltablet: 576px;
+$min-tablet: 768px;
+$min-laptop: 992px;
+$min-desktop: 1200px;
+$min-hd: 1400px;
+
+$screen-phone: unquote("min-width: #{$min-phone}");
+$screen-smalltablet: unquote("min-width: #{$min-smalltablet}");
+$screen-tablet: unquote("min-width: #{$min-tablet}");
+$screen-laptop: unquote("min-width: #{$min-laptop}");
+$screen-desktop: unquote("min-width: #{$min-desktop}");
+$screen-desktop-lg: unquote("min-width: #{$min-hd}");
