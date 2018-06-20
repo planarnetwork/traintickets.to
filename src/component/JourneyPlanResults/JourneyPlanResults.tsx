@@ -15,6 +15,8 @@ import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 @autobind
 export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps, JourneyPlanResultsState> {
 
+  private previousPrice = 0;
+
   public state = {
     outward: {
       selected: "",
@@ -58,12 +60,14 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
       this.scroll("inward");
     }
 
-    if (this.state.outward.selected !== prevState.outward.selected || this.state.inward.selected !== prevState.inward.selected) {
-      const outwardFares = this.props.response.fares[this.state.outward.selected] as any;
-      const outwardPrice = outwardFares.price;
-      const inwardPrice = this.props.response.inward.length === 0 ? 0 : outwardFares.with[this.state.inward.selected].price;
+    const outwardFares = this.props.response.fares[this.state.outward.selected] as any;
+    const outwardPrice = outwardFares.price;
+    const inwardPrice = this.props.response.inward.length === 0 ? 0 : outwardFares.with[this.state.inward.selected].price;
+    const totalPrice = outwardPrice + inwardPrice;
 
-      this.props.onPriceChange(outwardPrice + inwardPrice);
+    if (this.previousPrice !== totalPrice) {
+      this.previousPrice = totalPrice;
+      this.props.onPriceChange(totalPrice);
     }
   }
 
