@@ -145,6 +145,9 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
     const changeDescription = journey.legs.length === 1
       ? "Direct"
       : "Change at " + journey.legs.slice(0, -1).map(l => getLocation(l.destination).name).join(", ");
+    const changeText = journey.legs.length === 1
+      ? "Direct"
+      : (journey.legs.length - 1) + " changes";
 
     return (
       <li onClick={this.onSelect(journey.id, direction)} key={journey.id} className={journey.id === this.state[direction].selected ? "fare-list--item is-selected" : "fare-list--item"}>
@@ -165,7 +168,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
                 <div className="offset-5 col-19">
                   <button title={changeDescription} type="button" className={journey.id === this.state[direction].open ? "fare-list--btn-legs is-active" : "fare-list--btn-legs"} onClick={this.onOpen(journey.id, direction)}>
                     {moment.unix(duration).utc().format(durationFormat)}
-                    {changeDescription}
+                    {changeText}
                     <span className="sr-only">show more journey information</span>
                   </button>
                   {journey.id === this.state[direction].open && <JourneyDetails journey={journey} />}
