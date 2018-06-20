@@ -129,7 +129,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
       : ["Coming back", this.props.query.destination, this.props.query.origin];
 
     return (
-      <div className="col-md-12">
+      <div id={direction} className="col-md-12">
         <h2 className="fares--direction bold">{ `${title} - ${getLocation(from).name} to ${getLocation(to).name}` }</h2>
         {/*<FareGraph journeys={journeys} fares={journeyPrice}/>*/}
         <ol className={this.props.lessHeight ? "fare-list fare-list__short clearfix fares-" + direction : "fare-list clearfix fares-" + direction}>
