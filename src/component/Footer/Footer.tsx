@@ -43,7 +43,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     return (
       <div className="footer-pop">
         <p className="footer-pop--header">
-          Ticket selection amended
+          Total ticket price
         </p>
         <p className="footer-pop--message">
           The total of your selected tickets for <span className="bold">ALL</span> passengers is shown below.
