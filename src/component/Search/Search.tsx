@@ -176,13 +176,12 @@ export class Search extends React.Component<SearchProps, SearchState> {
                     <RadioGroup name="class" options={["standardClass", "firstClass"]} labels={["Standard", "First"]} onChange={this.set}/>
                   </fieldset>
                 </div>
-                { this.state.returnDate && (
-                  <div className="col-sm-12 col-md-8 col-lg-5">
-                    <legend className="form-label">Ticket type</legend>
-                    <Checkbox label="Singles" name="singles" checked={this.state.singles} onChange={this.set}/>
-                    <Checkbox label="Returns" name="returns" checked={this.state.returns} onChange={this.set}/>
-                  </div>
-                )}
+                <div className="col-sm-12 col-md-8 col-lg-5">
+                  <legend className="form-label">Ticket type</legend>
+                  <Checkbox label="Singles" name="singles" checked={this.state.singles} onChange={this.set}/>
+                  <Checkbox label="Returns" name="returns" checked={this.state.returns} onChange={this.set}/>
+                  <Checkbox label="Advance" name="advance" checked={this.state.advance} onChange={this.set}/>
+                </div>
                 <div className="col-sm-24 col-md-8 col-lg-14">
                   <div className="form-group">
                     <label className="form-label" htmlFor="railcards">Railcards</label>
