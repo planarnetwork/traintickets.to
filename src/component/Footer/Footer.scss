@@ -11,14 +11,22 @@
   &-bg {
     background-color: $color-primary;
     box-shadow: 0 0 4px darken($color-primary, 10%);
-    padding: 0 25px;
+    padding: 0 10px;
     position: relative;
+
+    @media ($screen-smalltablet) {
+      padding: 0 25px;
+    }
   }
 
   &--copyright {
-    padding-top: 26px;
+    padding-top: 32px;
     font-size: 14px;
     color: rgba($color-white, 0.6);
+
+    @media ($screen-smalltablet) {
+      padding-top: 26px;
+    }
   }
 
   &--total {
@@ -37,24 +45,40 @@
 
   &-pop {
     position: absolute;
-    right: 25px;
+    right: 15px;
     bottom: 70px;
-    background-color: $color-white;
+    background-color: darken($color-white, 3%);
     border: solid 3px $color-secondary;
-    width: 280px;
+    width: 240px;
+
+    @media ($screen-smalltablet) {
+      width: 280px;
+      right: 25px;
+    }
 
     &--header {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
-      padding: 15px 15px 10px 15px;
+      padding: 10px 10px 5px 10px;
       color: $color-primary;
+
+      @media ($screen-smalltablet) {
+        font-size: 18px;
+        padding: 15px 15px 10px 15px;
+      }
     }
 
     &--message {
-      font-size: 14px;
-      line-height: 20px;
+      font-size: 13px;
+      line-height: 18px;
       color: $color-black;
-      padding: 0 15px 15px 15px; 
+      padding: 0 10px 10px 10px;
+
+      @media ($screen-smalltablet) {
+        font-size: 14px;
+        line-height: 20px;
+        padding: 15px 15px 10px 15px;
+      }
     }
 
     &--close {
@@ -91,8 +115,8 @@
       content: "";
       display: inline-block;
       position: absolute;
-      border: 6px solid $color-white;
-      border-color: $color-white transparent transparent transparent;
+      border: 6px solid darken($color-white, 3%);
+      border-color: darken($color-white, 3%) transparent transparent transparent;
       bottom: -12px;
       right: 33px;
       z-index: 1;

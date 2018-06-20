@@ -3,15 +3,15 @@
 .header {
   background-color: $color-primary;
   color: $color-white;
-  padding: 16px 25px;
+  padding: 16px 10px;
   font-size: 26px;
-  text-align: center;
   position: sticky;
   top: 0;
   z-index: 10;
 
   @media ($screen-smalltablet) {
     position: static;
+    padding: 16px 25px;
   }
 
   &--logo {
