@@ -35,16 +35,16 @@ export class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState
 
   public render() {
     return (
-      <fieldset>
+      <div>
         { this.props.options.map(this.renderRadio) }
-      </fieldset>
+      </div>
     );
   }
 
   public renderRadio(value: string, index: number) {
     return (
-      <label className="radio" key={value}>
-        <input type="radio" onChange={this.onChange} className="sr-only" name={this.props.name} value={value} checked={this.state.selected[value]}/>
+      <label htmlFor={this.props.name + index} className="radio" key={value}>
+        <input type="radio" onChange={this.onChange} className="sr-only" id={this.props.name + index} name={this.props.name} value={value} checked={this.state.selected[value]}/>
         <span>{ this.props.labels[index] }</span>
       </label>
     )

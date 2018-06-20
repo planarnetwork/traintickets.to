@@ -39,7 +39,7 @@ export class RailcardSelect extends React.Component<RailcardSelectProps, Railcar
       <div className="row">
         <div className="col-sm-12 col-md-24 col-lg-10">
           <div className="form--select-wrap">
-            <select className="form--select" disabled={this.state.disabled} name={this.props.name} onChange={this.onSelectChange}>
+            <select className="form--select" disabled={this.state.disabled} id={this.props.name} name={this.props.name} onChange={this.onSelectChange}>
               <option value="">{this.state.disabled ? "Max cards reached" : "Select Railcard"}</option>
               { railcards.map((railcard, i) => (
                 <option key={i} value={railcard.value}>{railcard.label}</option>
