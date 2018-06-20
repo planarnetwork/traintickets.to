@@ -9,16 +9,29 @@
     }
 
     &--direction {
-      padding: 15px;
+      padding: 15px 15px 15px 45px;
       background-color: darken($color-primary, 10%);
+      background-repeat: no-repeat;
+      background-position: left 15px center;
+      background-size: 23px 12px;
       color: $color-white;
       margin-bottom: 4px;
       position: sticky;
       top: 58px;
       z-index: 5;
 
+      &__outward {
+        background-image: url($nav-out);
+      }
+
+      &__inward {
+        background-image: url($nav-in);
+      }
+
       @media ($screen-smalltablet) {
         position: static;
+        background-image: none;
+        padding: 15px;
       }
     }
 

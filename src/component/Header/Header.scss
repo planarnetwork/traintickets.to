@@ -3,13 +3,13 @@
 .header {
   background-color: $color-primary;
   color: $color-white;
-  padding: 16px 10px;
+  padding: 13px 10px;
   font-size: 26px;
   position: sticky;
   top: 0;
   z-index: 10;
 
-  @media ($screen-smalltablet) {
+  @media ($screen-tablet) {
     position: static;
     padding: 16px 25px;
   }
@@ -17,21 +17,11 @@
   &--logo {
     font-size: 26px;
     font-weight: 600;
+    float: left;
+    margin-top: 3px;
 
-    @media ($screen-smalltablet) {
-        float: left;
-    }
-  }
-
-  &--strapline {
-    font-size: 20px;
-    margin-top: 10px;
-    font-weight: 500;
-
-    @media ($screen-smalltablet) {
-        float: right;
-        font-size: 26px;
-        margin-top: 0;
+    @media ($screen-tablet) {
+      margin-top: 0;
     }
   }
 }

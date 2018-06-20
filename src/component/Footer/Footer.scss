@@ -14,7 +14,7 @@
     padding: 0 10px;
     position: relative;
 
-    @media ($screen-smalltablet) {
+    @media ($screen-tablet) {
       padding: 0 25px;
     }
   }
@@ -24,7 +24,7 @@
     font-size: 14px;
     color: rgba($color-white, 0.6);
 
-    @media ($screen-smalltablet) {
+    @media ($screen-tablet) {
       padding-top: 26px;
     }
   }
@@ -77,7 +77,7 @@
       @media ($screen-smalltablet) {
         font-size: 14px;
         line-height: 20px;
-        padding: 15px 15px 10px 15px;
+        padding: 0 15px 15px 15px;
       }
     }
 

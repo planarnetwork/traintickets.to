@@ -3,7 +3,7 @@ import {Header} from "../../component/Header/Header";
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <div className="App max">
+    <div id="top" className="App max">
       <Header/>
       { ...children }
     </div>
