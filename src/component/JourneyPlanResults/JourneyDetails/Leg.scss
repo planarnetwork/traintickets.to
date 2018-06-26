@@ -154,13 +154,13 @@
       border-bottom: 0;
     }
 
-    &__bus {
+    &__bus, &__replacementbus {
       background-image: url($mode-bus);
       background-position: left 0 top 22px;
       background-size: 24px 22px;
 
       @media ($screen-desktop) {
-        background-position: left 10px top 22px;
+        background-position: left 6px top 22px;
       }
     }
 
@@ -170,17 +170,7 @@
       background-size: 24px 22px;
 
       @media ($screen-desktop) {
-        background-position: left 10px top 22px;
-      }
-    }
-
-    &__replacementbus {
-      background-image: url($mode-bus);
-      background-position: left 0 top 7px;
-      background-size: 20px 20px;
-
-      @media ($screen-desktop) {
-        background-position: left 12px top 7px;
+        background-position: left 6px top 22px;
       }
     }
 
@@ -190,7 +180,7 @@
       background-size: 24px 16px;
 
       @media ($screen-desktop) {
-        background-position: left 9px top 25px;
+        background-position: left 6px top 25px;
       }
     }
 
@@ -200,7 +190,7 @@
       background-size: 16px 26px;
 
       @media ($screen-desktop) {
-        background-position: left 14px top 20px;
+        background-position: left 10px top 20px;
       }
     }
 
@@ -229,11 +219,11 @@
     // fixed
     &__walk {
       background-image: url($mode-walk);
-      background-position: left 0 top 2px;
+      background-position: left 0 top 1px;
       background-size: 20px 32px;
 
       @media ($screen-desktop) {
-        background-position: left 6px top 2px;
+        background-position: left 8px top 1px;
       }
     }
   }
