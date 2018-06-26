@@ -143,6 +143,7 @@ export interface TimetableLeg {
   mode: string;
   operator: string;
   service: string;
+  serviceDestination: string;
   callingPoints: CallingPoint[];
 }
 

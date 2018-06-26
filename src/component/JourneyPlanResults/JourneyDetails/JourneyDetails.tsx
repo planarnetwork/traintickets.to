@@ -42,7 +42,6 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
   private renderTimetableLeg(leg: TimetableLeg, index: number) {
     return (
       <li key={index} className={'leg-mode leg-mode__' + leg.mode}>
-        {/*<span>{leg.mode}</span>*/}
         <div className="row">
           <div className="col-5">
             <time className="leg-list--time">{moment.unix(leg.callingPoints[0].depart!).utc().format(moment.HTML5_FMT.TIME)}</time>
@@ -57,11 +56,11 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
               {leg.callingPoints.length > 2 ? (
                 <button title={leg.service} className={this.state.selected === index ? "leg-list--btn-calling is-active" : "leg-list--btn-calling"} onClick={this.onSelect} data-index={index}>
                   <span className="sr-only">show calling points</span>
-                  {operators[leg.operator]} service
+                  {operators[leg.operator]} service to {leg.serviceDestination}
                 </button>
                 )
               : (
-                <span title={leg.service}>{operators[leg.operator]} service</span>
+                <span title={leg.service}>{operators[leg.operator]} service to {leg.serviceDestination}</span>
                 )
               }
             </p>

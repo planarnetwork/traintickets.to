@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="128" height="128" rx="16"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-2">
+            <g id="Group">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Rectangle" fill="#563D7C" xlink:href="#path-1"></use>
+                <path d="M0,60 L128,60 L128,122 C128,125.313708 125.313708,128 122,128 L6,128 C2.6862915,128 4.05812251e-16,125.313708 0,122 L0,60 Z" id="Rectangle-2" fill-opacity="0.210000008" fill="#FFFFFF" mask="url(#mask-2)"></path>
+                <circle id="Oval" fill="#FA9116" mask="url(#mask-2)" cx="30" cy="102" r="10"></circle>
+                <circle id="Oval" fill="#FA9116" mask="url(#mask-2)" cx="98" cy="102" r="10"></circle>
+                <rect id="Rectangle-4" fill="#303030" mask="url(#mask-2)" transform="translate(26.500000, 84.000000) rotate(-10.000000) translate(-26.500000, -84.000000) " x="11" y="81" width="31" height="6"></rect>
+                <rect id="Rectangle-4" fill="#303030" mask="url(#mask-2)" transform="translate(101.500000, 84.000000) rotate(10.000000) translate(-101.500000, -84.000000) " x="86" y="81" width="31" height="6"></rect>
+                <path d="M42,117.011742 C49.4848151,112.725024 56.7328295,110.888308 63.7920179,111.005235 C71.0432526,111.125344 78.0952474,113.30684 85,117.011742 L85,128 L42,128 L42,117.011742 Z" id="Rectangle-5" fill="#303030" mask="url(#mask-2)"></path>
+            </g>
+            <rect id="Rectangle-3" stroke="#303030" stroke-width="3" fill="#C3C3C3" x="18.5" y="18.5" width="91" height="53" rx="1"></rect>
+            <path d="M108,20.9472726 L108,69 C108,69.5522847 107.552285,70 107,70 L20.9835377,70 C20.4312529,70 19.9835377,69.5522847 19.9835377,69 C19.9835377,68.6376771 20.1795233,68.3036964 20.4958346,68.1269904 L106.512297,20.074263 C106.994447,19.804912 107.603659,19.9774196 107.87301,20.4595695 C107.956282,20.6086299 108,20.7765294 108,20.9472726 Z" id="Rectangle-3" fill="#B3B3B3"></path>
+        </g>
+    </g>
+</svg>
