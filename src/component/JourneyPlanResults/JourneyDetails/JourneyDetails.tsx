@@ -47,7 +47,10 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
             <time className="leg-list--time">{moment.unix(leg.callingPoints[0].depart!).utc().format(moment.HTML5_FMT.TIME)}</time>
           </div>
           <div className="col-19">
-            <p className="leg-list--station">{getLocation(leg.origin).name}</p>
+            <p className="leg-list--station">
+              {getLocation(leg.origin).name}
+              <span className="leg-list--plat"> Plat {leg.callingPoints[0].platform}</span>
+            </p>
           </div>
         </div>
         <div className="row leg-list--line">
@@ -74,7 +77,10 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
             </time>
           </div>
           <div className="col-19">
-            <p className="leg-list--station">{getLocation(leg.destination).name}</p>
+            <p className="leg-list--station">
+              {getLocation(leg.destination).name}
+              <span className="leg-list--plat"> Plat {leg.callingPoints[leg.callingPoints.length - 1].platform}</span>
+            </p>
           </div>
         </div>
       </li>
@@ -92,7 +98,9 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
                   <time className="calling-list--time">{moment.unix(p.arrive).utc().format(moment.HTML5_FMT.TIME)}</time>
                 </div>
                 <div className="col-19">
-                  <p className="calling-list--station">{getLocation(p.station).name}</p>
+                  <p className="calling-list--station">{getLocation(p.station).name}
+                    {p.platform && <span className="calling-list--plat"> Plat {p.platform}</span>}
+                  </p>
                 </div>
               </div>
             </li>

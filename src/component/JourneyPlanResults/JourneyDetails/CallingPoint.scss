@@ -96,5 +96,13 @@
       color: darken($color-primary, 10%);
       margin-top: 3px;
     }
+
+    &--plat {
+      font-size: 11px;
+      line-height: 11px;
+      opacity: 0.7;
+      display: inline-block;
+      margin-left: 6px;
+    }
   }
 }

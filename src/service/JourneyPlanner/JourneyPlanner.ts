@@ -159,6 +159,7 @@ export interface CallingPoint {
   station: string;
   arrive: number | null;
   depart: number | null;
+  platform: string;
 }
 
 export interface SingleJourneyFares {
