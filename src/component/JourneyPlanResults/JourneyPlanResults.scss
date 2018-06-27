@@ -28,6 +28,10 @@
         background-image: url($nav-in);
       }
 
+      &__none {
+        padding-left: 15px;
+      }
+
       @media ($screen-smalltablet) {
         position: static;
         background-image: none;

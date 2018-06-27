@@ -106,8 +106,8 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
 
   public renderEmptyReturn() {
     return (
-      <div className="col-md-12">
-        <h2 className="fares--direction bold">No return selected</h2>
+      <div id="inward" className="col-md-12">
+        <h2 className="fares--direction fares--direction__none bold">No return selected</h2>
         <div className={this.props.lessHeight ? "fares--empty-return fares--empty-return__short center" : "fares--empty-return center"}>
           <p className="fares--empty-title">No return journey selected</p>
         </div>

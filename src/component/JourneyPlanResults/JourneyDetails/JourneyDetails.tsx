@@ -98,9 +98,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
                   <time className="calling-list--time">{moment.unix(p.arrive).utc().format(moment.HTML5_FMT.TIME)}</time>
                 </div>
                 <div className="col-19">
-                  <p className="calling-list--station">{getLocation(p.station).name}
-                    {p.platform && <span className="calling-list--plat"> Plat {p.platform}</span>}
-                  </p>
+                  <p className="calling-list--station">{getLocation(p.station).name}</p>
                 </div>
               </div>
             </li>
