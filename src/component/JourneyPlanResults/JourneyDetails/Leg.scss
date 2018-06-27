@@ -61,6 +61,10 @@
       color: darken($color-primary, 10%);
     }
 
+    &--destination {
+      font-style: italic;
+    }
+
     &--duration {
       margin: 7px 0;
       font-size: 12px;
