@@ -3,6 +3,8 @@ import {Price} from "./../Price/Price";
 import './Footer.css';
 import './Modal.css';
 import autobind from "autobind-decorator";
+import {FareUse} from "../../service/JourneyPlanner/JourneyPlanner";
+import {railcards} from "../../config/railcards";
 
 @autobind
 export class Footer extends React.Component<FooterProps, FooterState> {
@@ -32,7 +34,14 @@ export class Footer extends React.Component<FooterProps, FooterState> {
   }
 
   public render() {
-    const price = this.props.selectedFareOptions.reduce((total, id) => total + this.props.links[id].totalPrice, 0);
+    let price = 0;
+    try {
+      price = this.props.selectedFareOptions.reduce((total, id) => total + this.props.links[id].totalPrice, 0);
+    }
+    catch (err) {
+      console.log("missing " + this.props.selectedFareOptions.join());
+    }
+
     return (
       <footer className="footer">
         <div className="footer-bg max">
@@ -100,18 +109,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
           <h4 id="modal_title" className="modal--title">Your ticket details</h4>
         </div>
         <div className="modal--body">
-          <p>This is some text for the body</p>
-          <p>This is some text for the body</p>
-          <p>This is some text for the body</p>
-          <p>This is some text for the body</p>
-          <p>This is some text for the body</p>
-          <p>This is some text for the body</p>
-          <p>This is some text for the body</p>
-          <p>This is some text for the body</p>
-          <p>This is some text for the body</p>
-          <p>This is some text for the body</p>
-          <p>This is some text for the body</p>
-          <p>This is some text for the body</p>
+          { this.props.selectedFareOptions.map(this.renderFareOption) }
         </div>
         <div className="modal--footer">
           <button
@@ -123,6 +121,39 @@ export class Footer extends React.Component<FooterProps, FooterState> {
           </button>
         </div>
       </div>
+    )
+  }
+
+  private renderFareOption(id: string) {
+    const fareOption = this.props.links[id];
+    const fare = this.props.links[fareOption.fares[0].fare];
+    const route = this.props.links[fare.route];
+    const ticketType = this.props.links[fare.ticketType];
+
+    return (
+      <React.Fragment key={id}>
+        <h2>Tickets</h2>
+        { fareOption.fares.map(this.renderTicketPrice) }
+        <p>Total: £{(fareOption.totalPrice / 100).toFixed(2)}</p>
+        <h2>Ticket Information</h2>
+        <p>Origin: {fare.origin}</p>
+        <p>Destination: {fare.destination}</p>
+        <p>Route: {route.name} ({route.code})</p>
+        <p>Ticket type: {ticketType.name} ({ticketType.code})</p>
+        <p>Valid for outward for 1 day, return within 1 month (TODO)</p>
+        <p>{fare.restriction ? (<a target="_blank" href={"http://www.nationalrail.co.uk/" + fare.restriction}>Restrictions apply</a>) : ""}</p>
+      </React.Fragment>
+    )
+  }
+
+  private renderTicketPrice(fareUse: FareUse) {
+    const fare = this.props.links[fareUse.fare];
+    const adults = fareUse.adults === 1 ? `${fareUse.adults} x adult` : fareUse.adults > 1 ? `${fareUse.adults} x adults` : "";
+    const children = fareUse.children === 1 ? `${fareUse.children} x child` : fareUse.children > 1 ? `${fareUse.children} x children` : "";
+    const railcard = fare.railcard ? ` (${railcards[fare.railcard]})` : "";
+    const comma = adults && children ? "," : "";
+    return (
+      <p>{adults}{comma}{children} {railcard} @ £{(fare.price / 100).toFixed(2)}</p>
     )
   }
 }
