@@ -63,7 +63,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
                 </button>
                 )
               : (
-                <span title={leg.service.id}>{operators[leg.operator]} service to <span className="leg-list--destination">{getLocation(leg.service.destination).name}</span></span>
+                <span title={leg.service.id}>{operators[leg.service.operator]} service to <span className="leg-list--destination">{getLocation(leg.service.destination).name}</span></span>
                 )
               }
             </p>
