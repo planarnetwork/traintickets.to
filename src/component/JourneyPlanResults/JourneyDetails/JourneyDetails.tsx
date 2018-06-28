@@ -57,13 +57,13 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
           <div className="offset-5 col-19">
             <p className="leg-list--duration">
               {leg.callingPoints.length > 2 ? (
-                <button title={leg.service} className={this.state.selected === index ? "leg-list--btn-calling is-active" : "leg-list--btn-calling"} onClick={this.onSelect} data-index={index}>
+                <button title={leg.service.id} className={this.state.selected === index ? "leg-list--btn-calling is-active" : "leg-list--btn-calling"} onClick={this.onSelect} data-index={index}>
                   <span className="sr-only">show calling points</span>
-                  {operators[leg.operator]} service to <span className="leg-list--destination">{getLocation(leg.serviceDestination).name}</span>
+                  {operators[leg.service.operator]} service to <span className="leg-list--destination">{getLocation(leg.service.destination).name}</span>
                 </button>
                 )
               : (
-                <span title={leg.service}>{operators[leg.operator]} service to <span className="leg-list--destination">{getLocation(leg.serviceDestination).name}</span></span>
+                <span title={leg.service.id}>{operators[leg.operator]} service to <span className="leg-list--destination">{getLocation(leg.service.destination).name}</span></span>
                 )
               }
             </p>
