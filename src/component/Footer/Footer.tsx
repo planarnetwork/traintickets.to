@@ -32,6 +32,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
   }
 
   public render() {
+    const price = this.props.selectedFareOptions.reduce((total, id) => total + this.props.links[id].totalPrice, 0);
     return (
       <footer className="footer">
         <div className="footer-bg max">
@@ -48,7 +49,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
                 </button>
                 <div className="footer--price-container">
                   <span className="footer--price">
-                    Total <Price value={this.props.price}/>
+                    Total <Price value={price}/>
                   </span>
                   <p className="footer--pax">all passengers</p>
                 </div>
@@ -127,7 +128,8 @@ export class Footer extends React.Component<FooterProps, FooterState> {
 }
 
 export interface FooterProps {
-  price: number;
+ selectedFareOptions: string[];
+ links: any;
 }
 
 interface FooterState {

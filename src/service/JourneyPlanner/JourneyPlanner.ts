@@ -37,20 +37,20 @@ class ResponseHandler {
   ) { }
 
   public getFares(): SearchResults {
-    const fares: FaresIndex = {};
+    const prices: FaresIndex = {};
     let cheapestOutwardJourneyPrice = Number.MAX_SAFE_INTEGER;
     let cheapestOutward = "";
     let cheapestInward = "";
 
     for (const journeyId of Object.keys(this.data.response.fares)) {
-      fares[journeyId] = isArray(this.data.response.fares[journeyId])
+      prices[journeyId] = isArray(this.data.response.fares[journeyId])
         ? this.getJourneyFaresForSingle(this.data.response.fares[journeyId] as string[])
         : this.getJourneyFares(this.data.response.fares[journeyId] as JourneyFareMap);
 
-      if (fares[journeyId].price < cheapestOutwardJourneyPrice) {
-        cheapestOutwardJourneyPrice = fares[journeyId].price;
+      if (prices[journeyId].price < cheapestOutwardJourneyPrice) {
+        cheapestOutwardJourneyPrice = prices[journeyId].price;
         cheapestOutward = journeyId;
-        cheapestInward = (fares[journeyId] as ReturnJourneyFares).cheapestInward || "";
+        cheapestInward = (prices[journeyId] as ReturnJourneyFares).cheapestInward || "";
       }
     }
 
@@ -60,7 +60,8 @@ class ResponseHandler {
       response: {
         outward: this.data.response.outward,
         inward: this.data.response.inward,
-        fares,
+        fares: this.data.response.fares,
+        prices,
         cheapestOutward,
         cheapestInward
       }
@@ -99,7 +100,7 @@ class ResponseHandler {
     return result;
   }
 
-  private getFareOptions(fareOptionId: string) {
+  private getFareOptions(fareOptionId: string): FareOption {
     return this.data.links[fareOptionId];
   }
 }
@@ -115,11 +116,11 @@ interface JourneyPlannerResponse {
   }
 }
 
-interface JourneyFareMap {
+export interface JourneyFareMap {
   [journeyId: string]: string[]; // fare option IDs
 }
 
-interface ReturnJourneyFareMap {
+export interface ReturnJourneyFareMap {
   [outwardJourneyId: string]: {
     [inwardJourneyId: string]: string[]; // fare option IDs
   }
@@ -190,7 +191,8 @@ export interface SearchResults {
   response: {
     outward: Journey[];
     inward: Journey[];
-    fares: FaresIndex;
+    fares: JourneyFareMap | ReturnJourneyFareMap;
+    prices: FaresIndex;
     cheapestOutward: string;
     cheapestInward: string;
   },
@@ -200,4 +202,25 @@ export interface SearchResults {
 export interface SearchResponse {
   error?: Error;
   results?: SearchResults;
+}
+
+export interface FareOption {
+  totalPrice: number;
+  fares: FareUse[];
+}
+
+export interface FareUse {
+  adults: number;
+  children: number;
+  fare: string;
+}
+
+export interface Fare {
+  origin: string;
+  destination: string;
+  route: string;
+  price: number;
+  railcard: string;
+  restriction: string | null;
+  ticketType: string;
 }

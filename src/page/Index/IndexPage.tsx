@@ -24,13 +24,14 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
         outward: [],
         inward: [],
         fares: {},
+        prices: {},
         cheapestOutward: "",
         cheapestInward: ""
       }
     },
     error: undefined,
     isAdvanceOpen: defaultQueryState.advancedSearch,
-    priceOfSelected: 0
+    selectedFareOptions: []
   };
 
   @debounce(200, { leading: false })
@@ -44,8 +45,8 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
     this.setState({ isAdvanceOpen });
   }
 
-  public onPriceChange(priceOfSelected: number) {
-    this.setState({ priceOfSelected });
+  public onPriceChange(selectedFareOptions: string[]) {
+    this.setState({ selectedFareOptions });
   }
 
   public render() {
@@ -65,7 +66,7 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
             {...this.state.results!}
           />
         }
-        <Footer price={this.state.priceOfSelected}/>
+        <Footer selectedFareOptions={this.state.selectedFareOptions} links={this.state.results.links}/>
       </Layout>
     );
   }
@@ -75,5 +76,5 @@ interface IndexPageState {
   results?: SearchResults,
   error?: Error,
   isAdvanceOpen: boolean;
-  priceOfSelected: number;
+  selectedFareOptions: string[];
 }
