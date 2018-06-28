@@ -33,19 +33,20 @@
       border: none;
       text-align: left;
       padding: 0 28px 0 13px;
-      border-radius: 10px;
       height: 24px;
       background: $color-secondary url($more) no-repeat right 7px center;
+      background-size: 14px 14px;
       position: absolute;
       left: 50%;
       bottom: -12px;
       margin-left: -45px;
-      font-size: 16px;
+      font-size: 13px;
       font-weight: bold;
       text-transform: uppercase;
       color: $color-white;
       transition: all 0.3s linear;
-      border: solid 2px transparent;
+      border: solid 2px $color-secondary;
+      border-bottom: solid 2px darken($color-secondary, 10%);
 
       &.is-active {
         background: $color-secondary url($less) no-repeat right 7px center;

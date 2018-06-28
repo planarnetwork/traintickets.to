@@ -1,0 +1,121 @@
+@import "../../variables.scss";
+
+.modal {
+  &--bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($color-black, 0.9);
+    transition: opacity 0.3s linear;
+    opacity: 0;
+    z-index: 15;
+    display: block;
+    -webkit-overflow-scrolling: touch;
+    pointer-events: none;
+
+    &.is-active {
+        opacity: 1;
+        transition: opacity 0.3s linear;
+        pointer-events: auto;
+    }
+  }
+
+  &--content {
+    background-color: $color-white;
+
+    &:focus {
+        outline: none;
+    }
+
+    @media ($screen-smalltablet) {
+        max-width: 600px;
+        margin: 120px auto 30px auto;
+        position: static;
+        background-color: transparent;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    @media ($screen-tablet) {
+        max-width: 666px;
+    }
+
+    @media ($screen-laptop) {
+        max-width: 788px;
+    }
+
+    @media ($screen-smalltablet) and ( max-height: 860px ) {
+        margin-top: 60px;
+    }
+
+    @media ($screen-smalltablet) and ( max-height: 700px ) {
+        margin-top: 30px;
+    }
+  }
+
+  &--title {
+    background-color: $color-primary;
+    color: $color-white;
+    font-size: 19px;
+    line-height: 19px;
+    margin: 0;
+    padding: 18px;
+  }
+
+  &--header {
+    position: relative;
+  }
+
+  &--body {
+    position: fixed;
+    top: 49px;
+    bottom: 58px;
+    overflow-y: auto;
+    width: 100%;
+    padding: 25px;
+    background-color: $color-white;
+    color: $color-primary;
+
+    @media ($screen-smalltablet) {
+      position: static;
+      max-height: 600px;
+    }
+
+    @media ($screen-smalltablet) and ( max-height: 860px ) {
+      overflow: hidden;
+      overflow-y: auto;
+      max-height: 500px;
+    }
+
+    @media ($screen-smalltablet) and ( max-height: 700px ) {
+      max-height: 460px;
+    }
+
+    @media ($screen-smalltablet) and ( max-height: 640px ) {
+      max-height: 300px;
+    }
+  }
+
+  &--footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+    background-color: $color-primary;
+
+    @media ($screen-smalltablet) {
+      position: relative;
+    }
+  }
+
+  &--btn__close {
+    position: absolute;
+    right: 15px;
+    top: 12px;
+  }
+}
