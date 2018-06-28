@@ -6,7 +6,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 20;
 
   &-bg {
     background-color: $color-primary;
@@ -41,6 +41,18 @@
   &--pax {
     font-size: 14px;
     color: rgba($color-white, 0.6);
+  }
+
+  &--btn__info {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: $color-secondary;
+    border: solid 2px $color-white;
+    float: right;
+    margin-left: 20px;
+    position: relative;
+    bottom: 3px;
   }
 
   &-pop {

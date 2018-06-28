@@ -24,6 +24,13 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     this.setState({ modalOpen: false });
   }
 
+  public handleKeyDown(event: any): void {
+      if (event.keyCode === 27) {
+          this.closeModal();
+          event.preventDefault();
+      }
+  }
+
   public render() {
     return (
       <footer className="footer">
@@ -35,8 +42,10 @@ export class Footer extends React.Component<FooterProps, FooterState> {
               </p>
             </div>
             <div className="col text-right">
-              <button onClick={this.openModal}>Open modal</button>
               <div className="footer--total">
+              <button className="footer--btn__info" type="button" onClick={this.openModal}>
+                <span className="sr-only">Open modal showing your selected ticket information</span>
+              </button>
                 <span className="footer--price">
                   Total <Price value={this.props.price}/>
                 </span>
@@ -71,35 +80,44 @@ export class Footer extends React.Component<FooterProps, FooterState> {
 
   public renderModal() {
     return (
-      <div aria-modal={true}>
-        <div className="modal--content" role="dialog" aria-label="Ticket modal">
-          <div className="modal--header">
-            <button type="button" className="modal--btn__close" onClick={this.closeModal}>Close</button>
-            <h4 className="modal--title">Title</h4>
-          </div>
-          <div className="modal--body">
-            <p>This is some text for the body</p>
-            <p>This is some text for the body</p>
-            <p>This is some text for the body</p>
-            <p>This is some text for the body</p>
-            <p>This is some text for the body</p>
-            <p>This is some text for the body</p>
-            <p>This is some text for the body</p>
-            <p>This is some text for the body</p>
-            <p>This is some text for the body</p>
-            <p>This is some text for the body</p>
-            <p>This is some text for the body</p>
-            <p>This is some text for the body</p>
-          </div>
-          <div className="modal--footer">
-            <button
-              type="button"
-              className="modal--btn__footer"
-              onClick={this.closeModal}
-            >
-            Close
-            </button>
-          </div>
+      <div
+        className="modal--content"
+        aria-modal={true}
+        tabIndex={0}
+        role="dialog"
+        aria-label="Ticket modal"
+        onKeyDown={this.handleKeyDown}
+        aria-labelledby="modal_title"
+        auto-focus={true}
+        >
+        <div className="modal--header">
+          <button type="button" className="modal--btn__close" onClick={this.closeModal}>
+            <span className="sr-only">Close</span>
+          </button>
+          <h4 id="modal_title" className="modal--title">Your ticket details</h4>
+        </div>
+        <div className="modal--body">
+          <p>This is some text for the body</p>
+          <p>This is some text for the body</p>
+          <p>This is some text for the body</p>
+          <p>This is some text for the body</p>
+          <p>This is some text for the body</p>
+          <p>This is some text for the body</p>
+          <p>This is some text for the body</p>
+          <p>This is some text for the body</p>
+          <p>This is some text for the body</p>
+          <p>This is some text for the body</p>
+          <p>This is some text for the body</p>
+          <p>This is some text for the body</p>
+        </div>
+        <div className="modal--footer">
+          <button
+            type="button"
+            className="modal--footer-btn"
+            onClick={this.closeModal}
+          >
+          Close
+          </button>
         </div>
       </div>
     )

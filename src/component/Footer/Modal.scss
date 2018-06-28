@@ -10,10 +10,13 @@
     background: rgba($color-black, 0.9);
     transition: opacity 0.3s linear;
     opacity: 0;
-    z-index: 15;
+    z-index: 25;
     display: block;
     -webkit-overflow-scrolling: touch;
     pointer-events: none;
+    &:focus {
+        border: solid 5px red;
+    }
 
     &.is-active {
         opacity: 1;
@@ -62,8 +65,10 @@
     color: $color-white;
     font-size: 19px;
     line-height: 19px;
+    font-weight: bold;
     margin: 0;
     padding: 18px;
+    text-align: center;
   }
 
   &--header {
@@ -73,7 +78,7 @@
   &--body {
     position: fixed;
     top: 49px;
-    bottom: 58px;
+    bottom: 62px;
     overflow-y: auto;
     width: 100%;
     padding: 25px;
@@ -107,15 +112,51 @@
     width: 100%;
     padding: 10px 0;
     background-color: $color-primary;
+    text-align: center;
 
     @media ($screen-smalltablet) {
       position: relative;
+    }
+
+    &-btn {
+      background-color: $color-secondary;
+      color: $color-white;
+      text-transform: uppercase;
+      border: none;
+      border-bottom: solid 4px darken($color-secondary, 10%);
+      padding: 12px 30px 10px 30px;
+      font-size: 16px;
+      line-height: 16px;
+      font-weight: bold;
+      transition: all 0.3s linear;
+
+      &:hover, &:active, &:focus {
+        background-color: lighten($color-secondary, 5%);
+        border-bottom: solid 4px darken($color-secondary, 5%);
+        transform: scale(1.02, 1.02);
+      }
     }
   }
 
   &--btn__close {
     position: absolute;
     right: 15px;
-    top: 12px;
+    top: 7px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: $color-white url($cross) no-repeat center center;
+    background-size: 15px 15px;
+    border: solid 3px $color-primary;
+    transition: all 0.3s linear;
+
+    &:hover, &:active, &:focus {
+      transform: scale(1.07, 1.07);
+    }
+
+    @media ($screen-tablet) {
+      right: -17px;
+      top: -17px;
+    }
   }
 }
