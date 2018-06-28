@@ -90,7 +90,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
         aria-label="Ticket modal"
         onKeyDown={this.handleKeyDown}
         aria-labelledby="modal_title"
-        auto-focus={true}
+        auto-focus="true"
         >
         <div className="modal--header">
           <button type="button" className="modal--btn__close" onClick={this.closeModal}>
