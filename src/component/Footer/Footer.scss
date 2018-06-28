@@ -36,23 +36,31 @@
   &--price {
     font-size: 20px;
     font-weight: bold;
+
+    &-container {
+      display: inline-block;
+    }
   }
 
   &--pax {
     font-size: 14px;
     color: rgba($color-white, 0.6);
+    margin-top: 2px;
   }
 
   &--btn__info {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: $color-secondary;
-    border: solid 2px $color-white;
-    float: right;
-    margin-left: 20px;
-    position: relative;
-    bottom: 3px;
+    width: 47px;
+    height: 35px;
+    border: none;
+    background: transparent url($info) no-repeat center center;
+    background-size: 47px 35px;
+    margin-right: 10px;
+    display: inline-block;
+    transition: all 0.3s linear;
+
+    &:hover, &:active, &:focus {
+      transform: scale(1.08, 1.08);
+    }
   }
 
   &-pop {

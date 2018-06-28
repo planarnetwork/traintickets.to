@@ -32,7 +32,7 @@
       display: block;
       border: none;
       text-align: left;
-      padding: 0 28px 0 13px;
+      padding: 1px 28px 0 13px;
       height: 24px;
       background: $color-secondary url($more) no-repeat right 7px center;
       background-size: 14px 14px;
@@ -45,16 +45,17 @@
       text-transform: uppercase;
       color: $color-white;
       transition: all 0.3s linear;
-      border: solid 2px $color-secondary;
+      border: none;
       border-bottom: solid 2px darken($color-secondary, 10%);
 
       &.is-active {
         background: $color-secondary url($less) no-repeat right 7px center;
+        background-size: 14px 14px;
       }
 
       &:hover {
         border-color: darken($color-secondary, 10%);
-        transform: scale(1.04, 1.04);
+        transform: scale(1.05, 1.05);
       }
     }
   }

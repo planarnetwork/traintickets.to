@@ -43,13 +43,15 @@ export class Footer extends React.Component<FooterProps, FooterState> {
             </div>
             <div className="col text-right">
               <div className="footer--total">
-              <button className="footer--btn__info" type="button" onClick={this.openModal}>
-                <span className="sr-only">Open modal showing your selected ticket information</span>
-              </button>
-                <span className="footer--price">
-                  Total <Price value={this.props.price}/>
-                </span>
-                <p className="footer--pax">all passengers</p>
+                <button className="footer--btn__info" type="button" onClick={this.openModal}>
+                  <span className="sr-only">Open modal showing your selected ticket information</span>
+                </button>
+                <div className="footer--price-container">
+                  <span className="footer--price">
+                    Total <Price value={this.props.price}/>
+                  </span>
+                  <p className="footer--pax">all passengers</p>
+                </div>
               </div>
             </div>
           </div>
