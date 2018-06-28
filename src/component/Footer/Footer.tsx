@@ -25,10 +25,10 @@ export class Footer extends React.Component<FooterProps, FooterState> {
   }
 
   public handleKeyDown(event: any): void {
-      if (event.keyCode === 27) {
-          this.closeModal();
-          event.preventDefault();
-      }
+    if (event.keyCode === 27) {
+      this.closeModal();
+      event.preventDefault();
+    }
   }
 
   public render() {
