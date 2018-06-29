@@ -5,6 +5,7 @@ import './Modal.css';
 import autobind from "autobind-decorator";
 import {FareUse} from "../../service/JourneyPlanner/JourneyPlanner";
 import {railcards} from "../../config/railcards";
+import {getLocation} from "../../config/locations";
 
 @autobind
 export class Footer extends React.Component<FooterProps, FooterState> {
@@ -101,7 +102,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
           <button type="button" className="modal--btn__close" onClick={this.closeModal}>
             <span className="sr-only">Close</span>
           </button>
-          <h4 id="modal_title" className="modal--title">Your ticket details</h4>
+          <h3 id="modal_title" className="modal--title">Your ticket details</h3>
         </div>
         <div className="modal--body">
           { this.props.selectedFareOptions.map(this.renderFareOption) }
@@ -127,29 +128,33 @@ export class Footer extends React.Component<FooterProps, FooterState> {
 
     return (
       <React.Fragment key={id}>
-        <h2>Tickets</h2>
-        { fareOption.fares.map(this.renderTicketPrice) }
-        <p>Total: £{(fareOption.totalPrice / 100).toFixed(2)}</p>
-        <h2>Ticket Information</h2>
+        <h4>Tickets</h4>
+        <ul>
+          { fareOption.fares.map(this.renderTicketPrice) }
+        </ul>
+        <p>Total: <Price value={fareOption.totalPrice} /></p>
+        <h4>Ticket Information</h4>
         <p>Origin: {fare.origin}</p>
         <p>Destination: {fare.destination}</p>
         <p>Route: {route.name} ({route.code})</p>
         <p>Ticket type: {ticketType.name} ({ticketType.code})</p>
         <p>Valid for outward for 1 day, return within 1 month (TODO)</p>
-        <p>{fare.restriction ? (<a target="_blank" href={"http://www.nationalrail.co.uk/" + fare.restriction}>Restrictions apply</a>) : ""}</p>
+        {fare.restriction && (<a target="_blank" href={"http://www.nationalrail.co.uk/" + fare.restriction}>Restrictions apply</a>)}
       </React.Fragment>
     )
   }
 
   private renderTicketPrice(fareUse: FareUse, index: number) {
     const fare = this.props.links[fareUse.fare];
-    const adults = fareUse.adults === 1 ? `${fareUse.adults} x adult` : fareUse.adults > 1 ? `${fareUse.adults} x adults` : "";
-    const children = fareUse.children === 1 ? `${fareUse.children} x child` : fareUse.children > 1 ? `${fareUse.children} x children` : "";
-    const railcard = fare.railcard ? ` (${railcards[fare.railcard]})` : "";
-    const comma = adults && children ? "," : "";
+    const adults = fareUse.adults === 1 ? `${fareUse.adults} x adult` : fareUse.adults > 1 && `${fareUse.adults} x adults`;
+    const children = fareUse.children === 1 ? `${fareUse.children} x child` : fareUse.children > 1 && `${fareUse.children} x children`;
+    const railcard = fare.railcard && ` (${railcards[fare.railcard]})`;
+    const comma = adults && children && ", ";
 
     return (
-      <p key={index}>{adults}{comma}{children} {railcard} @ £{(fare.price / 100).toFixed(2)}</p>
+      <li className="clearfix" key={index}>
+        {adults}{comma}{children} {railcard}<span className="pull-right"> @<Price value={fare.price} /></span>
+      </li>
     )
   }
 }
