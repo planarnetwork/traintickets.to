@@ -141,14 +141,15 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     )
   }
 
-  private renderTicketPrice(fareUse: FareUse) {
+  private renderTicketPrice(fareUse: FareUse, index: number) {
     const fare = this.props.links[fareUse.fare];
     const adults = fareUse.adults === 1 ? `${fareUse.adults} x adult` : fareUse.adults > 1 ? `${fareUse.adults} x adults` : "";
     const children = fareUse.children === 1 ? `${fareUse.children} x child` : fareUse.children > 1 ? `${fareUse.children} x children` : "";
     const railcard = fare.railcard ? ` (${railcards[fare.railcard]})` : "";
     const comma = adults && children ? "," : "";
+
     return (
-      <p>{adults}{comma}{children} {railcard} @ £{(fare.price / 100).toFixed(2)}</p>
+      <p key={index}>{adults}{comma}{children} {railcard} @ £{(fare.price / 100).toFixed(2)}</p>
     )
   }
 }
