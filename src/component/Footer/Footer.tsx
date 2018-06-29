@@ -5,7 +5,6 @@ import './Modal.css';
 import autobind from "autobind-decorator";
 import {FareUse} from "../../service/JourneyPlanner/JourneyPlanner";
 import {railcards} from "../../config/railcards";
-import {getLocation} from "../../config/locations";
 
 @autobind
 export class Footer extends React.Component<FooterProps, FooterState> {
