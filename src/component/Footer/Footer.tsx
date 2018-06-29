@@ -3,9 +3,8 @@ import {Price} from "./../Price/Price";
 import './Footer.css';
 import './Modal.css';
 import autobind from "autobind-decorator";
-import {FareUse} from "../../service/JourneyPlanner/JourneyPlanner";
-import {railcards} from "../../config/railcards";
-import {getLocation} from "../../config/locations";
+import {FareInformation} from "./FareInformation/FareInformation";
+import {Modal} from "../Modal/Modal";
 
 @autobind
 export class Footer extends React.Component<FooterProps, FooterState> {
@@ -25,13 +24,6 @@ export class Footer extends React.Component<FooterProps, FooterState> {
 
   public closeModal() {
     this.setState({ modalOpen: false });
-  }
-
-  public handleKeyDown(event: any): void {
-    if (event.keyCode === 27) {
-      this.closeModal();
-      event.preventDefault();
-    }
   }
 
   public render() {
@@ -70,7 +62,17 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     );
   }
 
-  public renderPopup() {
+  private renderModal() {
+    return (
+      <Modal title="Your ticket details" onClose={this.closeModal} open={this.state.modalOpen}>
+        { this.props.selectedFareOptions.map(id => (
+          <FareInformation links={this.props.links} fareOptionId={id}/>
+        )) }
+      </Modal>
+    );
+  }
+
+  private renderPopup() {
     return (
       <div className="footer-pop">
         <p className="footer-pop--header">
@@ -86,79 +88,6 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     )
   }
 
-  public renderModal() {
-    return (
-      <div
-        className="modal--content"
-        aria-modal={true}
-        tabIndex={0}
-        role="dialog"
-        aria-label="Ticket modal"
-        onKeyDown={this.handleKeyDown}
-        aria-labelledby="modal_title"
-        auto-focus="true"
-        >
-        <div className="modal--header">
-          <button type="button" className="modal--btn__close" onClick={this.closeModal}>
-            <span className="sr-only">Close</span>
-          </button>
-          <h3 id="modal_title" className="modal--title">Your ticket details</h3>
-        </div>
-        <div className="modal--body">
-          { this.props.selectedFareOptions.map(this.renderFareOption) }
-        </div>
-        <div className="modal--footer">
-          <button
-            type="button"
-            className="modal--footer-btn"
-            onClick={this.closeModal}
-          >
-          Close
-          </button>
-        </div>
-      </div>
-    )
-  }
-
-  private renderFareOption(id: string) {
-    const fareOption = this.props.links[id];
-    const fare = this.props.links[fareOption.fares[0].fare];
-    const route = this.props.links[fare.route];
-    const ticketType = this.props.links[fare.ticketType];
-    const origin = getLocation(this.props.links[fare.origin].crs || this.props.links[fare.origin].nlc);
-    const destination = getLocation(this.props.links[fare.destination].crs || this.props.links[fare.destination].nlc);
-
-    return (
-      <React.Fragment key={id}>
-        <h4>Tickets</h4>
-        <ul>
-          { fareOption.fares.map(this.renderTicketPrice) }
-        </ul>
-        <p>Total: <Price value={fareOption.totalPrice} /></p>
-        <h4>Ticket Information</h4>
-        <p>Origin: {origin.name}</p>
-        <p>Destination: {destination.name}</p>
-        <p>Route: {route.name} ({route.code})</p>
-        <p>Ticket type: {ticketType.name} ({ticketType.code})</p>
-        <p>Valid for outward for 1 day, return within 1 month (TODO)</p>
-        {fare.restriction && (<a target="_blank" href={"http://www.nationalrail.co.uk/" + fare.restriction}>Restrictions apply</a>)}
-      </React.Fragment>
-    )
-  }
-
-  private renderTicketPrice(fareUse: FareUse, index: number) {
-    const fare = this.props.links[fareUse.fare];
-    const adults = fareUse.adults === 1 ? `${fareUse.adults} x adult` : fareUse.adults > 1 && `${fareUse.adults} x adults`;
-    const children = fareUse.children === 1 ? `${fareUse.children} x child` : fareUse.children > 1 && `${fareUse.children} x children`;
-    const railcard = fare.railcard && ` (${railcards[fare.railcard]})`;
-    const comma = adults && children && ", ";
-
-    return (
-      <li className="clearfix" key={index}>
-        {adults}{comma}{children} {railcard}<span className="pull-right"> @<Price value={fare.price} /></span>
-      </li>
-    )
-  }
 }
 
 export interface FooterProps {
