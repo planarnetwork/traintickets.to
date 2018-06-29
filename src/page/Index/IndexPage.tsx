@@ -66,7 +66,7 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
             {...this.state.results!}
           />
         }
-        <Footer selectedFareOptions={this.state.selectedFareOptions} links={this.state.results.links}/>
+        { this.state.results && <Footer selectedFareOptions={this.state.selectedFareOptions} links={this.state.results.links}/> }
       </Layout>
     );
   }

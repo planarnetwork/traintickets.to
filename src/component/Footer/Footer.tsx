@@ -5,6 +5,7 @@ import './Modal.css';
 import autobind from "autobind-decorator";
 import {FareUse} from "../../service/JourneyPlanner/JourneyPlanner";
 import {railcards} from "../../config/railcards";
+import {getLocation} from "../../config/locations";
 
 @autobind
 export class Footer extends React.Component<FooterProps, FooterState> {
@@ -124,6 +125,8 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     const fare = this.props.links[fareOption.fares[0].fare];
     const route = this.props.links[fare.route];
     const ticketType = this.props.links[fare.ticketType];
+    const origin = getLocation(this.props.links[fare.origin].crs || this.props.links[fare.origin].nlc);
+    const destination = getLocation(this.props.links[fare.destination].crs || this.props.links[fare.destination].nlc);
 
     return (
       <React.Fragment key={id}>
@@ -131,8 +134,8 @@ export class Footer extends React.Component<FooterProps, FooterState> {
         { fareOption.fares.map(this.renderTicketPrice) }
         <p>Total: £{(fareOption.totalPrice / 100).toFixed(2)}</p>
         <h2>Ticket Information</h2>
-        <p>Origin: {fare.origin}</p>
-        <p>Destination: {fare.destination}</p>
+        <p>Origin: {origin.name}</p>
+        <p>Destination: {destination.name}</p>
         <p>Route: {route.name} ({route.code})</p>
         <p>Ticket type: {ticketType.name} ({ticketType.code})</p>
         <p>Valid for outward for 1 day, return within 1 month (TODO)</p>
