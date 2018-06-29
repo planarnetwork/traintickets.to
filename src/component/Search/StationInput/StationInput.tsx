@@ -50,9 +50,14 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
   }
 
   public onHighlight({ suggestion }: any) {
-      if (suggestion) {
-        this.setState({ lastSelected: suggestion.name, code: suggestion.code });
-      }
+    if (suggestion) {
+      this.setState({ lastSelected: suggestion.name, code: suggestion.code });
+    }
+  }
+
+  public onSuggestionSelected(event: any, { suggestion }: any) {
+    this.setState({ lastSelected: suggestion.name, code: suggestion.code });
+    this.onBlur();
   }
 
   public onSuggestionsFetchRequested({ value }: any) {
@@ -102,6 +107,7 @@ export class StationInput extends React.Component<StationInputProps, StationInpu
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
         getSuggestionValue={this.getSuggestionValue}
         renderSuggestion={this.renderSuggestion}
+        onSuggestionSelected={this.onSuggestionSelected}
         inputProps={{
           placeholder: this.props.placeholder,
           name: this.props.name,
