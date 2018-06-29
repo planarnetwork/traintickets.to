@@ -35,7 +35,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
 
   public render() {
     const price = this.props.selectedFareOptions
-      .reduce((total, id) => total + this.props.links[id] ? this.props.links[id].totalPrice : 0, 0);
+      .reduce((total, id) => total + (this.props.links[id] ? this.props.links[id].totalPrice : 0), 0);
 
     return (
       <footer className="footer">
