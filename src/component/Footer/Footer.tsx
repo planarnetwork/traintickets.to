@@ -7,6 +7,7 @@ import {FareInformation} from "./FareInformation/FareInformation";
 import {Modal} from "../Modal/Modal";
 import axios from "axios";
 import {config} from "../../config/config";
+import {SelectedOptions} from "../../page/Index/IndexPage";
 
 @autobind
 export class Footer extends React.Component<FooterProps, FooterState> {
@@ -15,6 +16,8 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     popupOpen: true,
     modalOpen: false
   };
+
+  private client = axios.create({ baseURL: config.orderServiceUrl });
 
   public closePopup() {
     this.setState({ popupOpen: false });
@@ -29,7 +32,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
   }
 
   public render() {
-    const price = this.props.selectedFareOptions
+    const price = this.props.selected.fareOptions
       .reduce((total, id) => total + (this.props.links[id] ? this.props.links[id].totalPrice : 0), 0);
 
     return (
@@ -67,7 +70,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
   private renderModal() {
     return (
       <Modal title="Your ticket details" onClose={this.closeModal} open={this.state.modalOpen}>
-        { this.props.selectedFareOptions.map(id => (
+        { this.props.selected.fareOptions.map(id => (
           <FareInformation links={this.props.links} fareOptionId={id}/>
         )) }
         <button type="button" onClick={this.onBuy}>Buy</button>
@@ -76,9 +79,31 @@ export class Footer extends React.Component<FooterProps, FooterState> {
   }
 
   private async onBuy() {
-    const client = axios.create({ baseURL: config.orderServiceUrl });
+    const request: any = {
+      "items": {
+        "outward": {
+          "journey": this.props.selected.outward
+        },
+        "fares": {}
+      }
+    };
 
-    const response = await client.post("/order", this.props.selectedFareOptions);
+    if (this.props.selected.inward) {
+      request.items.inward = { journey: this.props.selected.inward };
+
+      if (this.props.selected.fareOptions.length === 1) {
+        request.items.fares.return = this.props.selected.fareOptions[0];
+      }
+      else {
+        request.items.fares.outwardSingle = this.props.selected.fareOptions[0];
+        request.items.fares.inwardSingle = this.props.selected.fareOptions[1];
+      }
+    }
+    else {
+      request.items.fares.outwardSingle = this.props.selected.fareOptions[0];
+    }
+
+    const response = await this.client.post("/order", request);
 
     console.log(response);
   }
@@ -102,7 +127,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
 }
 
 export interface FooterProps {
- selectedFareOptions: string[];
+ selected: SelectedOptions;
  links: any;
 }
 

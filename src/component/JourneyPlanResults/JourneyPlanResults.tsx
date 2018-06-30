@@ -7,6 +7,7 @@ import {JourneyDetails} from "./JourneyDetails/JourneyDetails";
 import {Price} from "./../Price/Price";
 import {getLocation} from "../../config/locations";
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
+import {SelectedOptions} from "../../page/Index/IndexPage";
 
 
 @autobind
@@ -63,7 +64,12 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
 
     if (this.lastSelected !== selected.join()) {
       this.lastSelected = selected.join();
-      this.props.onPriceChange(selected);
+
+      this.props.onSelectionChange({
+        outward: this.state.outward.selected,
+        inward: this.props.response.inward.length > 0 ? this.state.inward.selected : undefined,
+        fareOptions: selected
+      });
     }
   }
 
@@ -218,7 +224,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
 
 interface JourneyPlanResultsProps extends SearchResults {
   lessHeight: boolean;
-  onPriceChange: (selectedFareOptions: string[]) => any;
+  onSelectionChange: (selected: SelectedOptions) => any;
 }
 
 interface JourneyPlanResultsState {
