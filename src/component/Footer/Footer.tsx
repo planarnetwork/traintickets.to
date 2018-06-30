@@ -76,9 +76,9 @@ export class Footer extends React.Component<FooterProps, FooterState> {
   }
 
   private async onBuy() {
-    axios.create({ baseURL: config.orderServiceUrl });
+    const client = axios.create({ baseURL: config.orderServiceUrl });
 
-    const response = await axios.post("/order", this.props.selectedFareOptions);
+    const response = await client.post("/order", this.props.selectedFareOptions);
 
     console.log(response);
   }
