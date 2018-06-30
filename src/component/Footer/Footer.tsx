@@ -5,6 +5,8 @@ import './Modal.css';
 import autobind from "autobind-decorator";
 import {FareInformation} from "./FareInformation/FareInformation";
 import {Modal} from "../Modal/Modal";
+import axios from "axios";
+import {config} from "../../config/config";
 
 @autobind
 export class Footer extends React.Component<FooterProps, FooterState> {
@@ -68,8 +70,17 @@ export class Footer extends React.Component<FooterProps, FooterState> {
         { this.props.selectedFareOptions.map(id => (
           <FareInformation links={this.props.links} fareOptionId={id}/>
         )) }
+        <button type="button" onClick={this.onBuy}>Buy</button>
       </Modal>
     );
+  }
+
+  private async onBuy() {
+    axios.create({ baseURL: config.orderServiceUrl });
+
+    const response = await axios.post("/order", this.props.selectedFareOptions);
+
+    console.log(response);
   }
 
   private renderPopup() {
