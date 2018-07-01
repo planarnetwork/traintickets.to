@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Nav} from "./../Nav/Nav";
+import {Nav} from './../Nav/Nav';
 import './Header.css';
 
 export function Header() {

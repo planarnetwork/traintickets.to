@@ -3,7 +3,7 @@ import autobind from "autobind-decorator";
 
 @autobind
 export class Modal extends React.Component<ModalProps> {
-
+  
   public closeModal() {
     this.props.onClose();
   }
@@ -35,6 +35,7 @@ export class Modal extends React.Component<ModalProps> {
         </div>
         <div className="modal--body">
           { this.props.children }
+          {Pay}
         </div>
         <div className="modal--footer">
           <button
