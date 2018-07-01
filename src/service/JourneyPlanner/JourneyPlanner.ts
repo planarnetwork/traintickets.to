@@ -132,7 +132,7 @@ export interface Journey {
   origin: string;
   destination: string;
   id: string;
-  legs: Leg[];
+  legs: string[];
 }
 
 export type Leg = TimetableLeg | FixedLeg;
@@ -142,12 +142,15 @@ export interface TimetableLeg {
   origin: string;
   destination: string;
   mode: string;
-  service: {
-    id: string,
-    operator: string,
-    destination: string
-  };
+  operator: string;
+  service: string;
   callingPoints: CallingPoint[];
+}
+
+export interface Service {
+  trainUid: string,
+  retailServiceId: string,
+  destination: string
 }
 
 export interface FixedLeg {

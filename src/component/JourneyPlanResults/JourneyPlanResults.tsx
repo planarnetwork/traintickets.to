@@ -1,5 +1,11 @@
 import * as React from 'react';
-import {Journey, SearchResults, ReturnJourneyFareMap, JourneyFareMap} from "../../service/JourneyPlanner/JourneyPlanner";
+import {
+  Journey,
+  SearchResults,
+  ReturnJourneyFareMap,
+  JourneyFareMap,
+  Leg
+} from "../../service/JourneyPlanner/JourneyPlanner";
 import * as moment from "moment";
 import autobind from "autobind-decorator";
 import "./JourneyPlanResults.css";
@@ -144,12 +150,13 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
   public renderJourney(journey: Journey, journeyPrice: JourneyPriceIndex, direction: keyof JourneyPlanResultsState) {
     const duration = journey.arrivalTime - journey.departureTime;
     const durationFormat = duration < 3600 ? "m[min. ]" : "H[hrs] m[min. ]";
-    const changeDescription = journey.legs.length === 1
+    const legs: Leg[] = journey.legs.map(lId => this.props.links[lId]);
+    const changeDescription = legs.length === 1
       ? "Direct"
-      : "Change at " + journey.legs.slice(0, -1).map(l => getLocation(l.destination).name).join(", ");
-    const changeText = journey.legs.length === 1
-      ? "Direct"
-      : (journey.legs.length - 1) + " changes";
+      : "Change at " + legs.slice(0, -1).map(l => getLocation(this.props.links[l.destination].crs).name).join(", ");
+
+    const plural = legs.length === 2 ? "" : "s";
+    const changeText = legs.length === 1 ? "Direct" : (legs.length - 1) + " change" + plural;
 
     return (
       <li onClick={this.onSelect(journey.id, direction)} key={journey.id} className={journey.id === this.state[direction].selected ? "fare-list--item is-selected" : "fare-list--item"}>
@@ -173,7 +180,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
                     {changeText}
                     <span className="sr-only">show more journey information</span>
                   </button>
-                  {journey.id === this.state[direction].open && <JourneyDetails journey={journey} />}
+                  {journey.id === this.state[direction].open && <JourneyDetails links={this.props.links} legs={legs} />}
                 </div>
               </div>
               <div className="row">
