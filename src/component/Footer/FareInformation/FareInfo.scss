@@ -1,0 +1,25 @@
+@import "../../../variables.scss";
+
+.fare-info {
+    margin-bottom: 20px;
+
+    &--header, &--footer {
+        padding: 15px;
+        background-color: $color-secondary;
+        color: $color-white;
+    }
+
+    &--header {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    &--body {
+        padding: 0 15px;
+        background-color: $bg-grey;
+    }
+
+    &--footer {
+
+    }
+}

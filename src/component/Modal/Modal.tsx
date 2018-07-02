@@ -1,5 +1,6 @@
 import * as React from "react";
 import autobind from "autobind-decorator";
+import './Modal.css';
 
 @autobind
 export class Modal extends React.Component<ModalProps> {

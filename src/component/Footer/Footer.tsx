@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Price} from "./../Price/Price";
 import './Footer.css';
-import './Modal.css';
 import autobind from "autobind-decorator";
 import {FareInformation} from "./FareInformation/FareInformation";
 import {Modal} from "../Modal/Modal";
