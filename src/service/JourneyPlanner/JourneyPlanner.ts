@@ -32,7 +32,7 @@ export class JourneyPlanner {
 class ResponseHandler {
 
   constructor(
-    private readonly data: JourneyPlannerResponse,
+    private readonly response: JourneyPlannerResponse,
     private readonly query: SearchState
   ) { }
 
@@ -42,10 +42,10 @@ class ResponseHandler {
     let cheapestOutward = "";
     let cheapestInward = "";
 
-    for (const journeyId of Object.keys(this.data.response.fares)) {
-      prices[journeyId] = isArray(this.data.response.fares[journeyId])
-        ? this.getJourneyFaresForSingle(this.data.response.fares[journeyId] as string[])
-        : this.getJourneyFares(this.data.response.fares[journeyId] as JourneyFareMap);
+    for (const journeyId of Object.keys(this.response.data.fares)) {
+      prices[journeyId] = isArray(this.response.data.fares[journeyId])
+        ? this.getJourneyFaresForSingle(this.response.data.fares[journeyId] as string[])
+        : this.getJourneyFares(this.response.data.fares[journeyId] as JourneyFareMap);
 
       if (prices[journeyId].price < cheapestOutwardJourneyPrice) {
         cheapestOutwardJourneyPrice = prices[journeyId].price;
@@ -55,12 +55,12 @@ class ResponseHandler {
     }
 
     return {
-      links: this.data.links,
+      links: this.response.links,
       query: this.query,
-      response: {
-        outward: this.data.response.outward,
-        inward: this.data.response.inward,
-        fares: this.data.response.fares,
+      data: {
+        outward: this.response.data.outward,
+        inward: this.response.data.inward,
+        fares: this.response.data.fares,
         prices,
         cheapestOutward,
         cheapestInward
@@ -101,12 +101,12 @@ class ResponseHandler {
   }
 
   private getFareOptions(fareOptionId: string): FareOption {
-    return this.data.links[fareOptionId];
+    return this.response.links[fareOptionId];
   }
 }
 
 interface JourneyPlannerResponse {
-  response: {
+  data: {
     outward: Journey[];
     inward: Journey[];
     fares: JourneyFareMap | ReturnJourneyFareMap;
@@ -138,7 +138,7 @@ export interface Journey {
 export type Leg = TimetableLeg | FixedLeg;
 
 export interface TimetableLeg {
-  type: "timetable";
+  type: "timetabled";
   origin: string;
   destination: string;
   mode: string;
@@ -191,7 +191,7 @@ interface FaresIndex {
 
 export interface SearchResults {
   query: SearchState;
-  response: {
+  data: {
     outward: Journey[];
     inward: Journey[];
     fares: JourneyFareMap | ReturnJourneyFareMap;

@@ -20,7 +20,7 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
     results: {
       links: {},
       query: defaultQueryState,
-      response: {
+      data: {
         outward: [],
         inward: [],
         fares: {},

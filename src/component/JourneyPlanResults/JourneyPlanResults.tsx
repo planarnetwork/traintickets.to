@@ -33,11 +33,11 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
   };
 
   public static getDerivedStateFromProps(props: SearchResults, state: JourneyPlanResultsState) {
-    const outwardValid = props.response.prices[state.outward.selected];
-    const outwardSelected = outwardValid ? state.outward.selected : props.response.cheapestOutward;
-    const outwardFares = props.response.prices[outwardSelected] as any;
+    const outwardValid = props.data.prices[state.outward.selected];
+    const outwardSelected = outwardValid ? state.outward.selected : props.data.cheapestOutward;
+    const outwardFares = props.data.prices[outwardSelected] as any;
     const inwardValid = outwardFares && outwardFares.with && outwardFares.with[state.inward.selected];
-    const inwardSelected = inwardValid ? state.inward.selected : props.response.cheapestInward;
+    const inwardSelected = inwardValid ? state.inward.selected : props.data.cheapestInward;
 
     return {
       outward: {
@@ -52,28 +52,28 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
   }
 
   public componentDidUpdate(prevProps: JourneyPlanResultsProps, prevState: JourneyPlanResultsState) {
-    if (this.props.response.outward.length === 0) {
+    if (this.props.data.outward.length === 0) {
       return;
     }
 
-    if (this.props.response.cheapestOutward !== prevProps.response.cheapestOutward) {
+    if (this.props.data.cheapestOutward !== prevProps.data.cheapestOutward) {
       this.scroll("outward");
     }
 
-    if (this.props.response.cheapestInward !== prevProps.response.cheapestInward) {
+    if (this.props.data.cheapestInward !== prevProps.data.cheapestInward) {
       this.scroll("inward");
     }
 
-    const selected = this.props.response.inward.length === 0
-      ? (this.props.response.fares as JourneyFareMap)[this.state.outward.selected]
-      : (this.props.response.fares as ReturnJourneyFareMap)[this.state.outward.selected][this.state.inward.selected];
+    const selected = this.props.data.inward.length === 0
+      ? (this.props.data.fares as JourneyFareMap)[this.state.outward.selected]
+      : (this.props.data.fares as ReturnJourneyFareMap)[this.state.outward.selected][this.state.inward.selected];
 
     if (this.lastSelected !== selected.join()) {
       this.lastSelected = selected.join();
 
       this.props.onSelectionChange({
         outward: this.state.outward.selected,
-        inward: this.props.response.inward.length > 0 ? this.state.inward.selected : undefined,
+        inward: this.props.data.inward.length > 0 ? this.state.inward.selected : undefined,
         fareOptions: selected
       });
     }
@@ -92,7 +92,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
       <section className="fares">
         <div className="container">
           <div className="row">
-          { this.props.response.outward.length === 0  ? this.renderNoResults() : this.renderResults() }
+          { this.props.data.outward.length === 0  ? this.renderNoResults() : this.renderResults() }
           </div>
         </div>
       </section>
@@ -100,14 +100,14 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
   }
 
   public renderResults() {
-    const isReturn = this.props.response.inward.length > 0;
-    const inwardJourneyFares = this.props.response.prices[this.state.outward.selected] as any;
+    const isReturn = this.props.data.inward.length > 0;
+    const inwardJourneyFares = this.props.data.prices[this.state.outward.selected] as any;
 
     return (
       <React.Fragment>
-        { this.renderJourneys(this.props.response.outward, this.props.response.prices, "outward") }
+        { this.renderJourneys(this.props.data.outward, this.props.data.prices, "outward") }
         { !isReturn && this.renderEmptyReturn()}
-        { isReturn && this.renderJourneys(this.props.response.inward, inwardJourneyFares.with, "inward") }
+        { isReturn && this.renderJourneys(this.props.data.inward, inwardJourneyFares.with, "inward") }
       </React.Fragment>
     )
   }
@@ -153,7 +153,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
     const legs: Leg[] = journey.legs.map(lId => this.props.links[lId]);
     const changeDescription = legs.length === 1
       ? "Direct"
-      : "Change at " + legs.slice(0, -1).map(l => getLocation(this.props.links[l.destination].crs).name).join(", ");
+      : "Change at " + legs.slice(0, -1).map(l => getLocation(l.destination).name).join(", ");
 
     const plural = legs.length === 2 ? "" : "s";
     const changeText = legs.length === 1 ? "Direct" : (legs.length - 1) + " change" + plural;

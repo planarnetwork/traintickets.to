@@ -1,4 +1,3 @@
-import {getLocation} from "../../../config/locations";
 import {railcards} from "../../../config/railcards";
 import * as React from "react";
 import {Price} from "../../Price/Price";
@@ -12,10 +11,6 @@ export class FareInformation extends React.Component<FareInformationProps> {
     const id = this.props.fareOptionId;
     const fareOption = this.props.links[id];
     const fare = this.props.links[fareOption.fares[0].fare];
-    const route = this.props.links[fare.route];
-    const ticketType = this.props.links[fare.ticketType];
-    const origin = getLocation(this.props.links[fare.origin].crs || this.props.links[fare.origin].nlc);
-    const destination = getLocation(this.props.links[fare.destination].crs || this.props.links[fare.destination].nlc);
 
     return (
       <React.Fragment key={id}>
@@ -25,10 +20,10 @@ export class FareInformation extends React.Component<FareInformationProps> {
         </ul>
         <p>Total: <Price value={fareOption.totalPrice} /></p>
         <h4>Ticket Information</h4>
-        <p>Origin: {origin.name}</p>
-        <p>Destination: {destination.name}</p>
-        <p>Route: {route.name} ({route.code})</p>
-        <p>Ticket type: {ticketType.name} ({ticketType.code})</p>
+        <p>Origin: {fare.origin}</p>
+        <p>Destination: {fare.destination}</p>
+        <p>Route: {fare.route}</p>
+        <p>Ticket type: {fare.ticketType}</p>
         <p>Valid for outward for 1 day, return within 1 month (TODO)</p>
         {fare.restriction && (<a target="_blank" href={"http://www.nationalrail.co.uk/" + fare.restriction}>Restrictions apply</a>)}
       </React.Fragment>
