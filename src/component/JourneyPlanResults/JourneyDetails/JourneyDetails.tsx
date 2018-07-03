@@ -1,5 +1,5 @@
 import autobind from "autobind-decorator";
-import {CallingPoint, FixedLeg, Journey, Leg, TimetableLeg} from "../../../service/JourneyPlanner/JourneyPlanner";
+import {CallingPoint, FixedLeg, Leg, Service, TimetableLeg} from "../../../service/JourneyPlanner/JourneyPlanner";
 import * as React from "react";
 import * as moment from "moment";
 import {getLocation} from "../../../config/locations";
@@ -30,26 +30,28 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
     return (
       <div className="leg-container">
         <ol className="leg-list">
-          {this.props.journey.legs.map(this.renderLeg)}
+          {this.props.legs.map(this.renderLeg)}
         </ol>
       </div>
     );
   }
   private renderLeg(leg: Leg, index: number) {
-    return leg.type === "timetable" ? this.renderTimetableLeg(leg, index) : this.renderFixedLeg(leg, index);
+    return leg.type === "timetabled" ? this.renderTimetableLeg(leg, index) : this.renderFixedLeg(leg, index);
   }
 
   private renderTimetableLeg(leg: TimetableLeg, index: number) {
+    const service: Service = this.props.links[leg.service];
+
     return (
-      <li key={index} className={'leg-mode leg-mode__' + leg.mode}>
+      <li key={index} className={'leg-mode leg-mode__' + leg.mode.replace(" ", "_")}>
         <div className="row">
           <div className="col-5">
-            <time className="leg-list--time">{moment.unix(leg.callingPoints[0].depart!).utc().format(moment.HTML5_FMT.TIME)}</time>
+            <Time time={leg.callingPoints[0].depart!} />
           </div>
           <div className="col-19">
             <p className="leg-list--station">
               {getLocation(leg.origin).name}
-              <span className="leg-list--plat"> Plat {leg.callingPoints[0].platform}</span>
+              <Platform platform={leg.callingPoints[0].platform}/>
             </p>
           </div>
         </div>
@@ -57,13 +59,13 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
           <div className="offset-5 col-19">
             <p className="leg-list--duration">
               {leg.callingPoints.length > 2 ? (
-                <button title={leg.service.id} className={this.state.selected === index ? "leg-list--btn-calling is-active" : "leg-list--btn-calling"} onClick={this.onSelect} data-index={index}>
+                <button title={service.trainUid} className={this.state.selected === index ? "leg-list--btn-calling is-active" : "leg-list--btn-calling"} onClick={this.onSelect} data-index={index}>
                   <span className="sr-only">show calling points</span>
-                  {operators[leg.service.operator]} service to <span className="leg-list--destination">{getLocation(leg.service.destination).name}</span>
+                  {operators[leg.operator]} service to <span className="leg-list--destination">{getLocation(service.destination).name}</span>
                 </button>
                 )
               : (
-                <span title={leg.service.id}>{operators[leg.service.operator]} service to <span className="leg-list--destination">{getLocation(leg.service.destination).name}</span></span>
+                <span title={service.trainUid}>{operators[leg.operator]} service to <span className="leg-list--destination">{getLocation(service.destination).name}</span></span>
                 )
               }
             </p>
@@ -72,14 +74,12 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
         {this.state.selected === index ? this.renderCallingPoints(leg.callingPoints) : ""}
         <div className="row">
           <div className="col-5">
-            <time className="leg-list--time">
-              {moment.unix(leg.callingPoints[leg.callingPoints.length - 1].arrive!).utc().format(moment.HTML5_FMT.TIME)}
-            </time>
+            <Time time={leg.callingPoints[leg.callingPoints.length - 1].arrive!} />
           </div>
           <div className="col-19">
             <p className="leg-list--station">
               {getLocation(leg.destination).name}
-              <span className="leg-list--plat"> Plat {leg.callingPoints[leg.callingPoints.length - 1].platform}</span>
+              <Platform platform={leg.callingPoints[leg.callingPoints.length - 1].platform}/>
             </p>
           </div>
         </div>
@@ -95,7 +95,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
             <li key={i} className="calling-list--item">
               <div className="row">
                 <div className="col-5">
-                  <time className="calling-list--time">{moment.unix(p.arrive).utc().format(moment.HTML5_FMT.TIME)}</time>
+                  <Time time={p.arrive} className="calling-list--time"/>
                 </div>
                 <div className="col-19">
                   <p className="calling-list--station">{getLocation(p.station).name}</p>
@@ -109,7 +109,6 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
   }
 
   private renderFixedLeg(leg: FixedLeg, index: number) {
-    const durationFormat = leg.duration < 3600 ? "m[min]" : "H[hrs] m[min]";
 
     return (
       <li key={index} className={'leg-fixed leg-mode leg-mode__' + leg.mode}>
@@ -118,7 +117,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
             <p className="leg-list--station">
               <span className="capital">{leg.mode}</span> from {getLocation(leg.origin).name} to {getLocation(leg.destination).name}
             </p>
-            <p className="leg-list--duration">{moment.unix(leg.duration).utc().format(durationFormat)}</p>
+            <Duration duration={leg.duration}/>
           </div>
         </div>
       </li>
@@ -126,8 +125,31 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
   }
 }
 
+function Platform(props: { platform: string }) {
+  return props.platform ? (<span className="leg-list--plat"> Plat {props.platform}</span>) : null;
+}
+
+function Time(props: { time: number, className?: string }) {
+  return (
+    <time className={props.className || "leg-list--time"}>
+      {moment.unix(props.time).utc().format(moment.HTML5_FMT.TIME)}
+    </time>
+  );
+}
+
+function Duration(props: { duration: number, className?: string }) {
+  const durationFormat = props.duration < 3600 ? "m[min]" : "H[hrs] m[min]";
+
+  return (
+    <p className={props.className || "leg-list--leg-list--duration"}>
+      {moment.unix(props.duration).utc().format(durationFormat)}
+    </p>
+  );
+}
+
 export interface JourneyDetailsProps {
-  journey: Journey;
+  legs: Leg[];
+  links: any;
 }
 
 export interface JourneyDetailsState {
