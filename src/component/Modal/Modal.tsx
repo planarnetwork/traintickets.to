@@ -1,5 +1,6 @@
 import * as React from "react";
 import autobind from "autobind-decorator";
+import Wallet from '../Wallet/Wallet'
 
 @autobind
 export class Modal extends React.Component<ModalProps> {
@@ -35,7 +36,7 @@ export class Modal extends React.Component<ModalProps> {
         </div>
         <div className="modal--body">
           { this.props.children }
-          {Pay}
+          {Wallet}
         </div>
         <div className="modal--footer">
           <button
