@@ -2,8 +2,8 @@ import {Location, locations} from "./locations";
 import {Railcard, railcards} from "./railcards";
 
 const dev = {
-  journeyPlannerUrl: "http://localhost:8002/",
-  orderServiceUrl: "http://localhost:8002/",
+  journeyPlannerUrl: "http://localhost:8000/",
+  orderServiceUrl: "http://localhost:8000/",
   locations,
   railcards
 };
