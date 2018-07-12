@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="47px" height="35px" viewBox="0 0 47 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-    <title>Group</title>
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>info</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="noun_206985_cc" fill="#FA9116">
-            <g id="Group">
-                <g id="Group-2">
-                    <path d="M0,0 L39.0909091,0 L39.0909091,35 L0,35 L0,0 Z M21.4772727,28.1818182 L17.3863636,28.1818182 L17.3863636,13.6363636 L21.4772727,13.6363636 L21.4772727,28.1818182 Z M19.4318182,9.88636364 C18.3022727,9.88636364 17.3863636,8.97045455 17.3863636,7.84090909 C17.3863636,6.71181818 18.3022727,5.79590909 19.4318182,5.79590909 C20.5613636,5.79590909 21.4772727,6.71181818 21.4772727,7.84090909 C21.4772727,8.97045455 20.5613636,9.88636364 19.4318182,9.88636364 Z" id="Combined-Shape"></path>
-                </g>
-                <polygon id="Triangle" transform="translate(42.954545, 17.272727) rotate(90.000000) translate(-42.954545, -17.272727) " points="42.9545455 13.1818182 48.6363636 21.3636364 37.2727273 21.3636364"></polygon>
+        <g id="info" fill-rule="nonzero">
+            <g id="Group-2">
+                <polygon id="Combined-Shape-path" fill="#563D7C" points="0 0 39.0909091 0 39.0909091 35 0 35"></polygon>
+                <polygon id="Combined-Shape-path" fill="#FFFFFF" points="21.4772727 28.1818182 17.3863636 28.1818182 17.3863636 13.6363636 21.4772727 13.6363636"></polygon>
+                <path d="M19.4318182,9.88636364 C18.3022727,9.88636364 17.3863636,8.97045455 17.3863636,7.84090909 C17.3863636,6.71181818 18.3022727,5.79590909 19.4318182,5.79590909 C20.5613636,5.79590909 21.4772727,6.71181818 21.4772727,7.84090909 C21.4772727,8.97045455 20.5613636,9.88636364 19.4318182,9.88636364 Z" id="Combined-Shape-path" fill="#FFFFFF"></path>
             </g>
+            <polygon id="Triangle" fill="#563D7C" transform="translate(42.954545, 17.272727) rotate(90.000000) translate(-42.954545, -17.272727) " points="42.9545448 13.1818183 48.6363629 21.3636365 37.2727266 21.3636365"></polygon>
         </g>
     </g>
 </svg>

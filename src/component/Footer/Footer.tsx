@@ -38,23 +38,19 @@ export class Footer extends React.Component<FooterProps, FooterState> {
       <footer className="footer">
         <div className="footer-bg max">
           <div className="row">
-            <div className="col-10">
+            <div className="col-7">
               <p className="footer--copyright" title="all the years">
                 &copy; traintickets.to
               </p>
             </div>
             <div className="col text-right">
-              <div className="footer--total">
-                <button className="footer--btn__info" type="button" onClick={this.openModal}>
+                <button className="footer--btn" type="button" onClick={this.openModal}>
                   <span className="sr-only">Open modal showing your selected ticket information</span>
-                </button>
-                <div className="footer--price-container">
-                  <span className="footer--price">
+                  <p className="footer--btn-price">
                     Total <Price value={price}/>
-                  </span>
-                  <p className="footer--pax">all passengers</p>
-                </div>
-              </div>
+                  </p>
+                  <p className="footer--btn-pax">all passengers</p>
+                </button>
             </div>
           </div>
           { this.state.popupOpen && this.renderPopup() }
@@ -70,7 +66,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     return (
       <Modal title="Your ticket details" onClose={this.closeModal} open={this.state.modalOpen}>
         { this.props.selected.fareOptions.map(id => (
-          <FareInformation links={this.props.links} fareOptionId={id}/>
+          <FareInformation links={this.props.links} fareOptionId={id} key={id}/>
         )) }
         <button type="button" onClick={this.onBuy}>Buy</button>
       </Modal>
