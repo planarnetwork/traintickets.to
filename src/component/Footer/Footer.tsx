@@ -38,7 +38,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
       <footer className="footer">
         <div className="footer-bg max">
           <div className="row">
-            <div className="col-7">
+            <div className="col-8">
               <p className="footer--copyright" title="all the years">
                 &copy; traintickets.to
               </p>

@@ -37,10 +37,10 @@ export class Modal extends React.Component<ModalProps> {
         <div className="modal--body">
           { this.props.children }
         </div>
-        <div className="modal--footer">
+        <div className="modal--footer clearfix">
           <button
             type="button"
-            className="modal--footer-btn"
+            className="modal--footer-btn modal--footer-btn__close"
             onClick={this.closeModal}
           >
             Close
@@ -53,7 +53,7 @@ export class Modal extends React.Component<ModalProps> {
 
   private renderCallToAction() {
     return (
-      <button type="button" className="modal--footer-btn" onClick={this.props.onCallToAction}>{this.props.callToActionText}</button>
+      <button type="button" className="modal--footer-btn modal--footer-btn__action" onClick={this.props.onCallToAction}>{this.props.callToActionText}</button>
     )
   }
 }
