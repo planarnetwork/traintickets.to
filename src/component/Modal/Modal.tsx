@@ -45,9 +45,16 @@ export class Modal extends React.Component<ModalProps> {
           >
             Close
           </button>
+          { this.props.callToActionText && this.renderCallToAction()}
         </div>
       </div>
     );
+  }
+
+  private renderCallToAction() {
+    return (
+      <button type="button" className="modal--footer-btn" onClick={this.props.onCallToAction}>{this.props.callToActionText}</button>
+    )
   }
 }
 
@@ -55,5 +62,7 @@ export interface ModalProps {
   title: string;
   onClose: () => any;
   open: boolean;
+  callToActionText?: string;
+  onCallToAction?: () => any;
 }
 

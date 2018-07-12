@@ -64,11 +64,16 @@ export class Footer extends React.Component<FooterProps, FooterState> {
 
   private renderModal() {
     return (
-      <Modal title="Your ticket details" onClose={this.closeModal} open={this.state.modalOpen}>
+      <Modal
+        title="Your ticket details"
+        onClose={this.closeModal}
+        onCallToAction={this.onBuy}
+        callToActionText={"Pay"}
+        open={this.state.modalOpen}
+      >
         { this.props.selected.fareOptions.map(id => (
           <FareInformation links={this.props.links} fareOptionId={id} key={id}/>
         )) }
-        <button type="button" onClick={this.onBuy}>Buy</button>
       </Modal>
     );
   }
