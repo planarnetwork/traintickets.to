@@ -15,32 +15,41 @@ export class FareInformation extends React.Component<FareInformationProps> {
 
     return (
       <React.Fragment key={id}>
-        <div className="row">
-          <div className="col-md-18 offset-md-3">
-            <div className="fare-info">
-              <h4 className="fare-info--header">{fare.ticketType} (CODE)</h4>
-              <div className="fare-info--body">
-                <p>From <br/>{fare.origin}</p>
-                <p>To <br/>{fare.destination}</p>
-                <p>Route: {fare.route} (CODE)</p>
-                <p>Valid for outward for 1 day, return within 1 month (TODO)</p>
-                {fare.restriction && (<a target="_blank" href={"http://www.nationalrail.co.uk/" + fare.restriction}>Restrictions apply</a>)}
+        <div className="fare-info">
+          <h4 className="fare-info--header">{fare.ticketType} (CODE)</h4>
+          <div className="fare-info--body">
+            <div className="fare-info--row">
+              <div className="fare-info--col1">
+                <p className="fare-info--item">
+                  <span className="fare-info--label">From </span>
+                  {fare.origin}
+                </p>
+                <p className="fare-info--item">
+                  <span className="fare-info--label">To </span>
+                  {fare.destination}
+                </p>
               </div>
-              <div className="fare-info--footer">
-                <p>Total: <Price value={fareOption.totalPrice} /></p>
+              <div className="fare-info--col2">
+                <p className="fare-info--item">
+                  <span className="fare-info--label">Valid from</span>
+                  dd-mmm-yyyy
+                </p>
+                <p className="fare-info--item">
+                  <span className="fare-info--label">Valid to</span>
+                  dd-mmm-yyyy
+                </p>
               </div>
             </div>
-            <div className="fare-info">
-              <h4 className="fare-info--header">Price breakdown</h4>
-              <div className="fare-info--body">
-                <ul>
-                  { fareOption.fares.map(this.renderTicketPrice) }
-                </ul>
-              </div>
-              <div className="fare-info--footer">
-                <p>Total: <Price value={fareOption.totalPrice} /></p>
-              </div>
-            </div>
+            <p className="fare-info--notes">Route: {fare.route} (CODE)</p>
+            <p className="fare-info--notes">Valid for outward for 1 day, return within 1 month (TODO)</p>
+            {fare.restriction && (<a className="fare-info--link" target="_blank" href={"http://www.nationalrail.co.uk/" + fare.restriction}>Restrictions apply</a>)}
+            <h5 className="fare-info--title">Price breakdown</h5>
+            <ul className="fare-info--price-list">
+              { fareOption.fares.map(this.renderTicketPrice) }
+            </ul>
+          </div>
+          <div className="fare-info--footer text-right">
+            Ticket price <Price value={fareOption.totalPrice} />
           </div>
         </div>
       </React.Fragment>
@@ -55,8 +64,8 @@ export class FareInformation extends React.Component<FareInformationProps> {
     const comma = adults && children && ", ";
 
     return (
-      <li className="clearfix" key={index}>
-        {adults}{comma}{children} {railcard}<span className="pull-right"> at<Price value={fare.price} /></span>
+      <li className="clearfix fare-info--price-item" key={index}>
+        <span className="pull-left">{adults}{comma}{children} {railcard} </span><span className="pull-right"> <span className="price-prefix">at</span> <Price value={fare.price} /></span>
       </li>
     )
   }

@@ -63,6 +63,9 @@ export class Footer extends React.Component<FooterProps, FooterState> {
   }
 
   private renderModal() {
+    const price = this.props.selected.fareOptions
+      .reduce((total, id) => total + (this.props.links[id] ? this.props.links[id].totalPrice : 0), 0);
+
     return (
       <Modal
         title="Your ticket details"
@@ -71,9 +74,14 @@ export class Footer extends React.Component<FooterProps, FooterState> {
         callToActionText={"Pay"}
         open={this.state.modalOpen}
       >
-        { this.props.selected.fareOptions.map(id => (
-          <FareInformation links={this.props.links} fareOptionId={id} key={id}/>
-        )) }
+      <div className="row">
+        <div className="col-md-18 offset-md-3">
+          { this.props.selected.fareOptions.map(id => (
+            <FareInformation links={this.props.links} fareOptionId={id} key={id}/>
+          )) }
+          <p className="text-right">Total price <Price value={price}/></p>
+        </div>
+      </div>
       </Modal>
     );
   }
