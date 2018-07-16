@@ -46,8 +46,8 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     const trip = links[links[data.uri].items[0]];
     const items = trip.items.return
       ? [trip.items.return]
-      : trip.items.inwardSingle
-        ? [trip.items.outwardSingle, trip.items.inwardSingle]
+      : trip.items.returnSingle
+        ? [trip.items.outwardSingle, trip.items.returnSingle]
         : [trip.items.outwardSingle];
 
     return (
