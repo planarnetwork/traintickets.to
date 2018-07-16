@@ -2,11 +2,8 @@ import * as React from 'react';
 import {Price} from "./../Price/Price";
 import './Footer.css';
 import autobind from "autobind-decorator";
-import {FareInformation} from "./FareInformation/FareInformation";
-import {Modal} from "../Modal/Modal";
-import axios from "axios";
-import {config} from "../../config/config";
 import {SelectedOptions} from "../../page/Index/IndexPage";
+import {OrderSummary} from "./OrderSummary/OrderSummary";
 
 @autobind
 export class Footer extends React.Component<FooterProps, FooterState> {
@@ -15,8 +12,6 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     popupOpen: true,
     modalOpen: false
   };
-
-  private client = axios.create({ baseURL: config.orderServiceUrl });
 
   public closePopup() {
     this.setState({ popupOpen: false });
@@ -55,65 +50,9 @@ export class Footer extends React.Component<FooterProps, FooterState> {
           </div>
           { this.state.popupOpen && this.renderPopup() }
         </div>
-        <div className={this.state.modalOpen ? 'modal--bg is-active' : 'modal--bg'}>
-          {this.state.modalOpen && this.renderModal() }
-        </div>
+        <OrderSummary open={this.state.modalOpen} onClose={this.closeModal} selected={this.props.selected}/>
       </footer>
     );
-  }
-
-  private renderModal() {
-    const price = this.props.selected.fareOptions
-      .reduce((total, id) => total + (this.props.links[id] ? this.props.links[id].totalPrice : 0), 0);
-
-    return (
-      <Modal
-        title="Your ticket details"
-        onClose={this.closeModal}
-        onCallToAction={this.onBuy}
-        callToActionText={"Pay"}
-        open={this.state.modalOpen}
-      >
-      <div className="row">
-        <div className="col-md-18 offset-md-3">
-          { this.props.selected.fareOptions.map(id => (
-            <FareInformation links={this.props.links} fareOptionId={id} key={id}/>
-          )) }
-          <p className="text-right">Total price <Price value={price}/></p>
-        </div>
-      </div>
-      </Modal>
-    );
-  }
-
-  private async onBuy() {
-    const request: any = {
-      "items": {
-        "outward": {
-          "journey": this.props.selected.outward
-        },
-        "fares": {}
-      }
-    };
-
-    if (this.props.selected.inward) {
-      request.items.inward = { journey: this.props.selected.inward };
-
-      if (this.props.selected.fareOptions.length === 1) {
-        request.items.fares.return = this.props.selected.fareOptions[0];
-      }
-      else {
-        request.items.fares.outwardSingle = this.props.selected.fareOptions[0];
-        request.items.fares.inwardSingle = this.props.selected.fareOptions[1];
-      }
-    }
-    else {
-      request.items.fares.outwardSingle = this.props.selected.fareOptions[0];
-    }
-
-    const response = await this.client.post("/order", request);
-
-    console.log(response);
   }
 
   private renderPopup() {
