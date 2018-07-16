@@ -38,7 +38,7 @@ export class FareInformation extends React.Component<FareInformationProps> {
                 </p>
               </div>
             </div>
-            {links[fare.route].code !== "01000" && <p className="fare-info--notes">Route: {links[fare.route].name.display} ({links[fare.route].code})</p>}
+            {links[fare.route].code !== "01000" && <p className="fare-info--notes">{links[fare.route].name.display} ({links[fare.route].code})</p>}
             <p className="fare-info--notes">Valid for outward for 1 day, return within 1 month (TODO)</p>
             {fare.restriction && (<a className="fare-info--link" target="_blank" href={"http://www.nationalrail.co.uk/" + fare.restriction}>Restrictions apply</a>)}
             <h5 className="fare-info--title">Price breakdown</h5>

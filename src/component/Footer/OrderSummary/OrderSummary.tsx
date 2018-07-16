@@ -1,5 +1,6 @@
 import * as React from "react";
 import {Modal} from "../../Modal/Modal";
+import {Loader} from "../../Loader/Loader";
 import {config} from "../../../config/config";
 import axios from "axios";
 import {SelectedOptions} from "../../../page/Index/IndexPage";
@@ -34,7 +35,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         open={this.props.open}
       >
         <div className="row">
-          { this.state.links ? this.renderDetails(this.state.data!, this.state.links) : <p>Loading, signing, loving...</p>}
+          { this.state.links ? this.renderDetails(this.state.data!, this.state.links) : this.renderLoader() }
         </div>
       </Modal>
 
@@ -54,6 +55,14 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         { items.map((tickets, i) => <FareInformation links={this.state.links} tickets={tickets} key={i}/>) }
 
         <p className="text-right">Total price: {data.price} wei</p>
+      </div>
+    );
+  }
+
+  private renderLoader() {
+    return(
+      <div className="col-md-24">
+        <Loader />
       </div>
     );
   }
