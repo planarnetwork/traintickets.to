@@ -2,6 +2,8 @@ import * as React from "react";
 import {Price} from "../../Price/Price";
 import autobind from "autobind-decorator";
 import './FareInfo.css';
+import * as moment from "moment";
+import {HTML5_FMT} from "moment";
 
 @autobind
 export class FareInformation extends React.Component<FareInformationProps> {
@@ -9,7 +11,13 @@ export class FareInformation extends React.Component<FareInformationProps> {
   public render() {
     const links = this.props.links;
     const id = this.props.tickets[0];
-    const fare: Fare = links[links[id].fare];
+    const ticket = links[id];
+    const fare: Fare = links[ticket.fare];
+    const validFrom = moment(ticket.outwardValidity.validFrom);
+    const validUntil = moment(
+      ticket.returnValidity ? ticket.returnValidity.validUntil : ticket.outwardValidity.validUntil
+    );
+
 
     return (
       <React.Fragment key={id}>
@@ -30,16 +38,15 @@ export class FareInformation extends React.Component<FareInformationProps> {
               <div className="fare-info--col2">
                 <p className="fare-info--item">
                   <span className="fare-info--label">Valid from</span>
-                  dd-mmm-yyyy
+                  {validFrom.format(HTML5_FMT.DATE)}
                 </p>
                 <p className="fare-info--item">
                   <span className="fare-info--label">Valid to</span>
-                  dd-mmm-yyyy
+                  {validUntil.format(HTML5_FMT.DATE)}
                 </p>
               </div>
             </div>
             {links[fare.route].code !== "01000" && <p className="fare-info--notes">{links[fare.route].name.display} ({links[fare.route].code})</p>}
-            <p className="fare-info--notes">Valid for outward for 1 day, return within 1 month (TODO)</p>
             {fare.restriction && (<a className="fare-info--link" target="_blank" href={"http://www.nationalrail.co.uk/" + fare.restriction}>Restrictions apply</a>)}
             <h5 className="fare-info--title">Price breakdown</h5>
             <ul className="fare-info--price-list">
@@ -47,7 +54,7 @@ export class FareInformation extends React.Component<FareInformationProps> {
             </ul>
           </div>
           <div className="fare-info--footer text-right">
-            Ticket price [derp]
+            Ticket price <Price value={this.props.tickets.reduce((total, ticketId) => total + links[links[ticketId].fare].price, 0)}/>
           </div>
         </div>
       </React.Fragment>
@@ -58,7 +65,7 @@ export class FareInformation extends React.Component<FareInformationProps> {
     const fare: Fare = this.props.links[ticket.fare];
     const adults = ticket.adults === 1 ? `${ticket.adults} x adult` : ticket.adults > 1 && `${ticket.adults} x adults`;
     const children = ticket.children === 1 ? `${ticket.children} x child` : ticket.children > 1 && `${ticket.children} x children`;
-    const railcard = fare.railcard && ` (${fare.railcard})`;
+    const railcard = fare.railcard && ` (${this.props.links[fare.railcard].name.display})`;
     const comma = adults && children && ", ";
 
     return (
