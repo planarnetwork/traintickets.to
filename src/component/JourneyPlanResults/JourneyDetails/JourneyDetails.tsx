@@ -141,7 +141,7 @@ function Duration(props: { duration: number, className?: string }) {
   const durationFormat = props.duration < 3600 ? "m[min]" : "H[hrs] m[min]";
 
   return (
-    <p className={props.className || "leg-list--leg-list--duration"}>
+    <p className={props.className || "leg-list--duration"}>
       {moment.unix(props.duration).utc().format(durationFormat)}
     </p>
   );
