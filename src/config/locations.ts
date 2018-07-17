@@ -15770,7 +15770,10 @@ export const locationByCode: LocationIndex = locations.reduce((index: LocationIn
 }, {});
 
 export function getLocation(code: string) {
-  if (!locationByCode[code.replace("/station/", "")]) { console.error(code); }
+  if (!locationByCode[code.replace("/station/", "")]) {
+    console.error(code);
+    return { code, name: code };
+  }
 
   return locationByCode[code.replace("/station/", "")];
 }
