@@ -14,6 +14,7 @@
     display: block;
     -webkit-overflow-scrolling: touch;
     pointer-events: none;
+
     &:focus {
         border: solid 5px red;
     }
@@ -78,7 +79,7 @@
   &--body {
     position: fixed;
     top: 49px;
-    bottom: 62px;
+    bottom: 42px;
     overflow-y: auto;
     width: 100%;
     padding: 25px;
