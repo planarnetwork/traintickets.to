@@ -6,6 +6,8 @@ import axios from "axios";
 import {SelectedOptions} from "../../../page/Index/IndexPage";
 import autobind from "autobind-decorator";
 import {FareInformation} from "../FareInformation/FareInformation";
+import Web3 = require("web3");
+const {TicketWallet} = require("@planar/ticket-wallet");
 
 @autobind
 export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummaryState> {
@@ -100,8 +102,6 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
 
     const response = await this.client.post("/order", request);
 
-    console.log(response);
-
     return response.data;
   }
 
@@ -110,8 +110,30 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     this.props.onClose();
   }
 
-  private onPay() {
+  private async onPay() {
+    if (!this.state.data) {
+      return;
+    }
 
+    const web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/VfWYr7OjdspjLol0LX6t"));
+    const contract = new web3.eth.Contract(TicketWallet.abi, TicketWallet.networks["3"].address);
+    const order: OrderResponse = this.state.data!;
+
+    try {
+      const response = await contract.methods.createTicket(
+        web3.utils.fromAscii("description"),
+        order.expiry,
+        order.price,
+        order.address,
+        web3.utils.fromAscii(order.uri),
+        order.signature,
+      ).send({ value: order.price });
+
+      console.log(response);
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 }
 
@@ -131,4 +153,6 @@ interface OrderResponse {
   price: string;
   signature: string;
   uri: string;
+  expiry: number;
+  address: string;
 }
