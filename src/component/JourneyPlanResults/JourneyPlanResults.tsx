@@ -126,7 +126,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
   public renderNoResults() {
     return (
       <div className="col-sm-24 center">
-        <p className="fares--empty-title">Add some search criteria to see results</p>
+        <p className="fares--empty-title">There are no fares for that journey</p>
       </div>
     );
   }
