@@ -25,6 +25,9 @@ export class PaymentProvider {
     });
   }
 
+  public getEthPrice(wei: string): string {
+    return this.web3.utils.fromWei(wei, "ether") as string;
+  }
 }
 
 /**

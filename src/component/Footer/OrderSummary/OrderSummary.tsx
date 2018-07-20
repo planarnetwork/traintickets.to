@@ -84,7 +84,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
       <div className="col-md-18 offset-md-3">
         { items.map((tickets, i) => <FareInformation links={this.state.links} tickets={tickets} key={i}/>) }
 
-        <p className="text-right">Total price: {data.price} wei</p>
+        <p className="text-right">Total price: {this.props.paymentProvider.getEthPrice(data.price)} ether</p>
       </div>
     );
   }
