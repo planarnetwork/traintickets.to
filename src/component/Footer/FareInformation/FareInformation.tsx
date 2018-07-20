@@ -37,11 +37,11 @@ export class FareInformation extends React.Component<FareInformationProps> {
               <div className="fare-info--col2">
                 <p className="fare-info--item">
                   <span className="fare-info--label">Valid from</span>
-                  {validFrom.format("Do-MMM-YYYY")}
+                  {validFrom.format("DD-MMM-YYYY")}
                 </p>
                 <p className="fare-info--item">
                   <span className="fare-info--label">Valid to</span>
-                  {validUntil.format("Do-MMM-YYYY")}
+                  {validUntil.format("DD-MMM-YYYY")}
                 </p>
               </div>
             </div>
