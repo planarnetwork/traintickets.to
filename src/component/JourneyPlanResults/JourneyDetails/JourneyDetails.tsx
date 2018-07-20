@@ -58,7 +58,7 @@ export class JourneyDetails extends React.Component<JourneyDetailsProps, Journey
         <div className="row leg-list--line">
           <div className="offset-5 col-19">
             <p className="leg-list--duration">
-              {leg.callingPoints.length > 2 ? (
+              {leg.callingPoints.filter(cp => cp.arrive !== null).length > 2 ? (
                 <button title={service.trainUid} className={this.state.selected === index ? "leg-list--btn-calling is-active" : "leg-list--btn-calling"} onClick={this.onSelect} data-index={index}>
                   <span className="sr-only">show calling points</span>
                   {operators[leg.operator]} service to <span className="leg-list--destination">{getLocation(service.destination).name}</span>
