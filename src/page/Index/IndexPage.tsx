@@ -8,6 +8,14 @@ import {debounce} from "typescript-debounce-decorator";
 import {config} from "../../config/config";
 import axios from 'axios';
 import {Footer} from "../../component/Footer/Footer";
+import Web3 = require("web3");
+import {PaymentProvider} from "../../service/Payment/PaymentProvider";
+const {TicketWallet} = require("@planar/ticket-wallet");
+
+// declared globally by metamask
+declare var web3: any;
+const w3 = new Web3(web3.currentProvider);
+const contract = new w3.eth.Contract(TicketWallet.abi, TicketWallet.networks["3"].address);
 
 @autobind
 export class IndexPage extends React.Component<{}, IndexPageState> {
@@ -15,6 +23,8 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
   private readonly journeyPlanner = new JourneyPlanner(
     axios.create({ baseURL: config.journeyPlannerUrl })
   );
+
+  private readonly paymentProvider = new PaymentProvider(w3, contract);
 
   public state = {
     results: {
@@ -70,7 +80,7 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
           {...this.state.results!}
           />
         }
-        { this.state.results && <Footer selected={this.state.selected} links={this.state.results.links}/> }
+        { this.state.results && <Footer selected={this.state.selected} links={this.state.results.links} paymentProvider={this.paymentProvider}/> }
       </Layout>
     );
   }

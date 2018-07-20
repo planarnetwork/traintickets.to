@@ -7,11 +7,7 @@ import axios from "axios";
 import {SelectedOptions} from "../../../page/Index/IndexPage";
 import autobind from "autobind-decorator";
 import {FareInformation} from "../FareInformation/FareInformation";
-import Web3 = require("web3");
-const {TicketWallet} = require("@planar/ticket-wallet");
-
-// declared globally by metamask
-declare var web3: any;
+import {EthereumTransaction, PaymentProvider} from "../../../service/Payment/PaymentProvider";
 
 enum StateEnum {
   CREATING_ORDER,
@@ -65,6 +61,12 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         return this.renderDetails(this.state.data!, this.state.links);
       case StateEnum.CREATION_ERROR:
         return this.renderError("I'm sorry, we couldn't get your ticket details. Did you select a journey in the past?");
+      case StateEnum.PROCESSING_PAYMENT:
+        return this.renderLoader("Processing payment... this could take some time");
+      case StateEnum.PAYMENT_ERROR:
+        return this.renderError("I'm sorry, we couldn't process your payment. Do you have MetaMask installed?");
+      case StateEnum.PAYMENT_COMPLETE:
+        return this.renderPaymentComplete();
       default:
         return this.renderLoader("Loading...");
     }
@@ -99,6 +101,14 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     return(
       <div className="col-md-24">
         <Error text={text} />
+      </div>
+    );
+  }
+
+  private renderPaymentComplete() {
+    return(
+      <div className="col-md-24">
+        Thanks bro.
       </div>
     );
   }
@@ -148,39 +158,33 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
 
   private onClose() {
     this.setState(defaultState);
+
     this.props.onClose();
   }
 
   private async onPay() {
-    if (!this.state.data || !web3) {
+    if (!this.state.data) {
       return;
     }
 
-    const w3 = new Web3(web3.currentProvider);
-    const contract = new w3.eth.Contract(TicketWallet.abi, TicketWallet.networks["3"].address);
-    const order: OrderResponse = this.state.data!;
-    const [from] = await w3.eth.getAccounts();
+    this.setState({ state: StateEnum.PROCESSING_PAYMENT });
 
     try {
-      const response = await contract.methods.createTicket(
-        toBytes32("description"),
-        order.expiry,
-        order.price,
-        order.address,
-        toBytes32(order.uri),
-        order.signature,
-      ).send({ value: order.price, from });
+      const payment = await this.props.paymentProvider.pay(this.state.data!);
 
-      console.log(response);
+      this.setState({ state: StateEnum.PAYMENT_COMPLETE, payment: payment });
     }
     catch (err) {
       console.log(err);
+
+      this.setState({ state: StateEnum.PAYMENT_ERROR });
     }
   }
 }
 
 
 export interface OrderSummaryProps {
+  paymentProvider: PaymentProvider;
   selected: SelectedOptions;
   open: boolean;
   onClose: () => any;
@@ -190,27 +194,13 @@ export interface OrderSummaryState {
   state: StateEnum;
   data?: OrderResponse;
   links?: any;
-  payment?: Promise<EthereumTransaction>
+  payment?: EthereumTransaction
 }
 
-interface OrderResponse {
+export interface OrderResponse {
   price: string;
   signature: string;
   uri: string;
   expiry: number;
   address: string;
-}
-
-function toBytes32(str: string): string {
-  let hex = '0x';
-
-  for (let i = 0; i < 32; i++) {
-    hex += str.length > i ? str.charCodeAt(i).toString(16) : '00';
-  }
-
-  return hex;
-}
-
-interface EthereumTransaction {
-  tx: string;
 }
