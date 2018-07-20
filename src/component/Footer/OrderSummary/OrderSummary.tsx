@@ -60,6 +60,8 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         return this.renderDetails(this.state.data!, this.state.links);
       case StateEnum.CREATION_ERROR:
         return this.renderError("I'm sorry, we couldn't get your ticket details. Did you select a journey in the past?");
+      case StateEnum.PROCESSING_PAYMENT:
+        return this.renderLoader("Processing payment... this could take some time");
       case StateEnum.PAYMENT_ERROR:
         return this.renderError("I'm sorry, we couldn't process your payment. Do you have MetaMask installed?");
       case StateEnum.PAYMENT_COMPLETE:
