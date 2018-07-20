@@ -67,9 +67,9 @@
     &--link {
       color: $color-primary;
       display: inline-block;
-      background: transparent url($external) no-repeat right bottom 1px;
+      background: transparent url($external) no-repeat right top 6px;
       background-size: 10px 10px;
-      padding-right: 18px;
+      padding-right: 16px;
       text-decoration: none;
 
       &:hover, &:active, &:focus {
