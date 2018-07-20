@@ -20,12 +20,28 @@
   }
 
   &--copyright {
-    padding-top: 32px;
+    padding-top: 8px;
+    margin-bottom: 6px;
     font-size: 14px;
     color: rgba($color-white, 0.6);
 
     @media ($screen-tablet) {
-      padding-top: 26px;
+      padding-top: 10px;
+      margin-bottom: 8px;
+    }
+  }
+
+  &--planar {
+    font-size: 14px;
+    color: rgba($color-white, 0.6);
+  }
+
+  &--link {
+    color: $color-secondary;
+    transition: all 0.3s linear;
+
+    &:hover, &:active, &:focus {
+      color: $color-white;
     }
   }
 

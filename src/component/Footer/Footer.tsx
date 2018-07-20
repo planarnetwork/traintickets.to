@@ -38,6 +38,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
               <p className="footer--copyright" title="all the years">
                 &copy; traintickets.to
               </p>
+              <p className="footer--planar">Part of the <a className="footer--link" target="_blank" href="https://planar.network/">planar.network</a></p>
             </div>
             <div className="col text-right">
                 <button className="footer--btn" type="button" onClick={this.openModal}>
