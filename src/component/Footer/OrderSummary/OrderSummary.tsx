@@ -89,8 +89,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
   private renderLoader(text: string) {
     return(
       <div className="col-md-24">
-        {text}
-        <Loader />
+        <Loader text={text}/>
       </div>
     );
   }
