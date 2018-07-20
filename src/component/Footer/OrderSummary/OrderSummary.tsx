@@ -9,16 +9,29 @@ import {FareInformation} from "../FareInformation/FareInformation";
 import Web3 = require("web3");
 const {TicketWallet} = require("@planar/ticket-wallet");
 
-declare var web3: any; // declared globally by metamask
+// declared globally by metamask
+declare var web3: any;
+
+enum StateEnum {
+  CREATING_ORDER,
+  CREATION_ERROR,
+  ORDER_CREATED,
+  PROCESSING_PAYMENT,
+  PAYMENT_ERROR,
+  PAYMENT_COMPLETE
+}
+
+const defaultState = {
+  state: StateEnum.CREATING_ORDER,
+  data: undefined,
+  links: undefined,
+  payment: undefined
+};
 
 @autobind
 export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummaryState> {
 
-  public state = {
-    links: undefined,
-    data: undefined
-  };
-
+  public state = defaultState;
   private client = axios.create({ baseURL: config.orderServiceUrl });
 
   public render() {
@@ -34,16 +47,26 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
       <Modal
         title="Your ticket details"
         onClose={this.onClose}
-        onCallToAction={this.onPay}
-        callToActionText={"Pay"}
+        onCallToAction={this.state.state === StateEnum.ORDER_CREATED ? this.onPay : undefined}
+        callToActionText={this.state.state === StateEnum.ORDER_CREATED ? "Pay" : undefined}
         open={this.props.open}
       >
-        <div className="row">
-          { this.state.links ? this.renderDetails(this.state.data!, this.state.links) : this.renderLoader() }
-        </div>
+        <div className="row">{ this.getContent() }</div>
       </Modal>
-
     )
+  }
+
+  private getContent() {
+    switch (this.state.state) {
+      case StateEnum.CREATING_ORDER:
+        return this.renderLoader("Hold tight, we're getting your ticket details");
+      case StateEnum.ORDER_CREATED:
+        return this.renderDetails(this.state.data!, this.state.links);
+      case StateEnum.CREATION_ERROR:
+        return this.renderError("I'm sorry, we couldn't get your ticket details. Did you select a journey in the past?");
+      default:
+        return this.renderLoader("Loading");
+    }
   }
 
   private renderDetails(data: OrderResponse, links: any) {
@@ -63,17 +86,33 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     );
   }
 
-  private renderLoader() {
+  private renderLoader(text: string) {
     return(
       <div className="col-md-24">
+        {text}
         <Loader />
+      </div>
+    );
+  }
+
+  private renderError(text: string) {
+    return(
+      <div className="col-md-24">
+        {text}
       </div>
     );
   }
 
   public async componentDidUpdate(prevProps: OrderSummaryProps, prevState: OrderSummaryState) {
     if (this.props.open === true && prevProps.open === false) {
-      this.setState(await this.createOrder());
+      try {
+        const order = await this.createOrder();
+
+        this.setState({ state: StateEnum.ORDER_CREATED, ...order });
+      }
+      catch (err) {
+        this.setState({ state: StateEnum.CREATION_ERROR });
+      }
     }
   }
 
@@ -108,7 +147,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
   }
 
   private onClose() {
-    this.setState({ data: undefined, links: undefined });
+    this.setState(defaultState);
     this.props.onClose();
   }
 
@@ -148,8 +187,10 @@ export interface OrderSummaryProps {
 }
 
 export interface OrderSummaryState {
+  state: StateEnum;
   data?: OrderResponse;
   links?: any;
+  payment?: Promise<EthereumTransaction>
 }
 
 interface OrderResponse {
@@ -168,4 +209,8 @@ function toBytes32(str: string): string {
   }
 
   return hex;
+}
+
+interface EthereumTransaction {
+  tx: string;
 }
