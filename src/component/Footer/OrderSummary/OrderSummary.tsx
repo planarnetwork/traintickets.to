@@ -1,6 +1,7 @@
 import * as React from "react";
 import {Modal} from "../../Modal/Modal";
 import {Loader} from "../../Loader/Loader";
+import {Error} from "../../Error/Error";
 import {config} from "../../../config/config";
 import axios from "axios";
 import {SelectedOptions} from "../../../page/Index/IndexPage";
@@ -45,7 +46,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
   private renderModal() {
     return (
       <Modal
-        title="Your ticket details"
+        title={this.state.state === StateEnum.CREATION_ERROR ? "Oh dear" : "Your ticket details"}
         onClose={this.onClose}
         onCallToAction={this.state.state === StateEnum.ORDER_CREATED ? this.onPay : undefined}
         callToActionText={this.state.state === StateEnum.ORDER_CREATED ? "Pay" : undefined}
@@ -59,13 +60,13 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
   private getContent() {
     switch (this.state.state) {
       case StateEnum.CREATING_ORDER:
-        return this.renderLoader("Hold tight, we're getting your ticket details");
+        return this.renderLoader("Hold tight, we're getting your ticket details.");
       case StateEnum.ORDER_CREATED:
         return this.renderDetails(this.state.data!, this.state.links);
       case StateEnum.CREATION_ERROR:
         return this.renderError("I'm sorry, we couldn't get your ticket details. Did you select a journey in the past?");
       default:
-        return this.renderLoader("Loading");
+        return this.renderLoader("Loading...");
     }
   }
 
@@ -97,7 +98,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
   private renderError(text: string) {
     return(
       <div className="col-md-24">
-        {text}
+        <Error text={text} />
       </div>
     );
   }

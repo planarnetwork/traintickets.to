@@ -58,8 +58,8 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
       <Layout>
         <Search onSubmit={this.onSearch} onOpen={this.onOpenAdvanceControls}/>
         { this.state.error && (
-          <div className="error">
-            <h2 className="error--title">Oh dear.</h2>
+          <div className="fares-error">
+            <h2 className="fares-error--title">Oh dear.</h2>
             <p>It seems we are having a problem retrieving your results.</p>
           </div>
           )

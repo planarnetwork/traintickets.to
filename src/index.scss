@@ -139,25 +139,5 @@ input, select {
 }
 
 .error {
-  text-align: center;
-  padding-top: 40px;
-  font-size: 18px;
-  line-height: 26px;
-  background: transparent url($error) no-repeat center top 100px;
-
-  @media ($screen-tablet) {
-    padding-top: 80px;
-    background-position: center top 155px;
-  }
-
-  &--title {
-    font-size: 34px;
-    line-height: 34px;
-    margin-bottom: 180px;
-    font-weight: bold;
-
-    @media ($screen-tablet) {
-      margin-bottom: 210px;
-    }
-  }
+  
 }

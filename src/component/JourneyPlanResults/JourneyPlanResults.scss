@@ -1,82 +1,106 @@
 @import "../../variables.scss";
 
 .fares {
-    margin-top: 30px;
-    margin-bottom: 90px;
+  margin-top: 30px;
+  margin-bottom: 90px;
+
+  @media ($screen-tablet) {
+    margin-bottom: 0;
+  }
+
+  &--direction {
+    padding: 15px 15px 15px 45px;
+    background-color: darken($color-primary, 10%);
+    background-repeat: no-repeat;
+    background-position: left 15px center;
+    background-size: 23px 12px;
+    color: $color-white;
+    margin-bottom: 4px;
+    position: sticky;
+    top: 58px;
+    z-index: 5;
+
+    &__outward {
+      background-image: url($nav-out);
+    }
+
+    &__inward {
+      background-image: url($nav-in);
+    }
+
+    &__none {
+      padding-left: 15px;
+    }
+
+    @media ($screen-smalltablet) {
+      position: static;
+      background-image: none;
+      padding: 15px;
+    }
+  }
+
+  &--empty-title {
+    padding-top: 80px;
+    opacity: 0.3;
+    background: transparent url($up) no-repeat center top 30px;
+    font-size: 34px;
+  }
+
+  &--empty-return {
+    background-color: $color-white;
+    box-shadow: 0px 4px 6px $bg-grey;
+
+    @media ($screen-smalltablet) {
+      height: $fares-height-tab-sm;
+    }
 
     @media ($screen-tablet) {
-      margin-bottom: 0;
+      height: $fares-height-tab;
     }
 
-    &--direction {
-      padding: 15px 15px 15px 45px;
-      background-color: darken($color-primary, 10%);
-      background-repeat: no-repeat;
-      background-position: left 15px center;
-      background-size: 23px 12px;
-      color: $color-white;
-      margin-bottom: 4px;
-      position: sticky;
-      top: 58px;
-      z-index: 5;
-
-      &__outward {
-        background-image: url($nav-out);
-      }
-
-      &__inward {
-        background-image: url($nav-in);
-      }
-
-      &__none {
-        padding-left: 15px;
-      }
-
+    &__short {
       @media ($screen-smalltablet) {
-        position: static;
-        background-image: none;
-        padding: 15px;
-      }
-    }
-
-    &--empty-title {
-      padding-top: 80px;
-      opacity: 0.3;
-      background: transparent url($up) no-repeat center top 30px;
-      font-size: 34px;
-    }
-
-    &--empty-return {
-      background-color: $color-white;
-      box-shadow: 0px 4px 6px $bg-grey;
-
-      @media ($screen-smalltablet) {
-        height: $fares-height-tab-sm;
+        height: $fares-height-tab-sm-short;
       }
 
       @media ($screen-tablet) {
-        height: $fares-height-tab;
-      }
-
-      &__short {
-        @media ($screen-smalltablet) {
-          height: $fares-height-tab-sm-short;
-        }
-
-        @media ($screen-tablet) {
-          height: $fares-height-tab-short;
-        }
-      }
-
-      .fares--empty-title {
-        background: none;
-        padding: 50px 0;
-
-        @media ($screen-tablet) {
-          padding: 150px 0;
-        }
+        height: $fares-height-tab-short;
       }
     }
+
+    .fares--empty-title {
+      background: none;
+      padding: 50px 0;
+
+      @media ($screen-tablet) {
+        padding: 150px 0;
+      }
+    }
+  }
+
+  &-error {
+    text-align: center;
+    padding-top: 40px;
+    font-size: 18px;
+    line-height: 26px;
+    background: transparent url($error) no-repeat center top 100px;
+
+    @media ($screen-tablet) {
+      padding-top: 80px;
+      background-position: center top 155px;
+    }
+
+    &--title {
+      font-size: 34px;
+      line-height: 34px;
+      margin-bottom: 180px;
+      font-weight: bold;
+
+      @media ($screen-tablet) {
+        margin-bottom: 210px;
+      }
+    }
+  }
 }
 
 .fare-list {
