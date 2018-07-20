@@ -12,9 +12,7 @@ import Web3 = require("web3");
 import {PaymentProvider} from "../../service/Payment/PaymentProvider";
 const {TicketWallet} = require("@planar/ticket-wallet");
 
-// declared globally by metamask
-declare var web3: any;
-
+const web3 = (window as any).web3|| null;
 const w3 = new Web3(web3 ? web3.currentProvider : undefined);
 const contract = new w3.eth.Contract(TicketWallet.abi, TicketWallet.networks["3"].address);
 
