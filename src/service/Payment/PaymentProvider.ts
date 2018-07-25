@@ -13,11 +13,10 @@ export class PaymentProvider {
     const [from] = await this.web3.eth.getAccounts();
 
     return this.contract.methods.createTicket(
-      toBytes32("description"),
+      "description",
+      order.uri,
       order.expiry,
-      order.price,
       order.address,
-      toBytes32(order.uri),
       order.signature,
     ).send({
       value: order.price,
@@ -28,19 +27,6 @@ export class PaymentProvider {
   public getEthPrice(wei: string): string {
     return this.web3.utils.fromWei(wei, "ether") as string;
   }
-}
-
-/**
- * Convert a string to a bytes32 string
- */
-function toBytes32(str: string): string {
-  let hex = '0x';
-
-  for (let i = 0; i < 32; i++) {
-    hex += str.length > i ? str.charCodeAt(i).toString(16) : '00';
-  }
-
-  return hex;
 }
 
 export interface EthereumTransaction {
