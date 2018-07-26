@@ -27,8 +27,33 @@ export class PaymentProvider {
   public getEthPrice(wei: string): string {
     return this.web3.utils.fromWei(wei, "ether") as string;
   }
+
+  public async getFulfilment(tokenId: number): Promise<string> {
+    let reference = "";
+    const [from] = await this.web3.eth.getAccounts();
+
+    while (reference === "") {
+      console.log("Waiting for reference");
+
+      try {
+        reference = await this.contract.methods.getFulfilmentURIById(tokenId).call({ from });
+      }
+      catch (err) {}
+    }
+
+    return reference.substr(5);
+  }
+
 }
 
 export interface EthereumTransaction {
-  tx: string;
+  events: {
+    Transfer: {
+      returnValues: {
+        0: string;
+        1: string;
+        2: number;
+      }
+    }
+  }
 }

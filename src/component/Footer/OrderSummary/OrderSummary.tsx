@@ -7,7 +7,7 @@ import axios from "axios";
 import {SelectedOptions} from "../../../page/Index/IndexPage";
 import autobind from "autobind-decorator";
 import {FareInformation} from "../FareInformation/FareInformation";
-import {EthereumTransaction, PaymentProvider} from "../../../service/Payment/PaymentProvider";
+import {PaymentProvider} from "../../../service/Payment/PaymentProvider";
 
 enum StateEnum {
   CREATING_ORDER,
@@ -15,14 +15,15 @@ enum StateEnum {
   ORDER_CREATED,
   PROCESSING_PAYMENT,
   PAYMENT_ERROR,
-  PAYMENT_COMPLETE
+  PAYMENT_COMPLETE,
+  FULFILMENT_COMPLETE
 }
 
 const defaultState = {
   state: StateEnum.CREATING_ORDER,
   data: undefined,
   links: undefined,
-  payment: undefined
+  fulfilment: undefined
 };
 
 @autobind
@@ -66,7 +67,9 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
       case StateEnum.PAYMENT_ERROR:
         return this.renderError("I'm sorry, we couldn't process your payment. Do you have MetaMask installed?");
       case StateEnum.PAYMENT_COMPLETE:
-        return this.renderPaymentComplete();
+        return this.renderLoader("Payment complete, awaiting collection reference");
+      case StateEnum.FULFILMENT_COMPLETE:
+        return this.renderFulfilmentComplete();
       default:
         return this.renderLoader("Loading...");
     }
@@ -105,10 +108,10 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     );
   }
 
-  private renderPaymentComplete() {
+  private renderFulfilmentComplete() {
     return(
       <div className="col-md-24">
-        Thanks bro.
+        Collection reference {this.state.fulfilment}
       </div>
     );
   }
@@ -172,7 +175,11 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     try {
       const payment = await this.props.paymentProvider.pay(this.state.data!);
 
-      this.setState({ state: StateEnum.PAYMENT_COMPLETE, payment: payment });
+      this.setState({ state: StateEnum.PAYMENT_COMPLETE });
+
+      const fulfilment = await this.props.paymentProvider.getFulfilment(payment.events.Transfer.returnValues[2]);
+
+      this.setState({ state: StateEnum.FULFILMENT_COMPLETE, fulfilment: fulfilment })
     }
     catch (err) {
       console.log(err);
@@ -194,7 +201,7 @@ export interface OrderSummaryState {
   state: StateEnum;
   data?: OrderResponse;
   links?: any;
-  payment?: EthereumTransaction
+  fulfilment?: string;
 }
 
 export interface OrderResponse {
