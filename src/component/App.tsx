@@ -11,11 +11,7 @@ export function App() {
   return (
     <div id="top" className="App max">
       <Header/>
-      <Route
-        exact={true}
-        path="/"
-        render={container.indexPage}
-      />
+      <Route exact={true} path="/" render={container.indexPage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/faq" component={FAQPage} />
     </div>
