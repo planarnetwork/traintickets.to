@@ -5,6 +5,7 @@ import './Nav.css';
 
 @autobind
 export class Nav extends React.Component<NavProps> {
+
   public render() {
     const { isExpanded } = this.props;
     const navClasses = isExpanded ? 'nav is-expanded' : 'nav';
@@ -25,9 +26,10 @@ export class Nav extends React.Component<NavProps> {
       </nav>
     )
   }
+
 }
 
 export interface NavProps {
-  isExpanded?: boolean;
+  isExpanded: boolean;
 }
 

@@ -5,16 +5,27 @@ import {Burger} from "./../Burger/Burger";
 import './Header.css';
 import {Link} from "react-router-dom";
 import {withRouter} from 'react-router-dom';
+import autobind from "autobind-decorator";
 
-class HeaderComponent extends React.Component<HeaderProps> {
+@autobind
+class HeaderComponent extends React.Component<HeaderProps, HeaderState> {
+
+  public state = {
+    isExpanded: false
+  };
+
+  public onToggle() {
+    this.setState({ isExpanded: !this.state.isExpanded });
+  }
+
   public render() {
     return (
       <header className="header clearfix">
-        <Burger />
+        <Burger onToggle={this.onToggle} isExpanded={this.state.isExpanded}/>
         <h1 className="header--logo">
           <Link className="header--link" to="/">train<span className='color-highlight'>tickets</span>.to</Link>
         </h1>
-        <Nav />
+        <Nav isExpanded={this.state.isExpanded}/>
         { this.props.location.pathname === "/" && <QuickLinks /> }
       </header>
     )
@@ -27,4 +38,8 @@ interface HeaderProps {
   location: {
     pathname: string;
   };
+}
+
+interface HeaderState {
+  isExpanded: boolean;
 }
