@@ -180,7 +180,6 @@ export class Search extends React.Component<SearchProps, SearchState> {
                   <legend className="form-label">Ticket type</legend>
                   <Checkbox label="Singles" name="singles" checked={this.state.singles} onChange={this.set}/>
                   <Checkbox label="Returns" name="returns" checked={this.state.returns} onChange={this.set}/>
-                  <Checkbox label="Advance" name="advance" checked={this.state.advance} onChange={this.set}/>
                 </div>
                 <div className="col-sm-24 col-md-7 col-lg-11">
                   <div className="form-group">
