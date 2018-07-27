@@ -3,7 +3,7 @@ import {Header} from "./Header/Header";
 import {Route} from "react-router";
 import {AboutPage} from "./About/AboutPage";
 import {FAQPage} from "./FAQ/FAQPage";
-import {Container} from "../service/Container";
+import {Container} from "./Container";
 
 export function App() {
   const container = new Container();

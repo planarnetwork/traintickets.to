@@ -1,14 +1,14 @@
 import {Config, dev, production} from "../config/config";
-import {JourneyPlanner} from "./JourneyPlanner/JourneyPlanner";
-import {OrderService} from "./Order/OrderService";
-import {PaymentProvider} from "./Payment/PaymentProvider";
+import {JourneyPlanner} from "../service/JourneyPlanner/JourneyPlanner";
+import {OrderService} from "../service/Order/OrderService";
+import {PaymentProvider} from "../service/Payment/PaymentProvider";
 import * as memoize from "memoized-class-decorator";
 import * as Planar from "@planar/ticket-wallet";
 import * as React from 'react';
 import Contract from "web3/eth/contract";
 import axios from "axios";
 import Web3 = require("web3");
-import {IndexPage} from "../component/Index/IndexPage";
+import {IndexPage} from "./Index/IndexPage";
 
 export class Container {
 
