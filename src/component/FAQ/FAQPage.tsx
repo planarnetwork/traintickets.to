@@ -45,7 +45,7 @@ export function FAQPage() {
       <h3>When is your ICO?</h3>
       <p>
         In it's current form traintickets.to does not need it's own token so there is no plan for an ICO. It is built on top of the ERC-721
-        standard each ticket is it's own non-fungible token.
+        standard so each ticket is it's own non-fungible token.
       </p>
     </div>
   );
