@@ -42,6 +42,11 @@ export function FAQPage() {
         That's not a question, but thank you. We built it from the ground up to be fast, accurate and flexible. It's still a work in
         progress so if there are issues, please <a href="mailto:info@planar.network">let us know</a>.
       </p>
+      <h3>When is your ICO?</h3>
+      <p>
+        In it's current form traintickets.to does not need it's own token so there is no plan for an ICO. It is built on top of the ERC-721
+        standard each ticket is it's own non-fungible token.
+      </p>
     </div>
   );
 }
