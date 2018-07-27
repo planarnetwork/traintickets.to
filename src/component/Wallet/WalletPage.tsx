@@ -29,6 +29,17 @@ export class WalletPage extends React.Component<WalletProps, WalletState> {
   }
 
   public render() {
+    const content = this.getContent();
+
+    return (
+      <section className="wallet">
+        <h2 className="page-title">Ticket Wallet</h2>
+        <div className="container">{content}</div>
+      </section>
+    );
+  }
+
+  private getContent() {
     if (this.state.error) {
       return (<p>Error</p>);
     }
