@@ -19,16 +19,33 @@
     }
   }
 
-  &--copyright {
-    padding-top: 10px;
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: rgba($color-white, 0.6);
-  }
-
   &--planar {
-    font-size: 14px;
-    color: rgba($color-white, 0.6);
+    padding-top: 8px;
+
+    &-text {
+      font-size: 12px;
+      line-height: 14px;
+      color: $color-white;
+      display: block;
+      margin-bottom: 3px;
+
+      @media ($screen-tablet) {
+        display: inline-block;
+        margin-right: 6px;
+        font-size: 14px;
+        line-height: 25px;
+      }
+    }
+
+    img {
+      max-width: 120px;
+      max-height: 25px;
+
+        @media ($screen-tablet) {
+          position: relative;
+          top: 8px;
+        }
+    }
   }
 
   &--link {

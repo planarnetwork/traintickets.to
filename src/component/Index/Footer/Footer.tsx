@@ -36,10 +36,13 @@ export class Footer extends React.Component<FooterProps, FooterState> {
         <div className="footer-bg max">
           <div className="row">
             <div className="col-8">
-              <p className="footer--copyright" title="all the years">
-                &copy; traintickets.to
+              <p className="footer--planar">
+                <span className="footer--planar-text">Part of the </span>
+                <a href="https://planar.network">
+                  <span className="sr-only">planar.network</span>
+                  <img className="footer-planar" src="img/planar-network-logo.svg" alt="Planar Network Logo" />
+                </a>
               </p>
-              <p className="footer--planar"><span className="d-none d-sm-inline">Part of the </span><a className="footer--link" target="_blank" href="https://planar.network/">planar.network</a></p>
             </div>
             <div className="col text-right">
                 <button className="footer--btn" type="button" onClick={this.openModal}>
