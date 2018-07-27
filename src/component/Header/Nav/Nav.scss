@@ -1,4 +1,4 @@
-@import "../../variables.scss";
+@import "../../../variables.scss";
 
 .nav {
   position: absolute;
@@ -24,7 +24,9 @@
   }
 
   &.is-expanded {
-    left: 0;
+    @media ($screen-smalltablet-max) {
+      left: 0;
+    }
   }
 
   &--item {

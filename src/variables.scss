@@ -55,9 +55,11 @@ $min-tablet: 768px;
 $min-laptop: 992px;
 $min-desktop: 1200px;
 $min-hd: 1400px;
+$max-smalltablet: $min-tablet - 1;
 
 $screen-phone: unquote("min-width: #{$min-phone}");
 $screen-smalltablet: unquote("min-width: #{$min-smalltablet}");
+$screen-smalltablet-max: unquote("max-width: #{$max-smalltablet}");
 $screen-tablet: unquote("min-width: #{$min-tablet}");
 $screen-laptop: unquote("min-width: #{$min-laptop}");
 $screen-desktop: unquote("min-width: #{$min-desktop}");
