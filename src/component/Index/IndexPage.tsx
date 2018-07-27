@@ -5,7 +5,7 @@ import {JourneyPlanner, SearchResults} from "../../service/JourneyPlanner/Journe
 import autobind from "autobind-decorator";
 import {debounce} from "typescript-debounce-decorator";
 import {Footer} from "./Footer/Footer";
-import {PaymentProvider} from "../../service/Payment/PaymentProvider";
+import {Wallet} from "../../service/Wallet/Wallet";
 import {OrderService} from "../../service/Order/OrderService";
 
 @autobind
@@ -69,7 +69,7 @@ export class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
           <Footer
             selected={this.state.selected}
             links={this.state.results.links}
-            paymentProvider={this.props.paymentProvider}
+            wallet={this.props.wallet}
             orderService={this.props.orderService}
           />
         ) }
@@ -87,7 +87,7 @@ interface IndexPageState {
 
 export interface IndexPageProps {
   journeyPlanner: JourneyPlanner;
-  paymentProvider: PaymentProvider;
+  wallet: Wallet;
   orderService: OrderService;
 }
 

@@ -4,7 +4,7 @@ import './Footer.css';
 import autobind from "autobind-decorator";
 import {SelectedOptions} from "../IndexPage";
 import {OrderSummary} from "./OrderSummary/OrderSummary";
-import {PaymentProvider} from "../../../service/Payment/PaymentProvider";
+import {Wallet} from "../../../service/Wallet/Wallet";
 import {OrderService} from "../../../service/Order/OrderService";
 
 @autobind
@@ -60,7 +60,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
           open={this.state.modalOpen}
           onClose={this.closeModal}
           selected={this.props.selected}
-          paymentProvider={this.props.paymentProvider}
+          wallet={this.props.wallet}
           orderService={this.props.orderService}
         />
       </footer>
@@ -87,7 +87,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
 
 export interface FooterProps {
  selected: SelectedOptions;
- paymentProvider: PaymentProvider;
+ wallet: Wallet;
  orderService: OrderService;
  links: any;
 }

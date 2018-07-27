@@ -5,8 +5,10 @@ import {Error} from "../../Error/Error";
 import {SelectedOptions} from "../../IndexPage";
 import autobind from "autobind-decorator";
 import {FareInformation} from "../FareInformation/FareInformation";
-import {PaymentProvider} from "../../../../service/Payment/PaymentProvider";
 import {OrderData, OrderService} from "../../../../service/Order/OrderService";
+import moment = require("moment");
+import {Wallet} from "../../../../service/Wallet/Wallet";
+import {Link} from "react-router-dom";
 
 enum StateEnum {
   CREATING_ORDER,
@@ -85,7 +87,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
       <div className="col-md-18 offset-md-3">
         { items.map((tickets, i) => <FareInformation links={this.state.links} tickets={tickets} key={i}/>) }
 
-        <p className="text-right">Total price: {this.props.paymentProvider.getEthPrice(data.price)} ether</p>
+        <p className="text-right">Total price: {this.props.wallet.getEthPrice(data.price)} ether</p>
       </div>
     );
   }
@@ -112,6 +114,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         <h2>Purchase complete</h2>
         <p>Your order has been fulfilled and can now be collected at any UK station with a TVM.</p>
         <h3>Your collection reference: {this.state.fulfilment}</h3>
+        <p>You can view your ticket collection references in your <Link to="/wallet">ticket wallet</Link> at any time.</p>
       </div>
     );
   }
@@ -143,11 +146,11 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     this.setState({ state: StateEnum.PROCESSING_PAYMENT });
 
     try {
-      const payment = await this.props.paymentProvider.pay(this.state.data!);
+      const payment = await this.props.wallet.pay(this.state.data!, this.getDescription());
 
       this.setState({ state: StateEnum.PAYMENT_COMPLETE });
 
-      const fulfilment = await this.props.paymentProvider.getFulfilment(payment.events.Transfer.returnValues[2]);
+      const fulfilment = await this.props.wallet.getFulfilment(payment.events.Transfer.returnValues[2]);
 
       this.setState({ state: StateEnum.FULFILMENT_COMPLETE, fulfilment: fulfilment })
     }
@@ -157,11 +160,37 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
       this.setState({ state: StateEnum.PAYMENT_ERROR });
     }
   }
+
+  private getDescription() {
+    const links: object = this.state.links!;
+    const data = this.state.data! as OrderData;
+
+    const order = links[data.uri];
+    const trip = links[order.items[0]];
+    const outwardJourney = links[trip.outwardJourney];
+    const firstOutwardLeg = links[outwardJourney.legs[0]];
+    const origin = links[firstOutwardLeg.origin].name.display;
+    const lastOutwardLeg = links[outwardJourney.legs[outwardJourney.legs.length - 1]];
+    const destination = links[lastOutwardLeg.destination].name.display;
+    const outwardDate = moment(firstOutwardLeg.scheduledDeparture).format("DD-MMM-YYYY");
+
+    let description = `${origin} to ${destination} - departing ${outwardDate}`;
+
+    if (trip.returnJourney) {
+      const returnJourney = links[trip.returnJourney];
+      const firstReturnLeg = links[returnJourney.legs[0]];
+      const returnDate = moment(firstReturnLeg.scheduledDeparture).format("DD-MMM-YYYY");
+
+      description += `, returning ${returnDate}`;
+    }
+
+    return description;
+  }
 }
 
 
 export interface OrderSummaryProps {
-  paymentProvider: PaymentProvider;
+  wallet: Wallet;
   selected: SelectedOptions;
   open: boolean;
   onClose: () => any;
