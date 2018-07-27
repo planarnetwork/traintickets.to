@@ -1,7 +1,7 @@
 import {Config, dev, production} from "../config/config";
 import {JourneyPlanner} from "../service/JourneyPlanner/JourneyPlanner";
 import {OrderService} from "../service/Order/OrderService";
-import {PaymentProvider} from "../service/Payment/PaymentProvider";
+import {Wallet} from "../service/Wallet/Wallet";
 import * as memoize from "memoized-class-decorator";
 import * as Planar from "@planar/ticket-wallet";
 import * as React from 'react';
@@ -16,14 +16,14 @@ export class Container {
   @memoize
   public get walletPage() {
     return () => (
-      <WalletPage wallet={this.ticketWallet} web3={this.web3} />
+      <WalletPage wallet={this.wallet}/>
     );
   }
 
   @memoize
   public get indexPage() {
     return () => (
-      <IndexPage journeyPlanner={this.journeyPlanner} paymentProvider={this.paymentProvider} orderService={this.orderService} />
+      <IndexPage journeyPlanner={this.journeyPlanner} wallet={this.wallet} orderService={this.orderService} />
     );
   }
 
@@ -35,8 +35,8 @@ export class Container {
   }
 
   @memoize
-  public get paymentProvider(): PaymentProvider {
-    return new PaymentProvider(this.web3, this.ticketWallet);
+  public get wallet(): Wallet {
+    return new Wallet(this.web3, this.ticketWallet);
   }
 
   @memoize
