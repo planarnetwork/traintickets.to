@@ -1,16 +1,16 @@
 import * as React from 'react';
 import './Nav.css';
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 export function Nav() {
   return (
     <nav className="d-none d-md-block">
       <ul className="nav">
         <li className="nav--item">
-          <Link className="nav--link" to="/about">About</Link>
+          <NavLink className="nav--link" to="/about">About</NavLink>
         </li>
         <li className="nav--item">
-          <Link className="nav--link" to="/faq">FAQ</Link>
+          <NavLink className="nav--link" to="/faq">FAQ</NavLink>
         </li>
       </ul>
     </nav>
