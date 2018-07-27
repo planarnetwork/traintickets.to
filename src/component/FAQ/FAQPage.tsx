@@ -3,6 +3,10 @@ import * as React from 'react';
 export function FAQPage() {
   return (
     <div>
+      <h3>This is great, how can I help?</h3>
+      <p>
+        Testing, providing (constructive) <a href="mailto:info@planar.network">feedback</a>, helping spread the word, and donating to <a href="https://etherscan.io/address/0xFb35234A74801463Fa171204ECE1064eeb01D7d1">0xFb35234A74801463Fa171204ECE1064eeb01D7d1</a> are all much appreciated.
+      </p>
       <h3>How can I buy a ticket?</h3>
       <p>
         The dapp is currently running on Ropsten so a Ropsten account and <a href="https://metamask.io">MetaMask</a> are required to
