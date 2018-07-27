@@ -4,8 +4,11 @@ import {NavLink} from "react-router-dom";
 
 export function Nav() {
   return (
-    <nav className="d-none d-md-block">
-      <ul className="nav">
+    <nav className="nav">
+      <ul className="nav--list">
+        <li className="nav--item d-block d-md-none">
+          <NavLink className="nav--link" to="/">Home</NavLink>
+        </li>
         <li className="nav--item">
           <NavLink className="nav--link" to="/about">About</NavLink>
         </li>
