@@ -38,7 +38,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
             <div className="col-8">
               <p className="footer--planar">
                 <span className="footer--planar-text">Part of the </span>
-                <a href="https://planar.network">
+                <a href="https://planar.network" target="_blank">
                   <span className="sr-only">planar.network</span>
                   <img className="footer-planar" src="img/planar-network-logo.svg" alt="Planar Network Logo" />
                 </a>
