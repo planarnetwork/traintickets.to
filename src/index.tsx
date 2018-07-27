@@ -1,11 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './index.css';
-import {IndexPage} from './page/Index/IndexPage';
 import {unregister} from './registerServiceWorker';
+import {BrowserRouter} from "react-router-dom";
+import {Layout} from "./component/Layout";
 
-ReactDOM.render(
-  <IndexPage />,
-  document.getElementById('root') as HTMLElement
-);
+ReactDOM.render((
+  <BrowserRouter>
+    <Layout/>
+  </BrowserRouter>
+), document.getElementById('root') as HTMLElement);
+
 unregister();

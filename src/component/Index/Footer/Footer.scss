@@ -1,0 +1,152 @@
+@import "../../../variables.scss";
+
+.footer {
+  color: $color-white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+
+  &-bg {
+    background-color: $color-primary;
+    box-shadow: 0 0 4px darken($color-primary, 10%);
+    padding-left: 10px;
+    position: relative;
+
+    @media ($screen-tablet) {
+      padding-left: 25px;
+    }
+  }
+
+  &--copyright {
+    padding-top: 8px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: rgba($color-white, 0.6);
+
+    @media ($screen-tablet) {
+      padding-top: 10px;
+      margin-bottom: 8px;
+    }
+  }
+
+  &--planar {
+    font-size: 14px;
+    color: rgba($color-white, 0.6);
+  }
+
+  &--link {
+    color: $color-secondary;
+    transition: all 0.3s linear;
+
+    &:hover, &:active, &:focus {
+      color: $color-white;
+    }
+  }
+
+  &--btn {
+    border: none;
+    color: $color-white;
+    background: $color-secondary url($info) no-repeat left 15px center;
+    background-size: 47px 35px;
+    padding: 8px 25px 9px 72px;
+    text-align: right;
+    display: inline-block;
+    transition: all 0.3s linear;
+
+    &:hover, &:active, &:focus {
+      transform: scale(1.08, 1.08);
+    }
+
+    &-price {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    &-pax {
+      font-size: 14px;
+      color: rgba($color-white, 0.6);
+    }
+  }
+
+  &-pop {
+    position: absolute;
+    right: 15px;
+    bottom: 70px;
+    background-color: darken($color-white, 3%);
+    border: solid 3px $color-secondary;
+    width: 240px;
+
+    @media ($screen-smalltablet) {
+      width: 280px;
+      right: 25px;
+    }
+
+    &--header {
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 10px 5px 10px;
+      color: $color-primary;
+
+      @media ($screen-smalltablet) {
+        font-size: 18px;
+        padding: 15px 15px 10px 15px;
+      }
+    }
+
+    &--message {
+      font-size: 13px;
+      line-height: 18px;
+      color: $color-black;
+      padding: 0 10px 10px 10px;
+
+      @media ($screen-smalltablet) {
+        font-size: 14px;
+        line-height: 20px;
+        padding: 0 15px 15px 15px;
+      }
+    }
+
+    &--close {
+      width: 15px;
+      height: 15px;
+      display: block;
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      border-radius: 50%;
+      background: $color-primary url($cross-white) no-repeat center center;
+      background-size: 10px 10px;
+      color: $color-white;
+      font-size: 14px;
+      line-height: 14px;
+      width: 22px;
+      height: 22px;
+      border: solid 2px $color-white;
+      font-weight: bold;
+      padding: 0;
+    }
+
+    &:after {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      border: 9px solid $color-secondary;
+      border-color: $color-secondary transparent transparent transparent;
+      bottom: -20px;
+      right: 30px;
+    }
+
+    &:before {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      border: 6px solid darken($color-white, 3%);
+      border-color: darken($color-white, 3%) transparent transparent transparent;
+      bottom: -12px;
+      right: 33px;
+      z-index: 1;
+    }
+  }
+}

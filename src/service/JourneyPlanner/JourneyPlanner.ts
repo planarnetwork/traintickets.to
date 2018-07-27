@@ -1,7 +1,7 @@
 import {AxiosInstance} from "axios";
 import autobind from "autobind-decorator";
 import {isArray} from "util";
-import {SearchState} from "../../component/Search/Search";
+import {SearchState} from "../../component/Index/Search/Search";
 
 @autobind
 export class JourneyPlanner {

@@ -1,0 +1,53 @@
+@import "../../../../variables.scss";
+
+.radio {
+  display: inline-block;
+  margin-bottom: 15px;
+  width: 50%;
+
+  @media ($screen-tablet) {
+    margin-top: 10px;
+  }
+
+  > span {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    color: $color-black;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 0 0 5px 30px;
+    transition: color 0.3s linear;
+
+    &:before {
+      content: "";
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      border-radius: 50%;
+      top: 0;
+      left: 0;
+      background-color: $color-white;
+    }
+  }
+
+  > input[type="radio"] {
+    &:checked + span:before {
+      background: $color-primary url($tick) no-repeat center center;
+      background-size: 12px;
+    }
+
+    &:hover, &:focus, &:active {
+      + span {
+        color: $color-primary;
+
+        &:before {
+          color: $color-primary;
+          border: solid 1px $color-primary;
+        }
+      }
+    }
+  }
+}

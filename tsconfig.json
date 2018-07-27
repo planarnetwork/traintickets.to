@@ -11,6 +11,7 @@
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "noImplicitAny": false,
     "experimentalDecorators": true,
     "noUnusedLocals": true
   },

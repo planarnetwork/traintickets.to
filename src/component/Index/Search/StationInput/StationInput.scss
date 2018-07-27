@@ -1,0 +1,45 @@
+@import "../../../../variables.scss";
+
+.react-autosuggest {
+  &__container {
+    position: relative;
+  }
+
+  &__input {
+    width: 100%;
+    line-height: 30px;
+    padding: 5px 0 5px 10px;
+    font-weight: 600;
+    font-size: 12px;
+    transition: background-color 0.3s linear;
+
+    &:hover {
+      background-color: darken($color-white, 3%);
+    }
+  }
+
+  &__suggestions-container {
+    position: absolute;
+    background-color: $color-white;
+    width: calc(100vw - 45px);
+    z-index: 20;
+    max-height: 200px;
+    overflow: auto;
+    box-shadow: 2px 2px 2px darken($bg-grey, 10%);
+
+    @media ($screen-smalltablet) {
+      width: 320px;
+    }
+  }
+
+  &__suggestion {
+    padding: 10px;
+    font-size: 12px;
+    line-height: 16px;
+
+    &--highlighted {
+        background-color: $color-primary;
+        color: $color-white;
+    }
+  }
+}

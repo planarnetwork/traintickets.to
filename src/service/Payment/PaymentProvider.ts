@@ -1,4 +1,4 @@
-import {OrderResponse} from "../../component/Footer/OrderSummary/OrderSummary";
+import {OrderResponse} from "../../component/Index/Footer/OrderSummary/OrderSummary";
 import Web3 = require("web3");
 import Contract from "web3/eth/contract";
 
@@ -41,7 +41,7 @@ export class PaymentProvider {
       catch (err) {}
     }
 
-    return reference.substr(5);
+    return reference.substr(6);
   }
 
 }

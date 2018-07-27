@@ -1,0 +1,280 @@
+@import "../../../../variables.scss";
+
+.leg {
+  &-container {
+    padding: 5px 0 15px 0;
+  }
+
+  &-list {
+    &--time {
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 14px;
+      position: relative;
+      z-index: 1;
+
+      &:before {
+        @media ($screen-phone) {
+          content: "";
+          width: 14px;
+          height: 14px;
+          display: block;
+          border-radius: 50%;
+          background-color: rgba($color-primary, 0.3);
+          position: absolute;
+          left: 38px;
+          top: 0;
+          z-index: 0;
+        }
+
+        @media ($screen-smalltablet) {
+          left: 42px;
+        }
+
+        @media ($screen-tablet) {
+          display: none;
+        }
+
+        @media ($screen-tablet) {
+          display: none;
+        }
+
+        @media ($screen-laptop) {
+          display: block;
+          left: 38px;
+        }
+
+        @media ($screen-desktop) {
+          left: 43px;
+        }
+
+        @media ($screen-desktop-lg) {
+          left: 49px;
+        }
+      }
+    }
+
+    &--station {
+      font-size: 14px;
+      line-height: 18px;
+      margin-top: -2px;
+      color: darken($color-primary, 10%);
+    }
+
+    &--destination {
+      font-style: italic;
+    }
+
+    &--plat {
+      font-size: 11px;
+      line-height: 11px;
+      opacity: 0.7;
+      display: inline-block;
+      margin-left: 6px;
+    }
+
+    &--duration {
+      margin: 7px 0;
+      font-size: 12px;
+      padding: 3px 0;
+      line-height: 16px;
+      color: lighten($color-black, 20%);
+    }
+
+    &--btn-calling {
+      border: none;
+      padding: 0 0 0 15px;
+      font-size: 12px;
+      line-height: 12px;
+      text-align: left;
+      color: lighten($color-black, 20%);
+      background: transparent url($more) no-repeat left center;
+      background-size: 10px 10px;
+      transition: color 0.3s ease;
+
+      &:hover, &:active, &:focus {
+        color: $color-secondary;
+      }
+
+      &.is-active {
+        background-image: url($less);
+      }
+    }
+
+    &--line {
+      position: relative;
+
+      &:before {
+        @media ($screen-phone) {
+          content: "";
+          width: 2px;
+          height: calc(100% - 2px);
+          background-color: rgba($color-primary, 0.1);
+          position: absolute;
+          left: 54px;
+          top: -2px;
+          height: calc(100% + 2px);
+        }
+
+        @media ($screen-smalltablet) {
+          left: 58px;
+        }
+
+        @media ($screen-tablet) {
+          display: none;
+        }
+
+        @media ($screen-laptop) {
+          display: block;
+          left: 54px;
+          top: -2px;
+          height: calc(100% + 2px);
+        }
+
+        @media ($screen-desktop) {
+          left: 59px;
+        }
+
+        @media ($screen-desktop-lg) {
+          left: 65px;
+        }
+      }
+    }
+  }
+
+  &-fixed {
+    .leg-list--duration {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      margin-top: 0;
+    }
+
+    .leg-list--line:before {
+      display: none;
+    }
+  }
+
+  &-mode {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: solid 2px rgba($color-primary, 0.1);
+    background-color: transparent;
+    background-repeat: no-repeat;
+
+    &:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    &__bus, &__replacementbus {
+      background-image: url($mode-bus);
+      background-position: left 0 top 22px;
+      background-size: 24px 22px;
+
+      @media ($screen-desktop) {
+        background-position: left 6px top 22px;
+      }
+    }
+
+    &__ferry {
+      background-image: url($mode-ferry);
+      background-position: left 0 top 22px;
+      background-size: 24px 22px;
+
+      @media ($screen-desktop) {
+        background-position: left 6px top 22px;
+      }
+    }
+
+    &__train {
+      background-image: url($mode-train);
+      background-position: left 0 top 25px;
+      background-size: 24px 16px;
+
+      @media ($screen-desktop) {
+        background-position: left 6px top 25px;
+      }
+    }
+
+    &__tram {
+      background-image: url($mode-tram);
+      background-position: left 0 top 20px;
+      background-size: 16px 26px;
+
+      @media ($screen-desktop) {
+        background-position: left 10px top 20px;
+      }
+    }
+
+    // fixed
+    &__transfer {
+      background-image: url($mode-transfer);
+      background-position: left 0 top 4px;
+      background-size: 22px 28px;
+
+      @media ($screen-desktop) {
+        background-position: left 11px top 4px;
+      }
+    }
+
+    // fixed
+    &__tube, &__metro {
+      background-image: url($mode-tube);
+      background-position: left 0 top 6px;
+      background-size: 24px 19px;
+
+      @media ($screen-desktop) {
+        background-position: left 6px top 6px;
+      }
+    }
+
+    // fixed
+    &__walk {
+      background-image: url($mode-walk);
+      background-position: left 0 top 1px;
+      background-size: 20px 32px;
+
+      @media ($screen-desktop) {
+        background-position: left 8px top 1px;
+      }
+    }
+  }
+}
+
+.is-selected .leg-mode {
+  &__bus {
+    background-image: url($mode-bus-white);
+  }
+
+  &__ferry {
+    background-image: url($mode-ferry-white);
+  }
+
+  &__replacementbus {
+    background-image: url($mode-bus-white);
+  }
+
+  &__train {
+    background-image: url($mode-train-white);
+  }
+
+  &__tram {
+    background-image: url($mode-tram-white);
+  }
+
+  // fixed
+  &__transfer {
+    background-image: url($mode-transfer-white);
+  }
+
+  // fixed
+  &__tube, &__metro {
+    background-image: url($mode-tube-white);
+  }
+
+  // fixed
+  &__walk {
+    background-image: url($mode-walk-white);
+  }
+}
