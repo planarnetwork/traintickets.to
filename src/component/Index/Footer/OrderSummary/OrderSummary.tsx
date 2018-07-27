@@ -111,7 +111,9 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
   private renderFulfilmentComplete() {
     return(
       <div className="col-md-24">
-        Collection reference {this.state.fulfilment}
+        <h2>Purchase complete</h2>
+        <p>Your order has been fulfilled and can now be collected at any UK station with a TVM.</p>
+        <h3>Your collection reference: {this.state.fulfilment}</h3>
       </div>
     );
   }
