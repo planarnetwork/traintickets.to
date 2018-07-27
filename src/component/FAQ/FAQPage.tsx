@@ -15,7 +15,7 @@ export function FAQPage() {
                 </dt>
                 <dd className="faq--answer" role="region">
                   <p>
-                    Testing, providing (constructive) <a href="mailto:info@planar.network">feedback</a>, helping spread the word, and donating to <a href="https://etherscan.io/address/0xFb35234A74801463Fa171204ECE1064eeb01D7d1" className="external">0xFb35234A74801463Fa171204ECE1064eeb01D7d1</a> are all much appreciated.
+                    Testing, providing (constructive) <a href="mailto:info@planar.network">feedback</a>, helping spread the word, and donating to <a href="https://etherscan.io/address/0xFb35234A74801463Fa171204ECE1064eeb01D7d1" className="external" target="_blank">0xFb35234A74801463Fa171204ECE1064eeb01D7d1</a> are all much appreciated.
                   </p>
                 </dd>
               </div>
@@ -26,7 +26,7 @@ export function FAQPage() {
                 </dt>
                 <dd className="faq--answer" role="region">
                   <p>
-                    The dapp is currently running on Ropsten so a Ropsten account and <a href="https://metamask.io" className="external">MetaMask</a> are required to 
+                    The dapp is currently running on Ropsten so a Ropsten account and <a href="https://metamask.io" className="external" target="_blank">MetaMask</a> are required to 
                     complete purchases. If you are having trouble please ensure that your account is unlocked or contact <a href="mailto:info@planar.network">support</a>.
                   </p>
                 </dd>
@@ -98,7 +98,7 @@ export function FAQPage() {
                 <dd className="faq--answer" role="region">
                   <p>
                     Yes. Everything is available, from the frontend UI to the signing service and contract. You can see everything on the Planar
-                    Network <a href="https://www.github.com/planarnetwork" className="external">GitHub account</a>.
+                    Network <a href="https://www.github.com/planarnetwork" className="external" target="_blank">GitHub account</a>.
                   </p>
                 </dd>
               </div>
