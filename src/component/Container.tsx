@@ -16,7 +16,7 @@ export class Container {
   @memoize
   public get walletPage() {
     return () => (
-      <WalletPage wallet={this.ticketWallet} />
+      <WalletPage wallet={this.ticketWallet} web3={this.web3} />
     );
   }
 
