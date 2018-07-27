@@ -20,7 +20,7 @@
         line-height: 14px;
         padding: 5px 10px;
 
-        &:hover {
+        &:hover, &.active {
             color: $color-secondary;
             border-bottom: solid 2px $color-secondary;
         }
