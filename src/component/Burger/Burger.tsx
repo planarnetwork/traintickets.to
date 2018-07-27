@@ -5,8 +5,8 @@ import './Burger.css';
 @autobind
 export class Burger extends React.Component<BurgerProps> {
     public render() {
-    const { toggleMenu, isExpanded } = this.props;
-    const hamburgerClasses = isExpanded ? 'burger is-active d-block d-md-none' : 'burger d-block d-md-none';
+      const { toggleMenu, isExpanded } = this.props;
+      const hamburgerClasses = isExpanded ? 'burger is-active d-block d-md-none' : 'burger d-block d-md-none';
 
       return (
         <button

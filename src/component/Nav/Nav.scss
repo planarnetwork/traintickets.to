@@ -24,7 +24,9 @@
   }
 
   &.is-expanded {
-    left: 0;
+    @media ($screen-smalltablet-max) {
+      left: 0;
+    }
   }
 
   &--item {
