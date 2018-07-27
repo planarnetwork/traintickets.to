@@ -1,0 +1,40 @@
+@import "../../variables.scss";
+
+.quicklinks {
+    float: right;
+    height: 32px;
+
+    &--item {
+        margin-right: 7px;
+        display: inline-block;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &--link {
+        background-color: rgba($color-white, 0.3);
+        background-repeat: no-repeat;
+        background-position: center center;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: block;
+
+        &__search {
+            background-image: url($nav-search);
+            background-size: 18px 18px;
+        }
+
+        &__out {
+            background-image: url($nav-out);
+            background-size: 23px 12px;
+        }
+
+        &__in {
+            background-image: url($nav-in);
+            background-size: 23px 12px;
+        }
+    }
+}

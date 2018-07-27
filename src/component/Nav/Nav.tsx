@@ -4,24 +4,13 @@ import {Link} from "react-router-dom";
 
 export function Nav() {
   return (
-    <nav className="d-block">{/*<nav className="d-block d-md-none">*/}
-      <Link to="/about">About</Link>
-      <Link to="/faq">FAQ</Link>
+    <nav className="d-none d-md-block">
       <ul className="nav">
         <li className="nav--item">
-          <a className="nav--link nav--link__search" href="#top">
-            <span className="sr-only">Jump to search</span>
-          </a>
+          <Link className="nav--link" to="/about">About</Link>
         </li>
         <li className="nav--item">
-          <a className="nav--link nav--link__out" href="#outward">
-            <span className="sr-only">Jump to outward results</span>
-          </a>
-        </li>
-        <li className="nav--item">
-          <a className="nav--link nav--link__in" href="#inward">
-            <span className="sr-only">Jump to inward results</span>
-          </a>
+          <Link className="nav--link" to="/faq">FAQ</Link>
         </li>
       </ul>
     </nav>

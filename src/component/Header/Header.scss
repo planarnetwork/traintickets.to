@@ -24,4 +24,14 @@
       margin-top: 0;
     }
   }
+
+  &--link {
+    color: $color-white;
+    text-decoration: none;
+    transition: all 0.2s linear;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 }

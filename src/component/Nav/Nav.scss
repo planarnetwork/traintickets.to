@@ -2,11 +2,10 @@
 
 .nav {
     float: right;
-    height: 32px;
 
     &--item {
-        margin-right: 7px;
         display: inline-block;
+        margin-right: 10px;
 
         &:last-child {
             margin-right: 0;
@@ -14,27 +13,16 @@
     }
 
     &--link {
-        background-color: rgba($color-white, 0.3);
-        background-repeat: no-repeat;
-        background-position: center center;
-        border-radius: 50%;
-        width: 32px;
-        height: 32px;
-        display: block;
+        color: $color-white;
+        transition: all 0.2s linear;
+        text-decoration: none;
+        font-size: 16px;
+        line-height: 14px;
+        padding: 5px 10px;
 
-        &__search {
-            background-image: url($nav-search);
-            background-size: 18px 18px;
-        }
-
-        &__out {
-            background-image: url($nav-out);
-            background-size: 23px 12px;
-        }
-
-        &__in {
-            background-image: url($nav-in);
-            background-size: 23px 12px;
+        &:hover {
+            color: $color-secondary;
+            border-bottom: solid 2px $color-secondary;
         }
     }
 }
