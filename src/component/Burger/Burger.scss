@@ -1,0 +1,46 @@
+@import "../../variables.scss";
+
+.burger {
+    float: left;
+    width: 25px;
+    height: 17px;
+    display: block;
+    background: none;
+    border: 0;
+    padding: 0;
+    margin-top: 5px;
+    outline: none;
+    position: relative;
+    z-index: 10;
+
+    &-bar {
+        width: 25px;
+        height: 1px;
+        background: $color-white;
+        display: block;
+        margin-top: 7px;
+        transition: transform 0.3s linear;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    &.is-active {
+        .burger-bar {
+            background-color: $color-primary;
+
+            &:first-child {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            &:last-child {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            &:nth-child(2) {
+                opacity: 0;
+            }
+        }
+    }
+}

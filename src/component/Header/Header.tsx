@@ -1,12 +1,14 @@
 import * as React from 'react';
 import {Nav} from "./../Nav/Nav";
 import {QuickLinks} from "./../QuickLinks/QuickLinks";
+import {Burger} from "./../Burger/Burger";
 import './Header.css';
 import {Link} from "react-router-dom";
 
 export function Header() {
   return (
     <header className="header clearfix">
+      <Burger />
       <h1 className="header--logo">
         <Link className="header--link" to="/">train<span className='color-highlight'>tickets</span>.to</Link>
       </h1>

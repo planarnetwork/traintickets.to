@@ -20,15 +20,10 @@
   }
 
   &--copyright {
-    padding-top: 8px;
-    margin-bottom: 6px;
+    padding-top: 10px;
+    margin-bottom: 8px;
     font-size: 14px;
     color: rgba($color-white, 0.6);
-
-    @media ($screen-tablet) {
-      padding-top: 10px;
-      margin-bottom: 8px;
-    }
   }
 
   &--planar {
