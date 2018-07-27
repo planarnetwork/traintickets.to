@@ -58,17 +58,6 @@ export function FAQPage() {
 
               <div className="faq--item">
                 <dt className="faq--question" role="heading">
-                  How can I view tickets I have ordered?
-                </dt>
-                <dd className="faq--answer" role="region">
-                  <p>
-                    A ticket wallet is coming soon.
-                  </p>
-                </dd>
-              </div>
-
-              <div className="faq--item">
-                <dt className="faq--question" role="heading">
                   When are you going live?
                 </dt>
                 <dd className="faq--answer" role="region">

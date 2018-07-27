@@ -20,7 +20,8 @@ export class Wallet {
       order.signature,
     ).send({
       value: order.price,
-      from: from
+      from: from,
+      gasPrice: "20000000000"
     });
   }
 
