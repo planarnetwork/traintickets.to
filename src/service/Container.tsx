@@ -31,6 +31,7 @@ export class Container {
     return new PaymentProvider(this.web3, this.ticketWallet);
   }
 
+  @memoize
   public get orderService(): OrderService {
     return new OrderService(axios.create({ baseURL: this.config.orderServiceUrl }));
   }
