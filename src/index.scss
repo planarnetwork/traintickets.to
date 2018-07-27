@@ -58,6 +58,28 @@ body {
   color: $color-black;
 }
 
+a {
+  color: $color-primary;
+  font-weight: bold;
+  transition: all 0.2s linear;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  &.external {
+      background: transparent url($external) no-repeat right top 6px;
+      background-size: 10px 10px;
+      padding-right: 15px;
+
+      &:hover {
+        background-image: url($external-hover);
+      }
+  }
+
+  &:hover {
+    color: $color-secondary;
+  }
+}
+
 .max {
   max-width: 1920px;
   margin: 0 auto;
@@ -114,6 +136,22 @@ body {
 
 .capital {
   text-transform: capitalize;
+}
+
+.page-title {
+  font-size: 32px;
+  padding: 20px 0;
+  margin-bottom: 33px;
+  text-align: center;
+  font-weight: bold;
+  color: $color-white;
+  background-color: rgba($color-primary, 0.3);
+
+  @media ($screen-tablet) {
+    font-size: 48px;
+    padding: 40px 0;
+    margin-bottom: 66px;
+  }
 }
 
 button {

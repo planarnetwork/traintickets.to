@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>external-link</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="external-link" fill="#FA9116" fill-rule="nonzero">
+            <polygon id="Shape" points="0 60 0 0.231 9.29 0.231 17.244 8.342 8.109 8.342 8.109 51.884 51.771 51.884 51.771 42.7 60 51.097 60 60"></polygon>
+            <path d="M24.323,41.856 C24.266,41.856 24.217,41.836 24.176,41.795 L18.735,36.352 L42.579,12.219 L30.569,0.232 L60,0.232 L60,29.776 L49.576,19.199 L48.319,17.946 L24.47,41.794 L24.323,41.856 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>
