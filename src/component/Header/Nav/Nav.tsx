@@ -7,29 +7,29 @@ import './Nav.css';
 export class Nav extends React.Component<NavProps> {
 
   public render() {
-    const { isExpanded } = this.props;
+    const { onToggle, isExpanded } = this.props;
     const navClasses = isExpanded ? 'nav is-expanded' : 'nav';
 
     return (
       <nav className={navClasses}>
         <ul className="nav--list">
           <li className="nav--item d-block d-md-none">
-            <NavLink className="nav--link" to="/">Home</NavLink>
+            <NavLink onClick={onToggle} className="nav--link" to="/">Home</NavLink>
           </li>
           <li className="nav--item">
-            <NavLink className="nav--link" to="/about">About</NavLink>
+            <NavLink onClick={onToggle} className="nav--link" to="/about">About</NavLink>
           </li>
           <li className="nav--item">
-            <NavLink className="nav--link" to="/faq">FAQ</NavLink>
+            <NavLink onClick={onToggle} className="nav--link" to="/faq">FAQ</NavLink>
           </li>
         </ul>
       </nav>
     )
   }
-
 }
 
 export interface NavProps {
+  onToggle: (value: any) => void;
   isExpanded: boolean;
 }
 

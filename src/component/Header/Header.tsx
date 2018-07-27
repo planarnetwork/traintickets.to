@@ -25,7 +25,7 @@ class HeaderComponent extends React.Component<HeaderProps, HeaderState> {
         <h1 className="header--logo">
           <Link className="header--link" to="/">train<span className='color-highlight'>tickets</span>.to</Link>
         </h1>
-        <Nav isExpanded={this.state.isExpanded}/>
+        <Nav onToggle={this.onToggle} isExpanded={this.state.isExpanded}/>
         { this.props.location.pathname === "/" && <QuickLinks /> }
       </header>
     )
