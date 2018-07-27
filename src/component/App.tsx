@@ -12,6 +12,7 @@ export function App() {
     <div id="top" className="App max">
       <Header/>
       <Route exact={true} path="/" render={container.indexPage} />
+      <Route path="/wallet" component={container.walletPage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/faq" component={FAQPage} />
     </div>

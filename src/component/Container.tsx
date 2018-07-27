@@ -9,8 +9,16 @@ import Contract from "web3/eth/contract";
 import axios from "axios";
 import Web3 = require("web3");
 import {IndexPage} from "./Index/IndexPage";
+import {WalletPage} from "./Wallet/WalletPage";
 
 export class Container {
+
+  @memoize
+  public get walletPage() {
+    return () => (
+      <WalletPage wallet={this.ticketWallet} />
+    );
+  }
 
   @memoize
   public get indexPage() {
