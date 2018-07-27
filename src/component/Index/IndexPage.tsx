@@ -4,25 +4,12 @@ import {defaultQueryState, Search, SearchState} from "./Search/Search";
 import {JourneyPlanner, SearchResults} from "../../service/JourneyPlanner/JourneyPlanner";
 import autobind from "autobind-decorator";
 import {debounce} from "typescript-debounce-decorator";
-import {config} from "../../config/config";
-import axios from 'axios';
 import {Footer} from "./Footer/Footer";
-import Web3 = require("web3");
 import {PaymentProvider} from "../../service/Payment/PaymentProvider";
-
-const {TicketWallet} = require("@planar/ticket-wallet");
-const web3 = (window as any).web3|| null;
-const w3 = new Web3(web3 ? web3.currentProvider : undefined);
-const contract = new w3.eth.Contract(TicketWallet.abi, TicketWallet.networks["3"].address);
+import {OrderService} from "../../service/Order/OrderService";
 
 @autobind
-export class IndexPage extends React.Component<{}, IndexPageState> {
-
-  private readonly journeyPlanner = new JourneyPlanner(
-    axios.create({ baseURL: config.journeyPlannerUrl })
-  );
-
-  private readonly paymentProvider = new PaymentProvider(w3, contract);
+export class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
 
   public state = {
     results: {
@@ -48,7 +35,7 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
 
   @debounce(200, { leading: false })
   public async onSearch(query: SearchState) {
-    const results = await this.journeyPlanner.search(query);
+    const results = await this.props.journeyPlanner.search(query);
 
     this.setState(results as any);
   };
@@ -78,7 +65,14 @@ export class IndexPage extends React.Component<{}, IndexPageState> {
           {...this.state.results!}
           />
         }
-        { this.state.results && <Footer selected={this.state.selected} links={this.state.results.links} paymentProvider={this.paymentProvider}/> }
+        { this.state.results && (
+          <Footer
+            selected={this.state.selected}
+            links={this.state.results.links}
+            paymentProvider={this.props.paymentProvider}
+            orderService={this.props.orderService}
+          />
+        ) }
       </React.Fragment>
     );
   }
@@ -89,6 +83,12 @@ interface IndexPageState {
   error?: Error,
   isAdvanceOpen: boolean;
   selected: SelectedOptions;
+}
+
+export interface IndexPageProps {
+  journeyPlanner: JourneyPlanner;
+  paymentProvider: PaymentProvider;
+  orderService: OrderService;
 }
 
 export interface SelectedOptions {

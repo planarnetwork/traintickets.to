@@ -5,6 +5,7 @@ import autobind from "autobind-decorator";
 import {SelectedOptions} from "../IndexPage";
 import {OrderSummary} from "./OrderSummary/OrderSummary";
 import {PaymentProvider} from "../../../service/Payment/PaymentProvider";
+import {OrderService} from "../../../service/Order/OrderService";
 
 @autobind
 export class Footer extends React.Component<FooterProps, FooterState> {
@@ -52,7 +53,13 @@ export class Footer extends React.Component<FooterProps, FooterState> {
           </div>
           { this.state.popupOpen && this.renderPopup() }
         </div>
-        <OrderSummary open={this.state.modalOpen} onClose={this.closeModal} selected={this.props.selected} paymentProvider={this.props.paymentProvider}/>
+        <OrderSummary
+          open={this.state.modalOpen}
+          onClose={this.closeModal}
+          selected={this.props.selected}
+          paymentProvider={this.props.paymentProvider}
+          orderService={this.props.orderService}
+        />
       </footer>
     );
   }
@@ -78,6 +85,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
 export interface FooterProps {
  selected: SelectedOptions;
  paymentProvider: PaymentProvider;
+ orderService: OrderService;
  links: any;
 }
 

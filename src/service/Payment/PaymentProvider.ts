@@ -1,6 +1,6 @@
-import {OrderResponse} from "../../component/Index/Footer/OrderSummary/OrderSummary";
 import Web3 = require("web3");
 import Contract from "web3/eth/contract";
+import {OrderData} from "../Order/OrderService";
 
 export class PaymentProvider {
 
@@ -9,7 +9,7 @@ export class PaymentProvider {
     private readonly contract: Contract,
   ) {}
 
-  public async pay(order: OrderResponse): Promise<EthereumTransaction> {
+  public async pay(order: OrderData): Promise<EthereumTransaction> {
     const [from] = await this.web3.eth.getAccounts();
 
     return this.contract.methods.createTicket(

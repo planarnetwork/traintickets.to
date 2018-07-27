@@ -2,12 +2,11 @@ import * as React from "react";
 import {Modal} from "../../Modal/Modal";
 import {Loader} from "../../Loader/Loader";
 import {Error} from "../../Error/Error";
-import {config} from "../../../../config/config";
-import axios from "axios";
 import {SelectedOptions} from "../../IndexPage";
 import autobind from "autobind-decorator";
 import {FareInformation} from "../FareInformation/FareInformation";
 import {PaymentProvider} from "../../../../service/Payment/PaymentProvider";
+import {OrderData, OrderService} from "../../../../service/Order/OrderService";
 
 enum StateEnum {
   CREATING_ORDER,
@@ -30,7 +29,6 @@ const defaultState = {
 export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummaryState> {
 
   public state = defaultState;
-  private client = axios.create({ baseURL: config.orderServiceUrl });
 
   public render() {
     return (
@@ -75,7 +73,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     }
   }
 
-  private renderDetails(data: OrderResponse, links: any) {
+  private renderDetails(data: OrderData, links: any) {
     const trip = links[links[data.uri].items[0]];
     const items = trip.items.return
       ? [trip.items.return]
@@ -121,7 +119,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
   public async componentDidUpdate(prevProps: OrderSummaryProps, prevState: OrderSummaryState) {
     if (this.props.open === true && prevProps.open === false) {
       try {
-        const order = await this.createOrder();
+        const order = await this.props.orderService.createOrder(this.props.selected);
 
         this.setState({ state: StateEnum.ORDER_CREATED, ...order });
       }
@@ -129,36 +127,6 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         this.setState({ state: StateEnum.CREATION_ERROR });
       }
     }
-  }
-
-  private async createOrder() {
-    const request: any = {
-      "items": {
-        "outward": {
-          "journey": this.props.selected.outward
-        },
-        "fares": {}
-      }
-    };
-
-    if (this.props.selected.inward) {
-      request.items.inward = { journey: this.props.selected.inward };
-
-      if (this.props.selected.fareOptions.length === 1) {
-        request.items.fares.return = this.props.selected.fareOptions[0];
-      }
-      else {
-        request.items.fares.outwardSingle = this.props.selected.fareOptions[0];
-        request.items.fares.inwardSingle = this.props.selected.fareOptions[1];
-      }
-    }
-    else {
-      request.items.fares.outwardSingle = this.props.selected.fareOptions[0];
-    }
-
-    const response = await this.client.post("/order", request);
-
-    return response.data;
   }
 
   private onClose() {
@@ -197,19 +165,12 @@ export interface OrderSummaryProps {
   selected: SelectedOptions;
   open: boolean;
   onClose: () => any;
+  orderService: OrderService;
 }
 
 export interface OrderSummaryState {
   state: StateEnum;
-  data?: OrderResponse;
+  data?: OrderData;
   links?: any;
   fulfilment?: string;
-}
-
-export interface OrderResponse {
-  price: string;
-  signature: string;
-  uri: string;
-  expiry: number;
-  address: string;
 }
