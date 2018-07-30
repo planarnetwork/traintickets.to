@@ -1,0 +1,135 @@
+@import "../../variables.scss";
+
+.wallet {
+  &--list {
+    display: block;
+
+    tr, thead, tbody {
+      display: block;
+    }
+
+    td, th {
+      display: inline-block;
+    }
+  }
+
+  &--header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: $color-primary;
+    color: $color-white;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    &-journey, &-collection, &-status {
+      text-align: left;
+    }
+
+    &-collection, &-status {
+      @media ($screen-laptop) {
+        text-align: center;
+      }
+    }
+  }
+
+  &--item {
+    padding-bottom: 10px;
+    padding-top: 40px;
+
+    &:first-child {
+      padding-top: 0;
+
+      @media ($screen-laptop) {
+        padding-top: 15px;
+      }
+    }
+
+    &__fulfilled {
+      border-bottom: solid 3px green;
+    }
+
+    &__paid {
+      border-bottom: solid 3px orange;
+    }
+
+    &__cancelled {
+      border-bottom: solid 3px $color-error;
+    }
+
+    @media ($screen-laptop) {
+      border-bottom: none;
+      padding-top: 15px;
+
+      &:nth-child(even) {
+        background-color: darken($color-white, 8%);
+      }
+    }
+  }
+
+  &--journey, &--ctr, &--status {
+    &:before {
+      display: block;
+      font-size: 10px;
+      color: rgba($color-black, 0.5);
+      text-transform: uppercase;
+      font-weight: normal;
+      margin-bottom: 4px;
+
+      @media ($screen-laptop) {
+        display: none;
+      }
+    }
+  }
+
+  &--journey {
+    margin-bottom: 15px;
+
+    &:before {
+      content: "Journey"
+    }
+
+    @media ($screen-laptop) {
+      margin-bottom: 0;
+    }
+  }
+
+  &--ctr {
+    font-weight: bold;
+    color: $color-primary;
+
+    &:before {
+      content: "Collection ref"
+    }
+
+    @media ($screen-laptop) {
+      text-align: center;
+    }
+  }
+
+  &--status {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: right;
+
+    &:before {
+      content: "Status"
+    }
+
+    @media ($screen-laptop) {
+      text-align: center;
+    }
+
+    &__fulfilled {
+      color: green;
+    }
+
+    &__paid {
+      color: orange;
+    }
+
+    &__cancelled {
+      color: $color-error;
+    }
+  }
+}

@@ -2,6 +2,7 @@ import * as React  from "react";
 import {Loader} from "../Index/Loader/Loader";
 import autobind from "autobind-decorator";
 import {Wallet, TokenDetails, TicketState} from "../../service/Wallet/Wallet";
+import "./Wallet.css";
 
 @autobind
 export class WalletPage extends React.Component<WalletProps, WalletState> {
@@ -47,7 +48,20 @@ export class WalletPage extends React.Component<WalletProps, WalletState> {
       return (<p>There are no tickets in your wallet. Are you sure you unlocked your account?</p>);
     }
     else if (this.state.tokens) {
-      return this.renderTokens(this.state.tokens);
+      return (
+          <table className="wallet--list">
+            <thead className="d-none d-lg-block">
+              <tr className="row wallet--header">
+                <th className="col-lg-12 wallet--header-journey">Journey</th>
+                <th className="col-12 col-lg-8 wallet--header-collection">Collection ref</th>
+                <th className="col-12 col-lg-4 wallet--header-status">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.renderTokens(this.state.tokens)}
+            </tbody>
+          </table>
+        )
     }
 
     return (<Loader text="Loading ticket wallet"/>);
@@ -55,7 +69,11 @@ export class WalletPage extends React.Component<WalletProps, WalletState> {
 
   private renderTokens(tokens: TokenDetails[]) {
     return tokens.map((token, index) => (
-      <p key={index}>{token.description}: {token.fulfilmentURI.substr(6)} ({TicketState[token.state].toString()})</p>
+      <tr key={index} className={'row wallet--item wallet--item__' + TicketState[token.state].toString().toLowerCase()}>
+        <td className="col-lg-12 wallet--journey">{token.description}</td>
+        <td className="col-12 col-lg-8 wallet--ctr">{token.fulfilmentURI.substr(6)}</td>
+        <td className={'col-12 col-lg-4 wallet--status wallet--status__' + TicketState[token.state].toString().toLowerCase()}>{TicketState[token.state].toString()}</td>
+      </tr>
     ));
   }
 }
