@@ -9,6 +9,7 @@ import {OrderData, OrderService} from "../../../../service/Order/OrderService";
 import moment = require("moment");
 import {Wallet} from "../../../../service/Wallet/Wallet";
 import {Link} from "react-router-dom";
+import './OrderSummary.css';
 
 enum StateEnum {
   CREATING_ORDER,
@@ -110,11 +111,15 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
 
   private renderFulfilmentComplete() {
     return(
-      <div className="col-md-24">
-        <h2>Purchase complete</h2>
-        <p>Your order has been fulfilled and can now be collected at any UK station with a TVM.</p>
-        <h3>Your collection reference: {this.state.fulfilment}</h3>
-        <p>You can view your ticket collection references in your <Link to="/wallet">ticket wallet</Link> at any time.</p>
+      <div className="col-md-18 offset-md-3">
+        <div className="order-info">
+          <h4 className="order-info--title">Your order has been successful and tickets can now be collected at any UK station with a Ticket Vending Machine <abbr title="Ticket Vending Machine">(TVM)</abbr>.</h4>
+          <div className="order-info--box">
+            <div className="order-info--box-title">Collection reference</div>
+            <div className="order-info--box-content">{this.state.fulfilment}</div>
+          </div>
+          <p>You can view your ticket collection references in your <Link to="/wallet">ticket wallet</Link> at any time.</p>
+        </div>
       </div>
     );
   }

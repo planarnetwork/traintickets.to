@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>happy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="128" height="128" rx="16"></rect>
+        <rect id="path-3" x="0" y="0" width="128" height="128" rx="16"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="happy">
+            <g id="Group">
+                <g id="Rectangle" fill="#563D7C" fill-rule="nonzero">
+                    <rect id="path-1" x="0" y="0" width="128" height="128" rx="16"></rect>
+                </g>
+                <g id="Rectangle-2-Clipped">
+                    <g>
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="path-1"></g>
+                        <path d="M0,60 L128,60 L128,122 C128,125.313708 125.313708,128 122,128 L6,128 C2.6862915,128 4.05812251e-16,125.313708 0,122 L0,60 Z" id="Rectangle-2" fill-opacity="0.210000008" fill="#FFFFFF" fill-rule="nonzero" mask="url(#mask-2)"></path>
+                    </g>
+                </g>
+                <g id="Oval-Clipped" transform="translate(25.000000, 83.000000)" fill="#FA9116" fill-rule="nonzero">
+                    <circle id="Oval" cx="10" cy="10" r="10"></circle>
+                </g>
+                <g id="Oval-Clipped" transform="translate(87.000000, 83.000000)" fill="#FA9116" fill-rule="nonzero">
+                    <circle id="Oval" cx="10" cy="10" r="10"></circle>
+                </g>
+                <g id="Rectangle-4-Clipped" transform="translate(14.000000, 71.000000)" fill="#303030" fill-rule="nonzero">
+                    <rect id="Rectangle-4" transform="translate(16.500000, 5.000000) rotate(-5.000000) translate(-16.500000, -5.000000) " x="1" y="2" width="31" height="6"></rect>
+                </g>
+                <g id="Rectangle-4-Clipped" transform="translate(85.000000, 72.000000)" fill="#303030" fill-rule="nonzero">
+                    <rect id="Rectangle-4" transform="translate(16.500000, 5.000000) rotate(5.000000) translate(-16.500000, -5.000000) " x="1" y="2" width="31" height="6"></rect>
+                </g>
+                <g id="Rectangle-5-Clipped">
+                    <g>
+                        <mask id="mask-4" fill="white">
+                            <use xlink:href="#path-3"></use>
+                        </mask>
+                        <g id="path-3"></g>
+                        <path d="M65,105.913944 C73.4316683,106.053605 86.5493164,116.884647 90,122.292909 C90,124.098534 88.9895833,124.46912 86.96875,123.404667 C76.1297632,117.695342 48.2525902,120.417538 42.3818359,123.404667 C40.7939453,124.212609 40,123.842024 40,122.292909 C41.3662109,116.884647 56.7916414,105.777982 65,105.913944 Z" id="Rectangle-5" fill="#303030" fill-rule="nonzero" mask="url(#mask-4)" transform="translate(65.000000, 114.954775) rotate(180.000000) translate(-65.000000, -114.954775) "></path>
+                    </g>
+                </g>
+            </g>
+            <rect id="Rectangle-3" stroke="#303030" stroke-width="3" fill="#C3C3C3" fill-rule="nonzero" x="18.5" y="15.5" width="91" height="53" rx="1"></rect>
+            <path d="M108,17.9472726 L108,66 C108,66.5522847 107.552285,67 107,67 L20.9835377,67 C20.4312529,67 19.9835377,66.5522847 19.9835377,66 C19.9835377,65.6376771 20.1795233,65.3036964 20.4958346,65.1269904 L106.512297,17.074263 C106.994447,16.804912 107.603659,16.9774196 107.87301,17.4595695 C107.956282,17.6086299 108,17.7765294 108,17.9472726 Z" id="Rectangle-3" fill="#B3B3B3" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>
