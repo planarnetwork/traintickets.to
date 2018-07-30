@@ -25,12 +25,6 @@
     &-journey, &-collection, &-status {
       text-align: left;
     }
-
-    &-collection, &-status {
-      @media ($screen-laptop) {
-        text-align: center;
-      }
-    }
   }
 
   &--item {
@@ -39,10 +33,6 @@
 
     &:first-child {
       padding-top: 0;
-
-      @media ($screen-laptop) {
-        padding-top: 15px;
-      }
     }
 
     &__fulfilled {
@@ -56,15 +46,6 @@
     &__cancelled {
       border-bottom: solid 3px $color-error;
     }
-
-    @media ($screen-laptop) {
-      border-bottom: none;
-      padding-top: 15px;
-
-      &:nth-child(even) {
-        background-color: darken($color-white, 8%);
-      }
-    }
   }
 
   &--journey, &--ctr, &--status {
@@ -75,10 +56,6 @@
       text-transform: uppercase;
       font-weight: normal;
       margin-bottom: 4px;
-
-      @media ($screen-laptop) {
-        display: none;
-      }
     }
   }
 
@@ -87,10 +64,6 @@
 
     &:before {
       content: "Journey"
-    }
-
-    @media ($screen-laptop) {
-      margin-bottom: 0;
     }
   }
 
@@ -101,10 +74,6 @@
     &:before {
       content: "Collection ref"
     }
-
-    @media ($screen-laptop) {
-      text-align: center;
-    }
   }
 
   &--status {
@@ -114,10 +83,6 @@
 
     &:before {
       content: "Status"
-    }
-
-    @media ($screen-laptop) {
-      text-align: center;
     }
 
     &__fulfilled {

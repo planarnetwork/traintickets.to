@@ -35,7 +35,13 @@ export class WalletPage extends React.Component<WalletProps, WalletState> {
     return (
       <section className="wallet">
         <h2 className="page-title">Ticket Wallet</h2>
-        <div className="container">{content}</div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-18 offset-md-3 col-lg-14 offset-lg-5">
+              {content}
+            </div>
+          </div>
+        </div>
       </section>
     );
   }
@@ -50,7 +56,7 @@ export class WalletPage extends React.Component<WalletProps, WalletState> {
     else if (this.state.tokens) {
       return (
           <table className="wallet--list">
-            <thead className="d-none d-lg-block">
+            <thead className="sr-only">
               <tr className="row wallet--header">
                 <th className="col-lg-12 wallet--header-journey">Journey</th>
                 <th className="col-12 col-lg-8 wallet--header-collection">Collection ref</th>
@@ -70,9 +76,9 @@ export class WalletPage extends React.Component<WalletProps, WalletState> {
   private renderTokens(tokens: TokenDetails[]) {
     return tokens.map((token, index) => (
       <tr key={index} className={'row wallet--item wallet--item__' + TicketState[token.state].toString().toLowerCase()}>
-        <td className="col-lg-12 wallet--journey">{token.description}</td>
-        <td className="col-12 col-lg-8 wallet--ctr">{token.fulfilmentURI.substr(6)}</td>
-        <td className={'col-12 col-lg-4 wallet--status wallet--status__' + TicketState[token.state].toString().toLowerCase()}>{TicketState[token.state].toString()}</td>
+        <td className="col wallet--journey">{token.description}</td>
+        <td className="col-12 wallet--ctr">{token.fulfilmentURI.substr(6)}</td>
+        <td className={'col-12 wallet--status wallet--status__' + TicketState[token.state].toString().toLowerCase()}>{TicketState[token.state].toString()}</td>
       </tr>
     ));
   }
