@@ -15760,7 +15760,31 @@ export const locations: Location[] = [
     "name": "Gravesend Piers",
     "lat": 51.44135000,
     "lon": 0.36664000
-  }
+  },
+  {
+    "code": "CMB",
+    "name": "Cambridge North",
+    "lat": 52.224480,
+    "lon": 0.158480
+  },
+  {
+    "code": "EGY",
+    "name": "Edinburgh Gateway",
+    "lat": 55.940940,
+    "lon": -3.320250
+  },
+  {
+    "code": "MNS",
+    "name": "Maghull North",
+    "lat": 53.5168,
+    "lon": -2.9409
+  },
+  {
+    "code": "LMR",
+    "name": "Low Moor",
+    "lat": 53.749930,
+    "lon": -1.753400
+  },
 ];
 
 export const locationByCode: LocationIndex = locations.reduce((index: LocationIndex, location: Location) => {
