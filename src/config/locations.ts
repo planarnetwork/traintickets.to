@@ -232,6 +232,7 @@ export const locations: Location[] = [
     "lon": -2.221575
   },
 
+  { "code": "0782", "name": "Heathrow Underground", "lat": 51.52814, "lon": -0.13392 },
   { "code": "0785", "name": "London Underground Zone 1", "lat": 51.52814, "lon": -0.13392 },
   { "code": "0786", "name": "London Underground and DLR Zones 1-6", "lat": 51.52814, "lon": -0.13392 },
   { "code": "0790", "name": "London Underground and DLR Zones 1-2", "lat": 51.52814, "lon": -0.13392 },
