@@ -68,7 +68,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
       ? (this.props.data.fares as JourneyFareMap)[this.state.outward.selected]
       : (this.props.data.fares as ReturnJourneyFareMap)[this.state.outward.selected][this.state.inward.selected];
 
-    if (this.lastSelected !== selected.join()) {
+    if (selected && this.lastSelected !== selected.join()) {
       this.lastSelected = selected.join();
 
       this.props.onSelectionChange({
