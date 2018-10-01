@@ -158,7 +158,7 @@ export class JourneyPlanResults extends React.Component<JourneyPlanResultsProps,
     const plural = legs.length === 2 ? "" : "s";
     const changeText = legs.length === 1 ? "Direct" : (legs.length - 1) + " change" + plural;
 
-    return (
+    return journeyPrice[journey.id] && (
       <li onClick={this.onSelect(journey.id, direction)} key={journey.id} className={journey.id === this.state[direction].selected ? "fare-list--item is-selected" : "fare-list--item"}>
         <div className="fare-list--item-container">
           <div className="row">
