@@ -11995,6 +11995,12 @@ export const locations: Location[] = [
     "lon": -1.15962
   },
   {
+    "name": "Ryde Hoverport",
+    "code": "XRD",
+    "lat": 50.732844,
+    "lon": -1.158323
+  },
+  {
     "name": "Rye",
     "code": "RYE",
     "lat": 50.95237,
