@@ -16,8 +16,10 @@ input::-webkit-inner-spin-button {
     display: block;
     width: 35%;
     height: 40px;
-    background: $color-white url($chevron-down) no-repeat center center;
-    background-size: 25px 15px;
+    background-color: $color-white;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 9px 13px;
     border: none;
     padding: 0;
 
