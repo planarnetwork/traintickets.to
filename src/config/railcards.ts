@@ -39,6 +39,10 @@ export const railcards: Railcard[] = [
   {
     "label": "HM FORCES",
     "value": "HMF"
+  },
+  {
+    "label": "GROUP SAVE",
+    "value": "GS3"
   }
 ];
 
