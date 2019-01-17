@@ -7,7 +7,6 @@ import {NumberInput} from "../Form/NumberInput/NumberInput";
 import {RadioGroup} from "../Form/RadioGroup/RadioGroup";
 import * as moment from "moment";
 import DatePicker from "react-datepicker";
-import {Moment} from "moment";
 import autobind from "autobind-decorator";
 import {Checkbox} from "../Form/Checkbox/Checkbox";
 
@@ -71,17 +70,18 @@ export class Search extends React.Component<SearchProps, SearchState> {
     });
   }
 
-  public onOutwardDateChange(date: Moment | null) {
+  public onOutwardDateChange(date: Date | null) {
     if (date) {
-      const outwardDate = date.format(moment.HTML5_FMT.DATE);
-      const returnDate = this.state.returnDate && date.isAfter(this.state.returnDate) ? outwardDate : this.state.returnDate;
+      const mDate = moment(date);
+      const outwardDate = mDate.format(moment.HTML5_FMT.DATE);
+      const returnDate = this.state.returnDate && mDate.isAfter(this.state.returnDate) ? outwardDate : this.state.returnDate;
 
       this.set({ outwardDate, returnDate });
     }
   }
 
-  public onReturnDateChange(date: Moment | null) {
-    this.set({ returnDate: date ? date.format(moment.HTML5_FMT.DATE) : null });
+  public onReturnDateChange(date: Date | null) {
+    this.set({ returnDate: date ? moment(date).format(moment.HTML5_FMT.DATE) : null });
   }
 
   public toggle(event: React.MouseEvent<HTMLButtonElement>) {
@@ -124,9 +124,9 @@ export class Search extends React.Component<SearchProps, SearchState> {
                       <label className="form-label" htmlFor="outDate">Outward Date</label>
                       <DatePicker
                         onChange={this.onOutwardDateChange}
-                        minDate={moment()}
-                        selected={moment(this.state.outwardDate)}
-                        dateFormat="ddd, DD MMM YYYY"
+                        minDate={moment().toDate()}
+                        selected={moment(this.state.outwardDate).toDate()}
+                        dateFormat="DD MMM YYYY"
                         placeholderText="Outward date"
                         className="form--input"
                         locale="en-gb"
@@ -140,9 +140,9 @@ export class Search extends React.Component<SearchProps, SearchState> {
                       <label className="form-label" htmlFor="retDate">Return Date</label>
                       <DatePicker
                         onChange={this.onReturnDateChange}
-                        minDate={moment(this.state.outwardDate)}
-                        selected={this.state.returnDate ? moment(this.state.returnDate) : null}
-                        dateFormat="ddd, DD MMM YYYY"
+                        minDate={moment(this.state.outwardDate).toDate()}
+                        selected={this.state.returnDate ? moment(this.state.returnDate).toDate() : null}
+                        dateFormat="DD MMM YYYY"
                         isClearable={true}
                         placeholderText="Return date"
                         className="form--input"
