@@ -126,7 +126,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
                         onChange={this.onOutwardDateChange}
                         minDate={moment().toDate()}
                         selected={moment(this.state.outwardDate).toDate()}
-                        dateFormat="DD MMM YYYY"
+                        dateFormat="dd MMM YYYY"
                         placeholderText="Outward date"
                         className="form--input"
                         locale="en-gb"
@@ -142,7 +142,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
                         onChange={this.onReturnDateChange}
                         minDate={moment(this.state.outwardDate).toDate()}
                         selected={this.state.returnDate ? moment(this.state.returnDate).toDate() : null}
-                        dateFormat="DD MMM YYYY"
+                        dateFormat="dd MMM YYYY"
                         isClearable={true}
                         placeholderText="Return date"
                         className="form--input"
