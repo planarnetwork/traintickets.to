@@ -9,8 +9,8 @@ export const dev: Config = {
 };
 
 export const production: Config = Object.assign({}, dev, {
-  journeyPlannerUrl: "https://traintickets.to/",
-  orderServiceUrl: "https://traintickets.to/"
+  journeyPlannerUrl: "https://journey-planner.traintickets.to/",
+  orderServiceUrl: "https://journey-planner.traintickets.to/"
 });
 
 export interface Config {
