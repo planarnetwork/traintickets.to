@@ -34,7 +34,10 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
   public state = defaultState;
 
   public render() {
-    this.props.open && (window as any).ethereum.enable();
+    if (this.props.open) {
+      (window as any).ethereum.enable();
+    }
+
     return (
       <div className={this.props.open ? 'modal--bg is-active' : 'modal--bg'}>
         {this.props.open && this.renderModal() }
