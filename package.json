@@ -5,7 +5,7 @@
   "dependencies": {
     "@planar/ticket-wallet": "^0.4.0",
     "autobind-decorator": "^2.4.0",
-    "axios": "^0.18.0",
+    "axios": "^1.8.2",
     "memoized-class-decorator": "^1.6.1",
     "moment": "^2.23.0",
     "react": "^16.7.0",
