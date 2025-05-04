@@ -12,7 +12,7 @@
     "react-autosuggest": "^9.4.3",
     "react-datepicker": "^2.0.0",
     "react-dom": "^16.7.0",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "^7.5.2",
     "scroll-into-view-if-needed": "^2.2.20",
     "typescript-debounce-decorator": "0.0.17",
     "web3": "^1.0.0-beta.37",
